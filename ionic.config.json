@@ -1,5 +1,7 @@
 {
-  "name": "work-clocker",
-  "integrations": {},
-  "type": "angular"
+	"name": "work-clocker",
+	"integrations": {
+		"cordova": {}
+	},
+	"type": "angular"
 }
