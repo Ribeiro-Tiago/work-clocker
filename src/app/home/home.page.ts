@@ -1,4 +1,5 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Storage } from '@ionic/storage';
 
 @Component({
 	selector: 'app-home',
@@ -6,12 +7,24 @@ import { Component, ViewEncapsulation } from '@angular/core';
 	styleUrls: ['home.page.scss'],
 	encapsulation: ViewEncapsulation.None
 })
-export class HomePage {
+export class HomePage implements OnInit {
 	totalHours: number;
 	extraHours: number;
 
-	constructor() {
+	constructor(private storage: Storage) {
 		this.totalHours = 0;
 		this.extraHours = 0;
+	}
+
+	ngOnInit() {
+		Promise.all([
+			this.storage.get("totalHours"),
+			this.storage.get("extraHours")
+		])
+			.then((result) => {
+				this.totalHours = parseInt(result[0]) | 0;
+				this.extraHours = parseInt(result[1]) | 0;
+			})
+			.catch(console.error);
 	}
 }

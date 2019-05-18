@@ -1,0 +1,13 @@
+{
+	"home": {
+
+	},
+
+	"dayListing": {
+		"listDay": "On {{day}}",
+		"hoursWorked": "You worked {{time}}",
+		"startAt": "Clocking in at {{start}}",
+		"lunchDuration": "With {{duration}} lunch",
+		"endAt": "Left at {{end}}"
+	}
+}

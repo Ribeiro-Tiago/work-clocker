@@ -1,0 +1,16 @@
+<div>
+	<h3 *ngIf="!isLoading && !items.length"></h3>
+
+	<div class="item" *ngFor="let item of items">
+		<div class="row">
+			<p>{{ "dayListing.listDay" | translate: { 'day': item.day } }}</p>
+			<p>{{ "dayListing.hoursWorked" | translate | convertToHours: { hoursWorked: item.hoursWorked } }}</p>
+		</div>
+
+		<div class="row">
+			<span>{{ "dayListing.startAt" | translate: { 'start': item.startHour } }}</span>
+			<span>{{ "dayListing.lunchDuration" | translate: { 'duration': item.lunchDuration } }}</span>
+			<span>{{ "dayListing.endAt" | translate: { 'end': item.endHour } }}</span>
+		</div>
+	</div>
+</div>

@@ -1,6 +1,8 @@
 @import "../../theme/variables.scss";
 
 app-home {
+	background-color: $whiteBgColor;
+
 	.hours-worked {
 		display: flex;
 		justify-content: space-between;
