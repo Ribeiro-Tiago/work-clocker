@@ -1,15 +1,28 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
 
+/* bg colors */
+$primaryColor: #49AC4D;
+$secondaryColor: #DFFBE0;
+$whiteBgColor: #f7f7f7;
+$lightBgColor: #EAEAEA;
+
+/* text color */
+$darkTextColor: #333;
+$whiteTextColor: #f7f7f7;
+$lightTextColor: #666;
+$lighterTextColor: #999;
+
+
 /** Ionic CSS Variables **/
 :root {
 	/** primary **/
-	--ion-color-primary: #3880ff;
-	--ion-color-primary-rgb: 56, 128, 255;
-	--ion-color-primary-contrast: #ffffff;
-	--ion-color-primary-contrast-rgb: 255, 255, 255;
+	--ion-color-primary: $primaryColor;
+	--ion-color-primary-rgb: 73, 172, 77;
+	--ion-color-primary-contrast: $whiteTextColor;
+	--ion-color-primary-contrast-rgb: 247, 247, 247;
 	--ion-color-primary-shade: #3171e0;
-	--ion-color-primary-tint: #4c8dff;
+	--ion-color-primary-tint: $secondaryColor;
 
 	/** secondary **/
 	--ion-color-secondary: #0cd1e8;
@@ -75,15 +88,3 @@
 	--ion-color-light-shade: #d7d8da;
 	--ion-color-light-tint: #f5f6f9;
 }
-
-/* bg colors */
-$primaryColor: #49AC4D;
-$secondaryColor: #DFFBE0;
-$whiteBgColor: #f7f7f7;
-$lightBgColor: #EAEAEA;
-
-/* text color */
-$darkTextColor: #333;
-$whiteTextColor: #f7f7f7;
-$lightTextColor: #666;
-$lighterTextColor: #999;

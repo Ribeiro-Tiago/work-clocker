@@ -1,1 +1,14 @@
+@import "../../theme/variables.scss";
 
+app-home {
+	.hours-worked {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		border-bottom: 1px solid #000;
+
+		span {
+			color: $lightTextColor;
+		}
+	}
+}
