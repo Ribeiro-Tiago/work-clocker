@@ -3,6 +3,16 @@
 app-days-listing {
 	background-color: $whiteBgColor;
 
+	h3 {
+		font-size: 3vh;
+		padding: 5vh;
+		text-align: center;
+		top: 50%;
+		transform: translateY(-80%);
+		position: absolute;
+		color: $darkTextColor;
+	}
+
 	.item {
 		padding: .5vh 1vh;
 		height: 11vh;

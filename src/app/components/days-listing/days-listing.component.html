@@ -1,5 +1,5 @@
 <div>
-	<h3 *ngIf="!isLoading && !items.length"></h3>
+	<h3 *ngIf="!isLoading && !items.length" [innerHTML]="sanitizeString('dayListing.noItems' | translate)"></h3>
 
 	<div class="item" *ngFor="let item of items">
 		<div class="row">

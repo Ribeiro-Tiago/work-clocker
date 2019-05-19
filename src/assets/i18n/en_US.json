@@ -4,6 +4,7 @@
 	},
 
 	"dayListing": {
+		"noItems": "You haven’t clocked in any hours yet.<br/><br/>Click on the button bollow to start clocking in your time",
 		"listDay": "On {{day}}",
 		"hoursWorked": "You worked {{time}}",
 		"startAt": "Clocking in at {{start}}",

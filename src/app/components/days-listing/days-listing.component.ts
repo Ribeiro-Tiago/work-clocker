@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { DayListItem } from 'src/types/DayList';
 import { Storage } from '@ionic/storage';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
 	selector: 'app-days-listing',
@@ -13,26 +14,12 @@ export class DaysListingComponent implements OnInit {
 	items: DayListItem[];
 	isLoading: boolean;
 
-	constructor(private storage: Storage) {
-		this.items = [{
-			day: 1,
-			startHour: 1,
-			hoursWorked: 1,
-			endHour: 1,
-			lunchDuration: 1,
-			lunchStart: 1,
-			lunchEnd: 1,
-		}, {
-			day: 1,
-			startHour: 1,
-			hoursWorked: 1,
-			endHour: 1,
-			lunchDuration: 1,
-			lunchStart: 1,
-			lunchEnd: 1,
-		}];
-		this.isLoading = true;
+	constructor(private storage: Storage, private sanitizer: DomSanitizer) {
+		this.items = [];
+		this.isLoading = false;
 	}
+
+	sanitizeString = (string: string) => this.sanitizer.bypassSecurityTrustHtml(string);
 
 	ngOnInit() {
 		return;
