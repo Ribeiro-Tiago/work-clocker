@@ -1,0 +1,22 @@
+@import "../../../theme/variables.scss";
+
+app-settings {
+	h3 {
+		background: #EAEAEA;
+		margin: 0;
+		padding: 1.5vh 1vh;
+		color: $lighterTextColor;
+		font-size: 1.7vh;
+	}
+
+	.list-item {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		flex-direction: row;
+		border-bottom: 1px solid #ccc;
+		margin: 0 2vh;
+		font-size: 2vh;
+		padding: .5vh;
+	}
+}

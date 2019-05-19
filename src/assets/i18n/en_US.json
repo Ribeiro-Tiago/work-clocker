@@ -10,5 +10,16 @@
 		"startAt": "Clocking in at {{start}}",
 		"lunchDuration": "With {{duration}} lunch",
 		"endAt": "Left at {{end}}"
+	},
+
+	"settings": {
+		"appSettings": "Application Settings",
+		"about": "About",
+		"dateFormat": "Date format",
+		"language": "Language",
+		"lunchDuration": "Lunch time duration",
+		"workDuration": "Work day duration",
+		"confirmText": "Select",
+		"cancelText": "Cancel"
 	}
 }

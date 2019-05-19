@@ -7,5 +7,48 @@
 </ion-header>
 
 <ion-content>
-	settings page
+	<h3 class="list-header">{{ "settings.appSettings" | translate }}</h3>
+
+	<div class="list-item">
+		<ion-label>{{ "settings.dateFormat" | translate }}</ion-label>
+		<ion-select [value]="selectedDateFormat" okText="{{'settings.confirmText' | translate }}"
+			cancelText="{{'settings.cancelText' | translate }}" (change)="onDateFormatChange($event)"
+			[selectedText]="selectedDateFormat">
+			<ion-select-option value="f">Female</ion-select-option>
+			<ion-select-option value="m">Male</ion-select-option>
+		</ion-select>
+	</div>
+
+	<div class="list-item">
+		<ion-label>{{ "settings.language" | translate }}</ion-label>
+		<ion-select [value]="selectedLanguage" okText="{{'settings.confirmText' | translate }}"
+			cancelText="{{'settings.cancelText' | translate }}" (change)="onLanguageChange($event)"
+			[selectedText]="selectedLanguage">
+			<ion-select-option value="f">Female</ion-select-option>
+			<ion-select-option value="m">Male</ion-select-option>
+		</ion-select>
+	</div>
+
+	<div class="list-item">
+		<ion-label>{{ "settings.lunchDuration" | translate }}</ion-label>
+		<ion-select [value]="selectedLunchDuration" okText="{{'settings.confirmText' | translate }}"
+			cancelText="{{'settings.cancelText' | translate }}" (change)="onLunchDurationChange($event)"
+			[selectedText]="selectedLunchDuration">
+			<ion-select-option value="f">Female</ion-select-option>
+			<ion-select-option value="m">Male</ion-select-option>
+		</ion-select>
+	</div>
+
+	<div class="list-item">
+		<ion-label>{{ "settings.workDuration" | translate }}</ion-label>
+		<ion-select [value]="selectedWorkDuration" okText="{{'settings.confirmText' | translate }}"
+			cancelText="{{'settings.cancelText' | translate }}" (change)="onWorkDurationChange($event)"
+			[selectedText]="selectedWorkDuration">
+			<ion-select-option value=" f">Female</ion-select-option>
+			<ion-select-option value="m">Male</ion-select-option>
+		</ion-select>
+	</div>
+
+	<h3 class="list-header">{{ "settings.about" | translate }}</h3>
+
 </ion-content>
