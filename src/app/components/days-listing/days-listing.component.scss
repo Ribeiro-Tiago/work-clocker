@@ -5,12 +5,14 @@ app-days-listing {
 
 	h3 {
 		font-size: 3vh;
-		padding: 5vh;
 		text-align: center;
 		top: 50%;
-		transform: translateY(-80%);
+		transform: translate(-50%, -80%);
 		position: absolute;
+		display: block;
 		color: $darkTextColor;
+		left: 50%;
+		width: 70%;
 	}
 
 	.item {

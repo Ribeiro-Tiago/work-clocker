@@ -10,10 +10,12 @@ import { Storage } from '@ionic/storage';
 export class HomePage implements OnInit {
 	totalHours: number;
 	extraHours: number;
+	modalVisible: boolean;
 
 	constructor(private storage: Storage) {
 		this.totalHours = 0;
 		this.extraHours = 0;
+		this.modalVisible = false;
 	}
 
 	ngOnInit() {
@@ -26,5 +28,10 @@ export class HomePage implements OnInit {
 				this.extraHours = parseInt(result[1]) | 0;
 			})
 			.catch(console.error);
+	}
+
+	toggleModal() {
+		console.log("toggled");
+		this.modalVisible = !this.modalVisible;
 	}
 }

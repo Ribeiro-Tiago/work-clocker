@@ -1,0 +1,18 @@
+@import "../../../theme/variables.scss";
+
+app-list-button {
+	ion-icon {
+		color: $primaryColor;
+		width: 10vh;
+		height: 10vh;
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 8vh;
+		margin: auto;
+
+		&:active {
+			opacity: .8;
+		}
+	}
+}

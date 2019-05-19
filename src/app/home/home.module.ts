@@ -16,6 +16,7 @@ import { DaysListingComponent } from '../components/days-listing/days-listing.co
 
 /* pipes */
 import { ConvertToHoursPipe } from '../pipes/convert-to-hours/convert-to-hours.pipe';
+import { ListButtonComponent } from '../components/list-button/list-button.component';
 
 export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoader(http);
 
@@ -42,6 +43,7 @@ export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoad
 	declarations: [
 		HomePage,
 		DaysListingComponent,
+		ListButtonComponent,
 		ConvertToHoursPipe
 	]
 })
