@@ -14,10 +14,16 @@
 ion-toolbar {
 	color: $whiteTextColor !important;
 	background-color: $primaryColor !important;
-}
 
-ion-button {
-	.menu-button {
-		transform: rotate(90deg);
+	ion-title {
+		display: flex;
+		align-items: center;
+		flex-direction: row;
+	}
+
+	ion-button {
+		.menu-button {
+			transform: rotate(90deg);
+		}
 	}
 }

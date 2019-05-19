@@ -12,11 +12,11 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { HomePage } from './home.page';
 
 /* comps */
-import { DaysListingComponent } from '../components/days-listing/days-listing.component';
+import { DaysListingComponent } from '../../components/days-listing/days-listing.component';
 
 /* pipes */
-import { ConvertToHoursPipe } from '../pipes/convert-to-hours/convert-to-hours.pipe';
-import { ListButtonComponent } from '../components/list-button/list-button.component';
+import { ConvertToHoursPipe } from '../../pipes/convert-to-hours/convert-to-hours.pipe';
+import { ListButtonComponent } from '../../components/list-button/list-button.component';
 
 export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoader(http);
 
@@ -30,7 +30,7 @@ export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoad
 			{
 				path: '',
 				component: HomePage
-			}
+			},
 		]),
 		TranslateModule.forChild({
 			loader: {

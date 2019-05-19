@@ -17,9 +17,7 @@ import { AppRoutingModule } from './app-routing.module';
 export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoader(http);
 
 @NgModule({
-	declarations: [
-		AppComponent,
-	],
+	declarations: [AppComponent],
 	entryComponents: [],
 	imports: [
 		BrowserModule,

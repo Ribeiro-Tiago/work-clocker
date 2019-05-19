@@ -10,6 +10,8 @@ import { TranslateService } from '@ngx-translate/core';
 	templateUrl: 'app.component.html'
 })
 export class AppComponent {
+	isMenuOpen: boolean;
+
 	constructor(
 		private platform: Platform,
 		private splashScreen: SplashScreen,
@@ -25,5 +27,9 @@ export class AppComponent {
 			this.splashScreen.hide();
 			this.translate.setDefaultLang("en_US");
 		});
+	}
+
+	toggleMenu() {
+		this.isMenuOpen = !this.isMenuOpen;
 	}
 }
