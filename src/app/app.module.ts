@@ -13,9 +13,10 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ConvertToHoursPipe } from './pipes/convert-to-hours/convert-to-hours.pipe';
 import { HomePageModule } from './pages/home/home.module';
 import { SettingsPageModule } from './pages/settings/settings.module';
+import { StorageService } from './services/storage/storage.service';
+import { ConvertTimeModule } from './pipes/convert-time/convert-time.pipe.module';
 
 export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoader(http);
 
@@ -31,6 +32,7 @@ export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoad
 		HttpClientModule,
 		HomePageModule,
 		SettingsPageModule,
+		ConvertTimeModule,
 		IonicStorageModule.forRoot({
 			name: '__work-clocker__',
 			driverOrder: ['indexeddb', 'sqlite', 'websql']
@@ -46,6 +48,7 @@ export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoad
 	providers: [
 		StatusBar,
 		SplashScreen,
+		StorageService,
 		IonicStorageModule,
 		{
 			provide: RouteReuseStrategy,

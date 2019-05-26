@@ -12,26 +12,26 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { HomePage } from './home.page';
 
 /* comps */
-import { DaysListingComponent } from '../../components/days-listing/days-listing.component';
+import { ListItemComponent } from '../../components/list-item/list-item.component';
 import { ListButtonComponent } from '../../components/list-button/list-button.component';
 
 /* modules */
-import { ConverToHoursModule } from 'src/app/pipes/convert-to-hours/convert-to-hours.pipe.module';
+import { ConvertTimeModule } from 'src/app/pipes/convert-time/convert-time.pipe.module';
 
 export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoader(http);
 
 @NgModule({
 	declarations: [
 		HomePage,
-		DaysListingComponent,
+		ListItemComponent,
 		ListButtonComponent,
 	],
 	imports: [
 		CommonModule,
 		FormsModule,
 		IonicModule,
-		ConverToHoursModule,
 		HttpClientModule,
+		ConvertTimeModule,
 		RouterModule.forChild([
 			{
 				path: '',

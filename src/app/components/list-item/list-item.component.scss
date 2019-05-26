@@ -1,20 +1,6 @@
 @import "../../../theme/variables.scss";
 
-app-days-listing {
-	background-color: $whiteBgColor;
-
-	h3 {
-		font-size: 3vh;
-		text-align: center;
-		top: 50%;
-		transform: translate(-50%, -80%);
-		position: absolute;
-		display: block;
-		color: $darkTextColor;
-		left: 50%;
-		width: 70%;
-	}
-
+app-list-item {
 	.item {
 		padding: .5vh 1vh;
 		height: 11vh;

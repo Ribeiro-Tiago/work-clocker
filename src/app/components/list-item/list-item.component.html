@@ -1,0 +1,22 @@
+<div class="item">
+	<div class="row">
+		<p>{{ "dayListing.listDay" | translate | convertTime: { destType: "day", payload: item.day, replace: "day" } }}
+		</p>
+
+		<p *ngIf="!item.onGoing">
+			{{ "dayListing.hoursWorked" | translate | convertTime: { destType: "hours", payload: item.hoursWorked, replace: "time" } }}
+		</p>
+
+		<p *ngIf="item.onGoing">
+
+		</p>
+
+
+	</div>
+
+	<div class="row">
+		<span>{{ "dayListing.startAt" | translate: { 'start': item.startHour } }}</span>
+		<span>{{ "dayListing.lunchDuration" | translate: { 'duration': item.lunchDuration } }}</span>
+		<span>{{ "dayListing.endAt" | translate: { 'end': item.endHour } }}</span>
+	</div>
+</div>
