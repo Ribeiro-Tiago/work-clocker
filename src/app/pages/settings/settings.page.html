@@ -11,7 +11,8 @@
 
 	<div class="list-item">
 		<ion-label>{{ "settings.dateFormat" | translate }}</ion-label>
-		<ion-select [value]="selectedDateFormat" [selectedText]="selectedDateFormat.label" interface="action-sheet">
+		<ion-select [value]="selectedDateFormat.key" interface="action-sheet" [selectedText]="selectedDateFormat.label"
+			(ionChange)="onDateFormatChange($event.target.value)">
 			<ion-select-option *ngFor="let format of dateFormats" [value]="format.key">
 				{{ format.label }}
 			</ion-select-option>
@@ -20,7 +21,8 @@
 
 	<div class="list-item">
 		<ion-label>{{ "settings.language" | translate }}</ion-label>
-		<ion-select [value]="selectedLanguage" interface="action-sheet" [selectedText]="selectedLanguage.label">
+		<ion-select [value]="selectedLanguage.key" interface="action-sheet" [selectedText]="selectedLanguage.label"
+			(ionChange)="onLangChange($event.target.value)">
 			<ion-select-option *ngFor="let lang of langs" [value]="lang.key">
 				{{ lang.label }}
 			</ion-select-option>
@@ -30,7 +32,8 @@
 	<div class="list-item">
 		<ion-label>{{ "settings.lunchDuration" | translate }}</ion-label>
 		<ion-select [value]="selectedLunchDuration" interface="action-sheet"
-			selectedText="{{ 'misc.minutes' | translate: { time: selectedLunchDuration } }}">
+			selectedText="{{ 'misc.minutes' | translate: { time: selectedLunchDuration } }}"
+			(ionChange)="onLunchChange($event.target.value)">
 			<ion-select-option *ngFor="let duration of lunchDuration" [value]="duration">
 				{{ "misc.minutes" | translate: { time: duration } }}
 			</ion-select-option>
@@ -40,7 +43,8 @@
 	<div class="list-item">
 		<ion-label>{{ "settings.workDuration" | translate }}</ion-label>
 		<ion-select [value]="selectedWorkDuration" interface="action-sheet"
-			selectedText="{{ 'misc.hours' | translate: { time: selectedWorkDuration } }}">
+			selectedText="{{ 'misc.hours' | translate: { time: selectedWorkDuration } }}"
+			(ionChange)="onWorkChange($event.target.value)">
 			<ion-select-option *ngFor="let duration of workDuration" [value]="duration">
 				{{ "misc.hours" | translate: { time: duration } }}
 			</ion-select-option>

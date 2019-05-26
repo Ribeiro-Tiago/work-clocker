@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import { ActionSheetController } from '@ionic/angular';
 
 import configs from "./configs";
-import { ConfigOption } from 'src/app/types/Config';
-import { ActionSheetController } from '@ionic/angular';
+import { ConfigOption } from "../../types/Config";
 
 @Component({
 	selector: 'app-settings',
@@ -52,20 +52,38 @@ export class SettingsPage implements OnInit {
 			.catch(console.error);
 	}
 
-	onDateFormatChange(event) {
-		this.selectedDateFormat = event;
-		console.log(event);
+	onDateFormatChange(selectedId: string) {
+		this.selectedDateFormat = this.dateFormats.find(f => f.key === selectedId);
+
+		this.updateSettings();
 	}
 
-	onLanguageChange(event) {
-		console.log(event);
+	onLangChange(selectedId: string) {
+		this.selectedLanguage = this.langs.find(l => l.key === selectedId);
+
+		this.updateSettings();
 	}
 
-	onLunchDurationChange(event) {
-		console.log(event);
+	onLunchChange(minute: number) {
+		this.selectedLunchDuration = minute;
+
+		this.updateSettings();
 	}
 
-	onWorkDurationChange(event) {
-		console.log(event);
+	onWorkChange(hour: number) {
+		this.selectedWorkDuration = hour;
+
+		this.updateSettings();
+	}
+
+	private updateSettings() {
+		this.storage.set("settings", {
+			selectedDateFormat: this.selectedDateFormat,
+			selectedLanguage: this.selectedLanguage,
+			selectedLunchDuration: this.selectedLunchDuration,
+			selectedWorkDuration: this.selectedWorkDuration
+		})
+			.then(() => console.log("settings updated"))
+			.catch(err => console.log(err));
 	}
 }
