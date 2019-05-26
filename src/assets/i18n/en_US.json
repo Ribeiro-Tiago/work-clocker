@@ -1,4 +1,9 @@
 {
+	"misc": {
+		"minutes": "{{time}} minutes",
+		"hours": "{{time}} hours"
+	},
+
 	"home": {
 		"hoursOwed": "{{hours}} hours owed",
 		"extraHours": "{{hours}} extra hours"

@@ -11,41 +11,39 @@
 
 	<div class="list-item">
 		<ion-label>{{ "settings.dateFormat" | translate }}</ion-label>
-		<ion-select [value]="selectedDateFormat" okText="{{'settings.confirmText' | translate }}"
-			cancelText="{{'settings.cancelText' | translate }}" (change)="onDateFormatChange($event)"
-			[selectedText]="selectedDateFormat">
-			<ion-select-option value="f">Female</ion-select-option>
-			<ion-select-option value="m">Male</ion-select-option>
+		<ion-select [value]="selectedDateFormat" [selectedText]="selectedDateFormat.label" interface="action-sheet">
+			<ion-select-option *ngFor="let format of dateFormats" [value]="format.key">
+				{{ format.label }}
+			</ion-select-option>
 		</ion-select>
 	</div>
 
 	<div class="list-item">
 		<ion-label>{{ "settings.language" | translate }}</ion-label>
-		<ion-select [value]="selectedLanguage" okText="{{'settings.confirmText' | translate }}"
-			cancelText="{{'settings.cancelText' | translate }}" (change)="onLanguageChange($event)"
-			[selectedText]="selectedLanguage">
-			<ion-select-option value="f">Female</ion-select-option>
-			<ion-select-option value="m">Male</ion-select-option>
+		<ion-select [value]="selectedLanguage" interface="action-sheet" [selectedText]="selectedLanguage.label">
+			<ion-select-option *ngFor="let lang of langs" [value]="lang.key">
+				{{ lang.label }}
+			</ion-select-option>
 		</ion-select>
 	</div>
 
 	<div class="list-item">
 		<ion-label>{{ "settings.lunchDuration" | translate }}</ion-label>
-		<ion-select [value]="selectedLunchDuration" okText="{{'settings.confirmText' | translate }}"
-			cancelText="{{'settings.cancelText' | translate }}" (change)="onLunchDurationChange($event)"
-			[selectedText]="selectedLunchDuration">
-			<ion-select-option value="f">Female</ion-select-option>
-			<ion-select-option value="m">Male</ion-select-option>
+		<ion-select [value]="selectedLunchDuration" interface="action-sheet"
+			selectedText="{{ 'misc.minutes' | translate: { time: selectedLunchDuration } }}">
+			<ion-select-option *ngFor="let duration of lunchDuration" [value]="duration">
+				{{ "misc.minutes" | translate: { time: duration } }}
+			</ion-select-option>
 		</ion-select>
 	</div>
 
 	<div class="list-item">
 		<ion-label>{{ "settings.workDuration" | translate }}</ion-label>
-		<ion-select [value]="selectedWorkDuration" okText="{{'settings.confirmText' | translate }}"
-			cancelText="{{'settings.cancelText' | translate }}" (change)="onWorkDurationChange($event)"
-			[selectedText]="selectedWorkDuration">
-			<ion-select-option value=" f">Female</ion-select-option>
-			<ion-select-option value="m">Male</ion-select-option>
+		<ion-select [value]="selectedWorkDuration" interface="action-sheet"
+			selectedText="{{ 'misc.hours' | translate: { time: selectedWorkDuration } }}">
+			<ion-select-option *ngFor="let duration of workDuration" [value]="duration">
+				{{ "misc.hours" | translate: { time: duration } }}
+			</ion-select-option>
 		</ion-select>
 	</div>
 

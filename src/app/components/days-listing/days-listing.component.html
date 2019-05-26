@@ -4,7 +4,7 @@
 	<div class="item" *ngFor="let item of items">
 		<div class="row">
 			<p>{{ "dayListing.listDay" | translate: { 'day': item.day } }}</p>
-			<p>{{ "dayListing.hoursWorked" | translate | convertToHours: { hoursWorked: item.hoursWorked } }}</p>
+			<p>{{ "dayListing.hoursWorked" | translate | convertToHours: { minutes: item.hoursWorked } }}</p>
 		</div>
 
 		<div class="row">

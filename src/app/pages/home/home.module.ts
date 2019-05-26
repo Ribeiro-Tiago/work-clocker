@@ -13,18 +13,24 @@ import { HomePage } from './home.page';
 
 /* comps */
 import { DaysListingComponent } from '../../components/days-listing/days-listing.component';
-
-/* pipes */
-import { ConvertToHoursPipe } from '../../pipes/convert-to-hours/convert-to-hours.pipe';
 import { ListButtonComponent } from '../../components/list-button/list-button.component';
+
+/* modules */
+import { ConverToHoursModule } from 'src/app/pipes/convert-to-hours/convert-to-hours.pipe.module';
 
 export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoader(http);
 
 @NgModule({
+	declarations: [
+		HomePage,
+		DaysListingComponent,
+		ListButtonComponent,
+	],
 	imports: [
 		CommonModule,
 		FormsModule,
 		IonicModule,
+		ConverToHoursModule,
 		HttpClientModule,
 		RouterModule.forChild([
 			{
@@ -39,12 +45,6 @@ export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoad
 				deps: [HttpClient]
 			}
 		})
-	],
-	declarations: [
-		HomePage,
-		DaysListingComponent,
-		ListButtonComponent,
-		ConvertToHoursPipe
 	]
 })
 export class HomePageModule { }

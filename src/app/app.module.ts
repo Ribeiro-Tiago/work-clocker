@@ -13,17 +13,24 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { ConvertToHoursPipe } from './pipes/convert-to-hours/convert-to-hours.pipe';
+import { HomePageModule } from './pages/home/home.module';
+import { SettingsPageModule } from './pages/settings/settings.module';
 
 export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoader(http);
 
 @NgModule({
-	declarations: [AppComponent],
+	declarations: [
+		AppComponent,
+	],
 	entryComponents: [],
 	imports: [
 		BrowserModule,
 		IonicModule.forRoot(),
 		AppRoutingModule,
 		HttpClientModule,
+		HomePageModule,
+		SettingsPageModule,
 		IonicStorageModule.forRoot({
 			name: '__work-clocker__',
 			driverOrder: ['indexeddb', 'sqlite', 'websql']

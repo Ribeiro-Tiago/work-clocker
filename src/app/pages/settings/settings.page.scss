@@ -20,3 +20,7 @@ app-settings {
 		padding: .5vh;
 	}
 }
+
+.action-sheet-group:last-child {
+	display: none !important;
+}
