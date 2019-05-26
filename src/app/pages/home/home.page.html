@@ -23,8 +23,13 @@
 			<span>{{ "home.extraHours" | translate: { 'hours': extraHours }  }}</span>
 		</div>
 
-		<app-days-listing></app-days-listing>
+		<div class="list">
+			<h3 *ngIf="!isLoading && !clockedHours.length"
+				[innerHTML]="sanitizeString('dayListing.noItems' | translate)"></h3>
 
-		<app-list-button (onClick)="toggleModal();"></app-list-button>
+			<app-list-item *ngFor="let item of clockedHours" [item]="item"></app-list-item>
+		</div>
+
+		<app-list-button (onClick)="onBtnPress();"></app-list-button>
 	</div>
 </ion-content>

@@ -3,6 +3,18 @@
 app-home {
 	background-color: $whiteBgColor;
 
+	h3 {
+		font-size: 3vh;
+		text-align: center;
+		top: 50%;
+		transform: translate(-50%, -80%);
+		position: absolute;
+		display: block;
+		color: $darkTextColor;
+		left: 50%;
+		width: 70%;
+	}
+
 	.hours-worked {
 		display: flex;
 		justify-content: space-between;

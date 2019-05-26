@@ -40,10 +40,10 @@ export class SettingsPage implements OnInit {
 		this.storage.get("settings")
 			.then((result) => {
 				if (result) {
-					this.selectedDateFormat = result.selectedDateFormat;
-					this.selectedLanguage = result.selectedLanguage;
-					this.selectedLunchDuration = result.selectedLunchDuration;
-					this.selectedWorkDuration = result.selectedWorkDuration;
+					this.selectedDateFormat = result.dateFormat;
+					this.selectedLanguage = result.language;
+					this.selectedLunchDuration = result.lunchDuration;
+					this.selectedWorkDuration = result.workDuration;
 				} else {
 					this.selectedDateFormat = this.dateFormats[0];
 					this.selectedLanguage = this.langs[0];
@@ -86,10 +86,10 @@ export class SettingsPage implements OnInit {
 
 	private updateSettings() {
 		this.storage.set("settings", {
-			selectedDateFormat: this.selectedDateFormat,
-			selectedLanguage: this.selectedLanguage,
-			selectedLunchDuration: this.selectedLunchDuration,
-			selectedWorkDuration: this.selectedWorkDuration
+			dateFormat: this.selectedDateFormat,
+			language: this.selectedLanguage,
+			lunchDuration: this.selectedLunchDuration,
+			workDuration: this.selectedWorkDuration
 		})
 			.then(() => console.log("settings updated"))
 			.catch(err => console.log(err));
