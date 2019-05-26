@@ -1,6 +1,7 @@
 {
 	"home": {
-
+		"hoursOwed": "{{hours}} hours owed",
+		"extraHours": "{{hours}} extra hours"
 	},
 
 	"dayListing": {

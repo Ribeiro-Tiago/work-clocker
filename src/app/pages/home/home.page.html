@@ -19,8 +19,8 @@
 <ion-content>
 	<div>
 		<div class="hours-worked ion-padding">
-			<span>{{ totalHours }} total hours</span>
-			<span>{{ extraHours }} extra hours</span>
+			<span>{{ "home.hoursOwed" | translate: { 'hours': totalHours }  }}</span>
+			<span>{{ "home.extraHours" | translate: { 'hours': extraHours }  }}</span>
 		</div>
 
 		<app-days-listing></app-days-listing>
