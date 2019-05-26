@@ -3,7 +3,7 @@ import { Storage } from '@ionic/storage';
 import { ActionSheetController } from '@ionic/angular';
 
 import configs from "./configs";
-import { ConfigOption } from "../../types/Config";
+import { ConfigOption, LegalOption } from "../../types/Config";
 
 @Component({
 	selector: 'app-settings',
@@ -14,6 +14,7 @@ import { ConfigOption } from "../../types/Config";
 export class SettingsPage implements OnInit {
 	dateFormats: ConfigOption[];
 	langs: ConfigOption[];
+	legalities: LegalOption[];
 	lunchDuration: number[];
 	workDuration: number[];
 
@@ -32,6 +33,7 @@ export class SettingsPage implements OnInit {
 		this.langs = configs.langs;
 		this.lunchDuration = configs.lunchDuration;
 		this.workDuration = configs.workDuration;
+		this.legalities = configs.legalities;
 	}
 
 	ngOnInit() {
@@ -74,6 +76,12 @@ export class SettingsPage implements OnInit {
 		this.selectedWorkDuration = hour;
 
 		this.updateSettings();
+	}
+
+	openLink(url: string) {
+		if (url) {
+			window.open(url, "_system");
+		}
 	}
 
 	private updateSettings() {

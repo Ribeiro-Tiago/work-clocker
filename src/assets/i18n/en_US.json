@@ -26,6 +26,10 @@
 		"lunchDuration": "Lunch time duration",
 		"workDuration": "Work day duration",
 		"confirmText": "Select",
-		"cancelText": "Cancel"
+		"cancelText": "Cancel",
+		"privacyPolicy": "Privacy policy",
+		"userAgreement": "User agreement",
+		"adPolicy": "Ad policy",
+		"version": "1.0.0"
 	}
 }

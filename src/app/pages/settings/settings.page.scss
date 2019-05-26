@@ -18,6 +18,29 @@ app-settings {
 		margin: 0 2vh;
 		font-size: 2vh;
 		padding: .5vh;
+
+		&.expand {
+			padding-top: 2vh;
+			padding-bottom: 2vh;
+
+			ion-icon {
+				font-size: 24px;
+				color: #666;
+			}
+		}
+
+		&.clickable {
+			transition: .2s;
+
+			&:active,
+			&:focus,
+			&:hover {
+				background: #f1f1f1;
+				margin: 0;
+				padding: 2vh;
+				transition: .2s;
+			}
+		}
 	}
 }
 
