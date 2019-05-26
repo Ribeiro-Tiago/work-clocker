@@ -12,7 +12,7 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoader(http);
 
 import { SettingsPage } from './settings.page';
-import { ConverToHoursModule } from 'src/app/pipes/convert-to-hours/convert-to-hours.pipe.module';
+import { ConvertTimeModule } from 'src/app/pipes/convert-time/convert-time.pipe.module';
 
 const routes: Routes = [{
 	path: '',
@@ -26,7 +26,7 @@ const routes: Routes = [{
 	imports: [
 		CommonModule,
 		FormsModule,
-		ConverToHoursModule,
+		ConvertTimeModule,
 		IonicModule,
 		RouterModule.forChild(routes),
 		TranslateModule.forChild({
