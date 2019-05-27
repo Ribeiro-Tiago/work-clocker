@@ -20,7 +20,7 @@ export class ConvertTimePipe implements PipeTransform {
 		this.timeHandle.setFormat(format);
 
 		replaceText = (destType === "day")
-			? this.timeHandle.formatTime(new Date(payload))
+			? this.timeHandle.formatDate(new Date(payload))
 			: this.timeHandle.minutesToHours(payload);
 
 		return value.replace(`{{${replace}}}`, replaceText);

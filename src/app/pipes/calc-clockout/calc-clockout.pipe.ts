@@ -17,8 +17,6 @@ export class CalcClockoutPipe implements PipeTransform {
 	transform(value: string, { clockIn, duration, lunchTime, format }: ClockOutArgs): any {
 		const d = new Date(clockIn);
 
-		console.log(format);
-
 		this.time.setFormat(format);
 
 		return value.replace(`{{time}}`, this.time.addTime(d, lunchTime, duration));

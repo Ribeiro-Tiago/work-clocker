@@ -19,7 +19,7 @@ export class TimeService {
 			: `${minutes}m`;
 	}
 
-	formatTime(d: Date): string {
+	formatDate(d: Date): string {
 		let result = this.format;
 
 		result = result.replace("dd", this.addLeadZero(d.getDate()));
@@ -27,6 +27,10 @@ export class TimeService {
 		result = result.replace("yyyy", `${d.getFullYear()}`);
 
 		return result;
+	}
+
+	formatTime(d: Date): string {
+		return `${this.addLeadZero(d.getHours())}:${this.addLeadZero(d.getMinutes())}`;
 	}
 
 	addTime(d: Date, minutes: number, hours?: number): string {
