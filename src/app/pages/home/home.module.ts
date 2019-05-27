@@ -18,6 +18,7 @@ import { ListButtonComponent } from '../../components/list-button/list-button.co
 /* modules */
 import { ConvertTimeModule } from 'src/app/pipes/convert-time/convert-time.pipe.module';
 import { CalcClockoutModule } from 'src/app/pipes/calc-clockout/calc-clockout.pipe.module';
+import { FormatTimeModule } from 'src/app/pipes/format-time/format-time.pipe.module';
 
 export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoader(http);
 
@@ -34,6 +35,7 @@ export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoad
 		HttpClientModule,
 		ConvertTimeModule,
 		CalcClockoutModule,
+		FormatTimeModule,
 		RouterModule.forChild([
 			{
 				path: '',

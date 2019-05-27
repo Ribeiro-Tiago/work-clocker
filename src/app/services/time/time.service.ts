@@ -15,8 +15,8 @@ export class TimeService {
 		const minutes = minutesToConvert % 60;
 
 		return (hours > 0)
-			? `${hours}h${minutes}m`
-			: `${minutes}m`;
+			? `${this.addLeadZero(hours)}:${this.addLeadZero(minutes)}`
+			: `00:${this.addLeadZero(minutes)}`;
 	}
 
 	formatDate(d: Date): string {

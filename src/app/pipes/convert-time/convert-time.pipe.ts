@@ -5,7 +5,7 @@ interface ConvertTimeOpts {
 	destType: "day" | "hours";
 	payload: any;
 	replace: string;
-	format: string;
+	format?: string;
 }
 
 @Pipe({
@@ -17,11 +17,13 @@ export class ConvertTimePipe implements PipeTransform {
 	transform(value: string, { destType, payload, replace, format }: ConvertTimeOpts): any {
 		let replaceText: string;
 
-		this.timeHandle.setFormat(format);
 
-		replaceText = (destType === "day")
-			? this.timeHandle.formatDate(new Date(payload))
-			: this.timeHandle.minutesToHours(payload);
+		if (destType === "day") {
+			this.timeHandle.setFormat(format);
+			replaceText = this.timeHandle.formatDate(new Date(payload));
+		} else {
+			replaceText = this.timeHandle.minutesToHours(payload);
+		}
 
 		return value.replace(`{{${replace}}}`, replaceText);
 	}

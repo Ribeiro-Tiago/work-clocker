@@ -24,8 +24,8 @@
 		</div>
 
 		<div class="list">
-			<h3 *ngIf="!isLoading && !clockedHours.length"
-				[innerHTML]="sanitizeString('dayListing.noItems' | translate)"></h3>
+			<h3 *ngIf="!isLoading && !clockedHours.length" [innerHTML]="sanitizeString('listItem.noItems' | translate)">
+			</h3>
 
 			<app-list-item *ngFor="let item of clockedHours" [item]="item" [dateFormat]="dateFormat"
 				[lunchDuration]="lunchDuration" [workDuration]="workDuration"></app-list-item>

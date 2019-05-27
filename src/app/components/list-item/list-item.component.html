@@ -4,7 +4,7 @@
 			<p>{{ "listItem.listDay" | translate | convertTime: { destType: "day", payload: item.day, replace: "day", format: dateFormat } }}
 			</p>
 
-			<p>{{ "listItem.hoursWorked" | translate | convertTime: { destType: "hours", payload: item.hoursWorked, replace: "time", format: dateFormat } }}
+			<p>{{ "listItem.hoursWorked" | translate | convertTime: { destType: "hours", payload: item.hoursWorked, replace: "time" } }}
 			</p>
 		</ng-container>
 		<ng-template #onGoingTemplate>
@@ -16,8 +16,8 @@
 	</div>
 
 	<div class="row">
-		<span>{{ "listItem.startAt" | translate: { 'start': item.startHour } }}</span>
-		<span>{{ "listItem.lunchDuration" | translate: { 'duration': item.lunchDuration } }}</span>
-		<span>{{ "listItem.endAt" | translate: { 'end': item.endHour } }}</span>
+		<span>{{ "listItem.startAt"  | translate | formatTime: { payload: item.startHour, replace: "start" } }}</span>
+		<span>{{ "listItem.lunchDuration" | translate | convertTime: { destType: "hours", payload: item.lunchDuration, replace: "duration" } }}</span>
+		<span *ngIf="!item.onGoing">{{ "listItem.endAt" | translate: { "end": item.endHour } }}</span>
 	</div>
 </div>

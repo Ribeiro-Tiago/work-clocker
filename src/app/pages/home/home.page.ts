@@ -35,11 +35,11 @@ export class HomePage implements OnInit {
 
 	ngOnInit() {
 		Promise.all([
-			// this.storage.delete("clockedHours"),
 			this.storage.get("totalHours"),
 			this.storage.get("extraHours"),
 			this.storage.get("settings"),
-			this.storage.get("clockedHours")
+			this.storage.get("clockedHours"),
+			this.storage.delete("clockedHours"),
 		])
 			.then((result) => {
 				this.totalHours = parseInt(result[0]) | 0;
@@ -72,14 +72,13 @@ export class HomePage implements OnInit {
 		} else {
 			this.clockIn();
 		}
-
 	}
 
 	clockIn() {
 		const d = new Date();
 		const item: ClockedHour = {
 			day: d.getTime(),
-			startHour: d.getDate(),
+			startHour: d.getTime(),
 			onGoing: true,
 			lunchDuration: this.lunchDuration
 		};
