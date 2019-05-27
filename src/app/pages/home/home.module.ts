@@ -17,6 +17,7 @@ import { ListButtonComponent } from '../../components/list-button/list-button.co
 
 /* modules */
 import { ConvertTimeModule } from 'src/app/pipes/convert-time/convert-time.pipe.module';
+import { CalcClockoutModule } from 'src/app/pipes/calc-clockout/calc-clockout.pipe.module';
 
 export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoader(http);
 
@@ -32,6 +33,7 @@ export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoad
 		IonicModule,
 		HttpClientModule,
 		ConvertTimeModule,
+		CalcClockoutModule,
 		RouterModule.forChild([
 			{
 				path: '',

@@ -10,4 +10,7 @@ import { ClockedHour } from '../../types/Hour';
 })
 export class ListItemComponent {
 	@Input() item: ClockedHour;
+	@Input() dateFormat: string;
+	@Input() lunchDuration: number;
+	@Input() workDuration: number;
 }

@@ -9,13 +9,15 @@
 		"extraHours": "{{hours}} extra hours"
 	},
 
-	"dayListing": {
+	"listItem": {
 		"noItems": "You haven’t clocked in any hours yet.<br/><br/>Click on the button bollow to start clocking in your time",
 		"listDay": "On {{day}}",
 		"hoursWorked": "You worked {{time}}",
-		"startAt": "Clocking in at {{start}}",
+		"startAt": "Clocked in at {{start}}",
 		"lunchDuration": "With {{duration}} lunch",
-		"endAt": "Left at {{end}}"
+		"endAt": "Left at {{end}}",
+		"exitETA": "You should leave at {{time}}",
+		"today": "Today"
 	},
 
 	"settings": {

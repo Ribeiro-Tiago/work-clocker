@@ -11,8 +11,9 @@ import { ClockedHour } from 'src/app/types/Hour';
 	encapsulation: ViewEncapsulation.None
 })
 export class HomePage implements OnInit {
-	private lunchDuration: number;
-	private workDuration: number;
+	lunchDuration: number;
+	workDuration: number;
+	dateFormat: string;
 
 	clockedHours: ClockedHour[];
 	totalHours: number;
@@ -29,6 +30,7 @@ export class HomePage implements OnInit {
 		this.lunchDuration = 60;
 		this.workDuration = 8;
 		this.onGoingClock = false;
+		this.dateFormat = "dd/mm/yyyy";
 	}
 
 	ngOnInit() {
@@ -46,10 +48,11 @@ export class HomePage implements OnInit {
 				const clockedHours = result[3];
 
 				if (settings) {
-					const { lunchDuration, workDuration } = settings;
+					const { lunchDuration, workDuration, dateFormat } = settings;
 
 					this.lunchDuration = lunchDuration;
 					this.workDuration = workDuration;
+					this.dateFormat = dateFormat;
 				}
 
 				if (clockedHours) {

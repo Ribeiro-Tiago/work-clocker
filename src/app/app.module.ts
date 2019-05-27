@@ -17,6 +17,7 @@ import { HomePageModule } from './pages/home/home.module';
 import { SettingsPageModule } from './pages/settings/settings.module';
 import { StorageService } from './services/storage/storage.service';
 import { ConvertTimeModule } from './pipes/convert-time/convert-time.pipe.module';
+import { CalcClockoutModule } from './pipes/calc-clockout/calc-clockout.pipe.module';
 
 export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoader(http);
 
@@ -33,6 +34,7 @@ export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoad
 		HomePageModule,
 		SettingsPageModule,
 		ConvertTimeModule,
+		CalcClockoutModule,
 		IonicStorageModule.forRoot({
 			name: '__work-clocker__',
 			driverOrder: ['indexeddb', 'sqlite', 'websql']
