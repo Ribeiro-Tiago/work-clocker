@@ -1,5 +1,5 @@
 <div class="item">
-	<div class="row">
+	<div class="row" (click)="emitLunchUpdate(item)">
 		<ng-container *ngIf="!item.onGoing; else onGoingTemplate">
 			<p>{{ "listItem.listDay" | translate | convertTime: { destType: "day", payload: item.day, replace: "day", format: dateFormat } }}
 			</p>

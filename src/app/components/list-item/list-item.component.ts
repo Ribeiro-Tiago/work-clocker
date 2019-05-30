@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, Input } from '@angular/core';
+import { Component, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
 
 import { ClockedHour } from '../../types/Hour';
 
@@ -13,4 +13,10 @@ export class ListItemComponent {
 	@Input() dateFormat: string;
 	@Input() lunchDuration: number;
 	@Input() workDuration: number;
+
+	@Output() toggleLunchUpdate = new EventEmitter<number>();
+
+	emitLunchUpdate() {
+		this.toggleLunchUpdate.emit(this.item.day);
+	}
 }

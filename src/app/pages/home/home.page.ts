@@ -18,9 +18,11 @@ export class HomePage implements OnInit {
 	clockedHours: ClockedHour[];
 	totalHours: number;
 	extraHours: number;
+	selectedDay?: number;
 
 	isLoading: boolean;
 	onGoingClock: boolean;
+	isModalVisible: boolean;
 
 	constructor(private storage: StorageService, private sanitizer: DomSanitizer) {
 		this.totalHours = 0;
@@ -29,7 +31,9 @@ export class HomePage implements OnInit {
 		this.clockedHours = [];
 		this.lunchDuration = 60;
 		this.workDuration = 8;
+		this.selectedDay = -1;
 		this.onGoingClock = false;
+		this.isModalVisible = false;
 		this.dateFormat = "dd/mm/yyyy";
 	}
 
@@ -94,6 +98,18 @@ export class HomePage implements OnInit {
 		} else {
 			this.clockedHours.push(item);
 		}
+	}
+
+	toggleLunchUpdate() {
+		this.isModalVisible = !this.isModalVisible;
+	}
+
+	updateLunchTime(newDuration: number) {
+		this.clockedHours[this.clockedHours.length - 1].lunchDuration = newDuration;
+
+		this.storage.add("clockedHours", this.clockedHours)
+			.then(() => console.log("updated hour"))
+			.catch((err) => console.log("err updating hour: ", err));
 	}
 
 	sanitizeString = (string: string) => this.sanitizer.bypassSecurityTrustHtml(string);

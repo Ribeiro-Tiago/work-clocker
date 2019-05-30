@@ -18,6 +18,9 @@
 
 <ion-content>
 	<div>
+		<app-modal isVisible="true" (onCancel)="toggleLunchUpdate();" (onSubmit)="updateLunchTime($event);">
+		</app-modal>
+
 		<div class="hours-worked ion-padding">
 			<span>{{ "home.hoursOwed" | translate: { 'hours': totalHours }  }}</span>
 			<span>{{ "home.extraHours" | translate: { 'hours': extraHours }  }}</span>
@@ -31,6 +34,6 @@
 				[lunchDuration]="lunchDuration" [workDuration]="workDuration"></app-list-item>
 		</div>
 
-		<app-list-button (onClick)="onBtnPress();"></app-list-button>
+		<app-list-button [onGoing]="onGoingClock" (onClick)="onBtnPress();"></app-list-button>
 	</div>
 </ion-content>

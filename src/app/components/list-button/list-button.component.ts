@@ -7,7 +7,7 @@ import { Component, ViewEncapsulation, EventEmitter, Output, Input } from '@angu
 	encapsulation: ViewEncapsulation.None
 })
 export class ListButtonComponent {
-	@Input() icon: string = "add-circle";
+	@Input() onGoing: boolean;
 
 	@Output() onClick = new EventEmitter<string>();
 

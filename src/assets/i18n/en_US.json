@@ -33,5 +33,11 @@
 		"userAgreement": "User agreement",
 		"adPolicy": "Ad policy",
 		"version": "1.0.0"
+	},
+
+	"modal": {
+		"updateLunchTime": "Update today's Lunch time duration",
+		"submit": "Update",
+		"cancel": "Cancel"
 	}
 }
