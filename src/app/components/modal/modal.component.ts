@@ -9,11 +9,11 @@ import configs from 'src/app/pages/settings/configs';
 	encapsulation: ViewEncapsulation.None
 })
 export class ModalComponent implements OnInit {
-	@Input() isVisible: boolean;
+	@Input() index: number;
 	@Input() currDuration: number;
 
 	@Output() onCancel: EventEmitter<void>;
-	@Output() onSubmit: EventEmitter<number>;
+	@Output() onSubmit: EventEmitter<{ duration: number, index: number }>;
 
 	selectedDuration: number;
 	lunchDurations: number[];
@@ -32,11 +32,12 @@ export class ModalComponent implements OnInit {
 	}
 
 	triggerSubmit() {
-		this.onSubmit.emit(this.selectedDuration);
+		this.onSubmit.emit({ duration: this.selectedDuration, index: this.index });
 	}
 
 	triggerCancel() {
 		this.onCancel.emit();
+
 	}
 
 	onLunchChange(minute: number) {

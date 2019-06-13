@@ -1,6 +1,17 @@
 @import "../../../theme/variables.scss";
 
 app-list-item {
+	&:nth-child(even) {
+		.item {
+			background: #b6dbb6;
+
+			span,
+			p {
+				color: #000;
+			}
+		}
+	}
+
 	.item {
 		padding: .5vh 1vh;
 		height: 11vh;

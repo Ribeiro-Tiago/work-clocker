@@ -14,9 +14,9 @@ export class ListItemComponent {
 	@Input() lunchDuration: number;
 	@Input() workDuration: number;
 
-	@Output() toggleLunchUpdate = new EventEmitter<number>();
+	@Output() onClick = new EventEmitter<void>();
 
-	emitLunchUpdate() {
-		this.toggleLunchUpdate.emit(this.item.day);
+	triggerOnClick() {
+		this.onClick.emit();
 	}
 }

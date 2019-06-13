@@ -19,6 +19,7 @@ export class HomePage implements OnInit {
 	totalHours: number;
 	extraHours: number;
 	selectedDay?: number;
+	selectedItemIndex: number;
 
 	isLoading: boolean;
 	onGoingClock: boolean;
@@ -35,6 +36,7 @@ export class HomePage implements OnInit {
 		this.onGoingClock = false;
 		this.isModalVisible = false;
 		this.dateFormat = "dd/mm/yyyy";
+		this.selectedItemIndex = -1;
 	}
 
 	ngOnInit(): void {
@@ -43,7 +45,7 @@ export class HomePage implements OnInit {
 			this.storage.get("extraHours"),
 			this.storage.get("settings"),
 			this.storage.get("clockedHours"),
-			this.storage.delete("clockedHours"),
+			// this.storage.delete("clockedHours"),
 		])
 			.then((result) => {
 				this.totalHours = parseInt(result[0]) | 0;
@@ -92,15 +94,11 @@ export class HomePage implements OnInit {
 			.then(() => console.log("added hour"))
 			.catch((err) => console.log("err adding hour: ", err));
 
-		if (this.clockedHours.length) {
-			this.clockedHours.splice(0, 0, item);
-		} else {
-			this.clockedHours.push(item);
-		}
+		this.clockedHours.splice(0, 0, item);
 	}
 
 	clockOut(): void {
-		const currItem = this.clockedHours[this.clockedHours.length - 1];
+		const currItem = this.clockedHours[0];
 		const d = Date.now();
 		currItem.endHour = d;
 		currItem.hoursWorked = Math.ceil((d - currItem.startHour) / 60000);
@@ -112,16 +110,19 @@ export class HomePage implements OnInit {
 			.catch((err) => console.log("err updating hour: ", err));
 	}
 
-	toggleLunchUpdate(): void {
+	toggleLunchUpdate(index = -1): void {
 		this.isModalVisible = !this.isModalVisible;
+		this.selectedItemIndex = index;
 	}
 
-	updateLunchTime(newDuration: number): void {
-		this.clockedHours[this.clockedHours.length - 1].lunchDuration = newDuration;
+	updateLunchTime({ duration, index }): void {
+		this.clockedHours[index].lunchDuration = duration;
 
 		this.storage.add("clockedHours", this.clockedHours)
 			.then(() => console.log("updated hour"))
 			.catch((err) => console.log("err updating hour: ", err));
+
+		this.toggleLunchUpdate();
 	}
 
 	sanitizeString = (string: string): SafeHtml => this.sanitizer.bypassSecurityTrustHtml(string);

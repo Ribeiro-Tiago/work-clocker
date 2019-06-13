@@ -6,6 +6,13 @@ app-modal {
 	height: 103%;
 	width: 100%;
 	top: -2.3vh;
+	transform: translateY(-100%);
+	transition: .25s;
+
+	&.is-visible {
+		transform: translateY(0);
+		transition: .25s;
+	}
 
 	.wrapper {
 		background: rgba(0, 0, 0, .5);

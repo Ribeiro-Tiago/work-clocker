@@ -5,8 +5,12 @@
 		</ion-title>
 
 		<ion-buttons slot="end">
+			<ion-button (click)="onBtnPress()">
+				<ion-icon [name]="onGoingClock? 'log-out' : 'log-in'" size="large"></ion-icon>
+			</ion-button>
+
 			<ion-button [routerLink]="['/hours-spent']" routerDirection="forward">
-				<ion-icon class="menu-button" name="md-time" size="large"></ion-icon>
+				<ion-icon name="md-time" size="large"></ion-icon>
 			</ion-button>
 
 			<ion-button [routerLink]="['/settings']" routerDirection="forward">
@@ -18,8 +22,9 @@
 
 <ion-content>
 	<div>
-		<app-modal *ngIf="isModalVisible" (onCancel)="toggleLunchUpdate();" (onSubmit)="updateLunchTime($event);"
-			[currDuration]="lunchDuration"></app-modal>
+		<app-modal (onCancel)="toggleLunchUpdate();" (onSubmit)="updateLunchTime($event);"
+			[currDuration]="lunchDuration" [ngClass]="{'is-visible': isModalVisible}" [index]="selectedItemIndex">
+		</app-modal>
 
 		<div class="hours-worked ion-padding">
 			<span>{{ "home.hoursOwed" | translate: { 'hours': totalHours }  }}</span>
@@ -30,10 +35,9 @@
 			<h3 *ngIf="!isLoading && !clockedHours.length" [innerHTML]="sanitizeString('listItem.noItems' | translate)">
 			</h3>
 
-			<app-list-item *ngFor="let item of clockedHours" [item]="item" [dateFormat]="dateFormat"
-				[lunchDuration]="lunchDuration" [workDuration]="workDuration"></app-list-item>
+			<app-list-item *ngFor="let item of clockedHours; let i = index" [item]="item" [dateFormat]="dateFormat"
+				[lunchDuration]="lunchDuration" [workDuration]="workDuration" (onClick)="toggleLunchUpdate(i);">
+			</app-list-item>
 		</div>
-
-		<app-list-button [onGoing]="onGoingClock" (onClick)="onBtnPress();"></app-list-button>
 	</div>
 </ion-content>

@@ -3,6 +3,23 @@
 app-home {
 	background-color: $whiteBgColor;
 
+	ion-toolbar {
+		color: $whiteTextColor !important;
+		background-color: $primaryColor !important;
+
+		ion-title {
+			display: flex;
+			align-items: center;
+			flex-direction: row;
+		}
+
+		ion-button {
+			.menu-button {
+				transform: rotate(90deg);
+			}
+		}
+	}
+
 	h3 {
 		font-size: 3vh;
 		text-align: center;
