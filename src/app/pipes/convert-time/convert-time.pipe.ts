@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { TimeService } from 'src/app/services/time/time.service';
 
 interface ConvertTimeOpts {
-	destType: "day" | "hours";
+	destType: "day" | "hours" | "timestamp";
 	payload: any;
 	replace: string;
 	format?: string;
@@ -17,12 +17,15 @@ export class ConvertTimePipe implements PipeTransform {
 	transform(value: string, { destType, payload, replace, format }: ConvertTimeOpts): any {
 		let replaceText: string;
 
-
 		if (destType === "day") {
 			this.timeHandle.setFormat(format);
 			replaceText = this.timeHandle.formatDate(new Date(payload));
-		} else {
+		} else if (destType === "hours") {
 			replaceText = this.timeHandle.minutesToHours(payload);
+		} else {
+			const d = new Date(payload);
+
+			replaceText = this.timeHandle.minutesToHours(d.getHours() * 60 + d.getMinutes());
 		}
 
 		return value.replace(`{{${replace}}}`, replaceText);

@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { ClockedHour } from 'src/app/types/Hour';
@@ -37,7 +37,7 @@ export class HomePage implements OnInit {
 		this.dateFormat = "dd/mm/yyyy";
 	}
 
-	ngOnInit() {
+	ngOnInit(): void {
 		Promise.all([
 			this.storage.get("totalHours"),
 			this.storage.get("extraHours"),
@@ -70,15 +70,15 @@ export class HomePage implements OnInit {
 			.catch(console.error);
 	}
 
-	onBtnPress() {
+	onBtnPress(): void {
 		if (this.onGoingClock) {
-			// something
+			this.clockOut();
 		} else {
 			this.clockIn();
 		}
 	}
 
-	clockIn() {
+	clockIn(): void {
 		const d = new Date();
 		const item: ClockedHour = {
 			day: d.getTime(),
@@ -86,25 +86,37 @@ export class HomePage implements OnInit {
 			onGoing: true,
 			lunchDuration: this.lunchDuration
 		};
+		this.onGoingClock = true;
 
 		this.storage.update("clockedHours", item)
 			.then(() => console.log("added hour"))
 			.catch((err) => console.log("err adding hour: ", err));
 
 		if (this.clockedHours.length) {
-			this.clockedHours.unshift();
-			this.clockedHours.push(item);
-			this.clockedHours.shift();
+			this.clockedHours.splice(0, 0, item);
 		} else {
 			this.clockedHours.push(item);
 		}
 	}
 
-	toggleLunchUpdate() {
+	clockOut(): void {
+		const currItem = this.clockedHours[this.clockedHours.length - 1];
+		const d = Date.now();
+		currItem.endHour = d;
+		currItem.hoursWorked = Math.ceil((d - currItem.startHour) / 60000);
+		currItem.onGoing = false;
+		this.onGoingClock = false;
+
+		this.storage.add("clockedHours", this.clockedHours)
+			.then(() => console.log("updated hour"))
+			.catch((err) => console.log("err updating hour: ", err));
+	}
+
+	toggleLunchUpdate(): void {
 		this.isModalVisible = !this.isModalVisible;
 	}
 
-	updateLunchTime(newDuration: number) {
+	updateLunchTime(newDuration: number): void {
 		this.clockedHours[this.clockedHours.length - 1].lunchDuration = newDuration;
 
 		this.storage.add("clockedHours", this.clockedHours)
@@ -112,5 +124,5 @@ export class HomePage implements OnInit {
 			.catch((err) => console.log("err updating hour: ", err));
 	}
 
-	sanitizeString = (string: string) => this.sanitizer.bypassSecurityTrustHtml(string);
+	sanitizeString = (string: string): SafeHtml => this.sanitizer.bypassSecurityTrustHtml(string);
 }
