@@ -18,8 +18,8 @@
 
 <ion-content>
 	<div>
-		<app-modal isVisible="true" (onCancel)="toggleLunchUpdate();" (onSubmit)="updateLunchTime($event);">
-		</app-modal>
+		<app-modal *ngIf="isModalVisible" (onCancel)="toggleLunchUpdate();" (onSubmit)="updateLunchTime($event);"
+			[currDuration]="lunchDuration"></app-modal>
 
 		<div class="hours-worked ion-padding">
 			<span>{{ "home.hoursOwed" | translate: { 'hours': totalHours }  }}</span>

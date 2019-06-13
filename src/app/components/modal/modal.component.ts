@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, Input } from '@angular/core';
+import { Component, ViewEncapsulation, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 import configs from 'src/app/pages/settings/configs';
 
@@ -8,26 +8,38 @@ import configs from 'src/app/pages/settings/configs';
 	styleUrls: ['./modal.component.scss'],
 	encapsulation: ViewEncapsulation.None
 })
-export class ModalComponent {
+export class ModalComponent implements OnInit {
 	@Input() isVisible: boolean;
-	@Input() currentDuration: number;
-	@Input() onCancel: () => void;
-	@Input() onSubmit: (newDuration: number) => void;
+	@Input() currDuration: number;
 
-	selectedNum: number;
-	lunchDuration: number[];
+	@Output() onCancel: EventEmitter<void>;
+	@Output() onSubmit: EventEmitter<number>;
+
+	selectedDuration: number;
+	lunchDurations: number[];
 
 	constructor() {
-		this.selectedNum = -1;
+		this.lunchDurations = configs.lunchDuration;
 
-		this.lunchDuration = configs.lunchDuration;
+		this.selectedDuration = this.lunchDurations[0];
+
+		this.onCancel = new EventEmitter();
+		this.onSubmit = new EventEmitter();
+	}
+
+	ngOnInit(): void {
+		this.selectedDuration = this.currDuration;
 	}
 
 	triggerSubmit() {
-		this.onSubmit(this.selectedNum);
+		this.onSubmit.emit(this.selectedDuration);
+	}
+
+	triggerCancel() {
+		this.onCancel.emit();
 	}
 
 	onLunchChange(minute: number) {
-		this.selectedNum = minute;
+		this.selectedDuration = minute;
 	}
 }
