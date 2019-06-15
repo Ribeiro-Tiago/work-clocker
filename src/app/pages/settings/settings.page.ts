@@ -24,31 +24,23 @@ export class SettingsPage implements OnInit {
 	selectedWorkDuration: number;
 
 	constructor(private storage: Storage, public actionSheetController: ActionSheetController) {
-		this.selectedDateFormat = { label: "", key: "" };
-		this.selectedLanguage = { label: "", key: "" };
-		this.selectedLunchDuration = 0;
-		this.selectedWorkDuration = 0;
-
 		this.dateFormats = configs.dateFormats;
 		this.langs = configs.langs;
 		this.lunchDuration = configs.lunchDuration;
 		this.workDuration = configs.workDuration;
 		this.legalities = configs.legalities;
+
+		this.initInputs();
 	}
 
 	ngOnInit() {
 		this.storage.get("settings")
 			.then((result) => {
 				if (result) {
-					this.selectedDateFormat = result.dateFormat;
-					this.selectedLanguage = result.language;
-					this.selectedLunchDuration = result.lunchDuration;
-					this.selectedWorkDuration = result.workDuration;
-				} else {
-					this.selectedDateFormat = this.dateFormats[0];
-					this.selectedLanguage = this.langs[0];
-					this.selectedLunchDuration = 60;
-					this.selectedWorkDuration = 8;
+					this.selectedDateFormat = result.selectedDateFormat;
+					this.selectedLanguage = result.selectedLanguage;
+					this.selectedLunchDuration = result.selectedLunchDuration;
+					this.selectedWorkDuration = result.selectedWorkDuration;
 				}
 			})
 			.catch(console.error);
@@ -84,6 +76,22 @@ export class SettingsPage implements OnInit {
 		}
 	}
 
+	resetSettings() {
+		this.storage.clear()
+			.then(() => console.log("settings cleared"))
+			.catch(err => console.log(err));
+
+		this.initInputs();
+	}
+
+	triggerReset(): void {
+		// toggle modal
+	}
+
+	resetTutorial(): void {
+		// reset
+	}
+
 	private updateSettings() {
 		this.storage.set("settings", {
 			dateFormat: this.selectedDateFormat,
@@ -93,5 +101,12 @@ export class SettingsPage implements OnInit {
 		})
 			.then(() => console.log("settings updated"))
 			.catch(err => console.log(err));
+	}
+
+	private initInputs() {
+		this.selectedDateFormat = this.dateFormats[0];
+		this.selectedLanguage = this.langs[0];
+		this.selectedLunchDuration = 60;
+		this.selectedWorkDuration = 8;
 	}
 }

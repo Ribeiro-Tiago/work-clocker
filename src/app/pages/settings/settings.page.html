@@ -51,11 +51,24 @@
 		</ion-select>
 	</div>
 
+	<h3 class="list-header">{{ "settings.misc" | translate }}</h3>
+
+	<div class="list-item expand" (click)="triggerReset();">
+		<ion-label>{{ "settings.reset" | translate }}</ion-label>
+		<ion-icon name="refresh"></ion-icon>
+	</div>
+
+	<div class="list-item expand" (click)="resetTutorial();">
+		<ion-label>{{ "settings.repeatTutorial" | translate }}</ion-label>
+		<ion-icon name="information-circle"></ion-icon>
+	</div>
+
 	<h3 class="list-header">{{ "settings.about" | translate }}</h3>
+
 	<div class="list-item expand" *ngFor="let item of legalities" (click)="openLink(item.link)"
 		[ngClass]="{'clickable': item.link}">
 		<ion-label>{{ item.labelId | translate }}</ion-label>
 		<ion-icon *ngIf="item.link" name="arrow-forward" mode="ios"></ion-icon>
-		<ion-label *ngIf="item.version"></ion-label>
+		<ion-label *ngIf="item.version">{{ item.version }}</ion-label>
 	</div>
 </ion-content>

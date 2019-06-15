@@ -32,7 +32,10 @@
 		"privacyPolicy": "Privacy policy",
 		"userAgreement": "User agreement",
 		"adPolicy": "Ad policy",
-		"version": "1.0.0"
+		"version": "App version",
+		"misc": "Miscellanous",
+		"reset": "Reset settings",
+		"repeatTutorial": "Repeat tutorial"
 	},
 
 	"modal": {
