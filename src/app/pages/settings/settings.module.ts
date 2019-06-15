@@ -13,6 +13,7 @@ export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoad
 
 import { SettingsPage } from './settings.page';
 import { ConvertTimeModule } from 'src/app/pipes/convert-time/convert-time.pipe.module';
+import { ResetModalComponent } from 'src/app/components/reset-modal/reset-modal/reset-modal.component';
 
 const routes: Routes = [{
 	path: '',
@@ -22,6 +23,7 @@ const routes: Routes = [{
 @NgModule({
 	declarations: [
 		SettingsPage,
+		ResetModalComponent
 	],
 	imports: [
 		CommonModule,

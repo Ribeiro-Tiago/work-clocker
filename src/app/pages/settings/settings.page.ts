@@ -23,12 +23,15 @@ export class SettingsPage implements OnInit {
 	selectedLunchDuration: number;
 	selectedWorkDuration: number;
 
+	isModalVisible: boolean;
+
 	constructor(private storage: Storage, public actionSheetController: ActionSheetController) {
 		this.dateFormats = configs.dateFormats;
 		this.langs = configs.langs;
 		this.lunchDuration = configs.lunchDuration;
 		this.workDuration = configs.workDuration;
 		this.legalities = configs.legalities;
+		this.isModalVisible = false;
 
 		this.initInputs();
 	}
@@ -78,14 +81,16 @@ export class SettingsPage implements OnInit {
 
 	resetSettings() {
 		this.storage.clear()
-			.then(() => console.log("settings cleared"))
+			.then(() => {
+				this.initInputs();
+				this.toggleModal();
+				console.log("settings cleared");
+			})
 			.catch(err => console.log(err));
-
-		this.initInputs();
 	}
 
-	triggerReset(): void {
-		// toggle modal
+	toggleModal(): void {
+		this.isModalVisible = !this.isModalVisible;
 	}
 
 	resetTutorial(): void {
@@ -94,10 +99,10 @@ export class SettingsPage implements OnInit {
 
 	private updateSettings() {
 		this.storage.set("settings", {
-			dateFormat: this.selectedDateFormat,
-			language: this.selectedLanguage,
-			lunchDuration: this.selectedLunchDuration,
-			workDuration: this.selectedWorkDuration
+			selectedDateFormat: this.selectedDateFormat,
+			selectedLanguage: this.selectedLanguage,
+			selectedLunchDuration: this.selectedLunchDuration,
+			selectedWorkDuration: this.selectedWorkDuration
 		})
 			.then(() => console.log("settings updated"))
 			.catch(err => console.log(err));

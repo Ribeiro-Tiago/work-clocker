@@ -22,9 +22,9 @@
 
 <ion-content>
 	<div>
-		<app-modal (onCancel)="toggleLunchUpdate();" (onSubmit)="updateLunchTime($event);"
+		<app-update-lunch-modal class="modal" (onCancel)="toggleLunchUpdate();" (onSubmit)="updateLunchTime($event);"
 			[currDuration]="lunchDuration" [ngClass]="{'is-visible': isModalVisible}" [index]="selectedItemIndex">
-		</app-modal>
+		</app-update-lunch-modal>
 
 		<div class="hours-worked ion-padding">
 			<span>{{ "home.hoursOwed" | translate: { 'hours': totalHours }  }}</span>

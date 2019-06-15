@@ -40,7 +40,10 @@
 
 	"modal": {
 		"updateLunchTime": "Update today's Lunch time duration",
-		"submit": "Update",
+		"resetSettingsTitle": "Reset all settings",
+		"resetSettingsText": "This will reset all settings to defaults. Are you sure?",
+		"confirm": "Confirm",
+		"update": "Update",
 		"cancel": "Cancel"
 	}
 }
