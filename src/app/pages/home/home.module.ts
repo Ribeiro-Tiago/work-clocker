@@ -19,7 +19,7 @@ import { ListButtonComponent } from '../../components/list-button/list-button.co
 import { ConvertTimeModule } from 'src/app/pipes/convert-time/convert-time.pipe.module';
 import { CalcClockoutModule } from 'src/app/pipes/calc-clockout/calc-clockout.pipe.module';
 import { FormatTimeModule } from 'src/app/pipes/format-time/format-time.pipe.module';
-import { ModalComponent } from 'src/app/components/modal/modal.component';
+import { UpdateLunchModalComponent } from 'src/app/components/update-lunch-modal/update-lunch-modal.component';
 
 export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoader(http);
 
@@ -28,7 +28,7 @@ export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoad
 		HomePage,
 		ListItemComponent,
 		ListButtonComponent,
-		ModalComponent,
+		UpdateLunchModalComponent,
 	],
 	imports: [
 		CommonModule,

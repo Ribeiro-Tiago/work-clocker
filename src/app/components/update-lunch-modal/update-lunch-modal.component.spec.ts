@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModalComponent } from './modal.component';
+import { UpdateLunchModalComponent } from './update-lunch-modal.component';
 
-describe('ModalComponent', () => {
-  let component: ModalComponent;
-  let fixture: ComponentFixture<ModalComponent>;
+describe('UpdateLunchModalComponent', () => {
+  let component: UpdateLunchModalComponent;
+  let fixture: ComponentFixture<UpdateLunchModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ModalComponent],
+      declarations: [UpdateLunchModalComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ModalComponent);
+    fixture = TestBed.createComponent(UpdateLunchModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

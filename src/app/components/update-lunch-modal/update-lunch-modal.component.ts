@@ -3,12 +3,12 @@ import { Component, ViewEncapsulation, Input, OnInit, Output, EventEmitter } fro
 import configs from 'src/app/pages/settings/configs';
 
 @Component({
-	selector: 'app-modal',
-	templateUrl: './modal.component.html',
-	styleUrls: ['./modal.component.scss'],
+	selector: 'app-update-lunch-modal',
+	templateUrl: './update-lunch-modal.component.html',
+	styleUrls: ['./update-lunch-modal.component.scss'],
 	encapsulation: ViewEncapsulation.None
 })
-export class ModalComponent implements OnInit {
+export class UpdateLunchModalComponent implements OnInit {
 	@Input() index: number;
 	@Input() currDuration: number;
 
