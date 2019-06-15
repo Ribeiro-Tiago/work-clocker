@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Storage } from '@ionic/storage';
 import { TranslateService } from '@ngx-translate/core';
 import { ActionSheetController } from '@ionic/angular';
 
 import configs from "./configs";
 import { ConfigOption, LegalOption } from "../../types/Config";
+import { StorageService } from 'src/app/services/storage/storage.service';
 
 @Component({
 	selector: 'app-settings',
@@ -26,7 +26,11 @@ export class SettingsPage implements OnInit {
 
 	isModalVisible: boolean;
 
-	constructor(private storage: Storage, public actionSheetController: ActionSheetController, private translate: TranslateService) {
+	constructor(
+		public actionSheetController: ActionSheetController,
+		private translate: TranslateService,
+		private storage: StorageService
+	) {
 		this.dateFormats = configs.dateFormats;
 		this.langs = configs.langs;
 		this.lunchDuration = configs.lunchDuration;
@@ -82,9 +86,15 @@ export class SettingsPage implements OnInit {
 
 	resetSettings() {
 		this.storage.clear()
-			.then(() => {
+			.then(async () => {
 				this.initInputs();
 				this.toggleModal();
+
+				await Promise.all([
+					this.storage.add("extraHours", 0),
+					this.storage.add("owedHours", 0)
+				]);
+
 				console.log("settings cleared");
 			})
 			.catch(err => console.log(err));
@@ -99,7 +109,7 @@ export class SettingsPage implements OnInit {
 	}
 
 	private updateSettings() {
-		this.storage.set("settings", {
+		this.storage.update("settings", {
 			selectedDateFormat: this.selectedDateFormat,
 			selectedLanguage: this.selectedLanguage,
 			selectedLunchDuration: this.selectedLunchDuration,

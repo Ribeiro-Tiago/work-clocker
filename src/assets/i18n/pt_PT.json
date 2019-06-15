@@ -1,7 +1,7 @@
 {
 	"misc": {
-		"minutes": "{{time}} minutes",
-		"hours": "{{time}} hours"
+		"minutes": "{{time}} minutos",
+		"hours": "{{time}} horas"
 	},
 
 	"home": {
