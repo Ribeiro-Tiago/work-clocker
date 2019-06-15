@@ -1,0 +1,1 @@
+export type StorageKey = "settings" | "extraHours" | "owedHours" | "clockedHours";

@@ -1,8 +1,10 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { of, Subscription } from "rxjs";
 
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { ClockedHour } from 'src/app/types/Hour';
+
 
 @Component({
 	selector: 'app-home',
@@ -16,7 +18,7 @@ export class HomePage implements OnInit {
 	dateFormat: string;
 
 	clockedHours: ClockedHour[];
-	totalHours: number;
+	owedHours: number;
 	extraHours: number;
 	selectedDay?: number;
 	selectedItemIndex: number;
@@ -26,7 +28,7 @@ export class HomePage implements OnInit {
 	isModalVisible: boolean;
 
 	constructor(private storage: StorageService, private sanitizer: DomSanitizer) {
-		this.totalHours = 0;
+		this.owedHours = 0;
 		this.extraHours = 0;
 		this.isLoading = true;
 		this.clockedHours = [];
@@ -40,18 +42,20 @@ export class HomePage implements OnInit {
 	}
 
 	ngOnInit(): void {
+		// this.storage.clear().catch(console.log);
+
 		Promise.all([
-			this.storage.get("totalHours"),
+			this.storage.get("owedHours"),
 			this.storage.get("extraHours"),
 			this.storage.get("settings"),
 			this.storage.get("clockedHours"),
 			// this.storage.delete("clockedHours"),
 		])
 			.then((result) => {
-				this.totalHours = parseInt(result[0]) | 0;
+				this.owedHours = parseInt(result[0]) | 0;
 				this.extraHours = parseInt(result[1]) | 0;
-				const settings = result[2];
-				const clockedHours = result[3];
+				const settings = result[3];
+				const clockedHours = result[4];
 
 				if (settings) {
 					const { lunchDuration, workDuration, dateFormat } = settings;
@@ -97,17 +101,37 @@ export class HomePage implements OnInit {
 		this.clockedHours.splice(0, 0, item);
 	}
 
-	clockOut(): void {
+	async clockOut(): Promise<void> {
 		const currItem = this.clockedHours[0];
 		const d = Date.now();
-		currItem.endHour = d;
-		currItem.hoursWorked = Math.ceil((d - currItem.startHour) / 60000);
-		currItem.onGoing = false;
-		this.onGoingClock = false;
+		let timeWorked = (d - currItem.startHour) / 1000;
+		const hoursWorked = Math.abs(Math.floor(timeWorked / 3600));
+		const minutesWorked = Math.abs(Math.floor((timeWorked % 3600) / 60));
+		const timeWorkedDiff = (hoursWorked - this.workDuration) * 60;
 
-		this.storage.add("clockedHours", this.clockedHours)
-			.then(() => console.log("updated hour"))
-			.catch((err) => console.log("err updating hour: ", err));
+		timeWorked = (hoursWorked * 60) + minutesWorked;
+
+		currItem.endHour = d;
+		currItem.timeWorked = timeWorked;
+		currItem.onGoing = false;
+
+		/* worked less hours than expected, is now owing hours */
+		if (timeWorkedDiff < 0) {
+			this.owedHours += (timeWorkedDiff * -1) - timeWorked;
+
+			await this.storage.update("owedHours", this.owedHours);
+			console.log("owed hours updated: ", this.owedHours);
+		} else if (timeWorkedDiff > 0) { /* worked more hours than expected, now has extra hours */
+			this.extraHours += timeWorked;
+
+			await this.storage.update("extraHours", this.extraHours);
+			console.log("extra hours updated: ", this.extraHours);
+		}
+
+		await this.storage.set("clockedHours", this.clockedHours);
+		console.log("updated hour");
+
+		this.onGoingClock = false;
 	}
 
 	toggleLunchUpdate(index = -1): void {
@@ -118,7 +142,7 @@ export class HomePage implements OnInit {
 	updateLunchTime({ duration, index }): void {
 		this.clockedHours[index].lunchDuration = duration;
 
-		this.storage.add("clockedHours", this.clockedHours)
+		this.storage.set("clockedHours", this.clockedHours)
 			.then(() => console.log("updated hour"))
 			.catch((err) => console.log("err updating hour: ", err));
 

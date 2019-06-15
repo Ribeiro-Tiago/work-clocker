@@ -4,7 +4,7 @@
 			<p>{{ "listItem.listDay" | translate | convertTime: { destType: "day", payload: item.day, replace: "day", format: dateFormat } }}
 			</p>
 
-			<p>{{ "listItem.hoursWorked" | translate | convertTime: { destType: "hours", payload: item.hoursWorked, replace: "time" } }}
+			<p>{{ "listItem.timeWorked" | translate | convertTime: { destType: "hours", payload: item.timeWorked, replace: "time" } }}
 			</p>
 		</ng-container>
 		<ng-template #onGoingTemplate>

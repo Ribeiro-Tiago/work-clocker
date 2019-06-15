@@ -27,8 +27,8 @@
 		</app-update-lunch-modal>
 
 		<div class="hours-worked ion-padding">
-			<span>{{ "home.hoursOwed" | translate: { 'hours': totalHours }  }}</span>
-			<span>{{ "home.extraHours" | translate: { 'hours': extraHours }  }}</span>
+			<span>{{ "home.owedHours" | translate | convertTime: { destType: "hours", payload: owedHours, replace: "hours" } }}</span>
+			<span>{{ "home.extraHours" | translate | convertTime: { destType: "hours", payload: extraHours, replace: "hours" } }}</span>
 		</div>
 
 		<div class="list">

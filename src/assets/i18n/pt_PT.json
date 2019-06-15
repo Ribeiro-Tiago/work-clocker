@@ -5,14 +5,14 @@
 	},
 
 	"home": {
-		"hoursOwed": "{{hours}} hours owed",
+		"owedHours": "{{hours}} hours owed",
 		"extraHours": "{{hours}} extra hours"
 	},
 
 	"listItem": {
 		"noItems": "You haven’t clocked in any hours yet.<br/><br/>Click on the button bollow to start clocking in your time",
 		"listDay": "On {{day}}",
-		"hoursWorked": "You worked {{time}}",
+		"timeWorked": "You worked {{time}}",
 		"startAt": "Clocked in at {{start}}",
 		"lunchDuration": "With {{duration}} lunch",
 		"endAt": "Left at {{end}}",
