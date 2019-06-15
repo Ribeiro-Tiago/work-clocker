@@ -4,7 +4,7 @@ export default {
         { key: "mm/dd/yyyy", label: "09/21/2018" },
     ],
     langs: [
-        { key: "us_US", label: "English (US)" },
+        { key: "en_US", label: "English (US)" },
         { key: "pt_PT", label: "Português (Portugal)" }
     ],
     lunchDuration: [

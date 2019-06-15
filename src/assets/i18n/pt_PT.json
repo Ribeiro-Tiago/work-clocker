@@ -21,21 +21,21 @@
 	},
 
 	"settings": {
-		"appSettings": "Application Settings",
-		"about": "About",
-		"dateFormat": "Date format",
-		"language": "Language",
-		"lunchDuration": "Lunch time duration",
-		"workDuration": "Work day duration",
-		"confirmText": "Select",
-		"cancelText": "Cancel",
-		"privacyPolicy": "Privacy policy",
-		"userAgreement": "User agreement",
-		"adPolicy": "Ad policy",
-		"version": "App version",
-		"misc": "Miscellaneous",
-		"reset": "Reset settings",
-		"repeatTutorial": "Repeat tutorial"
+		"appSettings": "Configurações da aplicação",
+		"about": "Sobre",
+		"dateFormat": "Formato de data",
+		"language": "Idioma",
+		"lunchDuration": "Duração de almoço",
+		"workDuration": "Duração de dia de trabalho",
+		"confirmText": "Selecione",
+		"cancelText": "Cancelar",
+		"privacyPolicy": "Política de privacidade",
+		"userAgreement": "Acordo de uti",
+		"adPolicy": "Política de anúncios",
+		"version": "Versão da aplicação",
+		"misc": "Diversos",
+		"reset": "Recompor configurações",
+		"repeatTutorial": "Repetir tutorial"
 	},
 
 	"modal": {

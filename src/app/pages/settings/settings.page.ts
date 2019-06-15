@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import { TranslateService } from '@ngx-translate/core';
 import { ActionSheetController } from '@ionic/angular';
 
 import configs from "./configs";
@@ -25,7 +26,7 @@ export class SettingsPage implements OnInit {
 
 	isModalVisible: boolean;
 
-	constructor(private storage: Storage, public actionSheetController: ActionSheetController) {
+	constructor(private storage: Storage, public actionSheetController: ActionSheetController, private translate: TranslateService) {
 		this.dateFormats = configs.dateFormats;
 		this.langs = configs.langs;
 		this.lunchDuration = configs.lunchDuration;
@@ -57,7 +58,7 @@ export class SettingsPage implements OnInit {
 
 	onLangChange(selectedId: string) {
 		this.selectedLanguage = this.langs.find(l => l.key === selectedId);
-
+		this.translate.setDefaultLang(selectedId);
 		this.updateSettings();
 	}
 
