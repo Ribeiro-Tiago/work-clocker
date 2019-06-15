@@ -5,6 +5,9 @@ import { ActionSheetController } from '@ionic/angular';
 import configs from "./configs";
 import { ConfigOption, LegalOption } from "../../types/Config";
 import { StorageService } from 'src/app/services/storage/storage.service';
+import { Store } from '@ngrx/store';
+import { Setting } from 'src/app/State/settings/settings.model';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'app-settings',
@@ -26,10 +29,13 @@ export class SettingsPage implements OnInit {
 
 	isModalVisible: boolean;
 
+	settings: Observable<Setting>;
+
 	constructor(
 		public actionSheetController: ActionSheetController,
 		private translate: TranslateService,
-		private storage: StorageService
+		private storage: StorageService,
+		private store: Store<any>
 	) {
 		this.dateFormats = configs.dateFormats;
 		this.langs = configs.langs;
@@ -38,11 +44,26 @@ export class SettingsPage implements OnInit {
 		this.legalities = configs.legalities;
 		this.isModalVisible = false;
 
+		this.settings = this.store.select("settings");
+
 		this.initInputs();
 	}
 
 	ngOnInit() {
-		this.storage.get("settings")
+		this.settings.subscribe(result => {
+			console.log("sub result", result);
+
+			/* if (result) {
+				this.selectedDateFormat = result.selectedDateFormat;
+				this.selectedLanguage = result.selectedLanguage;
+				this.selectedLunchDuration = result.selectedLunchDuration;
+				this.selectedWorkDuration = result.selectedWorkDuration;
+			} else {
+				this.updateSettings();
+			} */
+		});
+
+		/* this.storage.get("settings")
 			.then((result) => {
 				if (result) {
 					this.selectedDateFormat = result.selectedDateFormat;
@@ -51,7 +72,7 @@ export class SettingsPage implements OnInit {
 					this.selectedWorkDuration = result.selectedWorkDuration;
 				}
 			})
-			.catch(console.error);
+			.catch(console.error); */
 	}
 
 	onDateFormatChange(selectedId: string) {
@@ -91,8 +112,8 @@ export class SettingsPage implements OnInit {
 				this.toggleModal();
 
 				await Promise.all([
-					this.storage.add("extraHours", 0),
-					this.storage.add("owedHours", 0)
+					this.storage.set("extraHours", 0),
+					this.storage.set("owedHours", 0)
 				]);
 
 				console.log("settings cleared");
@@ -115,7 +136,11 @@ export class SettingsPage implements OnInit {
 			selectedLunchDuration: this.selectedLunchDuration,
 			selectedWorkDuration: this.selectedWorkDuration
 		})
-			.then(() => console.log("settings updated"))
+			.then(async () => {
+				console.log("settings updated");
+				console.log(await this.storage.get("settings"));
+
+			})
 			.catch(err => console.log(err));
 	}
 

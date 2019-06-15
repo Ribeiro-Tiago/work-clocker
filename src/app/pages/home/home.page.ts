@@ -54,8 +54,8 @@ export class HomePage implements OnInit {
 			.then((result) => {
 				this.owedHours = parseInt(result[0]) | 0;
 				this.extraHours = parseInt(result[1]) | 0;
-				const settings = result[3];
-				const clockedHours = result[4];
+				const settings = result[2];
+				const clockedHours = result[3];
 
 				if (settings) {
 					const { lunchDuration, workDuration, dateFormat } = settings;
