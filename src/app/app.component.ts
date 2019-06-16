@@ -12,6 +12,7 @@ import { Update as UpdateSettings } from "./state/settings/settings.actions";
 import { SetHours as SetExtraHours } from "./state/extraHours/extraHours.actions";
 import { SetHours as SetOwedHours } from "./state/owedHours/owedHours.actions";
 import { SetHours as SetClockedHours } from "./state/clockedHours/clockedHours.actions";
+import { SetHours as SetSpentHours } from "./state/spentHours/spentHours.actions";
 
 import { AppState } from './State';
 
@@ -38,12 +39,15 @@ export class AppComponent implements OnInit {
 			Promise.all([
 				this.storage.get("extraHours"),
 				this.storage.get("owedHours"),
+				this.storage.get("spentHours"),
 				this.storage.get("settings"),
 				this.storage.get("clockedHours"),
 				// this.storage.clear(),
 			]).then(results => {
 				const extraHours = results[0];
 				const owedHours = results[1];
+				const spentHours = results[1];
+				const settings = results[2];
 				const clockedHours = results[3];
 
 				if (extraHours) {
@@ -54,9 +58,12 @@ export class AppComponent implements OnInit {
 					this.store.dispatch(new SetOwedHours(owedHours));
 				}
 
+				if (spentHours) {
+					this.store.dispatch(new SetSpentHours(spentHours));
+				}
 
-				if (results[2]) {
-					const { selectedDateFormat, selectedLanguage, selectedLunchDuration, selectedWorkDuration } = results[2];
+				if (settings) {
+					const { selectedDateFormat, selectedLanguage, selectedLunchDuration, selectedWorkDuration } = settings;
 
 					this.store.dispatch(new UpdateSettings({
 						selectedDateFormat,

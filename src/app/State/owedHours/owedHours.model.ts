@@ -13,4 +13,4 @@ export interface OwedHour {
     hoursUsed: OwedHourItem[];
 }
 
-export type ActionType = "ADD_HOURS" | "RESET_HOURS";
+export type ActionType = "ADD_HOURS" | "SET_HOURS" | "UPDATE_HOURS" | "USE_HOURS" | "RESET_HOURS";

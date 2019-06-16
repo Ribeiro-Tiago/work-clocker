@@ -1,1 +1,1 @@
-export type StorageKey = "settings" | "extraHours" | "owedHours" | "clockedHours";
+export type StorageKey = "settings" | "extraHours" | "owedHours" | "clockedHours" | "spentHours";

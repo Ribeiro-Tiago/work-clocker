@@ -13,4 +13,4 @@ export interface ExtraHour {
     hoursUsed: ExtraHourItem[];
 }
 
-export type ActionType = "ADD_HOURS" | "RESET_HOURS";
+export type ActionType = "SET_HOURS" | "ADD_HOURS" | "UPDATE_HOURS" | "USE_HOURS" | "RESET_HOURS";

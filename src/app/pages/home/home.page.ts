@@ -11,6 +11,8 @@ import { AppState } from 'src/app/State';
 import * as extraHoursActions from "../../state/extraHours/extraHours.actions";
 import * as owedHoursActions from "../../state/owedHours/owedHours.actions";
 import * as clockedActions from "../../state/clockedHours/clockedHours.actions";
+import { AddHours as AddSpentHour } from "../../state/spentHours/spentHours.actions";
+
 import { Setting } from 'src/app/state/settings/settings.model';
 import { ExtraHour } from 'src/app/State/extraHours/extraHours.model';
 import { OwedHour } from 'src/app/State/owedHours/owedHours.model';
@@ -178,9 +180,12 @@ export class HomePage implements OnInit, OnDestroy {
 				this.store.dispatch(new extraHoursActions.UpdateHours(extraHours));
 			}
 
-			this.store.dispatch(new extraHoursActions.UseHours({
+			this.store.dispatch(new AddSpentHour({
 				hoursUsed,
-				dayUsed: Date.now()
+				dayUsed: Date.now(),
+				prevHours: currExtraHours,
+				afterHours: this.extraHours.hours,
+				isExtraHours: false
 			}));
 
 			this.storage.set("extraHours", this.extraHours)
