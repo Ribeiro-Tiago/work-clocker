@@ -14,10 +14,6 @@ export class TimeService {
 		const hours = Math.floor(minutesToConvert / 60);
 		const minutes = minutesToConvert % 60;
 
-		if (hours === 0 && minutes === 0) {
-			return "0";
-		}
-
 		return (hours > 0)
 			? `${this.addLeadZero(hours)}:${this.addLeadZero(minutes)}`
 			: `00:${this.addLeadZero(minutes)}`;
