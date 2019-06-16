@@ -8,9 +8,15 @@ import { Store } from '@ngrx/store';
 import configs from "./configs";
 import { ConfigOption, LegalOption } from "../../types/Config";
 import { StorageService } from '../../services/storage/storage.service';
+
+/* state models */
 import { Setting } from '../../State/settings/settings.model';
-import * as SettingActions from "../../state/settings/settings.actions";
 import { AppState } from '../../State';
+
+/* state actions */
+import { Update as UpdateSettings } from "../../state/settings/settings.actions";
+import { ResetHours as ResetExtraHours } from "../../state/extraHours/extraHours.actions";
+import { ResetHours as ResetOwedHours } from "../../state/owedHours/owedHours.actions";
 
 @Component({
 	selector: 'app-settings',
@@ -146,7 +152,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 			selectedWorkDuration: this.selectedWorkDuration
 		};
 
-		this.store.dispatch(new SettingActions.Update(newState));
+		this.store.dispatch(new UpdateSettings(newState));
 
 		this.storage.set("settings", newState)
 			.then(async () => console.log("settings updated"))
@@ -163,6 +169,9 @@ export class SettingsPage implements OnInit, OnDestroy {
 	private resetApp(): void {
 		this.initInputs();
 		this.updateSettings();
+
+		this.store.dispatch(new ResetExtraHours());
+		this.store.dispatch(new ResetOwedHours());
 
 		setTimeout(() => this.isResetting = false, 500);
 	}
