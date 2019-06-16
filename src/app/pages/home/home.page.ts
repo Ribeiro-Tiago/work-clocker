@@ -8,10 +8,12 @@ import { ClockedHour } from 'src/app/types/Hour';
 import { ClockedHour as StateClockedHour } from 'src/app/State/clockedHours/clockedHours.model';
 import { AppState } from 'src/app/State';
 
-import { AddHours as AddExtraHours } from "../../state/extraHours/extraHours.actions";
-import { AddHours as AddOwedHours } from "../../state/owedHours/owedHours.actions";
+import * as extraHoursActions from "../../state/extraHours/extraHours.actions";
+import * as owedHoursActions from "../../state/owedHours/owedHours.actions";
 import * as clockedActions from "../../state/clockedHours/clockedHours.actions";
 import { Setting } from 'src/app/state/settings/settings.model';
+import { ExtraHour } from 'src/app/State/extraHours/extraHours.model';
+import { OwedHour } from 'src/app/State/owedHours/owedHours.model';
 
 @Component({
 	selector: 'app-home',
@@ -21,8 +23,8 @@ import { Setting } from 'src/app/state/settings/settings.model';
 })
 export class HomePage implements OnInit, OnDestroy {
 	private subs: Subscription[];
-	private owedHoursObs: Observable<number>;
-	private extraHoursObs: Observable<number>;
+	private owedHoursObs: Observable<OwedHour>;
+	private extraHoursObs: Observable<ExtraHour>;
 	private clockedHoursObs: Observable<StateClockedHour>;
 	private settingsObs: Observable<Setting>;
 
@@ -31,8 +33,8 @@ export class HomePage implements OnInit, OnDestroy {
 	dateFormat: string;
 
 	clockedHours: ClockedHour[];
-	owedHours: number;
-	extraHours: number;
+	owedHours: OwedHour;
+	extraHours: ExtraHour;
 	selectedDay?: number;
 	selectedItemIndex: number;
 
@@ -54,8 +56,8 @@ export class HomePage implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		this.subs = [
-			this.owedHoursObs.subscribe((result: number) => this.owedHours = result),
-			this.extraHoursObs.subscribe((result: number) => this.extraHours = result),
+			this.owedHoursObs.subscribe((result: OwedHour) => this.owedHours = result),
+			this.extraHoursObs.subscribe((result: ExtraHour) => this.extraHours = result),
 			this.clockedHoursObs.subscribe((result: StateClockedHour) => {
 				this.activeClock = result.isActive;
 				this.clockedHours = [...result.hours];
@@ -96,7 +98,7 @@ export class HomePage implements OnInit, OnDestroy {
 			.catch((err) => console.log("err adding hour: ", err));
 	}
 
-	async clockOut(): Promise<void> {
+	clockOut(): void {
 		const currItem = this.clockedHours[0];
 		const d = Date.now();
 		let timeWorked = (d - currItem.startHour) / 1000;
@@ -110,22 +112,23 @@ export class HomePage implements OnInit, OnDestroy {
 		currItem.timeWorked = timeWorked;
 		currItem.isActive = false;
 
-		/* worked less hours than expected, is now owing hours */
 		if (timeWorkedDiff < 0) {
-			const owedHours = (timeWorkedDiff * -1) - timeWorked;
+			/* worked less hours than expected, use extra hours / check how many hours owed now */
+			const owedHours = this.useExtraHours((timeWorkedDiff * -1) - timeWorked);
 
-			this.store.dispatch(new AddOwedHours(owedHours));
+			if (owedHours > 0) {
+				this.store.dispatch(new owedHoursActions.AddHours(owedHours));
 
-			this.storage.update("owedHours", this.owedHours + owedHours)
-				.then(() => console.log("owed hours updated: ", this.owedHours))
-				.catch(console.error);
-		} else if (timeWorkedDiff > 0) { /* worked more hours than expected, now has extra hours */
-			this.extraHours += timeWorked;
+				this.storage.set("owedHours", this.owedHours)
+					.then(() => console.log("owed hours updated: ", this.owedHours.hours))
+					.catch(console.error);
+			}
+		} else if (timeWorkedDiff > 0) {
+			/* worked more hours than expected, use for owed hours / check how many extra hours */
+			this.store.dispatch(new extraHoursActions.AddHours(timeWorked));
 
-			this.store.dispatch(new AddExtraHours(timeWorked));
-
-			this.storage.update("extraHours", this.extraHours)
-				.then(() => console.log("extra hours updated: ", this.extraHours))
+			this.storage.set("extraHours", this.extraHours)
+				.then(() => console.log("extra hours updated: ", this.extraHours.hours))
 				.catch(console.error);
 		}
 
@@ -154,4 +157,37 @@ export class HomePage implements OnInit, OnDestroy {
 	}
 
 	sanitizeString = (string: string): SafeHtml => this.sanitizer.bypassSecurityTrustHtml(string);
+
+	private useExtraHours(owed: number): number {
+		const currExtraHours = this.extraHours.hours;
+		let leftover = owed;
+
+		if (currExtraHours > 0) {
+			const extraHours = currExtraHours - owed;
+			let hoursUsed = 0;
+
+			if (extraHours < 0) {
+				leftover = extraHours * -1;
+				hoursUsed = currExtraHours;
+
+				this.store.dispatch(new extraHoursActions.ResetHours());
+			} else {
+				leftover = 0;
+				hoursUsed = owed;
+
+				this.store.dispatch(new extraHoursActions.UpdateHours(extraHours));
+			}
+
+			this.store.dispatch(new extraHoursActions.UseHours({
+				hoursUsed,
+				dayUsed: Date.now()
+			}));
+
+			this.storage.set("extraHours", this.extraHours)
+				.then(() => console.log("extra hours used"))
+				.catch(console.error);
+		}
+
+		return leftover;
+	}
 }
