@@ -58,7 +58,7 @@ export class HomePage implements OnInit, OnDestroy {
 			this.extraHoursObs.subscribe((result: number) => this.extraHours = result),
 			this.clockedHoursObs.subscribe((result: StateClockedHour) => {
 				this.activeClock = result.isActive;
-				this.clockedHours = result.hours;
+				this.clockedHours = [...result.hours];
 			}),
 			this.settingsObs.subscribe((result: Setting) => {
 				this.lunchDuration = result.selectedLunchDuration;
@@ -94,8 +94,6 @@ export class HomePage implements OnInit, OnDestroy {
 		this.storage.update("clockedHours", item)
 			.then(() => console.log("added hour"))
 			.catch((err) => console.log("err adding hour: ", err));
-
-		this.clockedHours.splice(0, 0, item);
 	}
 
 	async clockOut(): Promise<void> {

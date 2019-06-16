@@ -11,11 +11,12 @@ export function clockedHoursReducer(state: ClockedHour = initState, action: Acti
     switch (action.type) {
         case Actions.ADD_CLOCKED_HOUR: {
             return {
-                hours: [...state.hours, action.payload],
+                hours: [action.payload, ...state.hours],
                 isActive: true
             };
         }
 
+        case Actions.SET_CLOCKED_HOURS:
         case Actions.UPDATE_CLOCKED_HOUR: {
             return { ...action.payload };
         }

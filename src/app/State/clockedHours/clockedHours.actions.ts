@@ -3,12 +3,13 @@ import { Action } from '@ngrx/store';
 import { ClockedHour } from "./clockedHours.model";
 import { ClockedHour as ClockedHourItem } from "../../types/Hour";
 
-export const ADD_CLOCKED_HOUR = "[CLocked hours] Add clocked hour";
-export const UPDATE_CLOCKED_HOUR = "[CLocked hours] Update clocked hour";
-export const RESET_CLOCKED_HOURS = "[CLocked hours] Reset clocked hour";
+export const ADD_CLOCKED_HOUR = "[Clocked hours] Add clocked hour";
+export const SET_CLOCKED_HOURS = "[Clocked hours] Set clocked hours";
+export const UPDATE_CLOCKED_HOUR = "[Clocked hours] Update clocked hour";
+export const RESET_CLOCKED_HOURS = "[Clocked hours] Reset clocked hour";
 
 export class SetHours implements Action {
-    readonly type = ADD_CLOCKED_HOUR;
+    readonly type = SET_CLOCKED_HOURS;
     constructor(public payload: ClockedHour) { }
 }
 
