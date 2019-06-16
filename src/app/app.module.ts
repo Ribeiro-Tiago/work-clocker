@@ -16,14 +16,13 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+
 import { HomePageModule } from './pages/home/home.module';
 import { SettingsPageModule } from './pages/settings/settings.module';
+
 import { StorageService } from './services/storage/storage.service';
 
-import { settingsReducer } from "./State/settings/settings.reducer";
-
-/* import StateReducers from "./State";
-import settingsReducer from "./State/settings/reducer"; */
+import { reducers } from './State';
 
 export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoader(http);
 
@@ -43,10 +42,10 @@ export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoad
 			name: '__work-clocker__',
 			driverOrder: ['indexeddb', 'sqlite', 'websql']
 		}),
-		StoreModule.forRoot({
-			settings: settingsReducer
+		StoreModule.forRoot(reducers),
+		StoreDevtoolsModule.instrument({
+			maxAge: 25, // Retains last 25 states
 		}),
-		StoreDevtoolsModule,
 		TranslateModule.forRoot({
 			loader: {
 				provide: TranslateLoader,

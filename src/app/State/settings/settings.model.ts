@@ -6,3 +6,10 @@ export interface Setting {
     selectedLunchDuration: number;
     selectedWorkDuration: number;
 }
+
+export interface Action {
+    type: string;
+    payload?: Setting;
+}
+
+export type ActionType = "UDPATE_SETTINGS";

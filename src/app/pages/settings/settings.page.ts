@@ -1,13 +1,16 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ActionSheetController } from '@ionic/angular';
 
+import { Observable, Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+
 import configs from "./configs";
 import { ConfigOption, LegalOption } from "../../types/Config";
-import { StorageService } from 'src/app/services/storage/storage.service';
-import { Store } from '@ngrx/store';
-import { Setting } from 'src/app/State/settings/settings.model';
-import { Observable } from 'rxjs';
+import { StorageService } from '../../services/storage/storage.service';
+import { Setting } from '../../State/settings/settings.model';
+import * as SettingActions from "../../state/settings/settings.actions";
+import { AppState } from '../../State';
 
 @Component({
 	selector: 'app-settings',
@@ -15,7 +18,9 @@ import { Observable } from 'rxjs';
 	styleUrls: ['./settings.page.scss'],
 	encapsulation: ViewEncapsulation.None
 })
-export class SettingsPage implements OnInit {
+export class SettingsPage implements OnInit, OnDestroy {
+	private sub: Subscription;
+
 	dateFormats: ConfigOption[];
 	langs: ConfigOption[];
 	legalities: LegalOption[];
@@ -35,7 +40,7 @@ export class SettingsPage implements OnInit {
 		public actionSheetController: ActionSheetController,
 		private translate: TranslateService,
 		private storage: StorageService,
-		private store: Store<any>
+		private store: Store<AppState>
 	) {
 		this.dateFormats = configs.dateFormats;
 		this.langs = configs.langs;
@@ -46,33 +51,24 @@ export class SettingsPage implements OnInit {
 
 		this.settings = this.store.select("settings");
 
+		this.sub = null;
+
 		this.initInputs();
 	}
 
-	ngOnInit() {
-		this.settings.subscribe(result => {
-			console.log("sub result", result);
-
-			/* if (result) {
+	ngOnInit(): void {
+		this.sub = this.settings.subscribe(result => {
+			if (result) {
 				this.selectedDateFormat = result.selectedDateFormat;
 				this.selectedLanguage = result.selectedLanguage;
 				this.selectedLunchDuration = result.selectedLunchDuration;
 				this.selectedWorkDuration = result.selectedWorkDuration;
-			} else {
-				this.updateSettings();
-			} */
+			}
 		});
+	}
 
-		/* this.storage.get("settings")
-			.then((result) => {
-				if (result) {
-					this.selectedDateFormat = result.selectedDateFormat;
-					this.selectedLanguage = result.selectedLanguage;
-					this.selectedLunchDuration = result.selectedLunchDuration;
-					this.selectedWorkDuration = result.selectedWorkDuration;
-				}
-			})
-			.catch(console.error); */
+	ngOnDestroy(): void {
+		this.sub.unsubscribe();
 	}
 
 	onDateFormatChange(selectedId: string) {
@@ -108,15 +104,9 @@ export class SettingsPage implements OnInit {
 	resetSettings() {
 		this.storage.clear()
 			.then(async () => {
-				this.initInputs();
 				this.toggleModal();
 
-				await Promise.all([
-					this.storage.set("extraHours", 0),
-					this.storage.set("owedHours", 0)
-				]);
-
-				console.log("settings cleared");
+				this.resetApp();
 			})
 			.catch(err => console.log(err));
 	}
@@ -130,17 +120,17 @@ export class SettingsPage implements OnInit {
 	}
 
 	private updateSettings() {
-		this.storage.update("settings", {
+		const newState = {
 			selectedDateFormat: this.selectedDateFormat,
 			selectedLanguage: this.selectedLanguage,
 			selectedLunchDuration: this.selectedLunchDuration,
 			selectedWorkDuration: this.selectedWorkDuration
-		})
-			.then(async () => {
-				console.log("settings updated");
-				console.log(await this.storage.get("settings"));
+		};
 
-			})
+		this.store.dispatch(new SettingActions.Update(newState));
+
+		this.storage.set("settings", newState)
+			.then(async () => console.log("settings updated"))
 			.catch(err => console.log(err));
 	}
 
@@ -149,5 +139,10 @@ export class SettingsPage implements OnInit {
 		this.selectedLanguage = this.langs[0];
 		this.selectedLunchDuration = 60;
 		this.selectedWorkDuration = 8;
+	}
+
+	private resetApp(): void {
+		this.initInputs();
+		this.updateSettings();
 	}
 }

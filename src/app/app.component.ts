@@ -8,15 +8,8 @@ import { Store } from '@ngrx/store';
 
 import { StorageService } from './services/storage/storage.service';
 
-import * as settingActions from "./state/settings/settings.actions";
-import { Setting } from "./state/settings/settings.model";
-/* import AppState from './types/Store';
-
- */
-
-interface AppState {
-	settings: Setting;
-}
+import * as SettingActions from "./state/settings/settings.actions";
+import { AppState } from './State';
 
 @Component({
 	selector: 'app-root',
@@ -43,20 +36,18 @@ export class AppComponent implements OnInit {
 				this.storage.get("owedHours"),
 				this.storage.get("settings"),
 				this.storage.get("clockedHours"),
+				this.storage.clear(),
 			]).then(results => {
-				console.log(results);
-				if (!results[2]) {
-					return;
+				if (results[2]) {
+					const { selectedDateFormat, selectedLanguage, selectedLunchDuration, selectedWorkDuration } = results[2];
+
+					this.store.dispatch(new SettingActions.Update({
+						selectedDateFormat,
+						selectedLanguage,
+						selectedLunchDuration,
+						selectedWorkDuration
+					}));
 				}
-
-				const { selectedDateFormat, selectedLanguage, selectedLunchDuration, selectedWorkDuration } = results[2];
-
-				this.store.dispatch(new settingActions.Update({
-					selectedDateFormat,
-					selectedLanguage,
-					selectedLunchDuration,
-					selectedWorkDuration
-				}));
 			});
 		});
 	}
