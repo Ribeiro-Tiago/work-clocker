@@ -1,13 +1,42 @@
-import { Action } from "./extraHours.model";
+import { Action, ExtraHour } from "./extraHours.model";
 import * as Actions from "./extraHours.actions";
 
-export function extraHoursReducer(state: number = 0, action: Action) {
+const initState: ExtraHour = {
+    hours: 1800,
+    hoursUsed: []
+};
+
+export function extraHoursReducer(state: ExtraHour = initState, action: Action) {
     switch (action.type) {
-        case Actions.ADD_HOURS:
-            return state + action.payload;
+        case Actions.ADD_HOURS: {
+            return {
+                ...state,
+                hours: state.hours + (action.payload as number)
+            };
+        }
+
+        case Actions.SET_HOURS: {
+            return { ...action.payload as ExtraHour };
+        }
+
+        case Actions.UPDATE_HOURS: {
+            return {
+                ...state,
+                hours: action.payload
+            };
+        }
+
+        case Actions.USE_HOURS: {
+            console.log(action);
+
+            return {
+                ...state,
+                hoursUsed: [action.payload, ...state.hoursUsed]
+            };
+        }
 
         case Actions.RESET_HOURS:
-            return 0;
+            return { ...initState };
 
         default:
             return state;
