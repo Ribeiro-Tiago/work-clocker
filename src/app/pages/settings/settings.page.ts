@@ -20,6 +20,7 @@ import { AppState } from '../../State';
 })
 export class SettingsPage implements OnInit, OnDestroy {
 	private sub: Subscription;
+	private isUserUpdating: boolean;
 
 	dateFormats: ConfigOption[];
 	langs: ConfigOption[];
@@ -53,16 +54,25 @@ export class SettingsPage implements OnInit, OnDestroy {
 
 		this.sub = null;
 
+		this.isUserUpdating = false;
+
 		this.initInputs();
 	}
 
 	ngOnInit(): void {
 		this.sub = this.settings.subscribe(result => {
 			if (result) {
+				if (this.isUserUpdating) {
+					this.isUserUpdating = false;
+					return;
+				}
+
 				this.selectedDateFormat = result.selectedDateFormat;
 				this.selectedLanguage = result.selectedLanguage;
 				this.selectedLunchDuration = result.selectedLunchDuration;
 				this.selectedWorkDuration = result.selectedWorkDuration;
+
+				this.updateSettings(false);
 			}
 		});
 	}
@@ -119,7 +129,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 		// reset
 	}
 
-	private updateSettings() {
+	private updateSettings(userUpdated: boolean = true) {
 		const newState = {
 			selectedDateFormat: this.selectedDateFormat,
 			selectedLanguage: this.selectedLanguage,
@@ -127,7 +137,10 @@ export class SettingsPage implements OnInit, OnDestroy {
 			selectedWorkDuration: this.selectedWorkDuration
 		};
 
-		this.store.dispatch(new SettingActions.Update(newState));
+		if (userUpdated) {
+			this.isUserUpdating = true;
+			this.store.dispatch(new SettingActions.Update(newState));
+		}
 
 		this.storage.set("settings", newState)
 			.then(async () => console.log("settings updated"))
