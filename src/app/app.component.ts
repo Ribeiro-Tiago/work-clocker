@@ -11,6 +11,7 @@ import { StorageService } from './services/storage/storage.service';
 import { Update as UpdateSettings } from "./state/settings/settings.actions";
 import { AddHours as SetExtraHours } from "./state/extraHours/extraHours.actions";
 import { AddHours as SetOwedHours } from "./state/owedHours/owedHours.actions";
+import { SetHours as SetClockedHours } from "./state/clockedHours/clockedHours.actions";
 
 import { AppState } from './State';
 
@@ -41,9 +42,13 @@ export class AppComponent implements OnInit {
 				this.storage.get("clockedHours"),
 				// this.storage.clear(),
 			]).then(results => {
-				this.store.dispatch(new SetExtraHours(results[0] ? results[0] : 0));
+				const clockedHours = results[3];
+				const extraHours = results[0];
+				const owedHours = results[1];
 
-				this.store.dispatch(new SetOwedHours(results[1] ? results[1] : 0));
+				this.store.dispatch(new SetExtraHours(extraHours ? extraHours : 0));
+
+				this.store.dispatch(new SetOwedHours(owedHours ? owedHours : 0));
 
 				if (results[2]) {
 					const { selectedDateFormat, selectedLanguage, selectedLunchDuration, selectedWorkDuration } = results[2];
@@ -53,6 +58,13 @@ export class AppComponent implements OnInit {
 						selectedLanguage,
 						selectedLunchDuration,
 						selectedWorkDuration
+					}));
+				}
+
+				if (clockedHours) {
+					this.store.dispatch(new SetClockedHours({
+						hours: clockedHours,
+						isActive: clockedHours[0].isActive
 					}));
 				}
 			});

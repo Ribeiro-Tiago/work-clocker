@@ -1,15 +1,17 @@
 import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { Observable, Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { ClockedHour } from 'src/app/types/Hour';
-import { Observable, Subscription } from 'rxjs';
-import { Store } from '@ngrx/store';
+import { ClockedHour as StateClockedHour } from 'src/app/State/clockedHours/clockedHours.model';
 import { AppState } from 'src/app/State';
-import { OwedHours } from 'src/app/State/owedHours/owedHours.model';
 
 import { AddHours as AddExtraHours } from "../../state/extraHours/extraHours.actions";
 import { AddHours as AddOwedHours } from "../../state/owedHours/owedHours.actions";
+import * as clockedActions from "../../state/clockedHours/clockedHours.actions";
+import { Setting } from 'src/app/state/settings/settings.model';
 
 @Component({
 	selector: 'app-home',
@@ -19,13 +21,14 @@ import { AddHours as AddOwedHours } from "../../state/owedHours/owedHours.action
 })
 export class HomePage implements OnInit, OnDestroy {
 	private subs: Subscription[];
+	private owedHoursObs: Observable<number>;
+	private extraHoursObs: Observable<number>;
+	private clockedHoursObs: Observable<StateClockedHour>;
+	private settingsObs: Observable<Setting>;
 
 	lunchDuration: number;
 	workDuration: number;
 	dateFormat: string;
-
-	owedHoursObs: Observable<number>;
-	extraHoursObs: Observable<number>;
 
 	clockedHours: ClockedHour[];
 	owedHours: number;
@@ -34,61 +37,35 @@ export class HomePage implements OnInit, OnDestroy {
 	selectedItemIndex: number;
 
 	isLoading: boolean;
-	onGoingClock: boolean;
+	activeClock: boolean;
 	isModalVisible: boolean;
 
 	constructor(private storage: StorageService, private sanitizer: DomSanitizer, private store: Store<AppState>) {
 		this.owedHoursObs = store.select("owedHours");
 		this.extraHoursObs = store.select("extraHours");
+		this.clockedHoursObs = store.select("clockedHours");
+		this.settingsObs = store.select("settings");
+
 		this.isLoading = true;
-		this.clockedHours = [];
-		this.lunchDuration = 60;
-		this.workDuration = 8;
 		this.selectedDay = -1;
-		this.onGoingClock = false;
 		this.isModalVisible = false;
-		this.dateFormat = "dd/mm/yyyy";
 		this.selectedItemIndex = -1;
 	}
 
 	ngOnInit(): void {
 		this.subs = [
-			this.owedHoursObs.subscribe((result) => this.owedHours = result),
-			this.extraHoursObs.subscribe((result) => this.extraHours = result),
-		];
-
-		/* // this.storage.clear().catch(console.log);
-
-		Promise.all([
-			this.storage.get("owedHours"),
-			this.storage.get("extraHours"),
-			this.storage.get("settings"),
-			this.storage.get("clockedHours"),
-			// this.storage.delete("clockedHours"),
-		])
-			.then((result) => {
-				this.owedHours = parseInt(result[0]) | 0;
-				this.extraHours = parseInt(result[1]) | 0;
-				const settings = result[2];
-				const clockedHours = result[3];
-
-				if (settings) {
-					const { lunchDuration, workDuration, dateFormat } = settings;
-
-					this.lunchDuration = lunchDuration;
-					this.workDuration = workDuration;
-					this.dateFormat = dateFormat;
-				}
-
-				if (clockedHours) {
-					console.log(clockedHours);
-					this.clockedHours = clockedHours;
-					this.onGoingClock = clockedHours[0].onGoing;
-				}
-
-				this.isLoading = false;
+			this.owedHoursObs.subscribe((result: number) => this.owedHours = result),
+			this.extraHoursObs.subscribe((result: number) => this.extraHours = result),
+			this.clockedHoursObs.subscribe((result: StateClockedHour) => {
+				this.activeClock = result.isActive;
+				this.clockedHours = result.hours;
+			}),
+			this.settingsObs.subscribe((result: Setting) => {
+				this.lunchDuration = result.selectedLunchDuration;
+				this.workDuration = result.selectedWorkDuration;
+				this.dateFormat = result.selectedDateFormat.key;
 			})
-			.catch(console.error); */
+		];
 	}
 
 	ngOnDestroy(): void {
@@ -96,7 +73,7 @@ export class HomePage implements OnInit, OnDestroy {
 	}
 
 	onBtnPress(): void {
-		if (this.onGoingClock) {
+		if (this.activeClock) {
 			this.clockOut();
 		} else {
 			this.clockIn();
@@ -108,10 +85,11 @@ export class HomePage implements OnInit, OnDestroy {
 		const item: ClockedHour = {
 			day: d.getTime(),
 			startHour: d.getTime(),
-			onGoing: true,
+			isActive: true,
 			lunchDuration: this.lunchDuration
 		};
-		this.onGoingClock = true;
+
+		this.store.dispatch(new clockedActions.AddHour(item));
 
 		this.storage.update("clockedHours", item)
 			.then(() => console.log("added hour"))
@@ -132,25 +110,32 @@ export class HomePage implements OnInit, OnDestroy {
 
 		currItem.endHour = d;
 		currItem.timeWorked = timeWorked;
-		currItem.onGoing = false;
+		currItem.isActive = false;
 
 		/* worked less hours than expected, is now owing hours */
 		if (timeWorkedDiff < 0) {
-			this.store.dispatch(new AddOwedHours((timeWorkedDiff * -1) - timeWorked));
+			const owedHours = (timeWorkedDiff * -1) - timeWorked;
 
-			await this.storage.update("owedHours", this.owedHours);
-			console.log("owed hours updated: ", this.owedHours);
+			this.store.dispatch(new AddOwedHours(owedHours));
+
+			this.storage.update("owedHours", this.owedHours + owedHours)
+				.then(() => console.log("owed hours updated: ", this.owedHours))
+				.catch(console.error);
 		} else if (timeWorkedDiff > 0) { /* worked more hours than expected, now has extra hours */
+			this.extraHours += timeWorked;
+
 			this.store.dispatch(new AddExtraHours(timeWorked));
 
-			await this.storage.update("extraHours", this.extraHours);
-			console.log("extra hours updated: ", this.extraHours);
+			this.storage.update("extraHours", this.extraHours)
+				.then(() => console.log("extra hours updated: ", this.extraHours))
+				.catch(console.error);
 		}
 
-		await this.storage.set("clockedHours", this.clockedHours);
-		console.log("updated hour");
+		this.store.dispatch(new clockedActions.UpdateHours({ hours: this.clockedHours, isActive: false }));
 
-		this.onGoingClock = false;
+		this.storage.set("clockedHours", this.clockedHours)
+			.then(() => console.log("updated hour"))
+			.catch(console.error);
 	}
 
 	toggleLunchUpdate(index = -1): void {
@@ -160,6 +145,8 @@ export class HomePage implements OnInit, OnDestroy {
 
 	updateLunchTime({ duration, index }): void {
 		this.clockedHours[index].lunchDuration = duration;
+
+		this.store.dispatch(new clockedActions.UpdateHours({ hours: this.clockedHours, isActive: this.activeClock }));
 
 		this.storage.set("clockedHours", this.clockedHours)
 			.then(() => console.log("updated hour"))
