@@ -51,7 +51,9 @@
 	"spentHours": {
 		"title": "Hours spent",
 		"desc": "Here you can see extra and owed hours that were used to compensate the other",
-		"usedExtra": "You used {{ hours }} of your extra hours.",
-		"usedOwed": "You repaid {{ hours }} of your owed hours."
+		"usedHours": "You used <b>{{hours}}</b> of your extra hours to repay owed hours.",
+		"hadHours": "You had <u>{{hours}}</u> hours",
+		"nowHave": "Now you have <u>{{hours}}</u> hours",
+		"noItems": "You haven’t used any extra hours.<br/><br/>This is either because you don't do extra hours, or you never owed any hours"
 	}
 }

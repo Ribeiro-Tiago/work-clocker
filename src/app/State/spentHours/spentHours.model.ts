@@ -8,7 +8,6 @@ export interface SpentHour {
     day: number;
     prevHours: number;
     afterHours: number;
-    isExtraHours: boolean;
 }
 
 export type ActionType = "ADD_HOUR" | "SPENT_HOURS" | "RESET_HOURS";

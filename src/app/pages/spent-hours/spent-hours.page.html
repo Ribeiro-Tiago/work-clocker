@@ -7,23 +7,22 @@
 </ion-header>
 
 <ion-content class="list-wrapper">
-	<h3 class="header-title"></h3>
-
 	<p class="header-description">{{ "spentHours.desc" | translate }}</p>
 
+	<h3 *ngIf="!hours.length" [innerHTML]="sanitizeString('spentHours.noItems' | translate)"></h3>
+
 	<div class="item" *ngFor="let item of hours | async">
-		{{ item | json}}
+		<span
+			[innerHTML]="sanitizeString('spentHours.usedHours' | translate | convertTime: { destType: 'hours', payload: item.hours, replace: 'hours'})"></span>
 
-		<p>
+		<span
+			[innerHTML]="sanitizeString('spentHours.hadHours' | translate | convertTime: { destType: 'hours', payload: item.prevHours, replace: 'hours'})"></span>
+
+		<span
+			[innerHTML]="sanitizeString('spentHours.nowHave' | translate | convertTime: { destType: 'hours', payload: item.afterHours, replace: 'hours'})"></span>
+
+		<span class="date">
 			{{ "listItem.listDay" | translate | convertTime: { destType: "day", payload: item.day, replace: "day", format: dateFormat } }}
-		</p>
-
-		<p *ngIf="item.isSpending && item.isExtraHours">
-			{{ "spentHours.usedExtra" | translate  }}
-		</p>
-
-		<p *ngIf="item.isSpending && !item.isExtraHours">
-			{{ "spentHours.usedOwed" | translate  }}
-		</p>
+		</span>
 	</div>
 </ion-content>

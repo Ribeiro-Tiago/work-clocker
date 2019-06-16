@@ -11,6 +11,11 @@
 @import '~@ionic/angular/css/flex-utils.css';
 @import "./theme/variables.scss";
 
+span,
+p {
+	font-size: 2vh;
+}
+
 ion-toolbar {
 	color: $whiteTextColor !important;
 	background-color: $primaryColor !important;
@@ -110,6 +115,7 @@ ion-toolbar {
 		flex-direction: column;
 		justify-content: space-around;
 		background-color: $secondaryColor;
+		border-bottom: .1vh solid #000;
 
 		&:nth-child(even) {
 			background-color: $whiteBgColor;

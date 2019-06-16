@@ -185,7 +185,6 @@ export class HomePage implements OnInit, OnDestroy {
 				day: Date.now(),
 				prevHours: currExtraHours,
 				afterHours: this.extraHours.hours,
-				isExtraHours: false
 			}));
 
 			this.storage.set("extraHours", this.extraHours)

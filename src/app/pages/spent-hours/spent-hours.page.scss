@@ -1,0 +1,39 @@
+@import "../../../theme/variables.scss";
+
+app-spent-hours {
+	h3 {
+		font-size: 3vh;
+		text-align: center;
+		top: 50%;
+		transform: translate(-50%, -80%);
+		position: absolute;
+		display: block;
+		color: $darkTextColor;
+		left: 50%;
+		width: 70%;
+	}
+
+	.list-wrapper {
+		.header-description {
+			padding: 2vh;
+			background: $secondaryColor;
+			text-align: center;
+			margin: 0;
+			box-shadow: 0 2px 1px 1px #c6c6c6;
+			z-index: 999999;
+			margin-bottom: .5vh;
+			font-weight: bold;
+			color: $lightTextColor;
+		}
+
+		.item {
+			height: 17vh;
+			padding: 1vh;
+
+			.date {
+				display: flex;
+				justify-content: flex-end;
+			}
+		}
+	}
+}
