@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+
 import { SpentHour } from "./spentHours.model";
 
 export const SET_HOURS = "[Hours spent] Set hours";

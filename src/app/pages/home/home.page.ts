@@ -181,8 +181,8 @@ export class HomePage implements OnInit, OnDestroy {
 			}
 
 			this.store.dispatch(new AddSpentHour({
-				hoursUsed,
-				dayUsed: Date.now(),
+				hours: hoursUsed,
+				day: Date.now(),
 				prevHours: currExtraHours,
 				afterHours: this.extraHours.hours,
 				isExtraHours: false

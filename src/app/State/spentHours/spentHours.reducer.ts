@@ -1,7 +1,21 @@
 import { Action, SpentHour } from "./spentHours.model";
 import * as Actions from "./spentHours.actions";
 
-export function spentHoursReducer(state: SpentHour[] = [], action: Action) {
+const initState = [{
+    hours: 120,
+    day: Date.now(),
+    prevHours: 240,
+    afterHours: 120,
+    isExtraHours: false
+}, {
+    hours: 60,
+    day: Date.now(),
+    prevHours: 90,
+    afterHours: 30,
+    isExtraHours: true
+}];
+
+export function spentHoursReducer(state: SpentHour[] = initState, action: Action) {
     switch (action.type) {
         case Actions.ADD_HOUR: {
             return [action.payload, ...state];
@@ -12,7 +26,7 @@ export function spentHoursReducer(state: SpentHour[] = [], action: Action) {
         }
 
         case Actions.RESET_HOURS:
-            return [];
+            return [...initState];
 
         default:
             return state;

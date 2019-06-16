@@ -21,6 +21,7 @@
 	},
 
 	"settings": {
+		"title": "Settings",
 		"appSettings": "Application Settings",
 		"about": "About",
 		"dateFormat": "Date format",
@@ -45,5 +46,12 @@
 		"confirm": "Confirm",
 		"update": "Update",
 		"cancel": "Cancel"
+	},
+
+	"spentHours": {
+		"title": "Hours spent",
+		"desc": "Here you can see extra and owed hours that were used to compensate the other",
+		"usedExtra": "You used {{ hours }} of your extra hours.",
+		"usedOwed": "You repaid {{ hours }} of your owed hours."
 	}
 }

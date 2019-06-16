@@ -59,6 +59,7 @@ export class AppComponent implements OnInit {
 				}
 
 				if (spentHours) {
+					console.log(spentHours);
 					this.store.dispatch(new SetSpentHours(spentHours));
 				}
 

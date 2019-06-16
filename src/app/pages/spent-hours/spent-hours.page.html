@@ -1,0 +1,29 @@
+<ion-header>
+	<ion-toolbar color="primary">
+		<ion-back-button slot="start"></ion-back-button>
+
+		<ion-title>{{ "spentHours.title" | translate }}</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content class="list-wrapper">
+	<h3 class="header-title"></h3>
+
+	<p class="header-description">{{ "spentHours.desc" | translate }}</p>
+
+	<div class="item" *ngFor="let item of hours | async">
+		{{ item | json}}
+
+		<p>
+			{{ "listItem.listDay" | translate | convertTime: { destType: "day", payload: item.day, replace: "day", format: dateFormat } }}
+		</p>
+
+		<p *ngIf="item.isSpending && item.isExtraHours">
+			{{ "spentHours.usedExtra" | translate  }}
+		</p>
+
+		<p *ngIf="item.isSpending && !item.isExtraHours">
+			{{ "spentHours.usedOwed" | translate  }}
+		</p>
+	</div>
+</ion-content>

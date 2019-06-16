@@ -18,6 +18,7 @@ import { Update as UpdateSettings } from "../../state/settings/settings.actions"
 import { ResetHours as ResetExtraHours } from "../../state/extraHours/extraHours.actions";
 import { ResetHours as ResetOwedHours } from "../../state/owedHours/owedHours.actions";
 import { ResetHours as ResetClockedHours } from "../../state/clockedHours/clockedHours.actions";
+import { ResetHours as ResetSpentHours } from "../../state/spentHours/spentHours.actions";
 
 @Component({
 	selector: 'app-settings',
@@ -173,6 +174,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 
 		this.store.dispatch(new ResetExtraHours());
 		this.store.dispatch(new ResetOwedHours());
+		this.store.dispatch(new ResetSpentHours());
 
 		this.store.dispatch(new ResetClockedHours());
 

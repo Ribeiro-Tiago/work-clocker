@@ -35,8 +35,9 @@
 			<h3 *ngIf="!clockedHours.length" [innerHTML]="sanitizeString('listItem.noItems' | translate)">
 			</h3>
 
-			<app-list-item *ngFor="let item of clockedHours; let i = index" [item]="item" [dateFormat]="dateFormat"
-				[lunchDuration]="lunchDuration" [workDuration]="workDuration" (onClick)="toggleLunchUpdate(i);">
+			<app-list-item class="list-wrapper" *ngFor="let item of clockedHours; let i = index" [item]="item"
+				[dateFormat]="dateFormat" [lunchDuration]="lunchDuration" [workDuration]="workDuration"
+				(onClick)="toggleLunchUpdate(i);">
 			</app-list-item>
 		</div>
 	</div>

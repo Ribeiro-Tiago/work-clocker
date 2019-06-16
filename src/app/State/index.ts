@@ -10,12 +10,16 @@ import { owedHoursReducer } from './owedHours/owedHours.reducer';
 import { ClockedHour } from './clockedHours/clockedHours.model';
 import { clockedHoursReducer } from './clockedHours/clockedHours.reducer';
 
+import { SpentHour } from './spentHours/spentHours.model';
+import { spentHoursReducer } from './spentHours/spentHours.reducer';
+
 
 export interface AppState {
     readonly settings: Setting;
     readonly extraHours: ExtraHour;
     readonly owedHours: OwedHour;
     readonly clockedHours: ClockedHour;
+    readonly spentHours: SpentHour;
 }
 
 export const reducers = {
@@ -23,4 +27,5 @@ export const reducers = {
     extraHours: extraHoursReducer,
     owedHours: owedHoursReducer,
     clockedHours: clockedHoursReducer,
+    spentHours: spentHoursReducer,
 };

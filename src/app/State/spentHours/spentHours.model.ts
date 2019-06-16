@@ -4,8 +4,8 @@ export interface Action {
 }
 
 export interface SpentHour {
-    hoursUsed: number;
-    dayUsed: number;
+    hours: number;
+    day: number;
     prevHours: number;
     afterHours: number;
     isExtraHours: boolean;
