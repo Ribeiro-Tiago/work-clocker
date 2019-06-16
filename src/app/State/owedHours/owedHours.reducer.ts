@@ -1,17 +1,13 @@
-import { OwedHours, Action } from "./owedHours.model";
+import { Action } from "./owedHours.model";
 import * as Actions from "./owedHours.actions";
 
-const defaultState: OwedHours = {
-    owedHours: 0
-};
-
-export function owedHoursReducer(state: OwedHours = defaultState, action: Action) {
+export function owedHoursReducer(state: number = 0, action: Action) {
     switch (action.type) {
         case Actions.ADD_HOURS:
-            return { owedHours: state.owedHours + action.payload };
+            return state + action.payload;
 
         case Actions.RESET_HOURS:
-            return { ...defaultState };
+            return 0;
 
         default:
             return state;

@@ -1,10 +1,15 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { of, Subscription } from "rxjs";
 
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { ClockedHour } from 'src/app/types/Hour';
+import { Observable, Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/State';
+import { OwedHours } from 'src/app/State/owedHours/owedHours.model';
 
+import { AddHours as AddExtraHours } from "../../state/extraHours/extraHours.actions";
+import { AddHours as AddOwedHours } from "../../state/owedHours/owedHours.actions";
 
 @Component({
 	selector: 'app-home',
@@ -12,10 +17,15 @@ import { ClockedHour } from 'src/app/types/Hour';
 	styleUrls: ['home.page.scss'],
 	encapsulation: ViewEncapsulation.None
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, OnDestroy {
+	private subs: Subscription[];
+
 	lunchDuration: number;
 	workDuration: number;
 	dateFormat: string;
+
+	owedHoursObs: Observable<number>;
+	extraHoursObs: Observable<number>;
 
 	clockedHours: ClockedHour[];
 	owedHours: number;
@@ -27,9 +37,9 @@ export class HomePage implements OnInit {
 	onGoingClock: boolean;
 	isModalVisible: boolean;
 
-	constructor(private storage: StorageService, private sanitizer: DomSanitizer) {
-		this.owedHours = 0;
-		this.extraHours = 0;
+	constructor(private storage: StorageService, private sanitizer: DomSanitizer, private store: Store<AppState>) {
+		this.owedHoursObs = store.select("owedHours");
+		this.extraHoursObs = store.select("extraHours");
 		this.isLoading = true;
 		this.clockedHours = [];
 		this.lunchDuration = 60;
@@ -42,7 +52,12 @@ export class HomePage implements OnInit {
 	}
 
 	ngOnInit(): void {
-		// this.storage.clear().catch(console.log);
+		this.subs = [
+			this.owedHoursObs.subscribe((result) => this.owedHours = result),
+			this.extraHoursObs.subscribe((result) => this.extraHours = result),
+		];
+
+		/* // this.storage.clear().catch(console.log);
 
 		Promise.all([
 			this.storage.get("owedHours"),
@@ -73,7 +88,11 @@ export class HomePage implements OnInit {
 
 				this.isLoading = false;
 			})
-			.catch(console.error);
+			.catch(console.error); */
+	}
+
+	ngOnDestroy(): void {
+		this.subs.forEach(sub => sub.unsubscribe());
 	}
 
 	onBtnPress(): void {
@@ -117,12 +136,12 @@ export class HomePage implements OnInit {
 
 		/* worked less hours than expected, is now owing hours */
 		if (timeWorkedDiff < 0) {
-			this.owedHours += (timeWorkedDiff * -1) - timeWorked;
+			this.store.dispatch(new AddOwedHours((timeWorkedDiff * -1) - timeWorked));
 
 			await this.storage.update("owedHours", this.owedHours);
 			console.log("owed hours updated: ", this.owedHours);
 		} else if (timeWorkedDiff > 0) { /* worked more hours than expected, now has extra hours */
-			this.extraHours += timeWorked;
+			this.store.dispatch(new AddExtraHours(timeWorked));
 
 			await this.storage.update("extraHours", this.extraHours);
 			console.log("extra hours updated: ", this.extraHours);

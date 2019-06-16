@@ -1,7 +1,3 @@
-export interface OwedHours {
-    owedHours: number;
-}
-
 export interface Action {
     type: string;
     payload?: number;

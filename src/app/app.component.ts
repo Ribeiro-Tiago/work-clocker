@@ -43,7 +43,7 @@ export class AppComponent implements OnInit {
 			]).then(results => {
 				this.store.dispatch(new SetExtraHours(results[0] ? results[0] : 0));
 
-				this.store.dispatch(new SetExtraHours(results[1] ? results[1] : 0));
+				this.store.dispatch(new SetOwedHours(results[1] ? results[1] : 0));
 
 				if (results[2]) {
 					const { selectedDateFormat, selectedLanguage, selectedLunchDuration, selectedWorkDuration } = results[2];

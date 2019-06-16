@@ -10,8 +10,8 @@ import { owedHoursReducer } from './owedHours/owedHours.reducer';
 
 export interface AppState {
     readonly settings: Setting;
-    readonly extraHours: ExtraHours;
-    readonly owedHours: OwedHours;
+    readonly extraHours: number;
+    readonly owedHours: number;
 }
 
 export const reducers = {
