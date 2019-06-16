@@ -46,9 +46,9 @@ export class AppComponent implements OnInit {
 			]).then(results => {
 				const extraHours = results[0];
 				const owedHours = results[1];
-				const spentHours = results[1];
-				const settings = results[2];
-				const clockedHours = results[3];
+				const spentHours = results[2];
+				const settings = results[3];
+				const clockedHours = results[4];
 
 				if (extraHours) {
 					this.store.dispatch(new SetExtraHours(extraHours));
