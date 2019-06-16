@@ -8,7 +8,10 @@ import { Store } from '@ngrx/store';
 
 import { StorageService } from './services/storage/storage.service';
 
-import * as SettingActions from "./state/settings/settings.actions";
+import { Update as UpdateSettings } from "./state/settings/settings.actions";
+import { AddHours as SetExtraHours } from "./state/extraHours/extraHours.actions";
+import { AddHours as SetOwedHours } from "./state/owedHours/owedHours.actions";
+
 import { AppState } from './State';
 
 @Component({
@@ -36,12 +39,16 @@ export class AppComponent implements OnInit {
 				this.storage.get("owedHours"),
 				this.storage.get("settings"),
 				this.storage.get("clockedHours"),
-				this.storage.clear(),
+				// this.storage.clear(),
 			]).then(results => {
+				this.store.dispatch(new SetExtraHours(results[0] ? results[0] : 0));
+
+				this.store.dispatch(new SetExtraHours(results[1] ? results[1] : 0));
+
 				if (results[2]) {
 					const { selectedDateFormat, selectedLanguage, selectedLunchDuration, selectedWorkDuration } = results[2];
 
-					this.store.dispatch(new SettingActions.Update({
+					this.store.dispatch(new UpdateSettings({
 						selectedDateFormat,
 						selectedLanguage,
 						selectedLunchDuration,

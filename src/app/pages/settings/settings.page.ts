@@ -20,7 +20,7 @@ import { AppState } from '../../State';
 })
 export class SettingsPage implements OnInit, OnDestroy {
 	private sub: Subscription;
-	private isUserUpdating: boolean;
+	private isResetting: boolean;
 
 	dateFormats: ConfigOption[];
 	langs: ConfigOption[];
@@ -54,7 +54,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 
 		this.sub = null;
 
-		this.isUserUpdating = false;
+		this.isResetting = false;
 
 		this.initInputs();
 	}
@@ -62,17 +62,10 @@ export class SettingsPage implements OnInit, OnDestroy {
 	ngOnInit(): void {
 		this.sub = this.settings.subscribe(result => {
 			if (result) {
-				if (this.isUserUpdating) {
-					this.isUserUpdating = false;
-					return;
-				}
-
 				this.selectedDateFormat = result.selectedDateFormat;
 				this.selectedLanguage = result.selectedLanguage;
 				this.selectedLunchDuration = result.selectedLunchDuration;
 				this.selectedWorkDuration = result.selectedWorkDuration;
-
-				this.updateSettings(false);
 			}
 		});
 	}
@@ -82,24 +75,40 @@ export class SettingsPage implements OnInit, OnDestroy {
 	}
 
 	onDateFormatChange(selectedId: string) {
+		if (this.isResetting) {
+			return;
+		}
+
 		this.selectedDateFormat = this.dateFormats.find(f => f.key === selectedId);
 
 		this.updateSettings();
 	}
 
 	onLangChange(selectedId: string) {
+		if (this.isResetting) {
+			return;
+		}
+
 		this.selectedLanguage = this.langs.find(l => l.key === selectedId);
 		this.translate.setDefaultLang(selectedId);
 		this.updateSettings();
 	}
 
 	onLunchChange(minute: number) {
+		if (this.isResetting) {
+			return;
+		}
+
 		this.selectedLunchDuration = minute;
 
 		this.updateSettings();
 	}
 
 	onWorkChange(hour: number) {
+		if (this.isResetting) {
+			return;
+		}
+
 		this.selectedWorkDuration = hour;
 
 		this.updateSettings();
@@ -115,7 +124,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 		this.storage.clear()
 			.then(async () => {
 				this.toggleModal();
-
+				this.isResetting = true;
 				this.resetApp();
 			})
 			.catch(err => console.log(err));
@@ -129,7 +138,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 		// reset
 	}
 
-	private updateSettings(userUpdated: boolean = true) {
+	private updateSettings() {
 		const newState = {
 			selectedDateFormat: this.selectedDateFormat,
 			selectedLanguage: this.selectedLanguage,
@@ -137,10 +146,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 			selectedWorkDuration: this.selectedWorkDuration
 		};
 
-		if (userUpdated) {
-			this.isUserUpdating = true;
-			this.store.dispatch(new SettingActions.Update(newState));
-		}
+		this.store.dispatch(new SettingActions.Update(newState));
 
 		this.storage.set("settings", newState)
 			.then(async () => console.log("settings updated"))
@@ -157,5 +163,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 	private resetApp(): void {
 		this.initInputs();
 		this.updateSettings();
+
+		setTimeout(() => this.isResetting = false, 500);
 	}
 }
