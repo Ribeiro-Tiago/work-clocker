@@ -197,9 +197,6 @@ export class HomePage implements OnInit, OnDestroy {
 		return leftover;
 	}
 
-	/**
-	 * TODO: finish this
-	 */
 	private payOwedHours(extraWorked: number): number {
 		extraWorked = 1800;
 

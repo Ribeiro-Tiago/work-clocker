@@ -6,7 +6,11 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateService } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
 
+import { AdMob } from "@admob-plus/ionic";
+
 import { StorageService } from './services/storage/storage.service';
+
+import { environment } from 'src/environments/environment';
 
 import { Update as UpdateSettings } from "./state/settings/settings.actions";
 import { SetHours as SetExtraHours } from "./state/extraHours/extraHours.actions";
@@ -27,7 +31,8 @@ export class AppComponent implements OnInit {
 		private statusBar: StatusBar,
 		private translate: TranslateService,
 		private storage: StorageService,
-		private store: Store<AppState>
+		private store: Store<AppState>,
+		private admob: AdMob
 	) { }
 
 	ngOnInit() {
@@ -35,6 +40,8 @@ export class AppComponent implements OnInit {
 			this.statusBar.styleDefault();
 			this.splashScreen.hide();
 			this.translate.setDefaultLang("en_US");
+
+			this.setupAd();
 
 			Promise.all([
 				this.storage.get("extraHours"),
@@ -82,5 +89,13 @@ export class AppComponent implements OnInit {
 				}
 			});
 		});
+	}
+
+	setupAd() {
+		const id = (this.platform.is('android'))
+			? environment.adId.android
+			: environment.adId.ios;
+
+		this.admob.banner.show({ id, position: "bottom" });
 	}
 }

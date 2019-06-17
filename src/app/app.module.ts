@@ -14,6 +14,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { StoreModule } from "@ngrx/store";
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
+import { AdMob } from "@admob-plus/ionic";
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -58,6 +60,7 @@ export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoad
 		StatusBar,
 		SplashScreen,
 		StorageService,
+		AdMob,
 		IonicStorageModule,
 		{
 			provide: RouteReuseStrategy,
