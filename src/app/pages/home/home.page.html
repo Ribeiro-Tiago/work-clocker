@@ -37,7 +37,7 @@
 
 			<app-list-item class="list-wrapper" *ngFor="let item of clockedHours; let i = index" [item]="item"
 				[dateFormat]="dateFormat" [lunchDuration]="lunchDuration" [workDuration]="workDuration"
-				(onClick)="toggleLunchUpdate(i);">
+				(onClick)="toggleLunchUpdate($event);">
 			</app-list-item>
 		</div>
 	</div>

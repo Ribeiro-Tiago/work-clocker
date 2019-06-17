@@ -24,7 +24,7 @@ export class StorageService {
 	async update(key: StorageKey, data: any): Promise<any> {
 		const items = await this.get(key) as Array<any> || [];
 
-		return this.set(key, [...items, data]);
+		return this.set(key, [data, ...items]);
 	}
 
 	delete(key: StorageKey): Promise<any> {

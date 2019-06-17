@@ -14,9 +14,9 @@ export class ListItemComponent {
 	@Input() lunchDuration: number;
 	@Input() workDuration: number;
 
-	@Output() onClick = new EventEmitter<void>();
+	@Output() onClick = new EventEmitter<boolean>();
 
 	triggerOnClick() {
-		this.onClick.emit();
+		this.onClick.emit(this.item.isActive);
 	}
 }

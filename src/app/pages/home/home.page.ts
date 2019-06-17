@@ -37,8 +37,6 @@ export class HomePage implements OnInit, OnDestroy {
 	clockedHours: ClockedHour[];
 	owedHours: OwedHour;
 	extraHours: ExtraHour;
-	selectedDay?: number;
-	selectedItemIndex: number;
 
 	isLoading: boolean;
 	activeClock: boolean;
@@ -51,9 +49,7 @@ export class HomePage implements OnInit, OnDestroy {
 		this.settingsObs = store.select("settings");
 
 		this.isLoading = true;
-		this.selectedDay = -1;
 		this.isModalVisible = false;
-		this.selectedItemIndex = -1;
 	}
 
 	ngOnInit(): void {
@@ -106,7 +102,7 @@ export class HomePage implements OnInit, OnDestroy {
 		let timeWorked = (d - currItem.startHour) / 1000;
 		const hoursWorked = Math.abs(Math.floor(timeWorked / 3600));
 		const minutesWorked = Math.abs(Math.floor((timeWorked % 3600) / 60));
-		const timeWorkedDiff = (hoursWorked - this.workDuration) * 60;
+		const timeWorkedDiff = (hoursWorked - this.workDuration);
 
 		timeWorked = (hoursWorked * 60) + minutesWorked;
 
@@ -116,7 +112,7 @@ export class HomePage implements OnInit, OnDestroy {
 
 		if (timeWorkedDiff < 0) {
 			/* worked less hours than expected, use extra hours / check how many hours owed now */
-			const owedHours = this.useExtraHours((timeWorkedDiff * -1) - timeWorked);
+			const owedHours = this.useExtraHours(Math.abs(timeWorkedDiff) * 60 - timeWorked);
 
 			if (owedHours > 0) {
 				this.store.dispatch(new owedHoursActions.AddHours(owedHours));
@@ -127,7 +123,9 @@ export class HomePage implements OnInit, OnDestroy {
 			}
 		} else if (timeWorkedDiff > 0) {
 			/* worked more hours than expected, use for owed hours / check how many extra hours */
-			this.store.dispatch(new extraHoursActions.AddHours(timeWorked));
+			const extraHOurs = this.payOwedHours(timeWorkedDiff * 60);
+
+			this.store.dispatch(new extraHoursActions.AddHours(extraHOurs));
 
 			this.storage.set("extraHours", this.extraHours)
 				.then(() => console.log("extra hours updated: ", this.extraHours.hours))
@@ -141,18 +139,22 @@ export class HomePage implements OnInit, OnDestroy {
 			.catch(console.error);
 	}
 
-	toggleLunchUpdate(index = -1): void {
-		this.isModalVisible = !this.isModalVisible;
-		this.selectedItemIndex = index;
+	toggleLunchUpdate(canUpdate: boolean = true): void {
+		if (canUpdate) {
+			this.isModalVisible = !this.isModalVisible;
+		}
 	}
 
-	updateLunchTime({ duration, index }): void {
-		this.clockedHours[index].lunchDuration = duration;
+	updateLunchTime(duration: number): void {
+		this.clockedHours[0].lunchDuration = duration;
 
-		this.store.dispatch(new clockedActions.UpdateHours({ hours: this.clockedHours, isActive: this.activeClock }));
+		this.store.dispatch(new clockedActions.UpdateHours({
+			hours: this.clockedHours,
+			isActive: this.activeClock
+		}));
 
 		this.storage.set("clockedHours", this.clockedHours)
-			.then(() => console.log("updated hour"))
+			.then(() => console.log("updated lunch hour"))
 			.catch((err) => console.log("err updating hour: ", err));
 
 		this.toggleLunchUpdate();
@@ -188,6 +190,49 @@ export class HomePage implements OnInit, OnDestroy {
 			}));
 
 			this.storage.set("extraHours", this.extraHours)
+				.then(() => console.log("extra hours used"))
+				.catch(console.error);
+		}
+
+		return leftover;
+	}
+
+	/**
+	 * TODO: finish this
+	 */
+	private payOwedHours(extraWorked: number): number {
+		extraWorked = 1800;
+
+		const currOwedHours = this.owedHours.hours;
+		let leftover = extraWorked;
+
+		if (currOwedHours > 0) {
+			/* ver se as horas extra cobrem as owed */
+			const extraHours = currOwedHours - extraWorked;
+			let hoursUsed = 0;
+
+			/* se não */
+			if (extraHours > 0) {
+				leftover = 0;
+				hoursUsed = extraWorked;
+
+				this.store.dispatch(new extraHoursActions.ResetHours());
+				this.store.dispatch(new owedHoursActions.UpdateHours(Math.abs(Math.floor(extraHours))));
+			} else {
+				leftover = Math.abs(extraHours);
+				hoursUsed = currOwedHours;
+
+				this.store.dispatch(new owedHoursActions.ResetHours());
+			}
+
+			this.store.dispatch(new AddSpentHour({
+				hours: hoursUsed,
+				day: Date.now(),
+				prevHours: currOwedHours,
+				afterHours: this.extraHours.hours,
+			}));
+
+			this.storage.set("owedHours", this.owedHours)
 				.then(() => console.log("extra hours used"))
 				.catch(console.error);
 		}

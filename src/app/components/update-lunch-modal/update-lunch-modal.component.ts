@@ -13,7 +13,7 @@ export class UpdateLunchModalComponent implements OnInit {
 	@Input() currDuration: number;
 
 	@Output() onCancel: EventEmitter<void>;
-	@Output() onSubmit: EventEmitter<{ duration: number, index: number }>;
+	@Output() onSubmit: EventEmitter<number>;
 
 	selectedDuration: number;
 	lunchDurations: number[];
@@ -32,7 +32,7 @@ export class UpdateLunchModalComponent implements OnInit {
 	}
 
 	triggerSubmit() {
-		this.onSubmit.emit({ duration: this.selectedDuration, index: this.index });
+		this.onSubmit.emit(this.selectedDuration);
 	}
 
 	triggerCancel() {

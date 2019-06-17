@@ -2,7 +2,7 @@ import { Action, ExtraHour } from "./extraHours.model";
 import * as Actions from "./extraHours.actions";
 
 const initState: ExtraHour = {
-    hours: 1800,
+    hours: 0,
     hoursUsed: []
 };
 
@@ -27,8 +27,6 @@ export function extraHoursReducer(state: ExtraHour = initState, action: Action) 
         }
 
         case Actions.USE_HOURS: {
-            console.log(action);
-
             return {
                 ...state,
                 hoursUsed: [action.payload, ...state.hoursUsed]
