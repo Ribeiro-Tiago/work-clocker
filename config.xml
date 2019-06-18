@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.work-clocker" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.workclocker" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Work Clocker</name>
     <description>A "card punch" app to allow workers to better manage their time to avoid working more than the 8 hours they need to. Among other things, tells you when you can leave, taking into account the starting time, lunch duration and duration of a regular work day</description>
     <author email="tiagoribeiro.1803@gmail.com" href="https://www.linkedin.com/in/ribeiro-tiago/">Tiago Ribeiro</author>

@@ -6,7 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateService } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
 
-import { AdMob } from "@admob-plus/ionic";
+import { AdMobFree } from '@ionic-native/admob-free/ngx';
 
 import { StorageService } from './services/storage/storage.service';
 
@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
 		private translate: TranslateService,
 		private storage: StorageService,
 		private store: Store<AppState>,
-		private admob: AdMob
+		private admobFree: AdMobFree
 	) { }
 
 	ngOnInit() {
@@ -49,7 +49,6 @@ export class AppComponent implements OnInit {
 				this.storage.get("spentHours"),
 				this.storage.get("settings"),
 				this.storage.get("clockedHours"),
-				// this.storage.clear(),
 			]).then(results => {
 				const extraHours = results[0];
 				const owedHours = results[1];
@@ -92,10 +91,21 @@ export class AppComponent implements OnInit {
 	}
 
 	setupAd() {
-		const id = (this.platform.is('android'))
+		console.log(this.platform);
+
+		/* const id = (this.platform.is('android'))
 			? environment.adId.android
 			: environment.adId.ios;
 
-		this.admob.banner.show({ id, position: "bottom" });
+		this.admobFree.config({
+			isTesting: true, // environment.production,
+			autoShow: true,
+			id,
+			bannerAtTop: false
+		});
+
+		this.admobFree.prepare()
+			.then(() => console.log("ad visible"))
+			.catch(e => console.log("err showing add: ", e)); */
 	}
 }

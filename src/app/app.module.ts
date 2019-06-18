@@ -14,8 +14,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { StoreModule } from "@ngrx/store";
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
-import { AdMob } from "@admob-plus/ionic";
-
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -25,6 +23,7 @@ import { SettingsPageModule } from './pages/settings/settings.module';
 import { StorageService } from './services/storage/storage.service';
 
 import { reducers } from './State';
+import { AdMobFree } from '@ionic-native/admob-free/ngx';
 
 export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoader(http);
 
@@ -60,8 +59,8 @@ export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoad
 		StatusBar,
 		SplashScreen,
 		StorageService,
-		AdMob,
 		IonicStorageModule,
+		AdMobFree,
 		{
 			provide: RouteReuseStrategy,
 			useClass: IonicRouteStrategy
