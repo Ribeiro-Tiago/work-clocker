@@ -45,6 +45,10 @@ export class StorageService {
 		return this.storage.clear();
 	}
 
+	async clearExcept(key: StorageKey[]): Promise<void> {
+		return (await this.storage.keys()).forEach((k: StorageKey) => !key.includes(k) && this.delete(k));
+	}
+
 	private formKey(key: StorageKey): string {
 		return `${this.keyPrefix}${key}`;
 	}

@@ -45,6 +45,7 @@ app-home {
 
 			span {
 				opacity: .5;
+				color: #fff;
 			}
 
 			.tut-active-item {
@@ -60,15 +61,21 @@ app-home {
 	}
 
 	.list {
-		position: relative;
-
 		&.tut-visible {
+			position: relative;
 			height: calc(100% - 51px);
 			background-color: rgba(0, 0, 0, 0.5);
-		}
 
-		.item {
-			box-shadow: 0 0px 10px 10px #f8f8f8;
+			.item {
+				opacity: .5;
+			}
+
+			&.active-tut-item {
+				.item {
+					box-shadow: 0 0px 10px 10px #f8f8f8;
+					opacity: 1;
+				}
+			}
 		}
 	}
 }

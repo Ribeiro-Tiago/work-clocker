@@ -19,6 +19,8 @@ import { ResetHours as ResetExtraHours } from "../../state/extraHours/extraHours
 import { ResetHours as ResetOwedHours } from "../../state/owedHours/owedHours.actions";
 import { ResetHours as ResetClockedHours } from "../../state/clockedHours/clockedHours.actions";
 import { ResetHours as ResetSpentHours } from "../../state/spentHours/spentHours.actions";
+import { Reset as ResetTutorial } from "../../state/tutorial/tutorial.actions";
+import { Location } from '@angular/common';
 
 @Component({
 	selector: 'app-settings',
@@ -49,7 +51,8 @@ export class SettingsPage implements OnInit, OnDestroy {
 		public actionSheetController: ActionSheetController,
 		private translate: TranslateService,
 		private storage: StorageService,
-		private store: Store<AppState>
+		private store: Store<AppState>,
+		private location: Location
 	) {
 		this.dateFormats = configs.dateFormats;
 		this.langs = configs.langs;
@@ -143,7 +146,13 @@ export class SettingsPage implements OnInit, OnDestroy {
 	}
 
 	resetTutorial(): void {
-		// reset
+		this.location.back();
+
+		this.storage.delete("tutorial")
+			.then(() => console.log("tutorial reset"))
+			.catch(console.error);
+
+		this.store.dispatch(new ResetTutorial());
 	}
 
 	private updateSettings() {
@@ -175,8 +184,11 @@ export class SettingsPage implements OnInit, OnDestroy {
 		this.store.dispatch(new ResetExtraHours());
 		this.store.dispatch(new ResetOwedHours());
 		this.store.dispatch(new ResetSpentHours());
-
 		this.store.dispatch(new ResetClockedHours());
+
+		this.storage.clearExcept(["settings", "tutorial"])
+			.then(() => console.log("cleared app data"))
+			.catch(console.error);
 
 		setTimeout(() => this.isResetting = false, 500);
 	}
