@@ -16,6 +16,7 @@ import { AddHours as AddSpentHour } from "../../state/spentHours/spentHours.acti
 import { Setting } from 'src/app/state/settings/settings.model';
 import { ExtraHour } from 'src/app/State/extraHours/extraHours.model';
 import { OwedHour } from 'src/app/State/owedHours/owedHours.model';
+import { Tutorial, TutorialStage } from 'src/app/State/tutorial/tutorial.model';
 
 @Component({
 	selector: 'app-home',
@@ -29,6 +30,7 @@ export class HomePage implements OnInit, OnDestroy {
 	private extraHoursObs: Observable<ExtraHour>;
 	private clockedHoursObs: Observable<StateClockedHour>;
 	private settingsObs: Observable<Setting>;
+	private tutObs: Observable<Tutorial>;
 
 	lunchDuration: number;
 	workDuration: number;
@@ -37,19 +39,23 @@ export class HomePage implements OnInit, OnDestroy {
 	clockedHours: ClockedHour[];
 	owedHours: OwedHour;
 	extraHours: ExtraHour;
+	tutStage: TutorialStage;
 
 	isLoading: boolean;
 	activeClock: boolean;
 	isModalVisible: boolean;
+	isTutVisible: boolean;
 
 	constructor(private storage: StorageService, private sanitizer: DomSanitizer, private store: Store<AppState>) {
 		this.owedHoursObs = store.select("owedHours");
 		this.extraHoursObs = store.select("extraHours");
 		this.clockedHoursObs = store.select("clockedHours");
 		this.settingsObs = store.select("settings");
+		this.tutObs = store.select("tutorial");
 
 		this.isLoading = true;
 		this.isModalVisible = false;
+		this.isTutVisible = false;
 	}
 
 	ngOnInit(): void {
@@ -64,6 +70,10 @@ export class HomePage implements OnInit, OnDestroy {
 				this.lunchDuration = result.selectedLunchDuration;
 				this.workDuration = result.selectedWorkDuration;
 				this.dateFormat = result.selectedDateFormat.key;
+			}),
+			this.tutObs.subscribe(({ isVisible, stage }: Tutorial) => {
+				this.isTutVisible = isVisible;
+				this.tutStage = stage;
 			})
 		];
 	}
