@@ -7,7 +7,7 @@ const initState: Tutorial = {
     isFirstStage: true,
     stage: "clockBtn",
     currStage: 0,
-    isFinished: false,
+    isIntroVisible: true,
     position: "on-header",
     rightOffset: 26,
     title: "clockBtnTitle"
@@ -76,7 +76,7 @@ export function TutorialsReducer(state: Tutorial = initState, action: Action) {
         case tutorialsActions.FINISH_TUT: {
             return {
                 ...state,
-                isFinished: true,
+                isIntroVisible: true,
                 isVisible: false,
                 stage: ""
             };

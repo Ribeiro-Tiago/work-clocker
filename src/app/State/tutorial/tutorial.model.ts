@@ -1,7 +1,7 @@
 export interface Tutorial {
     stage: TutorialStage;
     isVisible: boolean;
-    isFinished: boolean;
+    isIntroVisible: boolean;
     isFirstStage: boolean;
     isLastStage: boolean;
     currStage: number;

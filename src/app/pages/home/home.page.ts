@@ -17,6 +17,8 @@ import { Setting } from 'src/app/state/settings/settings.model';
 import { ExtraHour } from 'src/app/State/extraHours/extraHours.model';
 import { OwedHour } from 'src/app/State/owedHours/owedHours.model';
 import { Tutorial, TutorialStage } from 'src/app/State/tutorial/tutorial.model';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
 	selector: 'app-home',
@@ -48,7 +50,7 @@ export class HomePage implements OnInit, OnDestroy {
 	isModalVisible: boolean;
 	isTutVisible: boolean;
 
-	constructor(private storage: StorageService, private sanitizer: DomSanitizer, private store: Store<AppState>) {
+	constructor(private storage: StorageService, private sanitizer: DomSanitizer, private store: Store<AppState>, private location: Location) {
 		this.owedHoursObs = store.select("owedHours");
 		this.extraHoursObs = store.select("extraHours");
 		this.clockedHoursObs = store.select("clockedHours");
