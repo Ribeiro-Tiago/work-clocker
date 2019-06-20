@@ -8,7 +8,7 @@
 	'offset-unset': arrOffset === -1,
 	'offset-center': arrOffset === 0 }">
 	<div class="flex-wrapper header">
-		<h3>{{ "tutorial.title" | translate }}</h3>
+		<h3>{{ title | translate }}</h3>
 		<button *ngIf=" !isLastStage" (click)="onSkip()">{{ "tutorial.skip" | translate }}</button>
 
 	</div>

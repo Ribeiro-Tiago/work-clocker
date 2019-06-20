@@ -58,16 +58,21 @@
 	},
 
 	"tutorial": {
-		"title": "Tutorial",
 		"next": "Next",
 		"previous": "Previous",
 		"skip": "Skip",
 		"finish": "Finish",
+		"clockBtnTitle": "Tutorial - Clock in/out",
 		"clockBtn": "<p>With this button you can control when you start and end your work day.</p><p>This will calculate the amount of time you worked for this day and if you worked too much or too little for the day.</p>",
+		"hoursBtnTitle": "Tutorial - Hours spent",
 		"hoursBtn": "<p>Here you can see extra hours that you used to compensate days where you worked too little.</p><p>These are calculated automatically.</p>",
+		"settingsBtnTitle": "Tutorial - Settings",
 		"settingsBtn": "<p>Here you can find the application settings and other informational stuff.</p><p>Things like work day duration (used to calculate extra and owed hours), application language, terms of service, etc.</p>",
+		"owedHoursTitle": "Tutorial - Hours owed",
 		"owedHours": "<p>This shows all the hours you should've worked but didn't (E.g.: left earlier).</p><p>All extra hours will decrease this number</p>",
+		"extraHoursTitle": "Tutorial - Hours extra",
 		"extraHours": "<p>On this side you can see how the extra hours you've worked.</p><p>If you don't owe any hours, whenever you work extra it'll show here.</p>",
+		"contentTitle": "Tutorial - Clocked hours",
 		"content": "<p>This lists all your daily records, that differ depending on whether or not you've clocked in.</p><p>It'll either show when you clocked in and out, lunch duration and how long you worked that day</p><p>Or it'll show when you clocked in and when you need to leave, base on the default lunch hour and work day duration.</p><p>You can also press the current record to edit the lunch hour.</p>"
 	}
 }

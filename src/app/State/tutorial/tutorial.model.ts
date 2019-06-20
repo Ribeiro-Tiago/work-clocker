@@ -7,10 +7,12 @@ export interface Tutorial {
     currStage: number;
     position: string;
     rightOffset: number;
+    title: string;
 }
 
 export interface StageConf {
     stage: string;
+    title: string;
     rightOffset: number;
 }
 

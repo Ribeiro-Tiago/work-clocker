@@ -9,16 +9,17 @@ const initState: Tutorial = {
     currStage: 0,
     isFinished: false,
     position: "on-header",
-    rightOffset: 26
+    rightOffset: 26,
+    title: "clockBtnTitle"
 };
 
 const stages: StageConf[] = [
-    { stage: "clockBtn", rightOffset: 26 },
-    { stage: "hoursBtn", rightOffset: 13 },
-    { stage: "settingsBtn", rightOffset: 2 },
-    { stage: "owedHours", rightOffset: -1 },
-    { stage: "extraHours", rightOffset: 13 },
-    { stage: "content", rightOffset: 0 },
+    { stage: "clockBtn", rightOffset: 26, title: "clockBtnTitle" },
+    { stage: "hoursBtn", rightOffset: 13, title: "hoursBtnTitle" },
+    { stage: "settingsBtn", rightOffset: 2, title: "settingsBtnTitle" },
+    { stage: "owedHours", rightOffset: -1, title: "owedHoursTitle" },
+    { stage: "extraHours", rightOffset: 13, title: "extraHoursTitle" },
+    { stage: "content", rightOffset: 0, title: "contentTitle" },
 ];
 
 export function TutorialsReducer(state: Tutorial = initState, action: Action) {
@@ -32,7 +33,7 @@ export function TutorialsReducer(state: Tutorial = initState, action: Action) {
 
         case tutorialsActions.NEXT_STAGE: {
             const nextStage = state.currStage + 1;
-            const { stage, rightOffset } = stages[nextStage];
+            const { stage, rightOffset, title } = stages[nextStage];
             const position = (nextStage < 3)
                 ? "on-header"
                 : (nextStage < 5)
@@ -42,6 +43,7 @@ export function TutorialsReducer(state: Tutorial = initState, action: Action) {
             return {
                 ...state,
                 stage,
+                title,
                 position,
                 rightOffset,
                 currStage: nextStage,
@@ -52,7 +54,7 @@ export function TutorialsReducer(state: Tutorial = initState, action: Action) {
 
         case tutorialsActions.PREV_STAGE: {
             const prevStage = state.currStage - 1;
-            const { stage, rightOffset } = stages[prevStage];
+            const { stage, rightOffset, title } = stages[prevStage];
             const position = (prevStage < 3)
                 ? "on-header"
                 : (prevStage < 5)
@@ -61,12 +63,13 @@ export function TutorialsReducer(state: Tutorial = initState, action: Action) {
 
             return {
                 ...state,
+                title,
                 stage,
                 position,
                 rightOffset,
                 currStage: prevStage,
                 isLastStage: false,
-                isFirstStage: prevStage === stages.length - 1
+                isFirstStage: prevStage === 0,
             };
         }
 

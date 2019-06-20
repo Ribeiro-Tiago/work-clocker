@@ -17,8 +17,9 @@ import { StorageService } from 'src/app/services/storage/storage.service';
 export class TutorialComponent implements OnInit, OnDestroy {
 	private sub: Subscription;
 	private tutObs: Observable<Tutorial>;
-	private stage: TutorialStage;
+	private tut: Tutorial;
 
+	title: string;
 	tutText: string;
 	position: string;
 	arrOffset: number;
@@ -31,9 +32,12 @@ export class TutorialComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit(): void {
-		this.sub = this.tutObs.subscribe(({ isVisible, stage, isFirstStage, isLastStage, position, rightOffset }: Tutorial) => {
-			this.stage = stage;
+		this.sub = this.tutObs.subscribe((tut: Tutorial) => {
+			const { isVisible, isFirstStage, isLastStage, position, rightOffset, stage, title } = tut;
+			this.tut = tut;
+
 			this.tutText = `tutorial.${stage}`;
+			this.title = `tutorial.${title}`;
 			this.isVisible = isVisible;
 			this.isLastStage = isLastStage;
 			this.isFirstStage = isFirstStage;
@@ -67,14 +71,7 @@ export class TutorialComponent implements OnInit, OnDestroy {
 	sanitizeString = (string: string): SafeHtml => this.sanitizer.bypassSecurityTrustHtml(string);
 
 	private updateStorage(): void {
-		this.storage.set("tutorial", {
-			stage: this.stage,
-			isVisible: this.isVisible,
-			isLastStage: this.isLastStage,
-			isFirstStage: this.isFirstStage,
-			position: this.position,
-			rightOffset: this.arrOffset,
-		})
+		this.storage.set("tutorial", this.tut)
 			.then(() => console.log("tutorial storage updated"))
 			.catch(console.error);
 	}
