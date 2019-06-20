@@ -6,6 +6,12 @@ export interface Tutorial {
     isLastStage: boolean;
     currStage: number;
     position: string;
+    rightOffset: number;
+}
+
+export interface StageConf {
+    stage: string;
+    rightOffset: number;
 }
 
 export interface Action {
@@ -15,4 +21,4 @@ export interface Action {
 
 export type ActionType = "SET_TUT" | "NEXT_STAGE" | "PREV_STAGE" | "FINISH_TUT" | "SHOW_TUT" | "RESET_TUT";
 
-export type TutorialStage = "clockBtn" | "hoursBtn" | "settingsBtn";
+export type TutorialStage = "clockBtn" | "hoursBtn" | "settingsBtn" | "owedHours" | "extraHours" | "content";

@@ -37,9 +37,38 @@ app-home {
 		justify-content: space-between;
 		align-items: center;
 		border-bottom: 1px solid #000;
+		z-index: 1;
+		position: relative;
+
+		&.tut-visible {
+			background-color: rgba(0, 0, 0, 0.5);
+
+			span {
+				opacity: .5;
+			}
+
+			.tut-active-item {
+				color: #f8f8f8;
+				opacity: 1;
+				padding: .5vh;
+			}
+		}
 
 		span {
 			color: $lightTextColor;
+		}
+	}
+
+	.list {
+		position: relative;
+
+		&.tut-visible {
+			height: calc(100% - 51px);
+			background-color: rgba(0, 0, 0, 0.5);
+		}
+
+		.item {
+			box-shadow: 0 0px 10px 10px #f8f8f8;
 		}
 	}
 }

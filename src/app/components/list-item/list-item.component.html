@@ -1,7 +1,7 @@
 <div class="item" (click)="triggerOnClick(item)">
 	<div class="row">
 		<ng-container *ngIf="!item.isActive; else isActiveTemplate">
-			<p>{{ "listItem.listDay" | translate | convertTime: { destType: "day", payload: item.day, replace: "day", format: dateFormat } }}
+			<p>{{ "listItem.listDay" | translate | convertTime: { destType: "day", payload: item.day, replace: "day", format: dateFormat, test:"yes" } }}
 			</p>
 
 			<p>{{ "listItem.timeWorked" | translate | convertTime: { destType: "hours", payload: item.timeWorked, replace: "time" } }}

@@ -161,9 +161,10 @@ ion-toolbar {
 .tut-opacity {
 	opacity: .5 !important;
 
-	&.tut-active-item {
-		opacity: 1 !important;
-		box-shadow: 0 0 5px 5px #f8f8f8;
-		border-radius: 10px;
-	}
+}
+
+.tut-active-item {
+	opacity: 1 !important;
+	box-shadow: 0 0 5px 5px #f8f8f8;
+	border-radius: 10px;
 }

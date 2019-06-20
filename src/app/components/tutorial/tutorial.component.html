@@ -1,7 +1,15 @@
-<div class="container" [ngClass]="position">
+<div class="container" [ngClass]="{ 
+	'on-header': position === 'on-header',
+	'on-hours': position === 'on-hours',
+	'on-body': position === 'on-body',
+	'offset-2': arrOffset === 2,
+	'offset-26': arrOffset === 26,
+	'offset-13': arrOffset === 13,
+	'offset-unset': arrOffset === -1,
+	'offset-center': arrOffset === 0 }">
 	<div class="flex-wrapper header">
 		<h3>{{ "tutorial.title" | translate }}</h3>
-		<button *ngIf="!isLastStage" (click)="onSkip()">{{ "tutorial.skip" | translate }}</button>
+		<button *ngIf=" !isLastStage" (click)="onSkip()">{{ "tutorial.skip" | translate }}</button>
 
 	</div>
 

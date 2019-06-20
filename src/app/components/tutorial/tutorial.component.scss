@@ -5,25 +5,63 @@ app-tutorial {
 		position: absolute;
 		background: #f8f8f8;
 		padding: 2vh;
-		width: 80%;
+		width: 90%;
 		left: 50%;
 		transform: translateX(-50%);
 		border-radius: 1vh;
 
+		&.offset-2 {
+			&:before {
+				right: 2%
+			}
+		}
+
+		&.offset-26 {
+			&:before {
+				right: 26%
+			}
+		}
+
+		&.offset-13 {
+			&:before {
+				right: 13%
+			}
+		}
+
+		&.offset-unset {
+			&:before {
+				right: unset
+			}
+		}
+
+		&.offset-center {
+			&:before {
+				right: 50%;
+				transform: translateX(50%);
+			}
+		}
+
+		&:before {
+			content: "";
+			position: absolute;
+			width: 0px;
+			height: 0px;
+			border-left: 15px solid transparent;
+			border-right: 15px solid transparent;
+			border-bottom: 15px solid #f0f0f0;
+			top: -15px;
+		}
+
 		&.on-header {
 			top: 80px;
+		}
 
-			&:before {
-				content: "";
-				position: absolute;
-				width: 0px;
-				height: 0px;
-				border-left: 15px solid transparent;
-				border-right: 15px solid transparent;
-				border-bottom: 15px solid #f0f0f0;
-				right: 35px;
-				top: -15px;
-			}
+		&.on-hours {
+			top: 130px;
+		}
+
+		&.on-body {
+			top: 220px
 		}
 
 		.header {

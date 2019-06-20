@@ -39,7 +39,9 @@ export class HomePage implements OnInit, OnDestroy {
 	clockedHours: ClockedHour[];
 	owedHours: OwedHour;
 	extraHours: ExtraHour;
+
 	tutStage: TutorialStage;
+	tutItem: ClockedHour;
 
 	isLoading: boolean;
 	activeClock: boolean;
@@ -52,6 +54,15 @@ export class HomePage implements OnInit, OnDestroy {
 		this.clockedHoursObs = store.select("clockedHours");
 		this.settingsObs = store.select("settings");
 		this.tutObs = store.select("tutorial");
+
+		this.tutItem = {
+			day: 1560893131236,
+			startHour: 1560893131236,
+			isActive: false,
+			lunchDuration: 60,
+			endHour: 1560921931236,
+			timeWorked: 480
+		};
 
 		this.isLoading = true;
 		this.isModalVisible = false;

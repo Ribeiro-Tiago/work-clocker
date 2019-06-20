@@ -1,22 +1,25 @@
-import { Tutorial, Action } from "./tutorial.model";
+import { Tutorial, Action, StageConf } from "./tutorial.model";
 import * as tutorialsActions from "./tutorial.actions";
 
 const initState: Tutorial = {
     isVisible: true,
     isLastStage: false,
     isFirstStage: true,
-    stage: "clockBtn",
+    stage: "content",
     currStage: 0,
     isFinished: false,
-    position: "on-header"
+    position: "on-body",
+    rightOffset: 26
 };
 
-const stages = [
-    "clockBtn",
-    "hoursBtn",
-    "settingsBtn"
+const stages: StageConf[] = [
+    { stage: "clockBtn", rightOffset: 26 },
+    { stage: "hoursBtn", rightOffset: 13 },
+    { stage: "settingsBtn", rightOffset: 2 },
+    { stage: "owedHours", rightOffset: -1 },
+    { stage: "extraHours", rightOffset: 13 },
+    { stage: "content", rightOffset: 0 },
 ];
-
 
 export function TutorialsReducer(state: Tutorial = initState, action: Action) {
     switch (action.type) {
@@ -26,32 +29,40 @@ export function TutorialsReducer(state: Tutorial = initState, action: Action) {
 
         case tutorialsActions.NEXT_STAGE: {
             const nextStage = state.currStage + 1;
+            const { stage, rightOffset } = stages[nextStage];
             const position = (nextStage < 3)
                 ? "on-header"
-                : "body";
+                : (nextStage < 5)
+                    ? "on-hours"
+                    : "on-body";
 
             return {
                 ...state,
-                stage: stages[nextStage],
+                stage,
+                position,
+                rightOffset,
                 currStage: nextStage,
                 isLastStage: nextStage === stages.length - 1,
-                position,
                 isFirstStage: false
             };
         }
 
         case tutorialsActions.PREV_STAGE: {
             const prevStage = state.currStage - 1;
+            const { stage, rightOffset } = stages[prevStage];
             const position = (prevStage < 3)
                 ? "on-header"
-                : "body";
+                : (prevStage < 5)
+                    ? "on-hours"
+                    : "on-body";
 
             return {
                 ...state,
-                stage: stages[prevStage],
+                stage,
+                position,
+                rightOffset,
                 currStage: prevStage,
                 isLastStage: false,
-                position,
                 isFirstStage: prevStage === stages.length - 1
             };
         }

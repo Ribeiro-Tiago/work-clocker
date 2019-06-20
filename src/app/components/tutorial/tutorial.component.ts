@@ -19,6 +19,7 @@ export class TutorialComponent implements OnInit, OnDestroy {
 
 	tutText: string;
 	position: string;
+	arrOffset: number;
 	isVisible: boolean;
 	isLastStage: boolean;
 	isFirstStage: boolean;
@@ -28,12 +29,13 @@ export class TutorialComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit(): void {
-		this.sub = this.tutObs.subscribe(({ isVisible, stage, isFirstStage, isLastStage, position }: Tutorial) => {
+		this.sub = this.tutObs.subscribe(({ isVisible, stage, isFirstStage, isLastStage, position, rightOffset }: Tutorial) => {
 			this.tutText = `tutorial.${stage}`;
 			this.isVisible = isVisible;
 			this.isLastStage = isLastStage;
 			this.isFirstStage = isFirstStage;
 			this.position = position;
+			this.arrOffset = rightOffset;
 		});
 	}
 
