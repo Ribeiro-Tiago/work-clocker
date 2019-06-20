@@ -18,12 +18,8 @@
 	},
 	"homepage": "https://github.com/Ribeiro-Tiago/work-clocker",
 	"scripts": {
-		"ng": "ng",
 		"start": "ionic cordova run browser",
-		"build": "ionic cordova build android --debug --verbose",
-		"test": "ng test",
-		"lint": "ng lint",
-		"e2e": "ng e2e",
+		"build": "rm -rf platforms && ionic cordova build android --debug --verbose",
 		"prod-android": "ionic cordova build android --prod --release"
 	},
 	"private": false,
@@ -46,6 +42,7 @@
 		"@ngx-translate/http-loader": "^4.0.0",
 		"cordova-android": "8.0.0",
 		"cordova-browser": "^6.0.0",
+		"cordova-plugin-crosswalk-webview": "2.4.0",
 		"cordova-sqlite-storage": "3.2.0",
 		"core-js": "^2.5.4",
 		"rxjs": "~6.5.1",
