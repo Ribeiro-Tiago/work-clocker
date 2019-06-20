@@ -94,7 +94,7 @@ export class AppComponent implements OnInit {
 				}
 
 				if (tutorial) {
-					this.store.dispatch(new SetTutorial(spentHours));
+					this.store.dispatch(new SetTutorial(tutorial));
 				}
 			});
 

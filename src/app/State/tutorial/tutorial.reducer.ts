@@ -5,10 +5,10 @@ const initState: Tutorial = {
     isVisible: true,
     isLastStage: false,
     isFirstStage: true,
-    stage: "content",
+    stage: "clockBtn",
     currStage: 0,
     isFinished: false,
-    position: "on-body",
+    position: "on-header",
     rightOffset: 26
 };
 
@@ -24,7 +24,10 @@ const stages: StageConf[] = [
 export function TutorialsReducer(state: Tutorial = initState, action: Action) {
     switch (action.type) {
         case tutorialsActions.SET_TUTORIAL: {
-            return { ...action.payload };
+            return {
+                ...state,
+                ...action.payload
+            };
         }
 
         case tutorialsActions.NEXT_STAGE: {
@@ -71,7 +74,8 @@ export function TutorialsReducer(state: Tutorial = initState, action: Action) {
             return {
                 ...state,
                 isFinished: true,
-                isVisible: false
+                isVisible: false,
+                stage: ""
             };
         }
 
