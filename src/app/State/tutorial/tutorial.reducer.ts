@@ -3,9 +3,20 @@ import * as tutorialsActions from "./tutorial.actions";
 
 const initState: Tutorial = {
     isVisible: true,
+    isLastStage: false,
+    isFirstStage: true,
     stage: "clockBtn",
-    isFinished: false
+    currStage: 0,
+    isFinished: false,
+    position: "on-header"
 };
+
+const stages = [
+    "clockBtn",
+    "hoursBtn",
+    "settingsBtn"
+];
+
 
 export function TutorialsReducer(state: Tutorial = initState, action: Action) {
     switch (action.type) {
@@ -13,10 +24,35 @@ export function TutorialsReducer(state: Tutorial = initState, action: Action) {
             return { ...action.payload };
         }
 
-        case tutorialsActions.UPDATE_STAGE: {
+        case tutorialsActions.NEXT_STAGE: {
+            const nextStage = state.currStage + 1;
+            const position = (nextStage < 3)
+                ? "on-header"
+                : "body";
+
             return {
                 ...state,
-                stage: action.payload
+                stage: stages[nextStage],
+                currStage: nextStage,
+                isLastStage: nextStage === stages.length - 1,
+                position,
+                isFirstStage: false
+            };
+        }
+
+        case tutorialsActions.PREV_STAGE: {
+            const prevStage = state.currStage - 1;
+            const position = (prevStage < 3)
+                ? "on-header"
+                : "body";
+
+            return {
+                ...state,
+                stage: stages[prevStage],
+                currStage: prevStage,
+                isLastStage: false,
+                position,
+                isFirstStage: prevStage === stages.length - 1
             };
         }
 

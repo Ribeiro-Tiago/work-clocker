@@ -1,0 +1,78 @@
+app-tutorial {
+	z-index: 99;
+
+	.container {
+		position: absolute;
+		background: #f8f8f8;
+		padding: 2vh;
+		width: 80%;
+		left: 50%;
+		transform: translateX(-50%);
+		border-radius: 1vh;
+
+		&.on-header {
+			top: 80px;
+
+			&:before {
+				content: "";
+				position: absolute;
+				width: 0px;
+				height: 0px;
+				border-left: 15px solid transparent;
+				border-right: 15px solid transparent;
+				border-bottom: 15px solid #f0f0f0;
+				right: 35px;
+				top: -15px;
+			}
+		}
+
+		.header {
+			padding-bottom: 1vh;
+			border-bottom: 1px solid rgba(51, 51, 51, 0.3);
+
+			h3 {
+				margin: 0;
+			}
+
+			button {
+				font-weight: normal;
+			}
+		}
+
+
+		p {
+			font-size: 2.5vh;
+			color: #666;
+			text-align: center;
+			margin: 1em 0;
+		}
+
+		hr {
+			margin: 2vh;
+			background: rgba(51, 51, 51, 0.3);
+			height: 1px;
+		}
+
+		.flex-wrapper {
+			justify-content: space-between;
+			display: flex;
+			align-items: center;
+		}
+
+		button {
+			font-size: 2vh;
+			background: transparent;
+			border: 0;
+			color: #3880FF;
+			outline: none;
+
+			&.hidden {
+				visibility: hidden;
+			}
+
+			&:last-child {
+				font-weight: bold;
+			}
+		}
+	}
+}

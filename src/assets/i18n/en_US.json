@@ -55,5 +55,16 @@
 		"hadHours": "You had <u>{{hours}}</u> hours",
 		"nowHave": "Now you have <u>{{hours}}</u> hours",
 		"noItems": "You haven’t used any extra hours.<br/><br/>This is either because you don't do extra hours, or you never owed any hours"
+	},
+
+	"tutorial": {
+		"title": "Tutorial",
+		"next": "Next",
+		"previous": "Previous",
+		"skip": "Skip",
+		"finish": "Finish",
+		"clockBtn": "<p>With this button you can control when you start and end your work day.</p><p>This will calculate the amount of time you worked for this day and if you worked too much or too little for the day.</p>",
+		"hoursBtn": "<p>Here you can see extra hours that you used to compensate days where you worked too little.</p><p>These are calculated automatically.</p>",
+		"settingsBtn": "<p>Here you can find the application settings and other informational stuff.</p><p>Things like work day duration (used to calculate extra and owed hours), application language, terms of service, etc.</p>"
 	}
 }

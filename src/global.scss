@@ -142,3 +142,28 @@ ion-toolbar {
 		}
 	}
 }
+
+.backdrop {
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	background-color: rgba(0, 0, 0, .5);
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: none;
+
+	&.visible {
+		display: block;
+	}
+}
+
+.tut-opacity {
+	opacity: .5 !important;
+
+	&.tut-active-item {
+		opacity: 1 !important;
+		box-shadow: 0 0 5px 5px #f8f8f8;
+		border-radius: 10px;
+	}
+}

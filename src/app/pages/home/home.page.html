@@ -1,19 +1,24 @@
 <ion-header>
 	<ion-toolbar color="primary">
+		<div [ngClass]="{'visible': isTutVisible}" class="backdrop"></div>
+
 		<ion-title>
 			Work Clocker
 		</ion-title>
 
 		<ion-buttons slot="end">
-			<ion-button (click)="onBtnPress()">
+			<ion-button (click)="onBtnPress()"
+				[ngClass]="{'tut-opacity': isTutVisible, 'tut-active-item': tutStage === 'clockBtn'}">
 				<ion-icon [name]="activeClock ? 'log-out' : 'log-in'" size="large"></ion-icon>
 			</ion-button>
 
-			<ion-button [routerLink]="['/hours-spent']" routerDirection="forward">
+			<ion-button [routerLink]="['/hours-spent']" routerDirection="forward"
+				[ngClass]="{'tut-opacity': isTutVisible, 'tut-active-item': tutStage === 'hoursBtn'}">
 				<ion-icon name="md-time" size="large"></ion-icon>
 			</ion-button>
 
-			<ion-button [routerLink]="['/settings']" routerDirection="forward">
+			<ion-button [routerLink]="['/settings']" routerDirection="forward"
+				[ngClass]="{'tut-opacity': isTutVisible, 'tut-active-item': tutStage === 'settingsBtn'}">
 				<ion-icon class="menu-button" name="ios-more" size="large"></ion-icon>
 			</ion-button>
 		</ion-buttons>
@@ -21,24 +26,24 @@
 </ion-header>
 
 <ion-content>
-	<div>
-		<app-update-lunch-modal class="modal" (onCancel)="toggleLunchUpdate();" (onSubmit)="updateLunchTime($event);"
-			[currDuration]="lunchDuration" [ngClass]="{'is-visible': isModalVisible}" [index]="selectedItemIndex">
-		</app-update-lunch-modal>
+	<div [ngClass]="{'visible': isTutVisible}" class="backdrop"></div>
 
-		<div class="hours-worked ion-padding">
-			<span>{{ "home.owedHours" | translate | convertTime: { destType: "hours", payload: owedHours.hours, replace: "hours" } }}</span>
-			<span>{{ "home.extraHours" | translate | convertTime: { destType: "hours", payload: extraHours.hours, replace: "hours" } }}</span>
-		</div>
+	<app-update-lunch-modal class="modal" (onCancel)="toggleLunchUpdate();" (onSubmit)="updateLunchTime($event);"
+		[currDuration]="lunchDuration" [ngClass]="{'is-visible': isModalVisible}" [index]="selectedItemIndex">
+	</app-update-lunch-modal>
 
-		<div class="list">
-			<h3 *ngIf="!clockedHours.length" [innerHTML]="sanitizeString('listItem.noItems' | translate)">
-			</h3>
+	<div class="hours-worked ion-padding">
+		<span>{{ "home.owedHours" | translate | convertTime: { destType: "hours", payload: owedHours.hours, replace: "hours" } }}</span>
+		<span>{{ "home.extraHours" | translate | convertTime: { destType: "hours", payload: extraHours.hours, replace: "hours" } }}</span>
+	</div>
 
-			<app-list-item class="list-wrapper" *ngFor="let item of clockedHours; let i = index" [item]="item"
-				[dateFormat]="dateFormat" [lunchDuration]="lunchDuration" [workDuration]="workDuration"
-				(onClick)="toggleLunchUpdate($event);">
-			</app-list-item>
-		</div>
+	<div class="list">
+		<h3 *ngIf="!clockedHours.length" [innerHTML]="sanitizeString('listItem.noItems' | translate)">
+		</h3>
+
+		<app-list-item class="list-wrapper" *ngFor="let item of clockedHours; let i = index" [item]="item"
+			[dateFormat]="dateFormat" [lunchDuration]="lunchDuration" [workDuration]="workDuration"
+			(onClick)="toggleLunchUpdate($event);">
+		</app-list-item>
 	</div>
 </ion-content>
