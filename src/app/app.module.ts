@@ -24,6 +24,7 @@ import { StorageService } from './services/storage/storage.service';
 
 import { reducers } from './State';
 import { AdMobFree } from '@ionic-native/admob-free/ngx';
+import { environment } from 'src/environments/environment';
 
 export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoader(http);
 
@@ -45,6 +46,7 @@ export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoad
 		}),
 		StoreModule.forRoot(reducers),
 		StoreDevtoolsModule.instrument({
+			features: { pause: environment.production },
 			maxAge: 25, // Retains last 25 states
 		}),
 		TranslateModule.forRoot({

@@ -93,19 +93,19 @@ export class AppComponent implements OnInit {
 	setupAd() {
 		console.log(this.platform);
 
-		/* const id = (this.platform.is('android'))
+		const id = (this.platform.is('android'))
 			? environment.adId.android
 			: environment.adId.ios;
 
-		this.admobFree.config({
-			isTesting: true, // environment.production,
+		this.admobFree.banner.config({
+			isTesting: !environment.production,
 			autoShow: true,
-			id,
+			id: "ca-app-pub-5810216903508681/4089183083",
 			bannerAtTop: false
 		});
 
-		this.admobFree.prepare()
+		this.admobFree.banner.prepare()
 			.then(() => console.log("ad visible"))
-			.catch(e => console.log("err showing add: ", e)); */
+			.catch(e => console.log("err showing add: ", e));
 	}
 }

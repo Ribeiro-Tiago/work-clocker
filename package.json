@@ -40,9 +40,12 @@
 		"@ngrx/store": "^8.0.1",
 		"@ngx-translate/core": "^11.0.1",
 		"@ngx-translate/http-loader": "^4.0.0",
+		"cordova-admob-sdk": "0.24.1",
 		"cordova-android": "8.0.0",
 		"cordova-browser": "^6.0.0",
+		"cordova-plugin-admob-free": "0.27.0",
 		"cordova-plugin-crosswalk-webview": "2.4.0",
+		"cordova-promise-polyfill": "0.0.2",
 		"cordova-sqlite-storage": "3.2.0",
 		"core-js": "^2.5.4",
 		"rxjs": "~6.5.1",
@@ -92,7 +95,10 @@
 			"cordova-plugin-ionic-webview": {
 				"ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
 			},
-			"cordova-plugin-ionic-keyboard": {}
+			"cordova-plugin-ionic-keyboard": {},
+			"cordova-plugin-admob-free": {
+				"ADMOB_APP_ID": "ca-app-pub-5810216903508681~5630507227"
+			}
 		},
 		"platforms": [
 			"browser",
