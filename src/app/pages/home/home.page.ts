@@ -17,7 +17,6 @@ import { Setting } from 'src/app/state/settings/settings.model';
 import { ExtraHour } from 'src/app/State/extraHours/extraHours.model';
 import { OwedHour } from 'src/app/State/owedHours/owedHours.model';
 import { Tutorial, TutorialStage } from 'src/app/State/tutorial/tutorial.model';
-import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 @Component({
