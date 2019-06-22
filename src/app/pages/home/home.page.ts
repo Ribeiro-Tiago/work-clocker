@@ -121,7 +121,7 @@ export class HomePage implements OnInit, OnDestroy {
 	clockOut(): void {
 		const currItem = this.clockedHours[0];
 		const d = Date.now();
-		let timeWorked = (d - currItem.startHour) / 1000;
+		let timeWorked = ((d - currItem.startHour) / 1000) - (currItem.lunchDuration * 60);
 		const hoursWorked = Math.abs(Math.floor(timeWorked / 3600));
 		const minutesWorked = Math.abs(Math.floor((timeWorked % 3600) / 60));
 		const timeWorkedDiff = (hoursWorked - this.workDuration);
