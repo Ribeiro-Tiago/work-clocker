@@ -64,6 +64,14 @@ app-tutorial {
 			top: 220px
 		}
 
+		&.on-intro {
+			top: 8%;
+
+			&:before {
+				top: 0;
+			}
+		}
+
 		.header {
 			padding-bottom: 1vh;
 			border-bottom: 1px solid rgba(51, 51, 51, 0.3);

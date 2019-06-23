@@ -23,8 +23,6 @@ import { Setting } from './state/settings/settings.model';
 import { SpentHour } from './state/spentHours/spentHours.model';
 import { OwedHour } from './state/owedHours/owedHours.model';
 import { ExtraHour } from './state/extraHours/extraHours.model';
-import { Router } from '@angular/router';
-import { Location } from '@angular/common';
 
 @Component({
 	selector: 'app-root',
@@ -43,9 +41,7 @@ export class AppComponent implements OnInit {
 		private statusBar: StatusBar,
 		private translate: TranslateService,
 		private storage: StorageService,
-		private store: Store<AppState>,
-		private router: Router,
-		private location: Location
+		private store: Store<AppState>
 	) {
 		this.isTutVisible = false;
 		this.isIntroScreen = true;
@@ -55,16 +51,6 @@ export class AppComponent implements OnInit {
 	ngOnInit() {
 		this.platform.ready().then(async () => {
 			this.getStorageData();
-
-			this.platform.backButton.subscribeWithPriority(9999, () => {
-				document.addEventListener('backbutton', (event) => {
-					if (this.location.path() === "/home") {
-						event.preventDefault();
-						event.stopPropagation();
-						console.log('no backey');
-					}
-				}, false);
-			});
 
 			this.sub = this.tutObs.subscribe(({ isVisible }: Tutorial) => this.isTutVisible = isVisible);
 
@@ -126,11 +112,6 @@ export class AppComponent implements OnInit {
 
 			if (tutorial) {
 				this.store.dispatch(new SetTutorial(tutorial));
-
-				if (!tutorial.isIntroVisible) {
-					this.isIntroScreen = false;
-					this.router.navigate(['/home']);
-				}
 			}
 		});
 	}

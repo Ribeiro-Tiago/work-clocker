@@ -3,7 +3,6 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AdMobFree } from '@ionic-native/admob-free/ngx';
-import { Router, NavigationEnd } from '@angular/router';
 import { Platform } from '@ionic/angular';
 
 import { StorageService } from 'src/app/services/storage/storage.service';
@@ -36,7 +35,6 @@ export class HomePage implements OnInit, OnDestroy {
 	private clockedHoursObs: Observable<StateClockedHour>;
 	private settingsObs: Observable<Setting>;
 	private tutObs: Observable<Tutorial>;
-	private isAdVisible: boolean;
 
 	lunchDuration: number;
 	workDuration: number;
@@ -60,25 +58,12 @@ export class HomePage implements OnInit, OnDestroy {
 		private store: Store<AppState>,
 		private admobFree: AdMobFree,
 		private platform: Platform,
-		private router: Router,
 	) {
 		this.owedHoursObs = store.select("owedHours");
 		this.extraHoursObs = store.select("extraHours");
 		this.clockedHoursObs = store.select("clockedHours");
 		this.settingsObs = store.select("settings");
 		this.tutObs = store.select("tutorial");
-
-		this.isAdVisible = true;
-
-		this.router.events.subscribe((ev: any) => {
-			if (ev instanceof NavigationEnd) {
-				if (ev.url === "/settings" && this.isAdVisible) {
-					this.hideAd();
-				} else if (ev.url === "/home" && !this.isAdVisible) {
-					this.showAd();
-				}
-			}
-		});
 
 		this.tutItem = {
 			day: 1560893131236,
@@ -112,6 +97,12 @@ export class HomePage implements OnInit, OnDestroy {
 			this.tutObs.subscribe(({ isVisible, stage }: Tutorial) => {
 				this.isTutVisible = isVisible;
 				this.tutStage = stage;
+
+				if (!isVisible) {
+					this.showAd();
+				} else {
+					this.hideAd();
+				}
 			})
 		];
 	}
@@ -297,25 +288,20 @@ export class HomePage implements OnInit, OnDestroy {
 			bannerAtTop: false
 		});
 
-		this.admobFree.banner.prepare()
+		/* this.admobFree.banner.prepare()
 			.then(() => console.log("ad visible"))
-			.catch(e => console.log("err showing add: ", e));
-	}
-
-	private hideAd() {
-		try {
-			this.admobFree.banner.hide();
-			this.isAdVisible = false;
-			// tslint:disable-next-line: no-empty
-		} catch (ex) { }
+			.catch(e => console.log("err showing add: ", e)); */
 	}
 
 	private showAd() {
-		try {
-			this.admobFree.banner.show();
-			this.isAdVisible = true;
-			// tslint:disable-next-line: no-empty
-		} catch (ex) { }
+		this.admobFree.banner.show()
+			.then(() => console.log("ad shown"))
+			.catch(err => console.log("err showing ad: ", err));
+	}
 
+	private hideAd() {
+		this.admobFree.banner.hide()
+			.then(() => console.log("ad hidden"))
+			.catch(err => console.log("err hiding ad: ", err));
 	}
 }

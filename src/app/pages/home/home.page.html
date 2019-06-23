@@ -7,18 +7,18 @@
 		</ion-title>
 
 		<ion-buttons slot="end">
-			<ion-button [disabled]="isTutVisible" (click)="onBtnPress()"
-				[ngClass]="{'tut-opacity': isTutVisible, 'tut-active-item': tutStage === 'clockBtn'}">
+			<ion-button (click)="onBtnPress()"
+				[ngClass]="{'tut-item': isTutVisible, 'tut-active-item': tutStage === 'clockBtn'}">
 				<ion-icon [name]="activeClock ? 'log-out' : 'log-in'" size="large"></ion-icon>
 			</ion-button>
 
-			<ion-button [disabled]="isTutVisible" [routerLink]="['/hours-spent']" routerDirection="forward"
-				[ngClass]="{'tut-opacity': isTutVisible, 'tut-active-item': tutStage === 'hoursBtn'}">
+			<ion-button [routerLink]="['/hours-spent']" routerDirection="forward"
+				[ngClass]="{'tut-item': isTutVisible, 'tut-active-item': tutStage === 'hoursBtn'}">
 				<ion-icon name="md-time" size="large"></ion-icon>
 			</ion-button>
 
-			<ion-button [disabled]="isTutVisible" [routerLink]="['/settings']" routerDirection="forward"
-				[ngClass]="{'tut-opacity': isTutVisible, 'tut-active-item': tutStage === 'settingsBtn'}">
+			<ion-button [routerLink]="['/settings']" routerDirection="forward"
+				[ngClass]="{'tut-item': isTutVisible, 'tut-active-item': tutStage === 'settingsBtn'}">
 				<ion-icon class="menu-button" name="ios-more" size="large"></ion-icon>
 			</ion-button>
 		</ion-buttons>

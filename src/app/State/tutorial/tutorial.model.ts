@@ -1,7 +1,6 @@
 export interface Tutorial {
     stage: TutorialStage;
     isVisible: boolean;
-    isIntroVisible: boolean;
     isFirstStage: boolean;
     isLastStage: boolean;
     currStage: number;
@@ -23,4 +22,4 @@ export interface Action {
 
 export type ActionType = "SET_TUT" | "NEXT_STAGE" | "PREV_STAGE" | "FINISH_TUT" | "SHOW_TUT" | "RESET_TUT";
 
-export type TutorialStage = "clockBtn" | "hoursBtn" | "settingsBtn" | "owedHours" | "extraHours" | "content";
+export type TutorialStage = "intro" | "clockBtn" | "hoursBtn" | "settingsBtn" | "owedHours" | "extraHours" | "content";

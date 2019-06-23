@@ -5,15 +5,15 @@ const initState: Tutorial = {
     isVisible: true,
     isLastStage: false,
     isFirstStage: true,
-    stage: "clockBtn",
+    stage: "intro",
     currStage: 0,
-    isIntroVisible: true,
-    position: "on-header",
-    rightOffset: 26,
-    title: "clockBtnTitle"
+    position: "on-intro",
+    rightOffset: 0,
+    title: "introTitle"
 };
 
 const stages: StageConf[] = [
+    { stage: "intro", rightOffset: 0, title: "introTitle" },
     { stage: "clockBtn", rightOffset: 26, title: "clockBtnTitle" },
     { stage: "hoursBtn", rightOffset: 13, title: "hoursBtnTitle" },
     { stage: "settingsBtn", rightOffset: 2, title: "settingsBtnTitle" },
@@ -22,23 +22,32 @@ const stages: StageConf[] = [
     { stage: "content", rightOffset: 0, title: "contentTitle" },
 ];
 
+const getPosition = (stage: number) => {
+    if (stage === 0) {
+        return "on-intro";
+    }
+
+    if (stage < 3) {
+        return "on-header";
+    }
+
+    if (stage < 5) {
+        return "on-hours";
+    }
+
+    return "on-body";
+};
+
 export function TutorialsReducer(state: Tutorial = initState, action: Action) {
     switch (action.type) {
         case tutorialsActions.SET_TUTORIAL: {
-            return {
-                ...state,
-                ...action.payload
-            };
+            return { ...action.payload };
         }
 
         case tutorialsActions.NEXT_STAGE: {
             const nextStage = state.currStage + 1;
             const { stage, rightOffset, title } = stages[nextStage];
-            const position = (nextStage < 3)
-                ? "on-header"
-                : (nextStage < 5)
-                    ? "on-hours"
-                    : "on-body";
+            const position = getPosition(nextStage);
 
             return {
                 ...state,
@@ -55,11 +64,7 @@ export function TutorialsReducer(state: Tutorial = initState, action: Action) {
         case tutorialsActions.PREV_STAGE: {
             const prevStage = state.currStage - 1;
             const { stage, rightOffset, title } = stages[prevStage];
-            const position = (prevStage < 3)
-                ? "on-header"
-                : (prevStage < 5)
-                    ? "on-hours"
-                    : "on-body";
+            const position = getPosition(prevStage);
 
             return {
                 ...state,
@@ -76,7 +81,6 @@ export function TutorialsReducer(state: Tutorial = initState, action: Action) {
         case tutorialsActions.FINISH_TUT: {
             return {
                 ...state,
-                isIntroVisible: true,
                 isVisible: false,
                 stage: ""
             };
@@ -93,13 +97,6 @@ export function TutorialsReducer(state: Tutorial = initState, action: Action) {
             return {
                 ...state,
                 ...initState
-            };
-        }
-
-        case tutorialsActions.READ_INTRO: {
-            return {
-                ...state,
-                isIntroVisible: false
             };
         }
 
