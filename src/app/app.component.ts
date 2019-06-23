@@ -6,11 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateService } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
 
-import { AdMobFree } from '@ionic-native/admob-free/ngx';
-
 import { StorageService } from './services/storage/storage.service';
-
-import { environment } from 'src/environments/environment';
 
 import { Update as UpdateSettings } from "./state/settings/settings.actions";
 import { SetHours as SetExtraHours } from "./state/extraHours/extraHours.actions";
@@ -48,7 +44,6 @@ export class AppComponent implements OnInit {
 		private translate: TranslateService,
 		private storage: StorageService,
 		private store: Store<AppState>,
-		private admobFree: AdMobFree,
 		private router: Router,
 		private location: Location
 	) {
@@ -71,36 +66,16 @@ export class AppComponent implements OnInit {
 				}, false);
 			});
 
-
 			this.sub = this.tutObs.subscribe(({ isVisible }: Tutorial) => this.isTutVisible = isVisible);
 
 			this.statusBar.styleLightContent();
 			this.splashScreen.hide();
 			this.translate.setDefaultLang("en_US");
-
-			this.setupAd();
 		});
 	}
 
 	ngOnDestroy(): void {
 		this.sub.unsubscribe();
-	}
-
-	private setupAd() {
-		const id = (this.platform.is('android'))
-			? environment.adId.android
-			: environment.adId.ios;
-
-		this.admobFree.banner.config({
-			isTesting: !environment.production,
-			autoShow: true,
-			id: "ca-app-pub-5810216903508681/4089183083",
-			bannerAtTop: false
-		});
-
-		this.admobFree.banner.prepare()
-			.then(() => console.log("ad visible"))
-			.catch(e => console.log("err showing add: ", e));
 	}
 
 	private getStorageData() {

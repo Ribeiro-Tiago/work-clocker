@@ -90,7 +90,17 @@ export function TutorialsReducer(state: Tutorial = initState, action: Action) {
         }
 
         case tutorialsActions.RESET_TUT: {
-            return { ...initState };
+            return {
+                ...state,
+                ...initState
+            };
+        }
+
+        case tutorialsActions.READ_INTRO: {
+            return {
+                ...state,
+                isIntroVisible: false
+            };
         }
 
         default:

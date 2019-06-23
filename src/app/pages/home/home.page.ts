@@ -2,11 +2,16 @@ import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { AdMobFree } from '@ionic-native/admob-free/ngx';
+import { Router, NavigationEnd } from '@angular/router';
+import { Platform } from '@ionic/angular';
 
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { ClockedHour } from 'src/app/types/Hour';
 import { ClockedHour as StateClockedHour } from 'src/app/State/clockedHours/clockedHours.model';
 import { AppState } from 'src/app/State';
+
+import { environment } from 'src/environments/environment';
 
 import * as extraHoursActions from "../../state/extraHours/extraHours.actions";
 import * as owedHoursActions from "../../state/owedHours/owedHours.actions";
@@ -17,7 +22,6 @@ import { Setting } from 'src/app/state/settings/settings.model';
 import { ExtraHour } from 'src/app/State/extraHours/extraHours.model';
 import { OwedHour } from 'src/app/State/owedHours/owedHours.model';
 import { Tutorial, TutorialStage } from 'src/app/State/tutorial/tutorial.model';
-import { Location } from '@angular/common';
 
 @Component({
 	selector: 'app-home',
@@ -32,6 +36,7 @@ export class HomePage implements OnInit, OnDestroy {
 	private clockedHoursObs: Observable<StateClockedHour>;
 	private settingsObs: Observable<Setting>;
 	private tutObs: Observable<Tutorial>;
+	private isAdVisible: boolean;
 
 	lunchDuration: number;
 	workDuration: number;
@@ -49,12 +54,31 @@ export class HomePage implements OnInit, OnDestroy {
 	isModalVisible: boolean;
 	isTutVisible: boolean;
 
-	constructor(private storage: StorageService, private sanitizer: DomSanitizer, private store: Store<AppState>, private location: Location) {
+	constructor(
+		private storage: StorageService,
+		private sanitizer: DomSanitizer,
+		private store: Store<AppState>,
+		private admobFree: AdMobFree,
+		private platform: Platform,
+		private router: Router,
+	) {
 		this.owedHoursObs = store.select("owedHours");
 		this.extraHoursObs = store.select("extraHours");
 		this.clockedHoursObs = store.select("clockedHours");
 		this.settingsObs = store.select("settings");
 		this.tutObs = store.select("tutorial");
+
+		this.isAdVisible = true;
+
+		this.router.events.subscribe((ev: any) => {
+			if (ev instanceof NavigationEnd) {
+				if (ev.url === "/settings" && this.isAdVisible) {
+					this.hideAd();
+				} else if (ev.url === "/home" && !this.isAdVisible) {
+					this.showAd();
+				}
+			}
+		});
 
 		this.tutItem = {
 			day: 1560893131236,
@@ -68,6 +92,8 @@ export class HomePage implements OnInit, OnDestroy {
 		this.isLoading = true;
 		this.isModalVisible = false;
 		this.isTutVisible = false;
+
+		this.setupAd();
 	}
 
 	ngOnInit(): void {
@@ -257,5 +283,39 @@ export class HomePage implements OnInit, OnDestroy {
 		}
 
 		return leftover;
+	}
+
+	private setupAd() {
+		const id = (this.platform.is('android'))
+			? environment.adId.android
+			: environment.adId.ios;
+
+		this.admobFree.banner.config({
+			id,
+			isTesting: !environment.production,
+			autoShow: true,
+			bannerAtTop: false
+		});
+
+		this.admobFree.banner.prepare()
+			.then(() => console.log("ad visible"))
+			.catch(e => console.log("err showing add: ", e));
+	}
+
+	private hideAd() {
+		try {
+			this.admobFree.banner.hide();
+			this.isAdVisible = false;
+			// tslint:disable-next-line: no-empty
+		} catch (ex) { }
+	}
+
+	private showAd() {
+		try {
+			this.admobFree.banner.show();
+			this.isAdVisible = true;
+			// tslint:disable-next-line: no-empty
+		} catch (ex) { }
+
 	}
 }
