@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, Events, ToastController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateService } from '@ngx-translate/core';
@@ -41,7 +41,9 @@ export class AppComponent implements OnInit {
 		private statusBar: StatusBar,
 		private translate: TranslateService,
 		private storage: StorageService,
-		private store: Store<AppState>
+		private store: Store<AppState>,
+		private events: Events,
+		private toastController: ToastController
 	) {
 		this.isTutVisible = false;
 		this.isIntroScreen = true;
@@ -51,6 +53,8 @@ export class AppComponent implements OnInit {
 	ngOnInit() {
 		this.platform.ready().then(async () => {
 			this.getStorageData();
+
+			this.events.subscribe('showToast', (key: string) => this.showToast(key));
 
 			this.sub = this.tutObs.subscribe(({ isVisible }: Tutorial) => this.isTutVisible = isVisible);
 
@@ -114,5 +118,14 @@ export class AppComponent implements OnInit {
 				this.store.dispatch(new SetTutorial(tutorial));
 			}
 		});
+	}
+
+	private async showToast(key: string) {
+		const toast = await this.toastController.create({
+			message: await this.translate.get(key).toPromise(),
+			duration: 3000,
+		});
+
+		toast.present();
 	}
 }

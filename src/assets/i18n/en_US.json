@@ -17,7 +17,8 @@
 		"lunchDuration": "With {{duration}} lunch",
 		"endAt": "Left at {{end}}",
 		"exitETA": "You should leave at {{time}}",
-		"today": "Today"
+		"today": "Today",
+		"lunchHourUpdated": "Today's lunch hour has been updated"
 	},
 
 	"settings": {
@@ -36,7 +37,12 @@
 		"version": "App version",
 		"misc": "Miscellaneous",
 		"reset": "Erase everything",
-		"repeatTutorial": "Repeat tutorial"
+		"repeatTutorial": "Repeat tutorial",
+		"dateFormatSuccess": "Date format updated",
+		"languageSuccess": "Language updated",
+		"lunchDurationSuccess": "Lunch duration updated",
+		"workDurationSuccess": "Work duration updated",
+		"resetSuccess": "Data erased sucessfully"
 	},
 
 	"modal": {

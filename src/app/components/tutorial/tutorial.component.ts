@@ -5,7 +5,6 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/State';
 import { Tutorial, TutorialStage } from 'src/app/State/tutorial/tutorial.model';
 import * as TutorialActions from 'src/app/State/tutorial/tutorial.actions';
-import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { StorageService } from 'src/app/services/storage/storage.service';
 
 @Component({
@@ -27,7 +26,7 @@ export class TutorialComponent implements OnInit, OnDestroy {
 	isLastStage: boolean;
 	isFirstStage: boolean;
 
-	constructor(private store: Store<AppState>, private sanitizer: DomSanitizer, private storage: StorageService) {
+	constructor(private store: Store<AppState>, private storage: StorageService) {
 		this.tutObs = store.select("tutorial");
 	}
 
@@ -68,12 +67,9 @@ export class TutorialComponent implements OnInit, OnDestroy {
 		this.updateStorage();
 	}
 
-	sanitizeString = (string: string): SafeHtml => this.sanitizer.bypassSecurityTrustHtml(string);
-
 	private updateStorage(): void {
 		this.storage.set("tutorial", this.tut)
 			.then(() => console.log("tutorial storage updated"))
 			.catch(console.error);
 	}
-
 }

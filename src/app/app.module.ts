@@ -26,6 +26,7 @@ import { StorageService } from './services/storage/storage.service';
 import { reducers } from './State';
 import { AdMobFree } from '@ionic-native/admob-free/ngx';
 import { environment } from 'src/environments/environment';
+import { SanitizerModule } from './pipes/sanitizer/sanitizer.pipe.module';
 
 export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoader(http);
 
@@ -42,6 +43,7 @@ export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoad
 		HttpClientModule,
 		HomePageModule,
 		SettingsPageModule,
+		SanitizerModule,
 		IonicStorageModule.forRoot({
 			name: '__work-clocker__',
 			driverOrder: ['indexeddb', 'sqlite', 'websql']

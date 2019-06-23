@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 
 import { SpentHour } from 'src/app/State/spentHours/spentHours.model';
 import { AppState } from 'src/app/State';
@@ -18,7 +17,7 @@ export class SpentHoursPage implements OnInit, OnDestroy {
 	hours: Observable<SpentHour>;
 	dateFormat: string;
 
-	constructor(private store: Store<AppState>, private sanitizer: DomSanitizer) {
+	constructor(private store: Store<AppState>) {
 		this.hours = this.store.select("spentHours");
 	}
 
@@ -29,6 +28,4 @@ export class SpentHoursPage implements OnInit, OnDestroy {
 	ngOnDestroy() {
 		this.sub.unsubscribe();
 	}
-
-	sanitizeString = (string: string): SafeHtml => this.sanitizer.bypassSecurityTrustHtml(string);
 }

@@ -14,7 +14,7 @@
 
 	</div>
 
-	<div [innerHTML]="sanitizeString(tutText | translate)"></div>
+	<div [innerHTML]="tutText | translate | sanitize"></div>
 
 	<hr />
 

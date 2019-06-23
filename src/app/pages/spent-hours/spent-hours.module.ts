@@ -12,6 +12,7 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { SpentHoursPage } from './spent-hours.page';
 
 import { ConvertTimeModule } from 'src/app/pipes/convert-time/convert-time.pipe.module';
+import { SanitizerModule } from 'src/app/pipes/sanitizer/sanitizer.pipe.module';
 
 export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoader(http);
 
@@ -21,6 +22,7 @@ export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoad
 		FormsModule,
 		IonicModule,
 		ConvertTimeModule,
+		SanitizerModule,
 		RouterModule.forChild([{
 			path: '',
 			component: SpentHoursPage

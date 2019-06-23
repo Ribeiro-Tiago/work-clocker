@@ -12,14 +12,16 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { HomePage } from './home.page';
 
 /* comps */
-import { ListItemComponent } from '../../components/list-item/list-item.component';
-import { ListButtonComponent } from '../../components/list-button/list-button.component';
+import { ListItemComponent } from 'src/app/components/list-item/list-item.component';
+import { ListButtonComponent } from 'src/app/components/list-button/list-button.component';
 
 /* modules */
 import { ConvertTimeModule } from 'src/app/pipes/convert-time/convert-time.pipe.module';
 import { CalcClockoutModule } from 'src/app/pipes/calc-clockout/calc-clockout.pipe.module';
 import { FormatTimeModule } from 'src/app/pipes/format-time/format-time.pipe.module';
 import { UpdateLunchModalComponent } from 'src/app/components/update-lunch-modal/update-lunch-modal.component';
+
+import { SanitizerModule } from 'src/app/pipes/sanitizer/sanitizer.pipe.module';
 
 export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoader(http);
 
@@ -28,7 +30,7 @@ export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoad
 		HomePage,
 		ListItemComponent,
 		ListButtonComponent,
-		UpdateLunchModalComponent,
+		UpdateLunchModalComponent
 	],
 	imports: [
 		CommonModule,
@@ -38,6 +40,7 @@ export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoad
 		ConvertTimeModule,
 		CalcClockoutModule,
 		FormatTimeModule,
+		SanitizerModule,
 		RouterModule.forChild([
 			{
 				path: '',

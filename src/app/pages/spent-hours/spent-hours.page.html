@@ -9,17 +9,17 @@
 <ion-content class="list-wrapper">
 	<p class="header-description">{{ "spentHours.desc" | translate }}</p>
 
-	<h3 *ngIf="!hours.length" [innerHTML]="sanitizeString('spentHours.noItems' | translate)"></h3>
+	<h3 *ngIf="!hours.length" [innerHTML]="'spentHours.noItems' | santize | translate"></h3>
 
 	<div class="item" *ngFor="let item of hours | async">
 		<span
-			[innerHTML]="sanitizeString('spentHours.usedHours' | translate | convertTime: { destType: 'hours', payload: item.hours, replace: 'hours'})"></span>
+			[innerHTML]="'spentHours.usedHours' | translate | convertTime: { destType: 'hours', payload: item.hours, replace: 'hours' | sanitize }"></span>
 
 		<span
-			[innerHTML]="sanitizeString('spentHours.hadHours' | translate | convertTime: { destType: 'hours', payload: item.prevHours, replace: 'hours'})"></span>
+			[innerHTML]="'spentHours.hadHours' | translate | convertTime: { destType: 'hours', payload: item.prevHours, replace: 'hours' | sanitize }"></span>
 
 		<span
-			[innerHTML]="sanitizeString('spentHours.nowHave' | translate | convertTime: { destType: 'hours', payload: item.afterHours, replace: 'hours'})"></span>
+			[innerHTML]="'spentHours.nowHave' | translate | convertTime: { destType: 'hours', payload: item.afterHours, replace: 'hours' | sanitize }"></span>
 
 		<span class="date">
 			{{ "listItem.listDay" | translate | convertTime: { destType: "day", payload: item.day, replace: "day", format: dateFormat } }}

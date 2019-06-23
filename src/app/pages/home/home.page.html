@@ -45,7 +45,7 @@
 				[dateFormat]="'dd/mm/yyyy'" [lunchDuration]="'60'" [workDuration]="'8'"></app-list-item>
 		</ng-container>
 		<ng-template #elseTemplate>
-			<h3 *ngIf="!clockedHours.length" [innerHTML]="sanitizeString('listItem.noItems' | translate)">
+			<h3 *ngIf="!clockedHours.length" [innerHTML]="'listItem.noItems' | translate | sanitize">
 			</h3>
 
 			<app-list-item class="list-wrapper" *ngFor="let item of clockedHours; let i = index" [item]="item"

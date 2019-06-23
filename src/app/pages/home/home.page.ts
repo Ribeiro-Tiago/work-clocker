@@ -1,9 +1,8 @@
 import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AdMobFree } from '@ionic-native/admob-free/ngx';
-import { Platform } from '@ionic/angular';
+import { Platform, Events } from '@ionic/angular';
 
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { ClockedHour } from 'src/app/types/Hour';
@@ -54,10 +53,10 @@ export class HomePage implements OnInit, OnDestroy {
 
 	constructor(
 		private storage: StorageService,
-		private sanitizer: DomSanitizer,
 		private store: Store<AppState>,
 		private admobFree: AdMobFree,
 		private platform: Platform,
+		private events: Events,
 	) {
 		this.owedHoursObs = store.select("owedHours");
 		this.extraHoursObs = store.select("extraHours");
@@ -185,7 +184,16 @@ export class HomePage implements OnInit, OnDestroy {
 	}
 
 	updateLunchTime(duration: number): void {
+		if (this.clockedHours[0].lunchDuration === duration) {
+			this.toggleLunchUpdate();
+			return;
+		}
+
 		this.clockedHours[0].lunchDuration = duration;
+
+		this.toggleLunchUpdate();
+
+		this.events.publish("showToast", "listItem.lunchHourUpdated");
 
 		this.store.dispatch(new clockedActions.UpdateHours({
 			hours: this.clockedHours,
@@ -195,11 +203,7 @@ export class HomePage implements OnInit, OnDestroy {
 		this.storage.set("clockedHours", this.clockedHours)
 			.then(() => console.log("updated lunch hour"))
 			.catch((err) => console.log("err updating hour: ", err));
-
-		this.toggleLunchUpdate();
 	}
-
-	sanitizeString = (string: string): SafeHtml => this.sanitizer.bypassSecurityTrustHtml(string);
 
 	private useExtraHours(owed: number): number {
 		const currExtraHours = this.extraHours.hours;
@@ -287,10 +291,6 @@ export class HomePage implements OnInit, OnDestroy {
 			autoShow: true,
 			bannerAtTop: false
 		});
-
-		/* this.admobFree.banner.prepare()
-			.then(() => console.log("ad visible"))
-			.catch(e => console.log("err showing add: ", e)); */
 	}
 
 	private showAd() {

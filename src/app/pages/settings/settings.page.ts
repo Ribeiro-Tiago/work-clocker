@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { ActionSheetController } from '@ionic/angular';
+import { Events } from '@ionic/angular';
 
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -48,11 +48,11 @@ export class SettingsPage implements OnInit, OnDestroy {
 	settings: Observable<Setting>;
 
 	constructor(
-		public actionSheetController: ActionSheetController,
 		private translate: TranslateService,
 		private storage: StorageService,
 		private store: Store<AppState>,
-		private location: Location
+		private location: Location,
+		private events: Events
 	) {
 		this.dateFormats = configs.dateFormats;
 		this.langs = configs.langs;
@@ -92,6 +92,8 @@ export class SettingsPage implements OnInit, OnDestroy {
 
 		this.selectedDateFormat = this.dateFormats.find(f => f.key === selectedId);
 
+		this.events.publish("showToast", "settings.dateFormatSuccess");
+
 		this.updateSettings();
 	}
 
@@ -102,6 +104,9 @@ export class SettingsPage implements OnInit, OnDestroy {
 
 		this.selectedLanguage = this.langs.find(l => l.key === selectedId);
 		this.translate.setDefaultLang(selectedId);
+
+		this.events.publish("showToast", "settings.languageSuccess");
+
 		this.updateSettings();
 	}
 
@@ -112,6 +117,8 @@ export class SettingsPage implements OnInit, OnDestroy {
 
 		this.selectedLunchDuration = minute;
 
+		this.events.publish("showToast", "settings.lunchDurationSuccess");
+
 		this.updateSettings();
 	}
 
@@ -121,6 +128,8 @@ export class SettingsPage implements OnInit, OnDestroy {
 		}
 
 		this.selectedWorkDuration = hour;
+
+		this.events.publish("showToast", "settings.workDurationSuccess");
 
 		this.updateSettings();
 	}
@@ -178,6 +187,9 @@ export class SettingsPage implements OnInit, OnDestroy {
 	}
 
 	private resetApp(): void {
+		this.events.publish("showToast", "settings.resetSuccess");
+
+
 		this.initInputs();
 		this.updateSettings();
 
