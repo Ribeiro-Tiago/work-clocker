@@ -5,22 +5,26 @@
 	},
 
 	"home": {
-		"owedHours": "{{hours}} hours owed",
-		"extraHours": "{{hours}} extra hours"
+		"owedHours": "{{hours}} horas devidas",
+		"extraHours": "{{hours}} horas extra",
+		"clockedIn": "Ponto picado, boa sorte",
+		"clockedOut": "Acabaste por hoje, até à próxima"
 	},
 
 	"listItem": {
-		"noItems": "You haven’t clocked in any hours yet.<br/><br/>Click on the button bollow to start clocking in your time",
-		"listDay": "On {{day}}",
-		"timeWorked": "You worked {{time}}",
-		"startAt": "Clocked in at {{start}}",
-		"lunchDuration": "With {{duration}} lunch",
-		"endAt": "Left at {{end}}",
-		"exitETA": "You should leave at {{time}}",
-		"today": "Today"
+		"noItems": "Ainda não picaste o ponto nenhuma vez.<br/><br/>Uso o botão na barra em cima para picares o ponto.",
+		"listDay": "No dia {{day}}",
+		"timeWorked": "Trabalhaste {{time}}",
+		"startAt": "Picaste o ponto às {{start}}",
+		"lunchDuration": "Com {{duration}} de almoço",
+		"endAt": "Saíste às {{end}}",
+		"exitETA": "Deves sair às {{time}}",
+		"today": "Hoje",
+		"lunchHourUpdated": "Duração de almoço atualizada"
 	},
 
 	"settings": {
+		"title": "Configurações",
 		"appSettings": "Configurações da aplicação",
 		"about": "Sobre",
 		"dateFormat": "Formato de data",
@@ -30,20 +34,55 @@
 		"confirmText": "Selecione",
 		"cancelText": "Cancelar",
 		"privacyPolicy": "Política de privacidade",
-		"userAgreement": "Acordo de uti",
+		"userAgreement": "Acordo de utilização",
 		"adPolicy": "Política de anúncios",
 		"version": "Versão da aplicação",
 		"misc": "Diversos",
 		"reset": "Apagar tudo",
-		"repeatTutorial": "Repetir tutorial"
+		"repeatTutorial": "Repetir tutorial",
+		"dateFormatSuccess": "Formato de data atualizado",
+		"languageSuccess": "Idíoma atualizado",
+		"lunchDurationSuccess": "Duração de almoço predefinida atualizada",
+		"workDurationSuccess": "Duração de trabalho predefinida atualziada",
+		"resetSuccess": "Dados apagados com sucesso!"
 	},
 
 	"modal": {
-		"updateLunchTime": "Update today's Lunch time duration",
-		"resetSettingsTitle": "Reset all settings",
-		"resetSettingsText": "This will reset all settings to defaults. Are you sure?",
-		"confirm": "Confirm",
-		"update": "Update",
-		"cancel": "Cancel"
+		"updateLunchTime": "Atualizar duração de almoço de hoje",
+		"resetSettingsTitle": "Apagar todas a informação",
+		"resetSettingsText": "Esta ação irá apagar toda a informação desta aplicação. Tem a certeza ?",
+		"confirm": "Confirmo",
+		"update": "Atualizar",
+		"cancel": "Cancelar"
+	},
+
+	"spentHours": {
+		"title": "Horas gastas",
+		"desc": "Aqui consegues ver todas as horas devidas e extra que foram usadas para compensar a outra",
+		"usedHours": "Usaste <b>{{hours}}</b> das horas extra que tinhas para compensar horas devidas.",
+		"hadHours": "Tinhas <u>{{hours}}</u> horas",
+		"nowHave": "Ficas com <u>{{hours}}</u> horas",
+		"noItems": "Ainda não usados horas nenhuma extra.<br/><br/>Isto é porque ou não nunca tiveste horas extra, ou nunca tiveste horas devidas"
+	},
+
+	"tutorial": {
+		"next": "Próximo",
+		"previous": "Anterior",
+		"skip": "Saltar",
+		"finish": "Terminar",
+		"introTitle": "Tutorial - introdução",
+		"intro": "<p>Bem vindo ao <i>Work Clocker</i>, a melhor ferramenta para te ajudar a não trabalhares mais do que precisas.</p><p>Antes de começarmos, queres ver o tutorial ?</p>",
+		"clockBtnTitle": "Tutorial - Picar o ponto",
+		"clockBtn": "<p>Este botão serve para poderes picar o ponto, à entrada e à saída.</p><p>À saída é calculado o número de horas trabalhadas no dia, e se existem horas a dever ou extra, com base na duração de trabalho predefinida.</p>",
+		"hoursBtnTitle": "Tutorial - Horas gastas",
+		"hoursBtn": "<p>Através deste botão consegues ver listadas as horas extras que foram usadas para cobrir as horas dividas para um maior controlo das horas trabalhadas.</p><p>Estas são calculadas automaticamente aquando de picar o ponto para sair.</p>",
+		"settingsBtnTitle": "Tutorial - Configurações",
+		"settingsBtn": "<p>Aqui estão as configurações da aplicação e outras informações.</p><p>Configurações tipo duração do dia, idioma da aplicação, termos de utilização, possibilidade de apagar toda a informação da aplicação, etc.</p>",
+		"owedHoursTitle": "Tutorial - Horas devidas",
+		"owedHours": "<p>Este número indica o número de horas devidas. Horas devidas são horas que devias ter trabalho e não trabalhaste (e.g.: sair mais cedo).</p><p>Se trabalhares a mais, essas horas extra serão usadas para \"pagar\" as devidas</p>",
+		"extraHoursTitle": "Tutorial - Hours extra",
+		"extraHours": "<p>Desta lado estão as horas trabalhadas a mais.</p><p>Quando trabalhares a mais, e não tiveres horas devidas, este número aumenta.</p>",
+		"contentTitle": "Tutorial - Clocked hours",
+		"content": "<p>Aqui encontras listados os teus \"dias de trabalho\". A informação muda dependendo es estás num dia de trabalho ou já picaste o ponto para sair.</p><p>Mostrará ou a hora a que picaste o ponto (entrada e saída), duração de almoço, quanto tempo trabalhaste naquele dia.</p><p>Ou então mostra quando picaste o ponto e, com base na duração de almoço (pre)definida, quando deves sair.</p><p>Também é possível alterar a hora de almoço do dia de \"hoje\" carregando no item na listagem.</p>"
 	}
 }

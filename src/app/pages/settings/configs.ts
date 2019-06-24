@@ -8,6 +8,7 @@ export default {
         { key: "pt_PT", label: "Português (Portugal)" }
     ],
     lunchDuration: [
+        0,
         15,
         20,
         30,

@@ -11,10 +11,10 @@ import { AppState } from 'src/app/State';
 
 import { environment } from 'src/environments/environment';
 
-import * as extraHoursActions from "../../state/extraHours/extraHours.actions";
-import * as owedHoursActions from "../../state/owedHours/owedHours.actions";
-import * as clockedActions from "../../state/clockedHours/clockedHours.actions";
-import { AddHours as AddSpentHour } from "../../state/spentHours/spentHours.actions";
+import * as extraHoursActions from "src/app/state/extraHours/extraHours.actions";
+import * as owedHoursActions from "src/app/state/owedHours/owedHours.actions";
+import * as clockedActions from "src/app/state/clockedHours/clockedHours.actions";
+import { AddHours as AddSpentHour } from "src/app/state/spentHours/spentHours.actions";
 
 import { Setting } from 'src/app/state/settings/settings.model';
 import { ExtraHour } from 'src/app/State/extraHours/extraHours.model';
@@ -119,13 +119,15 @@ export class HomePage implements OnInit, OnDestroy {
 	}
 
 	clockIn(): void {
-		const d = new Date();
+		const d = Date.now();
 		const item: ClockedHour = {
-			day: d.getTime(),
-			startHour: d.getTime(),
+			day: d,
+			startHour: d,
 			isActive: true,
 			lunchDuration: this.lunchDuration
 		};
+
+		this.showToast("home.clockedIn");
 
 		this.store.dispatch(new clockedActions.AddHour(item));
 
@@ -137,20 +139,20 @@ export class HomePage implements OnInit, OnDestroy {
 	clockOut(): void {
 		const currItem = this.clockedHours[0];
 		const d = Date.now();
-		let timeWorked = ((d - currItem.startHour) / 1000) - (currItem.lunchDuration * 60);
-		const hoursWorked = Math.abs(Math.floor(timeWorked / 3600));
-		const minutesWorked = Math.abs(Math.floor((timeWorked % 3600) / 60));
-		const timeWorkedDiff = (hoursWorked - this.workDuration);
+		const timeWorkedSecs = (d - currItem.startHour - (currItem.lunchDuration * 60000)) / 1000;
+		const minutesWorked = Math.floor(timeWorkedSecs / 60);
 
-		timeWorked = (hoursWorked * 60) + minutesWorked;
+		const timeWorkedDiff = (minutesWorked / 60) - this.workDuration;
+
+		this.showToast("home.clockedOut");
 
 		currItem.endHour = d;
-		currItem.timeWorked = timeWorked;
+		currItem.timeWorked = minutesWorked;
 		currItem.isActive = false;
 
 		if (timeWorkedDiff < 0) {
 			/* worked less hours than expected, use extra hours / check how many hours owed now */
-			const owedHours = this.useExtraHours(Math.abs(timeWorkedDiff) * 60 - timeWorked);
+			const owedHours = this.useExtraHours(Math.abs(timeWorkedDiff) * 60);
 
 			if (owedHours > 0) {
 				this.store.dispatch(new owedHoursActions.AddHours(owedHours));
@@ -177,6 +179,7 @@ export class HomePage implements OnInit, OnDestroy {
 			.catch(console.error);
 	}
 
+
 	toggleLunchUpdate(canUpdate: boolean = true): void {
 		if (canUpdate) {
 			this.isModalVisible = !this.isModalVisible;
@@ -193,7 +196,7 @@ export class HomePage implements OnInit, OnDestroy {
 
 		this.toggleLunchUpdate();
 
-		this.events.publish("showToast", "listItem.lunchHourUpdated");
+		this.showToast("listItem.lunchHourUpdated");
 
 		this.store.dispatch(new clockedActions.UpdateHours({
 			hours: this.clockedHours,
@@ -205,30 +208,30 @@ export class HomePage implements OnInit, OnDestroy {
 			.catch((err) => console.log("err updating hour: ", err));
 	}
 
-	private useExtraHours(owed: number): number {
-		const currExtraHours = this.extraHours.hours;
-		let leftover = owed;
+	private useExtraHours(owedMinutes: number): number {
+		const currExtraMin = this.extraHours.hours;
+		let leftover = owedMinutes;
 
-		if (currExtraHours > 0) {
-			const extraHours = currExtraHours - owed;
-			let hoursUsed = 0;
+		if (currExtraMin > 0) {
+			const extraMins = currExtraMin - owedMinutes;
+			let minsUsed = 0;
 
-			if (extraHours < 0) {
-				leftover = extraHours * -1;
-				hoursUsed = currExtraHours;
+			if (extraMins < 0) {
+				leftover = extraMins * -1;
+				minsUsed = currExtraMin;
 
 				this.store.dispatch(new extraHoursActions.ResetHours());
 			} else {
 				leftover = 0;
-				hoursUsed = owed;
+				minsUsed = owedMinutes;
 
-				this.store.dispatch(new extraHoursActions.UpdateHours(extraHours));
+				this.store.dispatch(new extraHoursActions.UpdateHours(extraMins));
 			}
 
 			this.store.dispatch(new AddSpentHour({
-				hours: hoursUsed,
+				hours: minsUsed,
 				day: Date.now(),
-				prevHours: currExtraHours,
+				prevHours: currExtraMin,
 				afterHours: this.extraHours.hours,
 			}));
 
@@ -240,35 +243,33 @@ export class HomePage implements OnInit, OnDestroy {
 		return leftover;
 	}
 
-	private payOwedHours(extraWorked: number): number {
-		extraWorked = 1800;
+	private payOwedHours(extraMinutes: number): number {
+		const currOwedMin = this.owedHours.hours;
+		let leftover = extraMinutes;
 
-		const currOwedHours = this.owedHours.hours;
-		let leftover = extraWorked;
-
-		if (currOwedHours > 0) {
+		if (currOwedMin > 0) {
 			/* ver se as horas extra cobrem as owed */
-			const extraHours = currOwedHours - extraWorked;
-			let hoursUsed = 0;
+			const extraMins = currOwedMin - extraMinutes;
+			let minsUsed = 0;
 
 			/* se não */
-			if (extraHours > 0) {
+			if (extraMins > 0) {
 				leftover = 0;
-				hoursUsed = extraWorked;
+				minsUsed = extraMinutes;
 
 				this.store.dispatch(new extraHoursActions.ResetHours());
-				this.store.dispatch(new owedHoursActions.UpdateHours(Math.abs(Math.floor(extraHours))));
+				this.store.dispatch(new owedHoursActions.UpdateHours(Math.abs(Math.floor(extraMins))));
 			} else {
-				leftover = Math.abs(extraHours);
-				hoursUsed = currOwedHours;
+				leftover = Math.abs(extraMins);
+				minsUsed = currOwedMin;
 
 				this.store.dispatch(new owedHoursActions.ResetHours());
 			}
 
 			this.store.dispatch(new AddSpentHour({
-				hours: hoursUsed,
+				hours: minsUsed,
 				day: Date.now(),
-				prevHours: currOwedHours,
+				prevHours: currOwedMin,
 				afterHours: this.extraHours.hours,
 			}));
 
@@ -303,5 +304,9 @@ export class HomePage implements OnInit, OnDestroy {
 		this.admobFree.banner.hide()
 			.then(() => console.log("ad hidden"))
 			.catch(err => console.log("err hiding ad: ", err));
+	}
+
+	private showToast(key: string) {
+		this.events.publish("showToast", key);
 	}
 }

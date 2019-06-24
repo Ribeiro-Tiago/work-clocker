@@ -189,7 +189,6 @@ export class SettingsPage implements OnInit, OnDestroy {
 	private resetApp(): void {
 		this.events.publish("showToast", "settings.resetSuccess");
 
-
 		this.initInputs();
 		this.updateSettings();
 
