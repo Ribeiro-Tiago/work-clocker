@@ -9,7 +9,7 @@ import { ClockedHour } from 'src/app/types/Hour';
 import { ClockedHour as StateClockedHour } from 'src/app/State/clockedHours/clockedHours.model';
 import { AppState } from 'src/app/State';
 
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 
 import * as extraHoursActions from "src/app/state/extraHours/extraHours.actions";
 import * as owedHoursActions from "src/app/state/owedHours/owedHours.actions";
