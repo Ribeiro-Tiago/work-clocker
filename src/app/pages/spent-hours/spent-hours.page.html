@@ -9,7 +9,7 @@
 <ion-content class="list-wrapper">
 	<p class="header-description">{{ "spentHours.desc" | translate }}</p>
 
-	<h3 *ngIf="!hours.length" [innerHTML]="'spentHours.noItems' | santize | translate"></h3>
+	<h3 *ngIf="!hours.length" [innerHTML]="'spentHours.noItems' | translate | sanitize"></h3>
 
 	<div class="item" *ngFor="let item of hours | async">
 		<span
