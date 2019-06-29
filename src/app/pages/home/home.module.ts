@@ -16,12 +16,12 @@ import { ListItemComponent } from 'src/app/components/list-item/list-item.compon
 import { ListButtonComponent } from 'src/app/components/list-button/list-button.component';
 import { UpdateLunchModalComponent } from 'src/app/components/update-lunch-modal/update-lunch-modal.component';
 import { OwedExtraHoursComponent } from 'src/app/components/owed-extra-hours/owed-extra-hours.component';
+import { ClockedHoursComponent } from 'src/app/components/clocked-hours/clocked-hours.component';
 
 /* modules */
 import { ConvertTimeModule } from 'src/app/pipes/convert-time/convert-time.pipe.module';
 import { CalcClockoutModule } from 'src/app/pipes/calc-clockout/calc-clockout.pipe.module';
 import { FormatTimeModule } from 'src/app/pipes/format-time/format-time.pipe.module';
-
 import { SanitizerModule } from 'src/app/pipes/sanitizer/sanitizer.pipe.module';
 
 export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoader(http);
@@ -32,7 +32,8 @@ export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoad
 		ListItemComponent,
 		ListButtonComponent,
 		UpdateLunchModalComponent,
-		OwedExtraHoursComponent
+		OwedExtraHoursComponent,
+		ClockedHoursComponent
 	],
 	imports: [
 		CommonModule,
