@@ -10,7 +10,7 @@
 		<ng-template #isActiveTemplate>
 			<p>{{ "listItem.today" | translate }}</p>
 			<p>
-				{{ "listItem.exitETA" | translate | calcClockout: { clockIn: item.day, format: dateFormat, duration: workDuration, lunchTime: lunchDuration } }}
+				{{ "listItem.exitETA" | translate | calcClockout: { clockIn: item.day, format: dateFormat, duration: workDuration, lunchTime: item.lunchDuration } }}
 			</p>
 		</ng-template>
 	</div>

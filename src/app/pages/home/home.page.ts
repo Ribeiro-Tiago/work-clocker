@@ -179,7 +179,6 @@ export class HomePage implements OnInit, OnDestroy {
 			.catch(console.error);
 	}
 
-
 	toggleLunchUpdate(canUpdate: boolean = true): void {
 		if (canUpdate) {
 			this.isModalVisible = !this.isModalVisible;
