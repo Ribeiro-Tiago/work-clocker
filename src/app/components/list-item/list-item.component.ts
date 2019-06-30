@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
 
-import { ClockedHour } from '../../types/Hour';
+import { ClockedHour } from 'src/app/state/clockedHours/clockedHours.model';
 
 @Component({
 	selector: 'app-list-item',

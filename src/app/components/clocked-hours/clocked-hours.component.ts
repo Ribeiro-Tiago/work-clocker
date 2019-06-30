@@ -5,8 +5,7 @@ import { Subscription, Observable } from 'rxjs';
 
 import { Tutorial, TutorialStage } from 'src/app/state/tutorial/tutorial.model';
 import { AppState } from 'src/app/State';
-import { ClockedHour as StateClockedHour } from 'src/app/state/clockedHours/clockedHours.model';
-import { ClockedHour } from 'src/app/types/Hour';
+import { ClockedHour, ClockedHourItem } from 'src/app/state/clockedHours/clockedHours.model';
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { UpdateHours as UpdateHoursAction } from "src/app/state/clockedHours/clockedHours.actions";
 
@@ -19,17 +18,17 @@ import { UpdateHours as UpdateHoursAction } from "src/app/state/clockedHours/clo
 export class ClockedHoursComponent implements OnInit {
 	private subs: Subscription[];
 	private tutObs: Observable<Tutorial>;
-	private clockedHoursObs: Observable<StateClockedHour>;
+	private clockedHoursObs: Observable<ClockedHour>;
 
 	isTutVisible: boolean;
 	tutStage: TutorialStage;
 
-	clockedHours: ClockedHour[];
+	clockedHours: ClockedHourItem[];
 
 	isActiveClock: boolean;
 	isModalVisible: boolean;
 
-	constructor(private store: Store<AppState>, private storage: StorageService, private events: Events, ) {
+	constructor(private store: Store<AppState>, private storage: StorageService, private events: Events) {
 		this.tutObs = store.select("tutorial");
 		this.clockedHoursObs = store.select("clockedHours");
 	}
@@ -40,7 +39,7 @@ export class ClockedHoursComponent implements OnInit {
 				this.isTutVisible = isVisible;
 				this.tutStage = stage;
 			}),
-			this.clockedHoursObs.subscribe((result: StateClockedHour) => {
+			this.clockedHoursObs.subscribe((result: ClockedHour) => {
 				this.isActiveClock = result.isActive;
 				this.clockedHours = [...result.hours];
 			})

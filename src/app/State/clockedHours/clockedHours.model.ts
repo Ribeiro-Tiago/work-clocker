@@ -1,12 +1,22 @@
-import { ClockedHour as Item } from 'src/app/types/Hour';
-
 export interface Action {
     type: string;
     payload?: ClockedHour;
 }
 
+export interface ClockedHourItem {
+    day: number; // timestamp
+    startHour: number; // timestamp
+    lunchDuration: number; // minutes
+    // status: number; // 1 - clock in; 2 - enter lunch; 3 - return lunch; 4 - clock out
+    isActive: boolean;
+    timeWorked?: number; // time worked in minutes
+    endHour?: number; // timestamp
+    lunchStart?: number;
+    lunchEnd?: number;
+}
+
 export interface ClockedHour {
-    hours: Item[];
+    hours: ClockedHourItem[];
     isActive: boolean;
 }
 

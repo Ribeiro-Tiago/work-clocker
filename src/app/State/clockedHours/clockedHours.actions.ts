@@ -1,7 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { ClockedHour } from "./clockedHours.model";
-import { ClockedHour as ClockedHourItem } from "../../types/Hour";
+import { ClockedHour, ClockedHourItem } from "./clockedHours.model";
 
 export const ADD_CLOCKED_HOUR = "[Clocked hours] Add clocked hour";
 export const SET_CLOCKED_HOURS = "[Clocked hours] Set clocked hours";

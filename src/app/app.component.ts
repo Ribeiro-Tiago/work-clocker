@@ -18,11 +18,11 @@ import { SetTutorial } from "./state/tutorial/tutorial.actions";
 import { AppState } from './State';
 import { Tutorial } from './State/tutorial/tutorial.model';
 import { Subscription, Observable } from 'rxjs';
-import { ClockedHour } from './types/Hour';
 import { Setting } from './state/settings/settings.model';
 import { SpentHour } from './state/spentHours/spentHours.model';
 import { OwedHour } from './state/owedHours/owedHours.model';
 import { ExtraHour } from './state/extraHours/extraHours.model';
+import { ClockedHourItem } from './state/clockedHours/clockedHours.model';
 
 @Component({
 	selector: 'app-root',
@@ -81,7 +81,7 @@ export class AppComponent implements OnInit {
 			const owedHours: OwedHour = results[1];
 			const spentHours: SpentHour[] = results[2];
 			const settings: Setting = results[3];
-			const clockedHours: ClockedHour[] = results[4];
+			const clockedHours: ClockedHourItem[] = results[4];
 			const tutorial: Tutorial = results[5];
 
 			if (extraHours) {
