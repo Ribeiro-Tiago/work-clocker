@@ -1,25 +1,62 @@
 <div class="item" (click)="triggerOnClick(item)">
 	<div class="row">
 		<ng-container *ngIf="!item.isActive; else isActiveTemplate">
-			<p>{{ "listItem.listDay" | translate | convertTime: { destType: "day", payload: item.day, replace: "day", format: dateFormat, test:"yes" } }}
+			<p>
+				{{ "listItem.listDay" | translate  | convertTime: {
+						destType: "day", 
+						payload: item.day, 
+						replace: "day", 
+						format: dateFormat
+					} 
+				}}
 			</p>
 
-			<p>{{ "listItem.timeWorked" | translate | convertTime: { destType: "hours", payload: item.timeWorked, replace: "time" } }}
+			<p>
+				{{ "listItem.timeWorked" | translate  | convertTime: { 
+						destType: "hours", 
+						payload: item.timeWorked, 
+						replace: "time"
+					} 
+				}}
 			</p>
 		</ng-container>
 		<ng-template #isActiveTemplate>
 			<p>{{ "listItem.today" | translate }}</p>
 			<p>
-				{{ "listItem.exitETA" | translate | calcClockout: { clockIn: item.day, format: dateFormat, duration: workDuration, lunchTime: item.lunchDuration } }}
+				{{ "listItem.exitETA" | translate | calcClockout: { 
+						clockIn: item.day, 
+						format: dateFormat, 
+						duration: workDuration, 
+						lunchTime: item.lunchDuration 
+					} 
+				}}
 			</p>
 		</ng-template>
 	</div>
 
 	<div class="row">
-		<span>{{ "listItem.startAt"  | translate | formatTime: { payload: item.startHour, replace: "start" } }}</span>
-		<span>{{ "listItem.lunchDuration" | translate | convertTime: { destType: "hours", payload: item.lunchDuration, replace: "duration" } }}</span>
+		<span>
+			{{ "listItem.startAt" | translate | formatTime: { 
+					payload: item.startHour, 
+					replace: "start" 
+				} 
+			}}
+		</span>
+		<span>
+			{{ "listItem.lunchDuration" | translate | convertTime: { 
+					destType: "hours", 
+					payload: item.lunchDuration, 
+					replace: "duration" 
+				} 
+			}}
+		</span>
 		<span *ngIf="!item.isActive">
-			{{ "listItem.endAt" | translate | convertTime: { destType: "timestamp", payload: item.endHour, replace: "end" } }}
+			{{ "listItem.endAt" | translate | convertTime: { 
+					destType: "timestamp", 
+					payload: item.endHour, 
+					replace: "end" 
+				} 
+			}}
 		</span>
 	</div>
 </div>

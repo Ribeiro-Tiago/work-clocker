@@ -1,28 +1,5 @@
 <ion-header>
-	<ion-toolbar color="primary">
-		<div [ngClass]="{'visible': isTutVisible}" class="backdrop"></div>
-
-		<ion-title>
-			Work Clocker
-		</ion-title>
-
-		<ion-buttons slot="end">
-			<ion-button (click)="onBtnPress()"
-				[ngClass]="{'tut-item': isTutVisible, 'tut-active-item': tutStage === 'clockBtn'}">
-				<ion-icon [name]="activeClock ? 'log-out' : 'log-in'" size="large"></ion-icon>
-			</ion-button>
-
-			<ion-button [routerLink]="['/hours-spent']" routerDirection="forward"
-				[ngClass]="{'tut-item': isTutVisible, 'tut-active-item': tutStage === 'hoursBtn'}">
-				<ion-icon name="md-time" size="large"></ion-icon>
-			</ion-button>
-
-			<ion-button [routerLink]="['/settings']" routerDirection="forward"
-				[ngClass]="{'tut-item': isTutVisible, 'tut-active-item': tutStage === 'settingsBtn'}">
-				<ion-icon class="menu-button" name="ios-more" size="large"></ion-icon>
-			</ion-button>
-		</ion-buttons>
-	</ion-toolbar>
+	<app-header title="Work Clocker"></app-header>
 </ion-header>
 
 <ion-content>
@@ -30,28 +7,7 @@
 		[currDuration]="lunchDuration" [ngClass]="{'is-visible': isModalVisible}" [index]="selectedItemIndex">
 	</app-update-lunch-modal>
 
-	<div class="hours-worked ion-padding" [ngClass]="{'tut-visible': isTutVisible}">
-		<span [ngClass]="{'tut-active-item': tutStage === 'owedHours'}">
-			{{ "home.owedHours" | translate | convertTime: { destType: "hours", payload: owedHours.hours, replace: "hours" } }}
-		</span>
-		<span [ngClass]="{'tut-active-item': tutStage === 'extraHours'}">
-			{{ "home.extraHours" | translate | convertTime: { destType: "hours", payload: extraHours.hours, replace: "hours" } }}
-		</span>
-	</div>
+	<app-owed-extra-hours></app-owed-extra-hours>
 
-	<div class="list" [ngClass]="{'tut-visible': isTutVisible}">
-		<ng-container *ngIf="isTutVisible; else elseTemplate">
-			<app-list-item [ngClass]="{'active-tut-item': tutStage === 'content'}" class="list-wrapper" [item]="tutItem"
-				[dateFormat]="'dd/mm/yyyy'" [lunchDuration]="'60'" [workDuration]="'8'"></app-list-item>
-		</ng-container>
-		<ng-template #elseTemplate>
-			<h3 *ngIf="!clockedHours.length" [innerHTML]="'listItem.noItems' | translate | sanitize">
-			</h3>
-
-			<app-list-item class="list-wrapper" *ngFor="let item of clockedHours; let i = index" [item]="item"
-				[dateFormat]="dateFormat" [lunchDuration]="lunchDuration" [workDuration]="workDuration"
-				(onClick)="toggleLunchUpdate($event);">
-			</app-list-item>
-		</ng-template>
-	</div>
+	<app-clocked-hours></app-clocked-hours>
 </ion-content>
