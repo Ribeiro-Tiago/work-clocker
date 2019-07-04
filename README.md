@@ -4,7 +4,7 @@
 
 ***A KISS Time Card program***
 
-[**work-clocker**](https://github.com/Ribeiro-Tiago/work-clocker) A "timecard punch" app to allow workers to better manage their time to 
+[**Work Clocker**](https://github.com/Ribeiro-Tiago/work-clocker) is a "timecard punch" app to allow workers to better manage their time to 
 avoid working more than the 8 hours they need to. Among other things, tells you when you can leave, taking into account the starting time, 
 lunch duration and duration of a regular work day.
 
