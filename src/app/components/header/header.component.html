@@ -1,6 +1,8 @@
 <ion-toolbar color="primary">
 	<div [ngClass]="{'visible': isTutVisible}" class="backdrop"></div>
 
+	<ion-back-button slot="start"></ion-back-button>
+
 	<ion-title>{{ title }}</ion-title>
 
 	<ion-buttons slot="end">
