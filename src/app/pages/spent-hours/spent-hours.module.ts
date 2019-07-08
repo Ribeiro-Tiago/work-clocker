@@ -13,6 +13,7 @@ import { SpentHoursPage } from './spent-hours.page';
 
 import { ConvertTimeModule } from 'src/app/pipes/convert-time/convert-time.pipe.module';
 import { SanitizerModule } from 'src/app/pipes/sanitizer/sanitizer.pipe.module';
+import { HeaderModule } from 'src/app/components/header/header.module';
 
 export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoader(http);
 
@@ -23,6 +24,7 @@ export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoad
 		IonicModule,
 		ConvertTimeModule,
 		SanitizerModule,
+		HeaderModule,
 		RouterModule.forChild([{
 			path: '',
 			component: SpentHoursPage
