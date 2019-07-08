@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment.prod';
 
 import { Setting } from 'src/app/state/settings/settings.model';
 import { Tutorial, TutorialStage } from 'src/app/State/tutorial/tutorial.model';
-import { ClockedHour } from 'src/app/state/clockedHours/clockedHours.model';
+import { ClockedHourItem } from 'src/app/state/clockedHours/clockedHours.model';
 
 @Component({
 	selector: 'app-home',
@@ -29,28 +29,18 @@ export class HomePage implements OnInit, OnDestroy {
 	dateFormat: string;
 
 	tutStage: TutorialStage;
-	tutItem: ClockedHour;
+	tutItem: ClockedHourItem;
 
 	isLoading: boolean;
 	isTutVisible: boolean;
 
 	constructor(
-		private storage: StorageService,
-		private store: Store<AppState>,
+		store: Store<AppState>,
 		private admobFree: AdMobFree,
 		private platform: Platform,
 	) {
 		this.settingsObs = store.select("settings");
 		this.tutObs = store.select("tutorial");
-
-		this.tutItem = {
-			day: 1560893131236,
-			startHour: 1560893131236,
-			isActive: false,
-			lunchDuration: 60,
-			endHour: 1560921931236,
-			timeWorked: 480
-		};
 
 		this.isLoading = true;
 		this.isTutVisible = false;

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Events } from '@ionic/angular';
 import { Subscription, Observable } from 'rxjs';
@@ -15,6 +15,8 @@ import { ClockerService } from 'src/app/services/clocker/clocker.service';
 	styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+	@Input() title: string;
+
 	private subs: Subscription[];
 	private clockedHours$: Observable<ClockedHour>;
 	private tutObs$: Observable<Tutorial>;
@@ -31,6 +33,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	) {
 		this.clockedHours$ = store.select("clockedHours");
 		this.tutObs$ = store.select("tutorial");
+
+		this.subs = [];
 	}
 
 	ngOnInit() {

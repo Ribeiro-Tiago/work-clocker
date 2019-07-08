@@ -29,6 +29,8 @@ export class OwedExtraHoursComponent implements OnInit {
 		this.tutObs = store.select("tutorial");
 		this.owedHoursObs = store.select("owedHours");
 		this.extraHoursObs = store.select("extraHours");
+
+		this.subs = [];
 	}
 
 	ngOnInit() {

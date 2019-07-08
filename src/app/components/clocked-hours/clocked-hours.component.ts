@@ -24,6 +24,7 @@ export class ClockedHoursComponent implements OnInit {
 	tutStage: TutorialStage;
 
 	clockedHours: ClockedHourItem[];
+	tutItem: ClockedHourItem;
 
 	isActiveClock: boolean;
 	isModalVisible: boolean;
@@ -31,6 +32,17 @@ export class ClockedHoursComponent implements OnInit {
 	constructor(private store: Store<AppState>, private storage: StorageService, private events: Events) {
 		this.tutObs = store.select("tutorial");
 		this.clockedHoursObs = store.select("clockedHours");
+
+		this.subs = [];
+
+		this.tutItem = {
+			day: 1560893131236,
+			startHour: 1560893131236,
+			isActive: false,
+			lunchDuration: 60,
+			endHour: 1560921931236,
+			timeWorked: 480
+		};
 	}
 
 	ngOnInit() {

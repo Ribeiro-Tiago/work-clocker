@@ -3,7 +3,7 @@ import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import { AppState } from 'src/app/State';
-import { Tutorial, TutorialStage } from 'src/app/State/tutorial/tutorial.model';
+import { Tutorial } from 'src/app/State/tutorial/tutorial.model';
 import * as TutorialActions from 'src/app/State/tutorial/tutorial.actions';
 import { StorageService } from 'src/app/services/storage/storage.service';
 

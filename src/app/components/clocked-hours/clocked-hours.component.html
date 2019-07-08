@@ -3,6 +3,7 @@
 		<app-list-item [ngClass]="{'active-tut-item': tutStage === 'content'}" class="list-wrapper" [item]="tutItem"
 			[dateFormat]="'dd/mm/yyyy'" [lunchDuration]="'60'" [workDuration]="'8'"></app-list-item>
 	</ng-container>
+
 	<ng-template #elseTemplate>
 		<h3 *ngIf="!clockedHours.length" [innerHTML]="'listItem.noItems' | translate | sanitize">
 		</h3>
