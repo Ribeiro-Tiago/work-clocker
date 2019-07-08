@@ -141,13 +141,9 @@ export class SettingsPage implements OnInit, OnDestroy {
 	}
 
 	resetSettings() {
-		this.storage.clear()
-			.then(async () => {
-				this.toggleModal();
-				this.isResetting = true;
-				this.resetApp();
-			})
-			.catch(err => console.log(err));
+		this.toggleModal();
+		this.isResetting = true;
+		this.resetApp();
 	}
 
 	toggleModal(): void {
@@ -175,7 +171,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 		this.store.dispatch(new UpdateSettings(newState));
 
 		this.storage.set("settings", newState)
-			.then(async () => console.log("settings updated"))
+			.then(() => console.log("settings updated"))
 			.catch(err => console.log(err));
 	}
 
@@ -186,7 +182,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 		this.selectedWorkDuration = 8;
 	}
 
-	private resetApp(): void {
+	private async resetApp(): Promise<void> {
 		this.events.publish("showToast", "settings.resetSuccess");
 
 		this.initInputs();
@@ -198,7 +194,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 		this.store.dispatch(new ResetClockedHours());
 
 		this.storage.clearExcept(["settings", "tutorial"])
-			.then(() => console.log("cleared app data"))
+			.then(() => console.log("settings cleared"))
 			.catch(console.error);
 
 		setTimeout(() => this.isResetting = false, 500);

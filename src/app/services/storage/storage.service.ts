@@ -41,15 +41,27 @@ export class StorageService {
 		return result;
 	}
 
-	clear(): Promise<void> {
+	async clear(): Promise<void> {
 		return this.storage.clear();
 	}
 
-	async clearExcept(key: StorageKey[]): Promise<void> {
-		return (await this.storage.keys()).forEach((k: StorageKey) => !key.includes(k) && this.delete(k));
+	async clearExcept(keys: StorageKey[]): Promise<void> {
+		let tmp: StorageKey;
+
+		this.storage.forEach(async (_v: any, k: StorageKey) => {
+			tmp = this.unformKey(k);
+
+			if (!keys.includes(tmp)) {
+				this.delete(tmp);
+			}
+		});
 	}
 
 	private formKey(key: StorageKey): string {
 		return `${this.keyPrefix}${key}`;
+	}
+
+	private unformKey(key: string): StorageKey {
+		return key.split("WC_")[1] as StorageKey;
 	}
 }
