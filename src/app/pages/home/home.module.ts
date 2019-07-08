@@ -23,7 +23,7 @@ import { ConvertTimeModule } from 'src/app/pipes/convert-time/convert-time.pipe.
 import { CalcClockoutModule } from 'src/app/pipes/calc-clockout/calc-clockout.pipe.module';
 import { FormatTimeModule } from 'src/app/pipes/format-time/format-time.pipe.module';
 import { SanitizerModule } from 'src/app/pipes/sanitizer/sanitizer.pipe.module';
-import { HeaderComponent } from 'src/app/components/header/header.component';
+import { HeaderModule } from 'src/app/components/header/header.module';
 
 export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoader(http);
 
@@ -35,7 +35,6 @@ export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoad
 		UpdateLunchModalComponent,
 		OwedExtraHoursComponent,
 		ClockedHoursComponent,
-		HeaderComponent,
 	],
 	imports: [
 		CommonModule,
@@ -46,6 +45,7 @@ export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoad
 		CalcClockoutModule,
 		FormatTimeModule,
 		SanitizerModule,
+		HeaderModule,
 		RouterModule.forChild([
 			{
 				path: '',
