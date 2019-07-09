@@ -16,6 +16,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppComponent } from './app.component';
 import { TutorialComponent } from './components/tutorial/tutorial.component';
+import { MenuComponent } from './components/menu/menu.component';
+
 import { AppRoutingModule } from './app-routing.module';
 
 import { HomePageModule } from './pages/home/home.module';
@@ -33,7 +35,8 @@ export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoad
 @NgModule({
 	declarations: [
 		AppComponent,
-		TutorialComponent
+		TutorialComponent,
+		MenuComponent
 	],
 	entryComponents: [],
 	imports: [

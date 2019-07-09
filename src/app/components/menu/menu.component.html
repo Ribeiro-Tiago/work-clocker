@@ -1,0 +1,12 @@
+<nav [ngClass]="{ 'opened': isVisible }">
+	<ul>
+		<li class="ripple" [routerLink]="['/hours-spent']" routerDirection="forward">
+			<ion-icon name="md-time" size="large"></ion-icon>
+			<span>Spent hours</span>
+		</li>
+		<li class="ripple" [routerLink]="['/settings']" routerDirection="forward">
+			<ion-icon name="cog" size="large"></ion-icon>
+			<span>Settings</span>
+		</li>
+	</ul>
+</nav>

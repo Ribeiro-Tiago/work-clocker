@@ -18,7 +18,7 @@
 	},
 	"homepage": "https://github.com/Ribeiro-Tiago/work-clocker",
 	"scripts": {
-		"start": "ionic cordova run browser -l",
+		"start": "ionic serve",
 		"build": "rm -rf platforms && ionic cordova build android --debug --verbose",
 		"prod-android": "ionic cordova build android --prod --release"
 	},
