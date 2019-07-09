@@ -16,6 +16,9 @@ import { spentHoursReducer } from './spentHours/spentHours.reducer';
 import { Tutorial } from './tutorial/tutorial.model';
 import { TutorialsReducer } from './tutorial/tutorial.reducer';
 
+import { Menu } from './menu/menu.model';
+import { MenuReducer } from './menu/menu.reducer';
+
 export interface AppState {
     readonly settings: Setting;
     readonly extraHours: ExtraHour;
@@ -23,6 +26,7 @@ export interface AppState {
     readonly clockedHours: ClockedHour;
     readonly spentHours: SpentHour;
     readonly tutorial: Tutorial;
+    readonly menu: Menu;
 }
 
 export const reducers = {
@@ -32,4 +36,5 @@ export const reducers = {
     clockedHours: clockedHoursReducer,
     spentHours: spentHoursReducer,
     tutorial: TutorialsReducer,
+    menu: MenuReducer
 };

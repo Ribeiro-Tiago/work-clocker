@@ -9,6 +9,8 @@ import { ClockedHour } from 'src/app/state/clockedHours/clockedHours.model';
 import { Tutorial, TutorialStage } from 'src/app/state/tutorial/tutorial.model';
 import { ClockerService } from 'src/app/services/clocker/clocker.service';
 
+import { ToggleMenu } from "src/app/state/menu/menu.actions";
+
 @Component({
 	selector: 'app-header',
 	templateUrl: './header.component.html',
@@ -16,6 +18,7 @@ import { ClockerService } from 'src/app/services/clocker/clocker.service';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 	@Input() title: string;
+	@Input() showClockBtn = false;
 
 	private subs: Subscription[];
 	private clockedHours$: Observable<ClockedHour>;
@@ -27,7 +30,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	tutStage: TutorialStage;
 
 	constructor(
-		store: Store<AppState>,
+		private store: Store<AppState>,
 		private events: Events,
 		private clocker: ClockerService
 	) {
@@ -71,6 +74,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.clocker.clockOut();
 
 		this.showToast("home.clockedOut");
+	}
+
+	toggleMenu(): void {
+		this.store.dispatch(new ToggleMenu());
 	}
 
 	private showToast(key: string) {
