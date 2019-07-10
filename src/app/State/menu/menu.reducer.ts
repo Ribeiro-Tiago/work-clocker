@@ -15,8 +15,8 @@ export function MenuReducer(state: Menu = initState, action: Action) {
             };
         }
 
-        case menuActions.SET_MENU: {
-            return { ...payload };
+        case menuActions.CLOSE_MENU: {
+            return { isVisible: false };
         }
 
         default:
