@@ -41,7 +41,7 @@ export class HomePage implements OnInit, OnDestroy {
 	) {
 		this.settingsObs = store.select("settings");
 		this.tutObs = store.select("tutorial");
-		this.store.dispatch(new SetHeader({ showClockBtn: true, title: "title" }));
+		this.store.dispatch(new SetHeader({ showClockBtn: true, hideBackBtn: true, title: "title" }));
 
 		this.isLoading = true;
 		this.isTutVisible = false;

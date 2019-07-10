@@ -1,7 +1,9 @@
 <ion-toolbar color="primary">
 	<div [ngClass]="{'visible': isTutVisible}" class="backdrop"></div>
 
-	<ion-back-button slot="start"></ion-back-button>
+	<ion-button slot="start" clear *ngIf="!hideBackBtn" (click)="goBack()">
+		<ion-icon name="arrow-back"></ion-icon>
+	</ion-button>
 
 	<ion-title>{{ title }}</ion-title>
 

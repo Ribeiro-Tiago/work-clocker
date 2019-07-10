@@ -9,8 +9,6 @@ import { HttpClient } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
-export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoader(http);
-
 import { SettingsPage } from './settings.page';
 
 import { ConvertTimeModule } from 'src/app/pipes/convert-time/convert-time.pipe.module';
@@ -23,6 +21,8 @@ const routes: Routes = [{
 	path: '',
 	component: SettingsPage
 }];
+
+export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoader(http);
 
 @NgModule({
 	declarations: [

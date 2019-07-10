@@ -69,12 +69,6 @@ export class AppComponent implements OnInit {
 
 		this.headerBtnVisible = false;
 		this.headerTitle = "title";
-
-		router.events.subscribe((event) => {
-			if (event instanceof NavigationEnd) {
-				this.store.dispatch(new MenuActions.CloseMenu());
-			}
-		});
 	}
 
 	ngOnInit() {
@@ -89,6 +83,11 @@ export class AppComponent implements OnInit {
 				this.header$.subscribe(({ title, showClockBtn }: Header) => {
 					this.headerTitle = title;
 					this.headerBtnVisible = showClockBtn;
+				}),
+				this.router.events.subscribe((event) => {
+					if (event instanceof NavigationEnd) {
+						this.store.dispatch(new MenuActions.CloseMenu());
+					}
 				})
 			);
 

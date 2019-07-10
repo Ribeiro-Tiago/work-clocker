@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { RouterModule } from '@angular/router';
+
 import { IonicModule } from '@ionic/angular';
+
+import { TranslateModule } from '@ngx-translate/core';
 
 import { HeaderComponent } from './header.component';
 
@@ -10,7 +13,8 @@ import { HeaderComponent } from './header.component';
     imports: [
         CommonModule,
         IonicModule,
-        RouterModule
+        RouterModule,
+        TranslateModule
     ],
     exports: [HeaderComponent]
 })
