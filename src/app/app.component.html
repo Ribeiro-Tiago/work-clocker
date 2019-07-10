@@ -5,7 +5,9 @@
 		<app-header [title]="headerTitle | translate" [showClockBtn]="true"></app-header>
 	</ion-header>
 
-	<ion-router-outlet (click)="onContentClick($event);"></ion-router-outlet>
+	<div class="backdrop" (click)="onContentClick($event);"></div>
+
+	<ion-router-outlet></ion-router-outlet>
 
 	<app-tutorial *ngIf="isTutVisible"></app-tutorial>
 </ion-app>

@@ -150,7 +150,25 @@ ion-toolbar {
 		transition: .25s ease-out;
 	}
 
+	.backdrop {
+		height: 100%;
+		width: 100%;
+		background: rgba(0, 0, 0, .3);
+		position: absolute;
+		top: 0;
+		left: 100%;
+		animation: .2s hideBackdrop;
+		opacity: 0;
+		z-index: 99;
+	}
+
 	&.opened {
+		.backdrop {
+			animation: .2s showBackdrop;
+			opacity: 1;
+			left: 0;
+		}
+
 		app-menu {
 			transform: translateX(0);
 			transition: .2s ease-in-out;
@@ -161,5 +179,68 @@ ion-toolbar {
 			transform: translateX(-70vw);
 			transition: .2s ease-in-out;
 		}
+	}
+}
+
+@keyframes showBackdrop {
+	0% {
+		opacity: 0;
+	}
+
+	30% {
+		opacity: .5;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes hideBackdrop {
+	0% {
+		opacity: 1;
+		left: 0;
+	}
+
+	10% {
+		left: 0
+	}
+
+	20% {
+		left: 0
+	}
+
+	30% {
+		opacity: .5;
+		left: 0;
+	}
+
+	40% {
+		left: 0
+	}
+
+	50% {
+		left: 0
+	}
+
+	60% {
+		left: 0
+	}
+
+	70% {
+		left: 0
+	}
+
+	80% {
+		left: 0
+	}
+
+	90% {
+		left: 0
+	}
+
+	100% {
+		opacity: 0;
+		left: 100%;
 	}
 }

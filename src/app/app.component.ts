@@ -94,7 +94,7 @@ export class AppComponent implements OnInit {
 		this.subs.forEach(s => s.unsubscribe());
 	}
 
-	onContentClick(ev: Event) {
+	onContentClick() {
 		if (this.isMenuOpen) {
 			this.store.dispatch(new ToggleMenu());
 		}
