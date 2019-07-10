@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 
 import { Platform, Events, ToastController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -14,6 +15,7 @@ import { SetHours as SetOwedHours } from "./state/owedHours/owedHours.actions";
 import { SetHours as SetClockedHours } from "./state/clockedHours/clockedHours.actions";
 import { SetHours as SetSpentHours } from "./state/spentHours/spentHours.actions";
 import { SetTutorial } from "./state/tutorial/tutorial.actions";
+import * as MenuActions from "src/app/state/menu/menu.actions";
 
 import { AppState } from './State';
 import { Tutorial } from './State/tutorial/tutorial.model';
@@ -24,7 +26,6 @@ import { OwedHour } from './state/owedHours/owedHours.model';
 import { ExtraHour } from './state/extraHours/extraHours.model';
 import { ClockedHourItem } from './state/clockedHours/clockedHours.model';
 import { Menu } from './State/menu/menu.model';
-import { ToggleMenu } from "src/app/state/menu/menu.actions";
 import { Header } from './State/header/header.model';
 
 
@@ -53,7 +54,8 @@ export class AppComponent implements OnInit {
 		private storage: StorageService,
 		private store: Store<AppState>,
 		private events: Events,
-		private toastController: ToastController
+		private toastController: ToastController,
+		private router: Router
 	) {
 		this.isTutVisible = false;
 		this.isMenuOpen = false;
@@ -67,6 +69,12 @@ export class AppComponent implements OnInit {
 
 		this.headerBtnVisible = false;
 		this.headerTitle = "title";
+
+		router.events.subscribe((event) => {
+			if (event instanceof NavigationEnd) {
+				this.store.dispatch(new MenuActions.CloseMenu());
+			}
+		});
 	}
 
 	ngOnInit() {
@@ -96,7 +104,7 @@ export class AppComponent implements OnInit {
 
 	onContentClick() {
 		if (this.isMenuOpen) {
-			this.store.dispatch(new ToggleMenu());
+			this.store.dispatch(new MenuActions.ToggleMenu());
 		}
 	}
 

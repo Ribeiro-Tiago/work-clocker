@@ -1,13 +1,15 @@
 <ion-app class="main-wrapper" [ngClass]="{ 'opened': isMenuOpen }">
 	<app-menu></app-menu>
 
+	<div class="backdrop" (click)="onContentClick($event);"></div>
+
 	<ion-header>
 		<app-header [title]="headerTitle | translate" [showClockBtn]="true"></app-header>
 	</ion-header>
 
-	<div class="backdrop" (click)="onContentClick($event);"></div>
-
-	<ion-router-outlet></ion-router-outlet>
+	<ion-content>
+		<ion-router-outlet></ion-router-outlet>
+	</ion-content>
 
 	<app-tutorial *ngIf="isTutVisible"></app-tutorial>
 </ion-app>
