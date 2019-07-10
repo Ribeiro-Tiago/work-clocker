@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
+import { Location } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { Events } from '@ionic/angular';
 
@@ -20,7 +21,7 @@ import { ResetHours as ResetOwedHours } from "../../state/owedHours/owedHours.ac
 import { ResetHours as ResetClockedHours } from "../../state/clockedHours/clockedHours.actions";
 import { ResetHours as ResetSpentHours } from "../../state/spentHours/spentHours.actions";
 import { Reset as ResetTutorial } from "../../state/tutorial/tutorial.actions";
-import { Location } from '@angular/common';
+import { SetOptions as SetHeader } from 'src/app/state/header/header.actions';
 
 @Component({
 	selector: 'app-settings',
@@ -62,6 +63,8 @@ export class SettingsPage implements OnInit, OnDestroy {
 		this.isModalVisible = false;
 
 		this.settings = this.store.select("settings");
+
+		this.store.dispatch(new SetHeader({ title: 'settings.title' }));
 
 		this.sub = null;
 

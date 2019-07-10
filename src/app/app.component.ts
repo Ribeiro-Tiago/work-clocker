@@ -25,6 +25,7 @@ import { ExtraHour } from './state/extraHours/extraHours.model';
 import { ClockedHourItem } from './state/clockedHours/clockedHours.model';
 import { Menu } from './State/menu/menu.model';
 import { ToggleMenu } from "src/app/state/menu/menu.actions";
+import { Header } from './State/header/header.model';
 
 
 @Component({
@@ -35,10 +36,14 @@ export class AppComponent implements OnInit {
 	private subs: Subscription[];
 	private tut$: Observable<Tutorial>;
 	private menu$: Observable<Menu>;
+	private header$: Observable<Header>;
 
 	isTutVisible: boolean;
 	isMenuOpen: boolean;
 	isIntroScreen: boolean;
+
+	headerTitle: string;
+	headerBtnVisible: boolean;
 
 	constructor(
 		private platform: Platform,
@@ -58,6 +63,10 @@ export class AppComponent implements OnInit {
 
 		this.tut$ = this.store.select("tutorial");
 		this.menu$ = this.store.select("menu");
+		this.header$ = this.store.select("header");
+
+		this.headerBtnVisible = false;
+		this.headerTitle = "title";
 	}
 
 	ngOnInit() {
@@ -68,7 +77,11 @@ export class AppComponent implements OnInit {
 
 			this.subs.push(
 				this.tut$.subscribe(({ isVisible }: Tutorial) => this.isTutVisible = isVisible),
-				this.menu$.subscribe(({ isVisible }: Menu) => this.isMenuOpen = isVisible)
+				this.menu$.subscribe(({ isVisible }: Menu) => this.isMenuOpen = isVisible),
+				this.header$.subscribe(({ title, showClockBtn }: Header) => {
+					this.headerTitle = title;
+					this.headerBtnVisible = showClockBtn;
+				})
 			);
 
 			this.statusBar.styleLightContent();

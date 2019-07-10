@@ -1,7 +1,3 @@
-<ion-header>
-	<app-header [title]="'settings.title' | translate"></app-header>
-</ion-header>
-
 <ion-content>
 	<app-reset-modal class="modal" (onCancel)="toggleModal();" (onSubmit)="resetSettings();"
 		[ngClass]="{'is-visible': isModalVisible}"></app-reset-modal>

@@ -1,4 +1,6 @@
 {
+	"title": "Work Clocker",
+
 	"misc": {
 		"minutes": "{{time}} minutos",
 		"hours": "{{time}} horas"

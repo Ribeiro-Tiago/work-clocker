@@ -2,7 +2,7 @@
 	<app-menu></app-menu>
 
 	<ion-header>
-		<app-header title="Work Clocker" [showClockBtn]="true"></app-header>
+		<app-header [title]="headerTitle | translate" [showClockBtn]="true"></app-header>
 	</ion-header>
 
 	<ion-router-outlet (click)="onContentClick($event);"></ion-router-outlet>

@@ -4,7 +4,6 @@ import { Store } from '@ngrx/store';
 import { AdMobFree } from '@ionic-native/admob-free/ngx';
 import { Platform } from '@ionic/angular';
 
-import { StorageService } from 'src/app/services/storage/storage.service';
 import { AppState } from 'src/app/State';
 
 import { environment } from 'src/environments/environment.prod';
@@ -12,6 +11,7 @@ import { environment } from 'src/environments/environment.prod';
 import { Setting } from 'src/app/state/settings/settings.model';
 import { Tutorial, TutorialStage } from 'src/app/State/tutorial/tutorial.model';
 import { ClockedHourItem } from 'src/app/state/clockedHours/clockedHours.model';
+import { SetOptions as SetHeader } from 'src/app/state/header/header.actions';
 
 @Component({
 	selector: 'app-home',
@@ -35,12 +35,13 @@ export class HomePage implements OnInit, OnDestroy {
 	isTutVisible: boolean;
 
 	constructor(
-		store: Store<AppState>,
+		private store: Store<AppState>,
 		private admobFree: AdMobFree,
 		private platform: Platform,
 	) {
 		this.settingsObs = store.select("settings");
 		this.tutObs = store.select("tutorial");
+		this.store.dispatch(new SetHeader({ showClockBtn: true, title: "title" }));
 
 		this.isLoading = true;
 		this.isTutVisible = false;
