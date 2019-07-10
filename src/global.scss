@@ -142,3 +142,24 @@ ion-toolbar {
 		}
 	}
 }
+
+.main-wrapper {
+
+	ion-router-outlet,
+	ion-header {
+		transition: .25s ease-out;
+	}
+
+	&.opened {
+		app-menu {
+			transform: translateX(0);
+			transition: .2s ease-in-out;
+		}
+
+		ion-router-outlet,
+		ion-header {
+			transform: translateX(-70vw);
+			transition: .2s ease-in-out;
+		}
+	}
+}

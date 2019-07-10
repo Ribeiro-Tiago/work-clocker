@@ -1,7 +1,3 @@
-<ion-header>
-	<app-header title="Work Clocker" [showClockBtn]="true"></app-header>
-</ion-header>
-
 <ion-content>
 	<app-update-lunch-modal class="modal" (onCancel)="toggleLunchUpdate();" (onSubmit)="updateLunchTime($event);"
 		[currDuration]="lunchDuration" [ngClass]="{'is-visible': isModalVisible}" [index]="selectedItemIndex">

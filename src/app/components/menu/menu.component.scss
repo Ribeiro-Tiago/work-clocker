@@ -1,40 +1,41 @@
-nav {
+app-menu {
+	transition: .3s;
+	box-shadow: 1px 4px 8px 0 rgba(0, 0, 0, 0.4);
+	transform: translateX(80vw);
+	height: 100%;
+	width: 70%;
 	z-index: 9999999;
 	position: absolute;
 	right: 0;
-	top: 50px;
 	background: #fff;
-	box-shadow: 1px 4px 8px 0 rgba(0, 0, 0, 0.4);
-	transition: .5s;
-	min-width: 50%;
-	overflow: hidden;
-	height: 0;
-	transition: height 0.2s ease-out;
 
-	&.opened {
-		height: auto;
-		transition: height 0.2s ease-in;
-	}
+	nav {
 
-	ul {
-		padding: 0;
-		margin: 0;
-		list-style: none;
+		&.opened {
+			height: auto;
+			transition: height 0.2s ease-in;
+		}
 
-		li {
-			display: flex;
-			align-items: center;
-			padding: 2vh;
-			border-bottom: 1px solid #ccc;
-			color: #333;
-			outline: none;
+		ul {
+			padding: 0;
+			margin: 0;
+			list-style: none;
 
-			span {
-				font-size: 2.5vh;
-			}
+			li {
+				display: flex;
+				align-items: center;
+				padding: 2vh;
+				border-bottom: 1px solid #ccc;
+				color: #333;
+				outline: none;
 
-			ion-icon {
-				margin-right: 4vh;
+				span {
+					font-size: 2.5vh;
+				}
+
+				ion-icon {
+					margin-right: 4vh;
+				}
 			}
 		}
 	}

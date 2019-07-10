@@ -29,6 +29,7 @@ import { reducers } from './State';
 import { AdMobFree } from '@ionic-native/admob-free/ngx';
 import { environment } from 'src/environments/environment';
 import { SanitizerModule } from './pipes/sanitizer/sanitizer.pipe.module';
+import { HeaderModule } from './components/header/header.module';
 
 export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoader(http);
 
@@ -43,6 +44,7 @@ export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoad
 		BrowserModule,
 		IonicModule.forRoot(),
 		AppRoutingModule,
+		HeaderModule,
 		HttpClientModule,
 		HomePageModule,
 		SettingsPageModule,

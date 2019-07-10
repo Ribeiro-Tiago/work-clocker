@@ -1,7 +1,11 @@
-<ion-app>
+<ion-app class="main-wrapper" [ngClass]="{ 'opened': isMenuOpen }">
 	<app-menu></app-menu>
 
-	<ion-router-outlet></ion-router-outlet>
+	<ion-header>
+		<app-header title="Work Clocker" [showClockBtn]="true"></app-header>
+	</ion-header>
+
+	<ion-router-outlet (click)="onContentClick($event);"></ion-router-outlet>
 
 	<app-tutorial *ngIf="isTutVisible"></app-tutorial>
 </ion-app>

@@ -23,16 +23,21 @@ import { SpentHour } from './state/spentHours/spentHours.model';
 import { OwedHour } from './state/owedHours/owedHours.model';
 import { ExtraHour } from './state/extraHours/extraHours.model';
 import { ClockedHourItem } from './state/clockedHours/clockedHours.model';
+import { Menu } from './State/menu/menu.model';
+import { ToggleMenu } from "src/app/state/menu/menu.actions";
+
 
 @Component({
 	selector: 'app-root',
 	templateUrl: 'app.component.html'
 })
 export class AppComponent implements OnInit {
-	private sub: Subscription;
-	private tutObs: Observable<Tutorial>;
+	private subs: Subscription[];
+	private tut$: Observable<Tutorial>;
+	private menu$: Observable<Menu>;
 
 	isTutVisible: boolean;
+	isMenuOpen: boolean;
 	isIntroScreen: boolean;
 
 	constructor(
@@ -46,8 +51,13 @@ export class AppComponent implements OnInit {
 		private toastController: ToastController
 	) {
 		this.isTutVisible = false;
+		this.isMenuOpen = false;
 		this.isIntroScreen = true;
-		this.tutObs = this.store.select("tutorial");
+
+		this.subs = [];
+
+		this.tut$ = this.store.select("tutorial");
+		this.menu$ = this.store.select("menu");
 	}
 
 	ngOnInit() {
@@ -56,7 +66,10 @@ export class AppComponent implements OnInit {
 
 			this.events.subscribe('showToast', (key: string) => this.showToast(key));
 
-			this.sub = this.tutObs.subscribe(({ isVisible }: Tutorial) => this.isTutVisible = isVisible);
+			this.subs.push(
+				this.tut$.subscribe(({ isVisible }: Tutorial) => this.isTutVisible = isVisible),
+				this.menu$.subscribe(({ isVisible }: Menu) => this.isMenuOpen = isVisible)
+			);
 
 			this.statusBar.styleLightContent();
 			this.splashScreen.hide();
@@ -65,7 +78,13 @@ export class AppComponent implements OnInit {
 	}
 
 	ngOnDestroy(): void {
-		this.sub.unsubscribe();
+		this.subs.forEach(s => s.unsubscribe());
+	}
+
+	onContentClick(ev: Event) {
+		if (this.isMenuOpen) {
+			this.store.dispatch(new ToggleMenu());
+		}
 	}
 
 	private getStorageData() {
