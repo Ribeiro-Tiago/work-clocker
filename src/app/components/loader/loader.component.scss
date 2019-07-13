@@ -1,18 +1,34 @@
 app-loader {
-	position: relative;
+	z-index: 999999999;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #DFFBE0;
 
-	img {
-		position: absolute;
+	.wrapper {
+		height: 100%;
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: relative;
+
+		img {
+			position: absolute;
+			transform: scale(.5);
+		}
+
+		.top {
+			animation-name: loaderCrossFade;
+			animation-timing-function: ease-in-out;
+			animation-iteration-count: infinite;
+			animation-duration: .5s;
+			animation-direction: alternate;
+		}
 	}
-
-	.top {
-		animation-name: loaderCrossFade;
-		animation-timing-function: ease-in-out;
-		animation-iteration-count: infinite;
-		animation-duration: .5s;
-		animation-direction: alternate;
-	}
-
 }
 
 @keyframes loaderCrossFade {

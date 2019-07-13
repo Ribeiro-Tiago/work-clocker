@@ -19,7 +19,7 @@ import * as MenuActions from "src/app/state/menu/menu.actions";
 
 import { AppState } from './State';
 import { Tutorial } from './State/tutorial/tutorial.model';
-import { Subscription, Observable } from 'rxjs';
+import { Subscription, Observable, timer } from 'rxjs';
 import { Setting } from './state/settings/settings.model';
 import { SpentHour } from './state/spentHours/spentHours.model';
 import { OwedHour } from './state/owedHours/owedHours.model';
@@ -38,6 +38,7 @@ export class AppComponent implements OnInit {
 	private tut$: Observable<Tutorial>;
 	private menu$: Observable<Menu>;
 	private header$: Observable<Header>;
+	private showSplash: boolean;
 
 	isTutVisible: boolean;
 	isMenuOpen: boolean;
@@ -60,6 +61,7 @@ export class AppComponent implements OnInit {
 		this.isTutVisible = false;
 		this.isMenuOpen = false;
 		this.isIntroScreen = true;
+		this.showSplash = true;
 
 		this.subs = [];
 
@@ -73,6 +75,10 @@ export class AppComponent implements OnInit {
 
 	ngOnInit() {
 		this.platform.ready().then(async () => {
+			this.splashScreen.hide();
+
+			timer(3000).subscribe(() => this.showSplash = false);
+
 			this.getStorageData();
 
 			this.events.subscribe('showToast', (key: string) => this.showToast(key));
@@ -92,7 +98,6 @@ export class AppComponent implements OnInit {
 			);
 
 			this.statusBar.styleLightContent();
-			this.splashScreen.hide();
 			this.translate.setDefaultLang("en_US");
 		});
 	}
