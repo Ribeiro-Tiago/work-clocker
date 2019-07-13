@@ -15,6 +15,7 @@ import { SetHours as SetOwedHours } from "./state/owedHours/owedHours.actions";
 import { SetHours as SetClockedHours } from "./state/clockedHours/clockedHours.actions";
 import { SetHours as SetSpentHours } from "./state/spentHours/spentHours.actions";
 import { SetTutorial } from "./state/tutorial/tutorial.actions";
+import { SetOptions as SetHeader } from "src/app/State/header/header.actions";
 import * as MenuActions from "src/app/state/menu/menu.actions";
 
 import { AppState } from './State';
@@ -92,6 +93,23 @@ export class AppComponent implements OnInit {
 				}),
 				this.router.events.subscribe((event) => {
 					if (event instanceof NavigationEnd) {
+						let headerConfigs: Header;
+
+						switch (event.url) {
+							case "/hours-spent":
+								headerConfigs = { showClockBtn: false, hideBackBtn: false, title: 'spentHours.title' };
+								break;
+
+							case "/settings":
+								headerConfigs = { showClockBtn: false, hideBackBtn: false, title: 'settings.title' };
+								break;
+
+							default:
+								headerConfigs = { showClockBtn: true, hideBackBtn: true, title: "title" };
+								break;
+						}
+
+						this.store.dispatch(new SetHeader(headerConfigs));
 						this.store.dispatch(new MenuActions.CloseMenu());
 					}
 				})

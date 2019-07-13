@@ -4,7 +4,6 @@ import { Store } from '@ngrx/store';
 
 import { AppState } from 'src/app/State';
 import { SpentHour } from 'src/app/State/spentHours/spentHours.model';
-import { SetOptions as SetHeader } from 'src/app/state/header/header.actions';
 
 @Component({
 	selector: 'app-spent-hours',
@@ -20,7 +19,6 @@ export class SpentHoursPage implements OnInit, OnDestroy {
 
 	constructor(private store: Store<AppState>) {
 		this.hours = this.store.select("spentHours");
-		this.store.dispatch(new SetHeader({ title: 'spentHours.title' }));
 	}
 
 	ngOnInit() {

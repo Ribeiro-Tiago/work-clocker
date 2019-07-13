@@ -12,7 +12,6 @@ import { ClockerService } from 'src/app/services/clocker/clocker.service';
 
 import { ToggleMenu } from "src/app/state/menu/menu.actions";
 import { Header } from 'src/app/State/header/header.model';
-import { SetOptions as SetHeader } from "src/app/State/header/header.actions";
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -98,7 +97,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 	goBack(): void {
 		this.router.navigate(["/"]);
-		this.store.dispatch(new SetHeader({ showClockBtn: true, hideBackBtn: true, title: "title" }));
 	}
 
 	private showToast(key: string) {
