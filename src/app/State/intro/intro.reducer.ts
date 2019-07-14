@@ -9,8 +9,8 @@ export function IntroReducer(state: Intro = initState, action: Action) {
     const { payload, type } = action;
 
     switch (type) {
-        case IntroActions.SET_OPTS: {
-            return { ...payload };
+        case IntroActions.SET_INTRO: {
+            return { isDone: payload };
         }
 
         default:

@@ -16,7 +16,7 @@ import { SetHours as SetClockedHours } from "./state/clockedHours/clockedHours.a
 import { SetHours as SetSpentHours } from "./state/spentHours/spentHours.actions";
 import { SetTutorial } from "./state/tutorial/tutorial.actions";
 import { SetOptions as SetHeader } from "src/app/State/header/header.actions";
-import { SetOptions as SetIntro } from "src/app/State/intro/intro.actions";
+import { SetIntro } from "src/app/State/intro/intro.actions";
 import * as MenuActions from "src/app/state/menu/menu.actions";
 
 import { AppState } from './State';
@@ -74,7 +74,7 @@ export class AppComponent implements OnInit {
 		this.menu$ = this.store.select("menu");
 		this.intro$ = this.store.select("intro");
 
-		this.isHeaderVisible = true;
+		this.isHeaderVisible = false;
 		this.headerBtnVisible = false;
 		this.headerTitle = "title";
 	}
@@ -92,7 +92,13 @@ export class AppComponent implements OnInit {
 			this.subs.push(
 				this.tut$.subscribe(({ isVisible }: Tutorial) => this.isTutVisible = isVisible),
 				this.menu$.subscribe(({ isVisible }: Menu) => this.isMenuOpen = isVisible),
-				this.intro$.subscribe(({ isDone }: Intro) => this.isHeaderVisible = isDone),
+				this.intro$.subscribe(({ isDone }: Intro) => {
+					this.isHeaderVisible = isDone;
+
+					if (isDone) {
+						this.router.navigate(["/home"], { replaceUrl: true });
+					}
+				}),
 				this.router.events.subscribe((event) => {
 					if (event instanceof NavigationEnd) {
 						let configs: Header = {
@@ -158,6 +164,8 @@ export class AppComponent implements OnInit {
 			const tutorial: Tutorial = results[5];
 			const intro: Intro = results[6];
 
+			console.log(results);
+
 			if (extraHours) {
 				this.store.dispatch(new SetExtraHours(extraHours));
 			}
@@ -192,11 +200,8 @@ export class AppComponent implements OnInit {
 				this.store.dispatch(new SetTutorial(tutorial));
 			}
 
-			if (!intro) {
-				this.store.dispatch(new SetIntro({ isDone: false }));
-				this.isHeaderVisible = false;
-			} else {
-				this.isHeaderVisible = true;
+			if (intro) {
+				this.store.dispatch(new SetIntro(true));
 			}
 		});
 	}

@@ -1,4 +1,5 @@
 <ion-slides>
+	<!-- lang select -->
 	<ion-slide class="language">
 		<div class="header">
 			<img src="assets/icon/favicon.png" />
@@ -14,12 +15,15 @@
 			</section>
 		</div>
 
-		<ion-button (click)="next()">{{ "intro.next" | translate }}</ion-button>
+		<ion-button (click)="finishIntro()">{{ "intro.finish" | translate }}</ion-button>
 	</ion-slide>
-	<ion-slide>
+
+	<!-- <ion-slide>
 		<h1>Slide 2</h1>
-	</ion-slide>
-	<ion-slide>
-		<h1>Slide 3</h1>
-	</ion-slide>
+	</ion-slide> -->
+
+	<!-- jira -->
+	<!-- <ion-slide>
+		<ion-button (click)="finishIntro()">{{ "intro.finish" | translate }}</ion-button>
+	</ion-slide> -->
 </ion-slides>

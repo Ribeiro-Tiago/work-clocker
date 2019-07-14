@@ -4,7 +4,7 @@ import { Header, Action } from './header.model';
 const initState: Header = {
     showClockBtn: true,
     hideBackBtn: true,
-    showHeader: true,
+    showHeader: false,
     title: "title"
 };
 
@@ -13,13 +13,7 @@ export function HeaderReducer(state: Header = initState, action: Action) {
 
     switch (type) {
         case headerActions.SET_OPTS: {
-            const { title, showClockBtn, hideBackBtn } = payload;
-
-            return {
-                title: title,
-                showClockBtn: showClockBtn,
-                hideBackBtn: hideBackBtn,
-            }
+            return { ...payload };
         }
 
         default:

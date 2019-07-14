@@ -59,11 +59,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				this.tutStage = stage;
 			}),
 			this.header$.subscribe(async ({ title, showClockBtn, hideBackBtn }: Header) => {
-				this.title = await this.translate.get(title).toPromise();
-				this.showClockBtn = showClockBtn;
-				this.hideBackBtn = hideBackBtn;
-			}),
-
+				if (title) {
+					this.title = await this.translate.get(title).toPromise();
+					this.showClockBtn = showClockBtn;
+					this.hideBackBtn = hideBackBtn;
+				}
+			})
 		);
 	}
 
@@ -96,7 +97,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	}
 
 	goBack(): void {
-		this.router.navigate(["/"]);
+		this.router.navigate(["/home"]);
 	}
 
 	private showToast(key: string) {

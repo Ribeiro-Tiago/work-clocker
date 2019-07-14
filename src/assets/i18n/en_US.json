@@ -90,6 +90,7 @@
 
 	"intro": {
 		"title_1": "Welcome to Work Clocker",
-		"next": "Next"
+		"next": "Next",
+		"finish": "Start using Work Clocker"
 	}
 }

@@ -7,29 +7,31 @@ const initState: OwedHour = {
 };
 
 export function owedHoursReducer(state: OwedHour = initState, action: Action) {
-    switch (action.type) {
+    const { type, payload } = action;
+
+    switch (type) {
         case Actions.ADD_HOURS: {
             return {
                 ...state,
-                hours: state.hours + (action.payload as number)
+                hours: state.hours + (payload as number)
             };
         }
 
         case Actions.SET_HOURS: {
-            return { ...action.payload as OwedHour };
+            return { ...payload as OwedHour };
         }
 
         case Actions.UPDATE_HOURS: {
             return {
                 ...state,
-                hours: action.payload
+                hours: payload
             };
         }
 
         case Actions.USE_HOURS: {
             return {
                 ...state,
-                hoursUsed: [...state.hoursUsed, action.payload]
+                hoursUsed: [...state.hoursUsed, payload]
             };
         }
 
