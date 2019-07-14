@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { Events } from '@ionic/angular';
 
 import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, interval } from 'rxjs';
 
 import { StorageService } from 'src/app/services/storage/storage.service';
 
@@ -15,11 +15,11 @@ import * as extraHoursActions from "src/app/state/extraHours/extraHours.actions"
 import * as owedHoursActions from "src/app/state/owedHours/owedHours.actions";
 import * as clockedActions from "src/app/state/clockedHours/clockedHours.actions";
 import { AddHours as AddSpentHour } from "src/app/state/spentHours/spentHours.actions";
-
 @Component({
 	selector: 'app-clock-button',
 	templateUrl: './clock-button.component.html',
 	styleUrls: ['./clock-button.component.scss'],
+	encapsulation: ViewEncapsulation.None
 })
 export class ClockButtonComponent implements OnInit, OnDestroy {
 	private subs: Subscription[];
@@ -35,6 +35,12 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 	private owedHours$: Observable<OwedHour>;
 	private clockedHours$: Observable<ClockedHour>;
 
+	currHour: ClockedHourItem;
+
+	timer: string;
+
+	dateFormat: string;
+
 	constructor(
 		private events: Events,
 		private storage: StorageService,
@@ -46,17 +52,35 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 		this.clockedHours$ = store.select("clockedHours");
 
 		this.subs = [];
+
+		this.currHour = null;
+		this.timer = "00:00:00";
+
+		this.dateFormat = "DD/MM/YYY";
 	}
 
 	ngOnInit(): void {
 		this.subs.push(
-			this.settings$.subscribe(({ selectedLunchDuration, selectedWorkDuration }) => {
+			this.settings$.subscribe(({ selectedLunchDuration, selectedWorkDuration, selectedDateFormat }) => {
 				this.lunchDuration = selectedLunchDuration;
 				this.workDuration = selectedWorkDuration;
+				this.dateFormat = selectedDateFormat.key;
 			}),
 			this.extraHours$.subscribe(result => this.extraHours = result),
 			this.owedHours$.subscribe(result => this.owedHours = result),
-			this.clockedHours$.subscribe(({ hours }) => this.clockedHours = hours),
+			this.clockedHours$.subscribe(({ hours }) => {
+				console.log(hours);
+				if (hours[0] && hours[0].isActive) {
+					this.currHour = hours[0];
+					this.updateTimer();
+					console.log(this.currHour);
+				} else {
+					this.currHour = null;
+				}
+
+				this.clockedHours = hours;
+			}),
+			interval(1000).subscribe(() => this.updateTimer())
 		);
 	}
 
@@ -208,5 +232,16 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 
 	private showToast(key: string) {
 		this.events.publish("showToast", key);
+	}
+
+	private updateTimer(): void {
+		const time = Date.now() - this.currHour.startHour;
+		const leadZero = (val: number): string => `0${val}`.substr(-2);
+
+		const hours = leadZero(Math.floor((time / 3600000) % 24));
+		const minutes = leadZero(Math.floor((time / 60000) % 60));
+		const seconds = leadZero(Math.floor((time / 1000) % 60));
+
+		this.timer = `${hours}:${minutes}:${seconds}`;
 	}
 }

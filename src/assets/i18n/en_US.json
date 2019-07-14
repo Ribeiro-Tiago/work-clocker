@@ -10,7 +10,9 @@
 		"owedHours": "{{hours}} hours owed",
 		"extraHours": "{{hours}} extra hours",
 		"clockedIn": "Clocked in, good luck",
-		"clockedOut": "You've finished for today, see you next time"
+		"clockedOut": "You've finished for today, see you next time",
+		"clockout": "Clock out",
+		"clockin": "Clock in"
 	},
 
 	"listItem": {

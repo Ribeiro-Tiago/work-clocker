@@ -14,11 +14,11 @@ interface ClockOutArgs {
 export class CalcClockoutPipe implements PipeTransform {
 	constructor(private time: TimeService) { }
 
-	transform(value: string, { clockIn, duration, lunchTime, format }: ClockOutArgs): any {
-		const d = new Date(clockIn);
+	transform(value: string, item: any[]): any {
+		const d = new Date(item[0]);
 
-		this.time.setFormat(format);
+		this.time.setFormat(item[1]);
 
-		return value.replace(`{{time}}`, this.time.addTime(d, lunchTime, duration));
+		return value.replace(/{{.*?}}/g, this.time.addTime(d, item[2], item[3]));
 	}
 }
