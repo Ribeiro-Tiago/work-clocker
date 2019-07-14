@@ -27,6 +27,14 @@ app-clock-button {
 		color: $lighterTextColor;
 	}
 
+	.clockout-wrapper {
+		margin: 2vh 0;
+
+		h2 {
+			margin: 0;
+		}
+	}
+
 	.button {
 		background: $whiteBgColor;
 		border-radius: 100%;

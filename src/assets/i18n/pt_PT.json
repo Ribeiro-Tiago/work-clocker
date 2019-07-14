@@ -10,7 +10,12 @@
 		"owedHours": "{{hours}} horas devidas",
 		"extraHours": "{{hours}} horas extra",
 		"clockedIn": "Ponto picado, boa sorte",
-		"clockedOut": "Acabaste por hoje, até à próxima"
+		"clockedOut": "Acabaste por hoje, até à próxima",
+		"clockout": "Sair",
+		"clockin": "Picar o ponto",
+		"startAt": "Picaste o ponto às <b>{{time}}</b>",
+		"lunchDuration": "Se fizeres <b>{{duration}}</b> de almoço, ",
+		"exitETA": "deves sair às <b>{{time}}</b>"
 	},
 
 	"listItem": {
@@ -20,8 +25,6 @@
 		"startAt": "Picaste o ponto às {{start}}",
 		"lunchDuration": "Com {{duration}} de almoço",
 		"endAt": "Saíste às {{end}}",
-		"exitETA": "Deves sair às {{time}}",
-		"today": "Hoje",
 		"lunchHourUpdated": "Duração de almoço atualizada"
 	},
 

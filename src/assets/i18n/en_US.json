@@ -12,7 +12,10 @@
 		"clockedIn": "Clocked in, good luck",
 		"clockedOut": "You've finished for today, see you next time",
 		"clockout": "Clock out",
-		"clockin": "Clock in"
+		"clockin": "Clock in",
+		"startAt": "Clocked in at <b>{{time}}</b>",
+		"lunchDuration": "If you have a <b>{{duration}}</b> lunch, ",
+		"exitETA": "you should leave at <b>{{time}}</b>"
 	},
 
 	"listItem": {
@@ -22,8 +25,6 @@
 		"startAt": "Clocked in at {{start}}",
 		"lunchDuration": "With {{duration}} lunch",
 		"endAt": "Left at {{end}}",
-		"exitETA": "You should leave at {{time}}",
-		"today": "Today",
 		"lunchHourUpdated": "Today's lunch hour has been updated"
 	},
 
