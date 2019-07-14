@@ -7,6 +7,7 @@ const routes: Routes = [
 	{ path: 'settings', loadChildren: './pages/settings/settings.module#SettingsPageModule' },
 	{ path: 'hours-spent', loadChildren: './pages/spent-hours/spent-hours.module#SpentHoursPageModule' },
 	{ path: 'spent-hours', loadChildren: './pages/spent-hours/spent-hours.module#SpentHoursPageModule' },
+	{ path: 'clocked-hours', loadChildren: './pages/clocked-hours/clocked-hours.module#ClockedHoursPageModule' },
 ];
 
 @NgModule({

@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ClockedHoursComponent } from './clocked-hours.component';
+import { ClockedHoursPage } from './clocked-hours.page';
 
-describe('ClockedHoursComponent', () => {
-  let component: ClockedHoursComponent;
-  let fixture: ComponentFixture<ClockedHoursComponent>;
+describe('ClockedHoursPage', () => {
+  let component: ClockedHoursPage;
+  let fixture: ComponentFixture<ClockedHoursPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ClockedHoursComponent ],
+      declarations: [ ClockedHoursPage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ClockedHoursComponent);
+    fixture = TestBed.createComponent(ClockedHoursPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

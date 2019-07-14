@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Events } from '@ionic/angular';
 import { Subscription, Observable } from 'rxjs';
@@ -10,13 +10,12 @@ import { StorageService } from 'src/app/services/storage/storage.service';
 import { UpdateHours as UpdateHoursAction } from "src/app/state/clockedHours/clockedHours.actions";
 import { Setting } from 'src/app/state/settings/settings.model';
 
-
 @Component({
 	selector: 'app-clocked-hours',
-	templateUrl: './clocked-hours.component.html',
-	styleUrls: ['./clocked-hours.component.scss'],
+	templateUrl: './clocked-hours.page.html',
+	styleUrls: ['./clocked-hours.page.scss'],
 })
-export class ClockedHoursComponent implements OnInit {
+export class ClockedHoursPage implements OnInit, OnDestroy {
 	private subs: Subscription[];
 	private tut$: Observable<Tutorial>;
 	private clockedHours$: Observable<ClockedHour>;
@@ -102,4 +101,5 @@ export class ClockedHoursComponent implements OnInit {
 			.then(() => console.log("updated lunch hour"))
 			.catch((err) => console.log("err updating hour: ", err));
 	}
+
 }
