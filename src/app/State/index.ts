@@ -22,6 +22,9 @@ import { MenuReducer } from './menu/menu.reducer';
 import { Header } from './header/header.model';
 import { HeaderReducer } from './header/header.reducer';
 
+import { Intro } from './intro/intro.model';
+import { IntroReducer } from './intro/intro.reducer';
+
 export interface AppState {
     readonly settings: Setting;
     readonly extraHours: ExtraHour;
@@ -31,6 +34,7 @@ export interface AppState {
     readonly tutorial: Tutorial;
     readonly menu: Menu;
     readonly header: Header;
+    readonly intro: Intro;
 }
 
 export const reducers = {
@@ -42,4 +46,5 @@ export const reducers = {
     tutorial: TutorialsReducer,
     menu: MenuReducer,
     header: HeaderReducer,
+    intro: IntroReducer
 };

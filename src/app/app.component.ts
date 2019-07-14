@@ -16,6 +16,7 @@ import { SetHours as SetClockedHours } from "./state/clockedHours/clockedHours.a
 import { SetHours as SetSpentHours } from "./state/spentHours/spentHours.actions";
 import { SetTutorial } from "./state/tutorial/tutorial.actions";
 import { SetOptions as SetHeader } from "src/app/State/header/header.actions";
+import { SetOptions as SetIntro } from "src/app/State/intro/intro.actions";
 import * as MenuActions from "src/app/state/menu/menu.actions";
 
 import { AppState } from './State';
@@ -28,6 +29,7 @@ import { ExtraHour } from './state/extraHours/extraHours.model';
 import { ClockedHourItem } from './state/clockedHours/clockedHours.model';
 import { Menu } from './State/menu/menu.model';
 import { Header } from './State/header/header.model';
+import { Intro } from './State/intro/intro.model';
 
 
 @Component({
@@ -39,7 +41,8 @@ export class AppComponent implements OnInit {
 	private tut$: Observable<Tutorial>;
 	private menu$: Observable<Menu>;
 	private header$: Observable<Header>;
-	private showSplash: boolean;
+
+	showSplash: boolean;
 
 	isTutVisible: boolean;
 	isMenuOpen: boolean;
@@ -93,23 +96,31 @@ export class AppComponent implements OnInit {
 				}),
 				this.router.events.subscribe((event) => {
 					if (event instanceof NavigationEnd) {
-						let headerConfigs: Header;
+						let configs: Header = {
+							showHeader: true,
+							showClockBtn: false,
+							hideBackBtn: false
+						};
 
 						switch (event.url) {
+							case "/":
+								configs = { showHeader: false };
+								break;
+
 							case "/hours-spent":
-								headerConfigs = { showClockBtn: false, hideBackBtn: false, title: 'spentHours.title' };
+								configs = { ...configs, title: 'spentHours.title' };
 								break;
 
 							case "/settings":
-								headerConfigs = { showClockBtn: false, hideBackBtn: false, title: 'settings.title' };
+								configs = { ...configs, title: 'settings.title' };
 								break;
 
 							default:
-								headerConfigs = { showClockBtn: true, hideBackBtn: true, title: "title" };
+								configs = { ...configs, showClockBtn: true, hideBackBtn: true, title: "title" };
 								break;
 						}
 
-						this.store.dispatch(new SetHeader(headerConfigs));
+						this.store.dispatch(new SetHeader(configs));
 						this.store.dispatch(new MenuActions.CloseMenu());
 					}
 				})
@@ -138,6 +149,7 @@ export class AppComponent implements OnInit {
 			this.storage.get("settings"),
 			this.storage.get("clockedHours"),
 			this.storage.get("tutorial"),
+			this.storage.get("intro")
 		]).then(results => {
 			const extraHours: ExtraHour = results[0];
 			const owedHours: OwedHour = results[1];
@@ -145,6 +157,7 @@ export class AppComponent implements OnInit {
 			const settings: Setting = results[3];
 			const clockedHours: ClockedHourItem[] = results[4];
 			const tutorial: Tutorial = results[5];
+			const intro: Intro = results[6];
 
 			if (extraHours) {
 				this.store.dispatch(new SetExtraHours(extraHours));
@@ -178,6 +191,10 @@ export class AppComponent implements OnInit {
 
 			if (tutorial) {
 				this.store.dispatch(new SetTutorial(tutorial));
+			}
+
+			if (intro) {
+				this.store.dispatch(new SetIntro(intro));
 			}
 		});
 	}

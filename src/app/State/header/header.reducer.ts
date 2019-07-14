@@ -4,6 +4,7 @@ import { Header, Action } from './header.model';
 const initState: Header = {
     showClockBtn: true,
     hideBackBtn: true,
+    showHeader: true,
     title: "title"
 };
 

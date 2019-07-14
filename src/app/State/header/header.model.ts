@@ -1,7 +1,8 @@
 export interface Header {
-    title: string;
+    title?: string;
     showClockBtn?: boolean;
     hideBackBtn?: boolean;
+    showHeader: boolean;
 }
 
 export interface Action {
