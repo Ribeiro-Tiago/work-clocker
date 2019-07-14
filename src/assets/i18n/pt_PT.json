@@ -14,7 +14,7 @@
 	},
 
 	"listItem": {
-		"noItems": "Ainda não picaste o ponto nenhuma vez.<br/><br/>Uso o botão na barra em cima para picares o ponto.",
+		"noItems": "Ainda não picaste o ponto nenhuma vez.",
 		"listDay": "No dia {{day}}",
 		"timeWorked": "Trabalhaste {{time}}",
 		"startAt": "Picaste o ponto às {{start}}",

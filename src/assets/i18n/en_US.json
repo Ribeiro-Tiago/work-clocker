@@ -14,7 +14,7 @@
 	},
 
 	"listItem": {
-		"noItems": "You haven’t clocked in any hours yet.<br/><br/>Click on the button above to start clocking in your time",
+		"noItems": "You haven’t clocked in any hours yet.",
 		"listDay": "On {{day}}",
 		"timeWorked": "You worked {{time}}",
 		"startAt": "Clocked in at {{start}}",
