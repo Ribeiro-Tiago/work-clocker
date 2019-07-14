@@ -1,11 +1,11 @@
 <div class="item" (click)="triggerOnClick(item)">
 	<div class="row">
 		<p>
-			{{ "listItem.listDay" | translate | convertTime: ["day", item.day, dateFormat] }}
+			{{ "listItem.listDay" | translate | convertTime: { destType: "day", payload: item.day, format: dateFormat } }}
 		</p>
 
 		<p>
-			{{ "listItem.timeWorked" | translate | convertTime: ["hours", item.timeWorked] }}
+			{{ "listItem.timeWorked" | translate | convertTime: { destType: "hours", payload: item.timeWorked } }}
 		</p>
 	</div>
 
@@ -14,10 +14,10 @@
 			{{ "listItem.startAt" | translate | formatTime: item.startHour }}
 		</span>
 		<span>
-			{{ "listItem.lunchDuration" | translate | convertTime: ["hours", item.lunchDuration] }}
+			{{ "listItem.lunchDuration" | translate | convertTime: { destType: "hours", payload: item.lunchDuration } }}
 		</span>
 		<span>
-			{{ "listItem.endAt" | translate | convertTime: ["timestamp", item.endHour] }}
+			{{ "listItem.endAt" | translate | convertTime: { destType: "timestamp", payload: item.endHour } }}
 		</span>
 	</div>
 </div>

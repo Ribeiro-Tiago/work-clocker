@@ -12,7 +12,7 @@
 		</div>
 
 		<h2>
-			{{ "listItem.exitETA" | translate | calcClockout: [currHour.day, dateFormat, currHour.lunchDuration, workDuration] }}
+			{{ "listItem.exitETA" | translate | calcClockout: { clockIn: currHour.day, format: dateFormat, lunchTime: currHour.lunchDuration, workDuration: workDuration } }}
 		</h2>
 	</ng-container>
 

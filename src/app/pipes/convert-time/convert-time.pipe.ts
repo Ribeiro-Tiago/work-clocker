@@ -13,16 +13,16 @@ interface ConvertTimeOpts {
 export class ConvertTimePipe implements PipeTransform {
 	constructor(private timeHandle: TimeService) { }
 
-	transform(value: string, payload: any /* { destType, payload, format }: ConvertTimeOpts */): any {
+	transform(value: string, { destType, payload, format }: ConvertTimeOpts): any {
 		let replaceText: string;
 
-		if (payload[0] === "day") {
-			this.timeHandle.setFormat(payload[2]);
-			replaceText = this.timeHandle.formatDate(new Date(payload[1]));
-		} else if (payload[0] === "hours") {
-			replaceText = this.timeHandle.minutesToHours(payload[1]);
+		if (destType === "day") {
+			this.timeHandle.setFormat(format);
+			replaceText = this.timeHandle.formatDate(new Date(payload));
+		} else if (destType === "hours") {
+			replaceText = this.timeHandle.minutesToHours(payload);
 		} else {
-			const d = new Date(payload[1]);
+			const d = new Date(payload);
 
 			replaceText = this.timeHandle.minutesToHours(d.getHours() * 60 + d.getMinutes());
 		}

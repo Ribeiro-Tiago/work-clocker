@@ -8,7 +8,6 @@ import { OwedExtraHoursComponent } from 'src/app/components/owed-extra-hours/owe
 import { ClockButtonComponent } from 'src/app/components/clock-button/clock-button.component';
 
 import { SharedModule } from 'src/app/shared.module';
-import { CalcClockoutModule } from 'src/app/pipes/calc-clockout/calc-clockout.pipe.module';
 
 @NgModule({
 	declarations: [
@@ -19,7 +18,6 @@ import { CalcClockoutModule } from 'src/app/pipes/calc-clockout/calc-clockout.pi
 	],
 	imports: [
 		SharedModule,
-		CalcClockoutModule,
 		RouterModule.forChild([{
 			path: '',
 			component: HomePage

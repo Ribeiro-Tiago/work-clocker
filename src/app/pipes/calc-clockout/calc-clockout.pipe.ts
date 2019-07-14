@@ -3,7 +3,7 @@ import { TimeService } from 'src/app/services/time/time.service';
 
 interface ClockOutArgs {
 	clockIn: number;
-	duration: number;
+	workDuration: number;
 	lunchTime: number;
 	format: string;
 }
@@ -14,11 +14,11 @@ interface ClockOutArgs {
 export class CalcClockoutPipe implements PipeTransform {
 	constructor(private time: TimeService) { }
 
-	transform(value: string, item: any[]): any {
-		const d = new Date(item[0]);
+	transform(value: string, { clockIn, workDuration, format, lunchTime }: ClockOutArgs): any {
+		const d = new Date(clockIn);
 
-		this.time.setFormat(item[1]);
+		this.time.setFormat(format);
 
-		return value.replace(/{{.*?}}/g, this.time.addTime(d, item[2], item[3]));
+		return value.replace(/{{.*?}}/g, this.time.addTime(d, lunchTime, workDuration));
 	}
 }

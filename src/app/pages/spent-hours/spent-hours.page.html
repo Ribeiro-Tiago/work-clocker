@@ -14,7 +14,7 @@
 			[innerHTML]="'spentHours.nowHave' | translate | convertTime: { destType: 'hours', payload: item.afterHours | sanitize }"></span>
 
 		<span class="date">
-			{{ "listItem.listDay" | translate | convertTime: { destType: "day", payload: item.day, replace: "day", format: dateFormat } }}
+			{{ "listItem.listDay" | translate | convertTime: { destType: "day", payload: item.day, format: dateFormat } }}
 		</span>
 	</div>
 </ion-content>

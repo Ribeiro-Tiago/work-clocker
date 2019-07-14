@@ -9,6 +9,7 @@ import { ConvertTimeModule } from './pipes/convert-time/convert-time.pipe.module
 import { SanitizerModule } from './pipes/sanitizer/sanitizer.pipe.module';
 import { FormatTimeModule } from './pipes/format-time/format-time.pipe.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { CalcClockoutModule } from './pipes/calc-clockout/calc-clockout.pipe.module';
 
 @NgModule({
     imports: [
@@ -20,6 +21,7 @@ import { TranslateModule } from '@ngx-translate/core';
         FormatTimeModule,
         SanitizerModule,
         TranslateModule,
+        CalcClockoutModule
     ],
     exports: [
         CommonModule,
@@ -30,6 +32,7 @@ import { TranslateModule } from '@ngx-translate/core';
         HeaderModule,
         SanitizerModule,
         TranslateModule,
+        CalcClockoutModule
     ]
 })
 export class SharedModule { }
