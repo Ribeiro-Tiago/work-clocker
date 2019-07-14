@@ -5,7 +5,7 @@
 
 	<div class="backdrop" (click)="onContentClick($event);"></div>
 
-	<ion-header>
+	<ion-header *ngIf="isHeaderVisible">
 		<app-header></app-header>
 	</ion-header>
 

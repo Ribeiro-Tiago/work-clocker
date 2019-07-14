@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
 	private subs: Subscription[];
 	private tut$: Observable<Tutorial>;
 	private menu$: Observable<Menu>;
-	private header$: Observable<Header>;
+	private intro$: Observable<Intro>;
 
 	showSplash: boolean;
 
@@ -49,6 +49,7 @@ export class AppComponent implements OnInit {
 	isIntroScreen: boolean;
 
 	headerTitle: string;
+	isHeaderVisible: boolean;
 	headerBtnVisible: boolean;
 
 	constructor(
@@ -65,19 +66,20 @@ export class AppComponent implements OnInit {
 		this.isTutVisible = false;
 		this.isMenuOpen = false;
 		this.isIntroScreen = true;
-		this.showSplash = true;
+		this.showSplash = false;
 
 		this.subs = [];
 
 		this.tut$ = this.store.select("tutorial");
 		this.menu$ = this.store.select("menu");
-		this.header$ = this.store.select("header");
+		this.intro$ = this.store.select("intro");
 
+		this.isHeaderVisible = true;
 		this.headerBtnVisible = false;
 		this.headerTitle = "title";
 	}
 
-	ngOnInit() {
+	ngOnInit(): void {
 		this.platform.ready().then(async () => {
 			this.splashScreen.hide();
 
@@ -90,10 +92,7 @@ export class AppComponent implements OnInit {
 			this.subs.push(
 				this.tut$.subscribe(({ isVisible }: Tutorial) => this.isTutVisible = isVisible),
 				this.menu$.subscribe(({ isVisible }: Menu) => this.isMenuOpen = isVisible),
-				this.header$.subscribe(({ title, showClockBtn }: Header) => {
-					this.headerTitle = title;
-					this.headerBtnVisible = showClockBtn;
-				}),
+				this.intro$.subscribe(({ isDone }: Intro) => this.isHeaderVisible = isDone),
 				this.router.events.subscribe((event) => {
 					if (event instanceof NavigationEnd) {
 						let configs: Header = {
@@ -135,13 +134,13 @@ export class AppComponent implements OnInit {
 		this.subs.forEach(s => s.unsubscribe());
 	}
 
-	onContentClick() {
+	onContentClick(): void {
 		if (this.isMenuOpen) {
 			this.store.dispatch(new MenuActions.ToggleMenu());
 		}
 	}
 
-	private getStorageData() {
+	private getStorageData(): void {
 		Promise.all([
 			this.storage.get("extraHours"),
 			this.storage.get("owedHours"),
@@ -193,13 +192,16 @@ export class AppComponent implements OnInit {
 				this.store.dispatch(new SetTutorial(tutorial));
 			}
 
-			if (intro) {
-				this.store.dispatch(new SetIntro(intro));
+			if (!intro) {
+				this.store.dispatch(new SetIntro({ isDone: false }));
+				this.isHeaderVisible = false;
+			} else {
+				this.isHeaderVisible = true;
 			}
 		});
 	}
 
-	private async showToast(key: string) {
+	private async showToast(key: string): Promise<void> {
 		const toast = await this.toastController.create({
 			message: await this.translate.get(key).toPromise(),
 			duration: 3000,
