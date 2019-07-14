@@ -47,4 +47,8 @@ The app is written primarily in C++ and leverages powerful features offered by t
 
 We also use JavaScript for interacting with rendering engines (when native APIs are not available) and Python 3 is our preferred language for creating tools to ease development.
 
-Read *CONTRIBUTING.md* and don’t hesitate!
+Read [CONTRIBUTING](https://github.com/Ribeiro-Tiago/work-clocker/blob/master/CONTRIBUTING.md). and don’t hesitate!
+
+## Credits
+
+Flag icons by - https://www.flaticon.com/packs/international-flags
