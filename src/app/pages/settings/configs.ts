@@ -1,12 +1,11 @@
+import langs from "src/configs/langs";
+
 export default {
     dateFormats: [
         { key: "dd/mm/yyyy", label: "21/03/2018" },
         { key: "mm/dd/yyyy", label: "09/21/2018" },
     ],
-    langs: [
-        { key: "en_US", label: "English (US)" },
-        { key: "pt_PT", label: "Português (Portugal)" }
-    ],
+    langs,
     lunchDuration: [
         0,
         15,
