@@ -23,6 +23,7 @@ import { AddHours as AddSpentHour } from "src/app/state/spentHours/spentHours.ac
 })
 export class ClockButtonComponent implements OnInit, OnDestroy {
 	private subs: Subscription[];
+	private timerInterval: Subscription;
 
 	private lunchDuration: number;
 	private workDuration: number;
@@ -69,18 +70,16 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 			this.extraHours$.subscribe(result => this.extraHours = result),
 			this.owedHours$.subscribe(result => this.owedHours = result),
 			this.clockedHours$.subscribe(({ hours }) => {
-				console.log(hours);
 				if (hours[0] && hours[0].isActive) {
 					this.currHour = hours[0];
-					this.updateTimer();
-					console.log(this.currHour);
+					this.setupTimer();
 				} else {
+					this.clearTimer();
 					this.currHour = null;
 				}
 
 				this.clockedHours = hours;
-			}),
-			interval(1000).subscribe(() => this.updateTimer())
+			})
 		);
 	}
 
@@ -232,6 +231,21 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 
 	private showToast(key: string) {
 		this.events.publish("showToast", key);
+	}
+
+	private setupTimer(): void {
+		if (!this.timerInterval) {
+			this.updateTimer(); // makes sure the timer has a value before the first tick
+			this.timerInterval = interval(1000).subscribe(() => this.updateTimer());
+		}
+	}
+
+	private clearTimer(): void {
+		if (this.timerInterval) {
+			this.timerInterval.unsubscribe();
+			this.timerInterval = null;
+			this.timer = "00:00:00";
+		}
 	}
 
 	private updateTimer(): void {
