@@ -1,23 +1,27 @@
-import { Injectable } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Events } from '@ionic/angular';
+
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 
-import { StorageService } from '../storage/storage.service';
+import { StorageService } from 'src/app/services/storage/storage.service';
+
 import { AppState } from 'src/app/State';
 import { ClockedHour, ClockedHourItem } from 'src/app/state/clockedHours/clockedHours.model';
 import { ExtraHour } from 'src/app/state/extraHours/extraHours.model';
 import { OwedHour } from 'src/app/state/owedHours/owedHours.model';
-
+import { Setting } from 'src/app/state/settings/settings.model';
 import * as extraHoursActions from "src/app/state/extraHours/extraHours.actions";
 import * as owedHoursActions from "src/app/state/owedHours/owedHours.actions";
 import * as clockedActions from "src/app/state/clockedHours/clockedHours.actions";
 import { AddHours as AddSpentHour } from "src/app/state/spentHours/spentHours.actions";
-import { Setting } from 'src/app/state/settings/settings.model';
 
-@Injectable({
-	providedIn: 'root'
+@Component({
+	selector: 'app-clock-button',
+	templateUrl: './clock-button.component.html',
+	styleUrls: ['./clock-button.component.scss'],
 })
-export class ClockerService {
+export class ClockButtonComponent implements OnInit, OnDestroy {
 	private subs: Subscription[];
 
 	private lunchDuration: number;
@@ -32,6 +36,7 @@ export class ClockerService {
 	private clockedHours$: Observable<ClockedHour>;
 
 	constructor(
+		private events: Events,
 		private storage: StorageService,
 		private store: Store<AppState>,
 	) {
@@ -40,8 +45,11 @@ export class ClockerService {
 		this.owedHours$ = store.select("owedHours");
 		this.clockedHours$ = store.select("clockedHours");
 
+		this.subs = [];
+	}
 
-		this.subs = [
+	ngOnInit(): void {
+		this.subs.push(
 			this.settings$.subscribe(({ selectedLunchDuration, selectedWorkDuration }) => {
 				this.lunchDuration = selectedLunchDuration;
 				this.workDuration = selectedWorkDuration;
@@ -49,7 +57,11 @@ export class ClockerService {
 			this.extraHours$.subscribe(result => this.extraHours = result),
 			this.owedHours$.subscribe(result => this.owedHours = result),
 			this.clockedHours$.subscribe(({ hours }) => this.clockedHours = hours),
-		];
+		);
+	}
+
+	ngOnDestroy(): void {
+		this.subs.forEach(s => s.unsubscribe());
 	}
 
 	clockIn(): void {
@@ -67,6 +79,8 @@ export class ClockerService {
 		this.storage.update("clockedHours", item)
 			.then(() => console.log("added hour"))
 			.catch((err) => console.log("err adding hour: ", err));
+
+		this.showToast("home.clockedIn");
 	}
 
 	clockOut(): void {
@@ -115,10 +129,8 @@ export class ClockerService {
 		this.storage.set("clockedHours", this.clockedHours)
 			.then(() => console.log("updated hour"))
 			.catch(console.error);
-	}
 
-	unsubscribe(): void {
-		this.subs.forEach(s => s.unsubscribe());
+		this.showToast("home.clockedOut");
 	}
 
 	private useExtraHours(owedMinutes: number): number {
@@ -192,5 +204,9 @@ export class ClockerService {
 		}
 
 		return leftover;
+	}
+
+	private showToast(key: string) {
+		this.events.publish("showToast", key);
 	}
 }

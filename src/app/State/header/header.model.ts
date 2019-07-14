@@ -1,6 +1,5 @@
 export interface Header {
     title?: string;
-    showClockBtn?: boolean;
     hideBackBtn?: boolean;
     showHeader: boolean;
 }

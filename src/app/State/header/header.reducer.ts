@@ -2,7 +2,6 @@ import * as headerActions from "./header.actions";
 import { Header, Action } from './header.model';
 
 const initState: Header = {
-    showClockBtn: true,
     hideBackBtn: true,
     showHeader: false,
     title: "title"

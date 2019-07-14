@@ -179,7 +179,6 @@ export class AppComponent implements OnInit {
 		if (event instanceof NavigationEnd) {
 			let configs: Header = {
 				showHeader: true,
-				showClockBtn: false,
 				hideBackBtn: false
 			};
 
@@ -201,7 +200,7 @@ export class AppComponent implements OnInit {
 					break;
 
 				default:
-					configs = { ...configs, showClockBtn: true, hideBackBtn: true, title: "title" };
+					configs = { ...configs, hideBackBtn: true, title: "title" };
 					break;
 			}
 

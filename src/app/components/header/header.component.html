@@ -10,11 +10,6 @@
 	<ion-title>{{ title }}</ion-title>
 
 	<ion-buttons slot="end">
-		<ion-button (click)="onBtnPress()" *ngIf="showClockBtn"
-			[ngClass]="{'tut-item': isTutVisible, 'tut-active-item': tutStage === 'clockBtn'}">
-			<ion-icon [name]="activeClock ? 'log-out' : 'log-in'" size="large"></ion-icon>
-		</ion-button>
-
 		<ion-button (click)="toggleMenu()"
 			[ngClass]="{'tut-item': isTutVisible, 'tut-active-item': tutStage === 'settingsBtn'}">
 			<ion-icon name="ios-more" size="large"></ion-icon>
