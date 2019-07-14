@@ -1,21 +1,24 @@
-<ng-container *ngIf="!!currHour; else elseTemplate">
-	<h2>
-		{{ "listItem.startAt" | translate | formatTime: currHour.startHour }}
-	</h2>
+<div class="bg"></div>
+<div class="wrapper">
+	<ng-container *ngIf="!!currHour; else elseTemplate">
+		<h2>
+			{{ "listItem.startAt" | translate | formatTime: currHour.startHour }}
+		</h2>
 
-	<div class="button" (click)="clockOut()">
-		<h3>{{ "home.clockout" | translate }}</h3>
+		<div class="button" (click)="clockOut()">
+			<h3>{{ "home.clockout" | translate }}</h3>
 
-		<p>{{ timer }}</p>
-	</div>
+			<p>{{ timer }}</p>
+		</div>
 
-	<h2>
-		{{ "listItem.exitETA" | translate | calcClockout: [currHour.day, dateFormat, currHour.lunchDuration, workDuration] }}
-	</h2>
-</ng-container>
+		<h2>
+			{{ "listItem.exitETA" | translate | calcClockout: [currHour.day, dateFormat, currHour.lunchDuration, workDuration] }}
+		</h2>
+	</ng-container>
 
-<ng-template #elseTemplate>
-	<div class="button" (click)="clockIn()">
-		<h3>{{ "home.clockin" | translate }}</h3>
-	</div>
-</ng-template>
+	<ng-template #elseTemplate>
+		<div class="button" (click)="clockIn()">
+			<h3>{{ "home.clockin" | translate }}</h3>
+		</div>
+	</ng-template>
+</div>

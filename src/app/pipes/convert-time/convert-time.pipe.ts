@@ -4,7 +4,6 @@ import { TimeService } from 'src/app/services/time/time.service';
 interface ConvertTimeOpts {
 	destType: "day" | "hours" | "timestamp";
 	payload: any;
-	replace: string;
 	format?: string;
 }
 
@@ -14,20 +13,20 @@ interface ConvertTimeOpts {
 export class ConvertTimePipe implements PipeTransform {
 	constructor(private timeHandle: TimeService) { }
 
-	transform(value: string, { destType, payload, replace, format }: ConvertTimeOpts): any {
+	transform(value: string, payload: any /* { destType, payload, format }: ConvertTimeOpts */): any {
 		let replaceText: string;
 
-		if (destType === "day") {
-			this.timeHandle.setFormat(format);
-			replaceText = this.timeHandle.formatDate(new Date(payload));
-		} else if (destType === "hours") {
-			replaceText = this.timeHandle.minutesToHours(payload);
+		if (payload[0] === "day") {
+			this.timeHandle.setFormat(payload[2]);
+			replaceText = this.timeHandle.formatDate(new Date(payload[1]));
+		} else if (payload[0] === "hours") {
+			replaceText = this.timeHandle.minutesToHours(payload[1]);
 		} else {
-			const d = new Date(payload);
+			const d = new Date(payload[1]);
 
 			replaceText = this.timeHandle.minutesToHours(d.getHours() * 60 + d.getMinutes());
 		}
 
-		return value.replace(`{{${replace}}}`, replaceText);
+		return value.replace(/{{.*?}}/g, replaceText);
 	}
 }

@@ -14,6 +14,8 @@ app-clocked-hours {
 	}
 
 	.list {
+		overflow: auto;
+
 		&.tut-visible {
 			position: relative;
 			height: calc(100% - 51px);
