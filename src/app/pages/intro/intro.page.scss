@@ -1,0 +1,57 @@
+@import "../../../theme/variables.scss";
+
+app-intro {
+	ion-slides {
+		height: 100%;
+		width: 100%;
+		background-color: $secondaryColor;
+
+		.language {
+			display: flex;
+			padding: 2vh;
+			flex-direction: column;
+			justify-content: space-between;
+
+
+			.content {
+				display: flex;
+				align-items: center;
+				justify-content: space-around;
+				width: 100%;
+
+				section {
+					display: flex;
+					flex-direction: column;
+					opacity: .5;
+					transition: .2s;
+					align-items: center;
+
+					&.selected {
+						opacity: 1;
+						transition: .2s;
+					}
+
+					span {
+						margin-top: 2vh;
+					}
+
+					img {
+						width: 128px;
+						height: 64px;
+					}
+				}
+			}
+		}
+
+		ion-button {
+			align-self: flex-end;
+			height: 50px;
+			font-weight: bold;
+			width: 100%;
+			font-size: 2vh;
+			background-color: rgba(73, 172, 77, 0.1);
+			border: 1px solid #49ac4d;
+			color: #49ac4d;
+		}
+	}
+}

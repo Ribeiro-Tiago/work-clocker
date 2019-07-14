@@ -9,9 +9,17 @@ const initState: Setting = {
 };
 
 export function settingsReducer(state: Setting = initState, action: Action) {
-    switch (action.type) {
+    const { type, payload } = action;
+    switch (type) {
         case SettingsActions.UPDATE_SETTINGS:
-            return { ...action.payload };
+            return { ...payload };
+
+        case SettingsActions.UPDATE_LANG: {
+            return {
+                ...state,
+                selectedLanguage: payload
+            };
+        }
 
         default:
             return state;

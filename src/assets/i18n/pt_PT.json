@@ -86,5 +86,10 @@
 		"extraHours": "<p>Desta lado estão as horas trabalhadas a mais.</p><p>Quando trabalhares a mais, e não tiveres horas devidas, este número aumenta.</p>",
 		"contentTitle": "Tutorial - Clocked hours",
 		"content": "<p>Aqui encontras listados os teus \"dias de trabalho\". A informação muda dependendo es estás num dia de trabalho ou já picaste o ponto para sair.</p><p>Mostrará ou a hora a que picaste o ponto (entrada e saída), duração de almoço, quanto tempo trabalhaste naquele dia.</p><p>Ou então mostra quando picaste o ponto e, com base na duração de almoço (pre)definida, quando deves sair.</p><p>Também é possível alterar a hora de almoço do dia de \"hoje\" carregando no item na listagem.</p>"
+	},
+
+	"intro": {
+		"title_1": "Bem vindo ao Work Clocker",
+		"next": "Próximo"
 	}
 }

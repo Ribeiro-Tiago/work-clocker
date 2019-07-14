@@ -1,15 +1,46 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
+import { IonSlides } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
+import { Store } from '@ngrx/store';
+
+import langs from "src/configs/langs";
+import { LangItem } from 'src/app/types/Misc';
+import { AppState } from 'src/app/State';
+import { StorageService } from 'src/app/services/storage/storage.service';
+import { UpdateLang as SetLango } from "src/app/state/settings/settings.actions";
 
 @Component({
-  selector: 'app-intro',
-  templateUrl: './intro.page.html',
-  styleUrls: ['./intro.page.scss'],
+	selector: 'app-intro',
+	templateUrl: './intro.page.html',
+	styleUrls: ['./intro.page.scss'],
+	encapsulation: ViewEncapsulation.None
 })
 export class IntroPage implements OnInit {
+	@ViewChild(IonSlides) slider: IonSlides;
 
-  constructor() { }
+	currLang: string;
+	langs: LangItem[];
 
-  ngOnInit() {
-  }
+	constructor(private store: Store<AppState>, private translate: TranslateService, private storage: StorageService) {
+		this.langs = langs;
 
+		this.currLang = langs[0].key;
+	}
+
+	ngOnInit() {
+		// s
+	}
+
+	onLangSelect(ev: Event, key: string) {
+		ev.preventDefault();
+
+		this.currLang = key;
+		this.translate.setDefaultLang(key);
+		this.store.dispatch(new SetLango(this.langs.find(l => l.key === key)));
+	}
+
+	next() {
+		console.log("clicked next");
+		this.slider.slideNext();
+	}
 }
