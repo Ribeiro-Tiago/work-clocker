@@ -1,26 +1,17 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
-
-import { IonicModule } from '@ionic/angular';
+import { RouterModule } from '@angular/router';
 
 import { IntroPage } from './intro.page';
-
-const routes: Routes = [
-  {
-    path: '',
-    component: IntroPage
-  }
-];
+import { SharedModule } from 'src/app/shared.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild(routes)
-  ],
-  declarations: [IntroPage]
+	imports: [
+		SharedModule,
+		RouterModule.forChild([{
+			path: '',
+			component: IntroPage
+		}])
+	],
+	declarations: [IntroPage]
 })
-export class IntroPageModule {}
+export class IntroPageModule { }

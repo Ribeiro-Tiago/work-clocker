@@ -8,8 +8,8 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { IonicStorageModule } from '@ionic/storage';
 
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
 import { StoreModule } from "@ngrx/store";
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -29,8 +29,8 @@ import { reducers } from './State';
 import { AdMobFree } from '@ionic-native/admob-free/ngx';
 import { environment } from 'src/environments/environment';
 import { SanitizerModule } from './pipes/sanitizer/sanitizer.pipe.module';
-import { HeaderModule } from './components/header/header.module';
 import { LoaderModule } from './components/loader/loader.component.module';
+import { SharedModule } from './shared.module';
 
 export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoader(http);
 
@@ -42,15 +42,22 @@ export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoad
 	],
 	entryComponents: [],
 	imports: [
-		BrowserModule,
 		IonicModule.forRoot(),
+		TranslateModule.forRoot({
+			loader: {
+				provide: TranslateLoader,
+				useFactory: createTranslateLoader,
+				deps: [HttpClient]
+			}
+		}),
+		BrowserModule,
 		AppRoutingModule,
-		HeaderModule,
-		HttpClientModule,
 		HomePageModule,
 		SettingsPageModule,
+		SharedModule,
 		SanitizerModule,
 		LoaderModule,
+		HttpClientModule,
 		IonicStorageModule.forRoot({
 			name: '__work-clocker__',
 			driverOrder: ['indexeddb', 'sqlite', 'websql']
@@ -59,13 +66,6 @@ export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoad
 		StoreDevtoolsModule.instrument({
 			features: { pause: environment.production },
 			maxAge: 25, // Retains last 25 states
-		}),
-		TranslateModule.forRoot({
-			loader: {
-				provide: TranslateLoader,
-				useFactory: createTranslateLoader,
-				deps: [HttpClient]
-			}
 		})
 	],
 	providers: [

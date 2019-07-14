@@ -1,12 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
-import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
-import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
 /* pages */
 import { HomePage } from './home.page';
@@ -19,13 +12,8 @@ import { OwedExtraHoursComponent } from 'src/app/components/owed-extra-hours/owe
 import { ClockedHoursComponent } from 'src/app/components/clocked-hours/clocked-hours.component';
 
 /* modules */
-import { ConvertTimeModule } from 'src/app/pipes/convert-time/convert-time.pipe.module';
 import { CalcClockoutModule } from 'src/app/pipes/calc-clockout/calc-clockout.pipe.module';
-import { FormatTimeModule } from 'src/app/pipes/format-time/format-time.pipe.module';
-import { SanitizerModule } from 'src/app/pipes/sanitizer/sanitizer.pipe.module';
-import { HeaderModule } from 'src/app/components/header/header.module';
-
-export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoader(http);
+import { SharedModule } from 'src/app/shared.module';
 
 @NgModule({
 	declarations: [
@@ -37,28 +25,12 @@ export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoad
 		ClockedHoursComponent,
 	],
 	imports: [
-		CommonModule,
-		FormsModule,
-		IonicModule,
-		HttpClientModule,
-		ConvertTimeModule,
 		CalcClockoutModule,
-		FormatTimeModule,
-		SanitizerModule,
-		HeaderModule,
-		RouterModule.forChild([
-			{
-				path: '',
-				component: HomePage
-			},
-		]),
-		TranslateModule.forChild({
-			loader: {
-				provide: TranslateLoader,
-				useFactory: createTranslateLoader,
-				deps: [HttpClient]
-			}
-		})
+		SharedModule,
+		RouterModule.forChild([{
+			path: '',
+			component: HomePage
+		}])
 	]
 })
 export class HomePageModule { }
