@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Events } from '@ionic/angular';
 import { Subscription, Observable } from 'rxjs';
@@ -14,6 +14,7 @@ import { Setting } from 'src/app/state/settings/settings.model';
 	selector: 'app-clocked-hours',
 	templateUrl: './clocked-hours.page.html',
 	styleUrls: ['./clocked-hours.page.scss'],
+	encapsulation: ViewEncapsulation.None
 })
 export class ClockedHoursPage implements OnInit, OnDestroy {
 	private subs: Subscription[];
