@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, Event } from '@angular/router';
 
 import { Platform, Events, ToastController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -99,36 +99,7 @@ export class AppComponent implements OnInit {
 						this.router.navigate(["/home"], { replaceUrl: true });
 					}
 				}),
-				this.router.events.subscribe((event) => {
-					if (event instanceof NavigationEnd) {
-						let configs: Header = {
-							showHeader: true,
-							showClockBtn: false,
-							hideBackBtn: false
-						};
-
-						switch (event.url) {
-							case "/":
-								configs = { showHeader: false };
-								break;
-
-							case "/hours-spent":
-								configs = { ...configs, title: 'spentHours.title' };
-								break;
-
-							case "/settings":
-								configs = { ...configs, title: 'settings.title' };
-								break;
-
-							default:
-								configs = { ...configs, showClockBtn: true, hideBackBtn: true, title: "title" };
-								break;
-						}
-
-						this.store.dispatch(new SetHeader(configs));
-						this.store.dispatch(new MenuActions.CloseMenu());
-					}
-				})
+				this.router.events.subscribe((event) => this.onRouteChange(event))
 			);
 
 			this.statusBar.styleLightContent();
@@ -163,8 +134,6 @@ export class AppComponent implements OnInit {
 			const clockedHours: ClockedHourItem[] = results[4];
 			const tutorial: Tutorial = results[5];
 			const intro: Intro = results[6];
-
-			console.log(results);
 
 			if (extraHours) {
 				this.store.dispatch(new SetExtraHours(extraHours));
@@ -204,6 +173,41 @@ export class AppComponent implements OnInit {
 				this.store.dispatch(new SetIntro(true));
 			}
 		});
+	}
+
+	private onRouteChange(event: Event): void {
+		if (event instanceof NavigationEnd) {
+			let configs: Header = {
+				showHeader: true,
+				showClockBtn: false,
+				hideBackBtn: false
+			};
+
+			switch (event.url) {
+				case "/":
+					configs = { showHeader: false };
+					break;
+
+				case "/clocked-hours":
+					configs = { ...configs, title: 'clockedHours.title' };
+					break;
+
+				case "/hours-spent":
+					configs = { ...configs, title: 'spentHours.title' };
+					break;
+
+				case "/settings":
+					configs = { ...configs, title: 'settings.title' };
+					break;
+
+				default:
+					configs = { ...configs, showClockBtn: true, hideBackBtn: true, title: "title" };
+					break;
+			}
+
+			this.store.dispatch(new SetHeader(configs));
+			this.store.dispatch(new MenuActions.CloseMenu());
+		}
 	}
 
 	private async showToast(key: string): Promise<void> {
