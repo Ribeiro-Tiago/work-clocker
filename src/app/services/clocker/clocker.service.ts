@@ -72,7 +72,6 @@ export class ClockerService {
 	clockOut(): void {
 		const currItem = this.clockedHours[0];
 		const d = Date.now();
-		console.log(d, currItem);
 		const lunchSecs = (currItem.lunchDuration * 60000);
 		let timeWorkedSecs = (d - currItem.startHour);
 
@@ -82,12 +81,8 @@ export class ClockerService {
 
 		timeWorkedSecs /= 1000;
 
-		console.log("wokredsecs", timeWorkedSecs);
 		const minutesWorked = Math.floor(timeWorkedSecs / 60);
-
 		const timeWorkedDiff = Math.abs(Math.ceil(minutesWorked / 60)) - this.workDuration;
-
-		console.log(Math.ceil(minutesWorked / 60), this.workDuration, timeWorkedDiff);
 
 		currItem.endHour = d;
 		currItem.timeWorked = minutesWorked;
