@@ -34,7 +34,7 @@ export class HomePage implements OnInit, OnDestroy {
 	isTutVisible: boolean;
 
 	constructor(
-		private store: Store<AppState>,
+		store: Store<AppState>,
 		private admobFree: AdMobFree,
 		private platform: Platform,
 	) {
@@ -49,11 +49,7 @@ export class HomePage implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		this.subs = [
-			this.settingsObs.subscribe((result: Setting) => {
-				this.lunchDuration = result.selectedLunchDuration;
-				this.workDuration = result.selectedWorkDuration;
-				this.dateFormat = result.selectedDateFormat.key;
-			}),
+			this.settingsObs.subscribe((result: Setting) => this.lunchDuration = result.selectedLunchDuration),
 			this.tutObs.subscribe(({ isVisible, stage }: Tutorial) => {
 				this.isTutVisible = isVisible;
 				this.tutStage = stage;

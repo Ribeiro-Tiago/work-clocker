@@ -8,6 +8,7 @@ import { AppState } from 'src/app/State';
 import { ClockedHour, ClockedHourItem } from 'src/app/state/clockedHours/clockedHours.model';
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { UpdateHours as UpdateHoursAction } from "src/app/state/clockedHours/clockedHours.actions";
+import { Setting } from 'src/app/state/settings/settings.model';
 
 
 @Component({
@@ -17,8 +18,9 @@ import { UpdateHours as UpdateHoursAction } from "src/app/state/clockedHours/clo
 })
 export class ClockedHoursComponent implements OnInit {
 	private subs: Subscription[];
-	private tutObs: Observable<Tutorial>;
-	private clockedHoursObs: Observable<ClockedHour>;
+	private tut$: Observable<Tutorial>;
+	private clockedHours$: Observable<ClockedHour>;
+	private settings$: Observable<Setting>;
 
 	isTutVisible: boolean;
 	tutStage: TutorialStage;
@@ -29,11 +31,18 @@ export class ClockedHoursComponent implements OnInit {
 	isActiveClock: boolean;
 	isModalVisible: boolean;
 
+	workDuration: number;
+	dateFormat: string;
+
 	constructor(private store: Store<AppState>, private storage: StorageService, private events: Events) {
-		this.tutObs = store.select("tutorial");
-		this.clockedHoursObs = store.select("clockedHours");
+		this.tut$ = store.select("tutorial");
+		this.clockedHours$ = store.select("clockedHours");
+		this.settings$ = store.select("settings");
 
 		this.subs = [];
+
+		this.workDuration = -1;
+		this.dateFormat = "dd/mm/yyy";
 
 		this.tutItem = {
 			day: 1560893131236,
@@ -47,11 +56,15 @@ export class ClockedHoursComponent implements OnInit {
 
 	ngOnInit() {
 		this.subs.push(
-			this.tutObs.subscribe(({ isVisible, stage }: Tutorial) => {
+			this.settings$.subscribe((result: Setting) => {
+				this.workDuration = result.selectedWorkDuration;
+				this.dateFormat = result.selectedDateFormat.key;
+			}),
+			this.tut$.subscribe(({ isVisible, stage }: Tutorial) => {
 				this.isTutVisible = isVisible;
 				this.tutStage = stage;
 			}),
-			this.clockedHoursObs.subscribe((result: ClockedHour) => {
+			this.clockedHours$.subscribe((result: ClockedHour) => {
 				this.isActiveClock = result.isActive;
 				this.clockedHours = [...result.hours];
 			})

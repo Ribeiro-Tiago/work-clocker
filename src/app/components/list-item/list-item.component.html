@@ -2,7 +2,7 @@
 	<div class="row">
 		<ng-container *ngIf="!item.isActive; else isActiveTemplate">
 			<p>
-				{{ "listItem.listDay" | translate  | convertTime: {
+				{{ "listItem.listDay" | translate | convertTime: {
 						destType: "day", 
 						payload: item.day, 
 						replace: "day", 

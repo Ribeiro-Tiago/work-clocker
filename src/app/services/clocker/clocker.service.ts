@@ -39,10 +39,9 @@ export class ClockerService {
 		this.extraHours$ = store.select("extraHours");
 		this.owedHours$ = store.select("owedHours");
 		this.clockedHours$ = store.select("clockedHours");
-	}
 
-	ngOnInit(): void {
-		this.subs.push(
+
+		this.subs = [
 			this.settings$.subscribe(({ selectedLunchDuration, selectedWorkDuration }) => {
 				this.lunchDuration = selectedLunchDuration;
 				this.workDuration = selectedWorkDuration;
@@ -50,14 +49,10 @@ export class ClockerService {
 			this.extraHours$.subscribe(result => this.extraHours = result),
 			this.owedHours$.subscribe(result => this.owedHours = result),
 			this.clockedHours$.subscribe(({ hours }) => this.clockedHours = hours),
-		);
+		];
 	}
 
-	ngOnDestroy(): void {
-		this.subs.forEach(s => s.unsubscribe());
-	}
-
-	clockIn() {
+	clockIn(): void {
 		const d = Date.now();
 
 		const item: ClockedHourItem = {
@@ -74,13 +69,25 @@ export class ClockerService {
 			.catch((err) => console.log("err adding hour: ", err));
 	}
 
-	clockOut() {
+	clockOut(): void {
 		const currItem = this.clockedHours[0];
 		const d = Date.now();
-		const timeWorkedSecs = (d - currItem.startHour - (currItem.lunchDuration * 60000)) / 1000;
+		console.log(d, currItem);
+		const lunchSecs = (currItem.lunchDuration * 60000);
+		let timeWorkedSecs = (d - currItem.startHour);
+
+		if (lunchSecs <= timeWorkedSecs) {
+			timeWorkedSecs -= lunchSecs;
+		}
+
+		timeWorkedSecs /= 1000;
+
+		console.log("wokredsecs", timeWorkedSecs);
 		const minutesWorked = Math.floor(timeWorkedSecs / 60);
 
-		const timeWorkedDiff = (minutesWorked / 60) - this.workDuration;
+		const timeWorkedDiff = Math.abs(Math.ceil(minutesWorked / 60)) - this.workDuration;
+
+		console.log(Math.ceil(minutesWorked / 60), this.workDuration, timeWorkedDiff);
 
 		currItem.endHour = d;
 		currItem.timeWorked = minutesWorked;
@@ -113,6 +120,10 @@ export class ClockerService {
 		this.storage.set("clockedHours", this.clockedHours)
 			.then(() => console.log("updated hour"))
 			.catch(console.error);
+	}
+
+	unsubscribe(): void {
+		this.subs.forEach(s => s.unsubscribe());
 	}
 
 	private useExtraHours(owedMinutes: number): number {
