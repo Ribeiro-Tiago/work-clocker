@@ -7,7 +7,7 @@ import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import configs from "./configs";
-import { ConfigOption, LegalOption } from "../../types/Config";
+import { ConfigOption, LegalOption } from "../../types/Misc";
 import { StorageService } from '../../services/storage/storage.service';
 
 /* state models */

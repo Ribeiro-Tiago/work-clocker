@@ -1,4 +1,4 @@
-import { ConfigOption } from 'src/app/types/Config';
+import { ConfigOption } from 'src/app/types/Misc';
 
 export interface Setting {
     selectedDateFormat: ConfigOption;

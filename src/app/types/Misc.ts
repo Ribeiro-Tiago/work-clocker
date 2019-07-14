@@ -8,3 +8,9 @@ export interface LegalOption {
     link?: string;
     version?: string;
 }
+
+export interface LangItem {
+    icon: string;
+    label: string;
+    key: string;
+}
