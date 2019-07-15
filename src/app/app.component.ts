@@ -30,6 +30,7 @@ import { ClockedHourItem } from './state/clockedHours/clockedHours.model';
 import { Menu } from './State/menu/menu.model';
 import { Header } from './State/header/header.model';
 import { Intro } from './State/intro/intro.model';
+import { PushNotifsService } from './services/push-notifs/push-notifs.service';
 
 @Component({
 	selector: 'app-root',
@@ -61,7 +62,8 @@ export class AppComponent implements OnInit {
 		private store: Store<AppState>,
 		private events: Events,
 		private toastController: ToastController,
-		private router: Router
+		private router: Router,
+		private pushNotif: PushNotifsService
 	) {
 		this.isTutVisible = false;
 		this.isMenuOpen = false;
@@ -149,6 +151,8 @@ export class AppComponent implements OnInit {
 
 			if (settings) {
 				const { selectedDateFormat, selectedLanguage, selectedLunchDuration, selectedWorkDuration } = settings;
+
+				/* this.pushNotif.init(); */
 
 				this.store.dispatch(new UpdateSettings({
 					selectedDateFormat,

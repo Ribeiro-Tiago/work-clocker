@@ -31,6 +31,8 @@ import { environment } from 'src/environments/environment';
 import { SanitizerModule } from './pipes/sanitizer/sanitizer.pipe.module';
 import { LoaderModule } from './components/loader/loader.component.module';
 import { SharedModule } from './shared.module';
+import { PushNotifsService } from './services/push-notifs/push-notifs.service';
+import { Push } from '@ionic-native/push/ngx';
 
 export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoader(http);
 
@@ -72,7 +74,9 @@ export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoad
 		StatusBar,
 		SplashScreen,
 		StorageService,
+		PushNotifsService,
 		IonicStorageModule,
+		Push,
 		AdMobFree,
 		{
 			provide: RouteReuseStrategy,
