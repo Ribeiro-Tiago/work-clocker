@@ -40,6 +40,7 @@ export class AppComponent implements OnInit {
 	private tut$: Observable<Tutorial>;
 	private menu$: Observable<Menu>;
 	private intro$: Observable<Intro>;
+	private header$: Observable<Header>;
 
 	showSplash: boolean;
 
@@ -72,6 +73,7 @@ export class AppComponent implements OnInit {
 		this.tut$ = this.store.select("tutorial");
 		this.menu$ = this.store.select("menu");
 		this.intro$ = this.store.select("intro");
+		this.header$ = this.store.select("header");
 
 		this.isHeaderVisible = false;
 		this.headerBtnVisible = false;
@@ -91,9 +93,8 @@ export class AppComponent implements OnInit {
 			this.subs.push(
 				this.tut$.subscribe(({ isVisible }: Tutorial) => this.isTutVisible = isVisible),
 				this.menu$.subscribe(({ isVisible }: Menu) => this.isMenuOpen = isVisible),
+				this.header$.subscribe(({ showHeader }: Header) => this.isHeaderVisible = showHeader),
 				this.intro$.subscribe(({ isDone }: Intro) => {
-					this.isHeaderVisible = isDone;
-
 					if (isDone) {
 						this.router.navigate(["/home"], { replaceUrl: true });
 					}
