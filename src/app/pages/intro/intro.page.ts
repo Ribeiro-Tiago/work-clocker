@@ -10,6 +10,7 @@ import { AppState } from 'src/app/State';
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { UpdateLang as SetLango } from "src/app/state/settings/settings.actions";
 import { SetIntro } from "src/app/state/intro/intro.actions";
+import { ShowTut } from 'src/app/state/tutorial/tutorial.actions';
 
 @Component({
 	selector: 'app-intro',
@@ -47,6 +48,7 @@ export class IntroPage {
 	}
 
 	finishIntro(): void {
+		this.store.dispatch(new ShowTut());
 		this.store.dispatch(new SetIntro(true));
 		this.storage.set("intro", true);
 		this.router.navigate(["/home"], { replaceUrl: true });

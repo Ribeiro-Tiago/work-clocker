@@ -3,6 +3,7 @@ export interface Tutorial {
     isVisible: boolean;
     isFirstStage: boolean;
     isLastStage: boolean;
+    isDone: boolean;
     currStage: number;
     position: string;
     rightOffset: number;

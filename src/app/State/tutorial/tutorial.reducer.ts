@@ -2,9 +2,10 @@ import { Tutorial, Action, StageConf } from "./tutorial.model";
 import * as tutorialsActions from "./tutorial.actions";
 
 const initState: Tutorial = {
-    isVisible: true,
+    isVisible: false,
     isLastStage: false,
     isFirstStage: true,
+    isDone: false,
     stage: "intro",
     currStage: 0,
     position: "on-intro",
@@ -82,6 +83,7 @@ export function TutorialsReducer(state: Tutorial = initState, action: Action) {
             return {
                 ...state,
                 isVisible: false,
+                isDone: true,
                 stage: ""
             };
         }

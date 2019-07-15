@@ -11,13 +11,14 @@ const initState: Setting = {
 export function settingsReducer(state: Setting = initState, action: Action) {
     const { type, payload } = action;
     switch (type) {
-        case SettingsActions.UPDATE_SETTINGS:
+        case SettingsActions.UPDATE_SETTINGS: {
             return { ...payload };
+        }
 
         case SettingsActions.UPDATE_LANG: {
             return {
                 ...state,
-                selectedLanguage: payload
+                selectedLanguage: { ...payload }
             };
         }
 

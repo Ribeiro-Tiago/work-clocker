@@ -65,7 +65,7 @@ export class AppComponent implements OnInit {
 		this.isTutVisible = false;
 		this.isMenuOpen = false;
 		this.isIntroScreen = true;
-		this.showSplash = true;
+		this.showSplash = false;
 
 		this.subs = [];
 
@@ -168,7 +168,7 @@ export class AppComponent implements OnInit {
 				this.store.dispatch(new SetTutorial(tutorial));
 			}
 
-			if (intro) {
+			if (intro && !intro) {
 				this.store.dispatch(new SetIntro(true));
 			}
 		});
