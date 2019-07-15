@@ -5,12 +5,13 @@
 	</ng-container>
 
 	<ng-template #elseTemplate>
-		<h3 *ngIf="!clockedHours.length" [innerHTML]="'listItem.noItems' | translate | sanitize">
+		<h3 *ngIf="!clockedHours.length || (clockedHours.length === 1 && clockedHours[0].isActive)"
+			[innerHTML]="'listItem.noItems' | translate | sanitize">
 		</h3>
 
 		<ion-list>
 			<ng-container *ngFor="let item of clockedHours; let i = index">
-				<app-list-item class="list-wrapper" *ngIf="!item.isActive" [item]="item" [dateFormat]="dateFormat"
+				<app-list-item class="list-wrapper" [item]="item" *ngIf="!item.isActive" [dateFormat]="dateFormat"
 					[lunchDuration]="lunchDuration" [workDuration]="workDuration"
 					(onClick)="toggleLunchUpdate($event);">
 				</app-list-item>
