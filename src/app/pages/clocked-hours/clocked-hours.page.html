@@ -9,10 +9,12 @@
 		</h3>
 
 		<ion-list>
-			<app-list-item class="list-wrapper" *ngFor="let item of clockedHours; let i = index" *ngIf="!item.isActive"
-				[item]="item" [dateFormat]="dateFormat" [lunchDuration]="lunchDuration" [workDuration]="workDuration"
-				(onClick)="toggleLunchUpdate($event);">
-			</app-list-item>
+			<ng-container *ngFor="let item of clockedHours; let i = index">
+				<app-list-item class="list-wrapper" *ngIf="!item.isActive" [item]="item" [dateFormat]="dateFormat"
+					[lunchDuration]="lunchDuration" [workDuration]="workDuration"
+					(onClick)="toggleLunchUpdate($event);">
+				</app-list-item>
+			</ng-container>
 		</ion-list>
 	</ng-template>
 </div>

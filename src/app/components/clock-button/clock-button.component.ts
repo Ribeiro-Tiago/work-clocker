@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, Output, EventEmitter } from '@angular/core';
 import { Events } from '@ionic/angular';
 
 import { Store } from '@ngrx/store';
@@ -15,6 +15,7 @@ import * as extraHoursActions from "src/app/state/extraHours/extraHours.actions"
 import * as owedHoursActions from "src/app/state/owedHours/owedHours.actions";
 import * as clockedActions from "src/app/state/clockedHours/clockedHours.actions";
 import { AddHours as AddSpentHour } from "src/app/state/spentHours/spentHours.actions";
+
 @Component({
 	selector: 'app-clock-button',
 	templateUrl: './clock-button.component.html',
@@ -22,6 +23,8 @@ import { AddHours as AddSpentHour } from "src/app/state/spentHours/spentHours.ac
 	encapsulation: ViewEncapsulation.None
 })
 export class ClockButtonComponent implements OnInit, OnDestroy {
+	@Output() onLunchClick = new EventEmitter<void>();
+
 	private subs: Subscription[];
 	private timerInterval: Subscription;
 
@@ -154,6 +157,10 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 			.catch(console.error);
 
 		this.showToast("home.clockedOut");
+	}
+
+	triggerLunchClick(): void {
+		this.onLunchClick.emit();
 	}
 
 	private useExtraHours(owedMinutes: number): number {

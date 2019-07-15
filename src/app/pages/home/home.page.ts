@@ -33,6 +33,8 @@ export class HomePage implements OnInit, OnDestroy {
 	isLoading: boolean;
 	isTutVisible: boolean;
 
+	isModalVisible: boolean;
+
 	constructor(
 		store: Store<AppState>,
 		private admobFree: AdMobFree,
@@ -43,6 +45,8 @@ export class HomePage implements OnInit, OnDestroy {
 
 		this.isLoading = true;
 		this.isTutVisible = false;
+
+		this.isModalVisible = false;
 
 		this.setupAd();
 	}
@@ -65,6 +69,10 @@ export class HomePage implements OnInit, OnDestroy {
 
 	ngOnDestroy(): void {
 		this.subs.forEach(sub => sub.unsubscribe());
+	}
+
+	toggleLunchUpdate(): void {
+		this.isModalVisible = !this.isModalVisible;
 	}
 
 	private setupAd() {

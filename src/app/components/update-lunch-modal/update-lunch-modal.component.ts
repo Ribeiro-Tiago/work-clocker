@@ -33,11 +33,12 @@ export class UpdateLunchModalComponent implements OnInit {
 
 	triggerSubmit() {
 		this.onSubmit.emit(this.selectedDuration);
+		this.selectedDuration = this.currDuration;
 	}
 
 	triggerCancel() {
 		this.onCancel.emit();
-
+		this.selectedDuration = this.currDuration;
 	}
 
 	onLunchChange(minute: number) {

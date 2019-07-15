@@ -31,7 +31,6 @@ import { Menu } from './State/menu/menu.model';
 import { Header } from './State/header/header.model';
 import { Intro } from './State/intro/intro.model';
 
-
 @Component({
 	selector: 'app-root',
 	templateUrl: 'app.component.html'
@@ -66,7 +65,7 @@ export class AppComponent implements OnInit {
 		this.isTutVisible = false;
 		this.isMenuOpen = false;
 		this.isIntroScreen = true;
-		this.showSplash = false;
+		this.showSplash = true;
 
 		this.subs = [];
 
