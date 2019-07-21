@@ -1,9 +1,9 @@
 <app-loader *ngIf="showSplash"></app-loader>
 
 <ion-app class="main-wrapper" [ngClass]="{ 'opened': isMenuOpen }">
-	<app-menu></app-menu>
+	<app-menu [ngClass]="{'tut-active': isTutVisible && isMenuTut}"></app-menu>
 
-	<div class="backdrop" (click)="onContentClick($event);"></div>
+	<div class="menu-backdrop" (click)="onContentClick($event);"></div>
 
 	<ion-header *ngIf="isHeaderVisible">
 		<app-header></app-header>

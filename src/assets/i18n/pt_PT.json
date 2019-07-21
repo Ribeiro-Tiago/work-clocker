@@ -79,16 +79,16 @@
 		"intro": "<p>Bem vindo ao <i>Work Clocker</i>, a melhor ferramenta para te ajudar a não trabalhares mais do que precisas.</p><p>Antes de começarmos, queres ver o tutorial ?</p>",
 		"clockBtnTitle": "Tutorial - Picar o ponto",
 		"clockBtn": "<p>Este botão serve para poderes picar o ponto, à entrada e à saída.</p><p>À saída é calculado o número de horas trabalhadas no dia, e se existem horas a dever ou extra, com base na duração de trabalho predefinida.</p>",
-		"hoursBtnTitle": "Tutorial - Horas gastas",
-		"hoursBtn": "<p>Através deste botão consegues ver listadas as horas extras que foram usadas para cobrir as horas dividas para um maior controlo das horas trabalhadas.</p><p>Estas são calculadas automaticamente aquando de picar o ponto para sair.</p>",
-		"settingsBtnTitle": "Tutorial - Configurações",
-		"settingsBtn": "<p>Aqui estão as configurações da aplicação e outras informações.</p><p>Configurações tipo duração do dia, idioma da aplicação, termos de utilização, possibilidade de apagar toda a informação da aplicação, etc.</p>",
-		"owedHoursTitle": "Tutorial - Horas devidas",
-		"owedHours": "<p>Este número indica o número de horas devidas. Horas devidas são horas que devias ter trabalho e não trabalhaste (e.g.: sair mais cedo).</p><p>Se trabalhares a mais, essas horas extra serão usadas para \"pagar\" as devidas</p>",
-		"extraHoursTitle": "Tutorial - Hours extra",
-		"extraHours": "<p>Desta lado estão as horas trabalhadas a mais.</p><p>Quando trabalhares a mais, e não tiveres horas devidas, este número aumenta.</p>",
-		"contentTitle": "Tutorial - Clocked hours",
-		"content": "<p>Aqui encontras listados os teus \"dias de trabalho\". A informação muda dependendo es estás num dia de trabalho ou já picaste o ponto para sair.</p><p>Mostrará ou a hora a que picaste o ponto (entrada e saída), duração de almoço, quanto tempo trabalhaste naquele dia.</p><p>Ou então mostra quando picaste o ponto e, com base na duração de almoço (pre)definida, quando deves sair.</p><p>Também é possível alterar a hora de almoço do dia de \"hoje\" carregando no item na listagem.</p>"
+		"hoursTitle": "Tutorial - Horas",
+		"hours": "<p>Aqui consegues ver as horas extra que já fizeste ou as que não trabalhaste.</p><p>Estas são calculadas automáticamente quando picaste o ponto para sair</p>",
+		"menuTitle": "Tutorial - Menu",
+		"menu": "<p>No canto superior direito tens o menu.</p><p>Daqui consegues aceder às listas de horas feitas, gastas e opções da aplicação.</p>",
+		"clockedHoursTitle": "Tutorial - Horas Feitas",
+		"clockedHours": "<p>Aqui fez a listagem das horas feitas diaramente.</p><p>Cada item mostra quando é que entarste, saiste, quantas horas trabalhaste e duração da horade almoço.</p>",
+		"spentHoursTitle": "Tutorial - Hours Gastas",
+		"spentHours": "<p>Através deste botão consegues ver listadas as horas extras que foram usadas para cobrir as horas dividas para um maior controlo das horas trabalhadas.</p><p>Estas são calculadas automaticamente aquando de picar o ponto para sair.</p>",
+		"settingsTitle": "Tutorial - Configurações",
+		"settings": "<p>Aqui estão as configurações da aplicação e outras informações.</p><p>Configurações tipo duração do dia, idioma da aplicação, termos de utilização, possibilidade de apagar toda a informação da aplicação, etc.</p>"
 	},
 
 	"clockedHours": {

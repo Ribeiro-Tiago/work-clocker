@@ -48,6 +48,10 @@ app-clock-button {
 		padding: 5vh;
 		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 
+		&.tut-visible {
+			margin-top: 20vh;
+		}
+
 		h3 {
 			margin: 0;
 			font-size: 3vh;
@@ -60,20 +64,6 @@ app-clock-button {
 			font-size: 4vh;
 			transform: scale(1);
 			color: $darkTextColor;
-			/* animation-name: pulsing;
-			animation-iteration-count: infinite;
-			animation-duration: 1s;
-			animation-direction: alternate; */
 		}
-	}
-}
-
-@keyframes pulsing {
-	0% {
-		transform: scale(1);
-	}
-
-	100% {
-		transform: scale(1.05);
 	}
 }

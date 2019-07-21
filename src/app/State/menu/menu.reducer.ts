@@ -19,6 +19,10 @@ export function MenuReducer(state: Menu = initState, action: Action) {
             return { isVisible: false };
         }
 
+        case menuActions.OPEN_MENU: {
+            return { isVisible: true };
+        }
+
         default:
             return state;
     }

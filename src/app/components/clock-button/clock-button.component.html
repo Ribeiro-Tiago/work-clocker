@@ -22,7 +22,8 @@
 	</ng-container>
 
 	<ng-template #elseTemplate>
-		<div class="button" (click)="clockIn()">
+		<div class="button" (click)="clockIn()"
+			[ngClass]="{'tut-item': isTutActive && !isCurrTutStage, 'tut-visible': isCurrTutStage}">
 			<h3>{{ "home.clockin" | translate }}</h3>
 		</div>
 	</ng-template>

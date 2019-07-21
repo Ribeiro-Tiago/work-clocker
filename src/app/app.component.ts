@@ -14,7 +14,7 @@ import { SetHours as SetExtraHours } from "./state/extraHours/extraHours.actions
 import { SetHours as SetOwedHours } from "./state/owedHours/owedHours.actions";
 import { SetHours as SetClockedHours } from "./state/clockedHours/clockedHours.actions";
 import { SetHours as SetSpentHours } from "./state/spentHours/spentHours.actions";
-import { SetTutorial } from "./state/tutorial/tutorial.actions";
+import { SetTutorial, HideTut as HideTutorial } from "./state/tutorial/tutorial.actions";
 import { SetOptions as SetHeader } from "src/app/State/header/header.actions";
 import { SetIntro } from "src/app/State/intro/intro.actions";
 import * as MenuActions from "src/app/state/menu/menu.actions";
@@ -45,6 +45,7 @@ export class AppComponent implements OnInit {
 
 	showSplash: boolean;
 
+	isMenuTut: boolean;
 	isTutVisible: boolean;
 	isMenuOpen: boolean;
 	isIntroScreen: boolean;
@@ -93,10 +94,22 @@ export class AppComponent implements OnInit {
 			this.events.subscribe('showToast', (key: string) => this.showToast(key));
 
 			this.subs.push(
-				this.tut$.subscribe(({ isVisible }: Tutorial) => this.isTutVisible = isVisible),
-				this.menu$.subscribe(({ isVisible }: Menu) => this.isMenuOpen = isVisible),
-				this.header$.subscribe(({ showHeader }: Header) => this.isHeaderVisible = showHeader),
-				this.intro$.subscribe(({ isDone }: Intro) => {
+				this.tut$.subscribe(({ isVisible, currStage }) => {
+					this.isTutVisible = isVisible;
+
+					if (isVisible) {
+						if (currStage < 4) {
+							this.store.dispatch(new MenuActions.CloseMenu());
+							this.isMenuTut = false;
+						} else {
+							this.store.dispatch(new MenuActions.OpenMenu());
+							this.isMenuTut = true;
+						}
+					}
+				}),
+				this.menu$.subscribe(({ isVisible }) => this.isMenuOpen = isVisible),
+				this.header$.subscribe(({ showHeader }) => this.isHeaderVisible = showHeader),
+				this.intro$.subscribe(({ isDone }) => {
 					if (isDone) {
 						this.router.navigate(["/home"], { replaceUrl: true });
 					}
@@ -120,6 +133,7 @@ export class AppComponent implements OnInit {
 	}
 
 	private getStorageData(): void {
+		// this.storage.clear();
 		Promise.all([
 			this.storage.get("extraHours"),
 			this.storage.get("owedHours"),
@@ -173,8 +187,10 @@ export class AppComponent implements OnInit {
 				this.store.dispatch(new SetTutorial(tutorial));
 			}
 
-			if (intro && !intro) {
+			if (intro) {
 				this.store.dispatch(new SetIntro(true));
+			} else {
+				this.store.dispatch(new HideTutorial());
 			}
 		});
 	}
@@ -209,7 +225,10 @@ export class AppComponent implements OnInit {
 			}
 
 			this.store.dispatch(new SetHeader(configs));
-			this.store.dispatch(new MenuActions.CloseMenu());
+
+			if (!this.isTutVisible) {
+				this.store.dispatch(new MenuActions.CloseMenu());
+			}
 		}
 	}
 

@@ -7,6 +7,7 @@ export const PREV_STAGE = "[Tutorial] Previous tutorial";
 export const FINISH_TUT = "[Tutorial] Finish tutorial";
 export const SHOW_TUT = "[Tutorial] Show tutorial";
 export const RESET_TUT = "[Tutorial] Reset tutorial";
+export const HIDE_TUT = "[Tutorial] Hide tutorial";
 
 export class SetTutorial implements Action {
     readonly type = SET_TUTORIAL;
@@ -27,6 +28,10 @@ export class FinishTut implements Action {
 
 export class ShowTut implements Action {
     readonly type = SHOW_TUT;
+}
+
+export class HideTut implements Action {
+    readonly type = HIDE_TUT;
 }
 
 export class Reset implements Action {

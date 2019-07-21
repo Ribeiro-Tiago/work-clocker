@@ -6,6 +6,7 @@ import { AppState } from 'src/app/State';
 import { Tutorial } from 'src/app/State/tutorial/tutorial.model';
 import * as TutorialActions from 'src/app/State/tutorial/tutorial.actions';
 import { StorageService } from 'src/app/services/storage/storage.service';
+import { CloseMenu } from 'src/app/state/menu/menu.actions';
 
 @Component({
 	selector: 'app-tutorial',
@@ -15,24 +16,23 @@ import { StorageService } from 'src/app/services/storage/storage.service';
 })
 export class TutorialComponent implements OnInit, OnDestroy {
 	private sub: Subscription;
-	private tutObs: Observable<Tutorial>;
+	private tut$: Observable<Tutorial>;
 	private tut: Tutorial;
 
 	title: string;
 	tutText: string;
 	position: string;
-	arrOffset: number;
 	isVisible: boolean;
 	isLastStage: boolean;
 	isFirstStage: boolean;
 
 	constructor(private store: Store<AppState>, private storage: StorageService) {
-		this.tutObs = store.select("tutorial");
+		this.tut$ = store.select("tutorial");
 	}
 
 	ngOnInit(): void {
-		this.sub = this.tutObs.subscribe((tut: Tutorial) => {
-			const { isVisible, isFirstStage, isLastStage, position, rightOffset, stage, title } = tut;
+		this.sub = this.tut$.subscribe((tut: Tutorial) => {
+			const { isVisible, isFirstStage, isLastStage, position, stage, title } = tut;
 			this.tut = tut;
 
 			this.tutText = `tutorial.${stage}`;
@@ -41,7 +41,6 @@ export class TutorialComponent implements OnInit, OnDestroy {
 			this.isLastStage = isLastStage;
 			this.isFirstStage = isFirstStage;
 			this.position = position;
-			this.arrOffset = rightOffset;
 		});
 	}
 
@@ -51,6 +50,7 @@ export class TutorialComponent implements OnInit, OnDestroy {
 
 	onSkip() {
 		this.store.dispatch(new TutorialActions.FinishTut());
+		this.store.dispatch(new CloseMenu());
 
 		this.updateStorage();
 	}

@@ -2,41 +2,42 @@ import { Tutorial, Action, StageConf } from "./tutorial.model";
 import * as tutorialsActions from "./tutorial.actions";
 
 const initState: Tutorial = {
-    isVisible: false,
+    isVisible: true,
     isLastStage: false,
     isFirstStage: true,
     isDone: false,
     stage: "intro",
     currStage: 0,
     position: "on-intro",
-    rightOffset: 0,
     title: "introTitle"
 };
 
 const stages: StageConf[] = [
-    { stage: "intro", rightOffset: 0, title: "introTitle" },
-    { stage: "clockBtn", rightOffset: 26, title: "clockBtnTitle" },
-    { stage: "hoursBtn", rightOffset: 13, title: "hoursBtnTitle" },
-    { stage: "settingsBtn", rightOffset: 2, title: "settingsBtnTitle" },
-    { stage: "owedHours", rightOffset: -1, title: "owedHoursTitle" },
-    { stage: "extraHours", rightOffset: 13, title: "extraHoursTitle" },
-    { stage: "content", rightOffset: 0, title: "contentTitle" },
+    { stage: "intro", title: "introTitle" },
+    { stage: "clockBtn", title: "clockBtnTitle" },
+    { stage: "hours", title: "hoursTitle" },
+    { stage: "menu", title: "menuTitle" },
+    { stage: "clockedHours", title: "clockedHoursTitle" },
+    { stage: "spentHours", title: "spentHoursTitle" },
+    { stage: "settings", title: "settingsTitle" }
 ];
 
 const getPosition = (stage: number) => {
-    if (stage === 0) {
-        return "on-intro";
-    }
+    switch (stage) {
+        case 0: return "on-intro";
 
-    if (stage < 3) {
-        return "on-header";
-    }
+        case 1: return "on-button";
 
-    if (stage < 5) {
-        return "on-hours";
-    }
+        case 2: return "on-hours";
 
-    return "on-body";
+        case 3: return "on-header";
+
+        case 4: return "on-clocked";
+
+        case 5: return "on-spent";
+
+        case 6: return "on-settings";
+    }
 };
 
 export function TutorialsReducer(state: Tutorial = initState, action: Action) {
@@ -47,7 +48,7 @@ export function TutorialsReducer(state: Tutorial = initState, action: Action) {
 
         case tutorialsActions.NEXT_STAGE: {
             const nextStage = state.currStage + 1;
-            const { stage, rightOffset, title } = stages[nextStage];
+            const { stage, title } = stages[nextStage];
             const position = getPosition(nextStage);
 
             return {
@@ -55,7 +56,6 @@ export function TutorialsReducer(state: Tutorial = initState, action: Action) {
                 stage,
                 title,
                 position,
-                rightOffset,
                 currStage: nextStage,
                 isLastStage: nextStage === stages.length - 1,
                 isFirstStage: false
@@ -64,7 +64,7 @@ export function TutorialsReducer(state: Tutorial = initState, action: Action) {
 
         case tutorialsActions.PREV_STAGE: {
             const prevStage = state.currStage - 1;
-            const { stage, rightOffset, title } = stages[prevStage];
+            const { stage, title } = stages[prevStage];
             const position = getPosition(prevStage);
 
             return {
@@ -72,7 +72,6 @@ export function TutorialsReducer(state: Tutorial = initState, action: Action) {
                 title,
                 stage,
                 position,
-                rightOffset,
                 currStage: prevStage,
                 isLastStage: false,
                 isFirstStage: prevStage === 0,
@@ -95,10 +94,17 @@ export function TutorialsReducer(state: Tutorial = initState, action: Action) {
             };
         }
 
-        case tutorialsActions.RESET_TUT: {
+        case tutorialsActions.HIDE_TUT: {
             return {
                 ...state,
-                ...initState
+                isVisible: false
+            };
+        }
+
+        case tutorialsActions.RESET_TUT: {
+            return {
+                ...initState,
+                isVisible: true
             };
         }
 

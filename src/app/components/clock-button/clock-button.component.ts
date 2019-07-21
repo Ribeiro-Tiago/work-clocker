@@ -15,6 +15,7 @@ import * as extraHoursActions from "src/app/state/extraHours/extraHours.actions"
 import * as owedHoursActions from "src/app/state/owedHours/owedHours.actions";
 import * as clockedActions from "src/app/state/clockedHours/clockedHours.actions";
 import { AddHours as AddSpentHour } from "src/app/state/spentHours/spentHours.actions";
+import { Tutorial } from 'src/app/state/tutorial/tutorial.model';
 
 @Component({
 	selector: 'app-clock-button',
@@ -38,6 +39,10 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 	private extraHours$: Observable<ExtraHour>;
 	private owedHours$: Observable<OwedHour>;
 	private clockedHours$: Observable<ClockedHour>;
+	private tut$: Observable<Tutorial>;
+
+	isCurrTutStage: boolean;
+	isTutActive: boolean;
 
 	currHour: ClockedHourItem;
 
@@ -54,6 +59,7 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 		this.extraHours$ = store.select("extraHours");
 		this.owedHours$ = store.select("owedHours");
 		this.clockedHours$ = store.select("clockedHours");
+		this.tut$ = store.select("tutorial");
 
 		this.subs = [];
 
@@ -72,6 +78,10 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 			}),
 			this.extraHours$.subscribe(result => this.extraHours = result),
 			this.owedHours$.subscribe(result => this.owedHours = result),
+			this.tut$.subscribe(({ isVisible, currStage }) => {
+				this.isTutActive = isVisible;
+				this.isCurrTutStage = currStage === 1;
+			}),
 			this.clockedHours$.subscribe(({ hours }) => {
 				if (hours[0] && hours[0].isActive) {
 					this.currHour = hours[0];

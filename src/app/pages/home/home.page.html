@@ -5,5 +5,7 @@
 
 	<app-owed-extra-hours></app-owed-extra-hours>
 
+	<div class="backdrop" [ngClass]="{'visible': isTutVisible, 'on-hours': tutStage === 2}"></div>
+
 	<app-clock-button (onLunchClick)="toggleLunchUpdate();"></app-clock-button>
 </ion-content>

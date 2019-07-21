@@ -9,8 +9,7 @@ import { AppState } from 'src/app/State';
 import { environment } from 'src/environments/environment.prod';
 
 import { Setting } from 'src/app/state/settings/settings.model';
-import { Tutorial, TutorialStage } from 'src/app/State/tutorial/tutorial.model';
-import { ClockedHourItem } from 'src/app/state/clockedHours/clockedHours.model';
+import { Tutorial } from 'src/app/State/tutorial/tutorial.model';
 
 @Component({
 	selector: 'app-home',
@@ -27,11 +26,10 @@ export class HomePage implements OnInit, OnDestroy {
 	workDuration: number;
 	dateFormat: string;
 
-	tutStage: TutorialStage;
-	tutItem: ClockedHourItem;
+	tutStage: number;
+	isTutVisible: boolean;
 
 	isLoading: boolean;
-	isTutVisible: boolean;
 
 	isModalVisible: boolean;
 
@@ -54,15 +52,9 @@ export class HomePage implements OnInit, OnDestroy {
 	ngOnInit(): void {
 		this.subs = [
 			this.settingsObs.subscribe((result: Setting) => this.lunchDuration = result.selectedLunchDuration),
-			this.tutObs.subscribe(({ isVisible, stage }: Tutorial) => {
+			this.tutObs.subscribe(({ isVisible, currStage }: Tutorial) => {
 				this.isTutVisible = isVisible;
-				this.tutStage = stage;
-
-				if (!isVisible) {
-					this.showAd();
-				} else {
-					this.hideAd();
-				}
+				this.tutStage = currStage;
 			})
 		];
 	}

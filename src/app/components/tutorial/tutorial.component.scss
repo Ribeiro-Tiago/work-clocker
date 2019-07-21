@@ -1,5 +1,16 @@
 app-tutorial {
-	z-index: 99;
+	z-index: 9999;
+
+	.tut-backdrop {
+		height: 100%;
+		position: absolute;
+		left: 0;
+		right: 0;
+		z-index: 1;
+		background: rgba(0, 0, 0, .5);
+		width: 100%;
+		top: 0;
+	}
 
 	.container {
 		position: absolute;
@@ -9,37 +20,8 @@ app-tutorial {
 		left: 50%;
 		transform: translateX(-50%);
 		border-radius: 1vh;
-
-		&.offset-2 {
-			&:before {
-				right: 2%
-			}
-		}
-
-		&.offset-26 {
-			&:before {
-				right: 26%
-			}
-		}
-
-		&.offset-13 {
-			&:before {
-				right: 13%
-			}
-		}
-
-		&.offset-unset {
-			&:before {
-				right: unset
-			}
-		}
-
-		&.offset-center {
-			&:before {
-				right: 50%;
-				transform: translateX(50%);
-			}
-		}
+		z-index: 2;
+		animation: .2s;
 
 		&:before {
 			content: "";
@@ -50,25 +32,60 @@ app-tutorial {
 			border-right: 15px solid transparent;
 			border-bottom: 15px solid #f0f0f0;
 			top: -15px;
+			transform: translateX(50%);
+			right: 50%;
 		}
 
 		&.on-header {
 			top: 80px;
+			animation: .2s;
+
+			&:before {
+				right: 6%;
+				animation: .2s;
+			}
 		}
 
 		&.on-hours {
 			top: 130px;
+			animation: .2s;
 		}
 
-		&.on-body {
-			top: 220px
+		&.on-clocked {
+			top: 100px;
+			animation: .2s;
+		}
+
+		&.on-spent {
+			top: 160px;
+			animation: .2s;
+		}
+
+		&.on-settings {
+			top: 230px;
+			animation: .2s;
 		}
 
 		&.on-intro {
 			top: 8%;
+			animation: .2s;
 
 			&:before {
 				top: 0;
+				animation: .2s;
+			}
+		}
+
+		&.on-button {
+			top: 10px;
+			animation: .2s;
+
+			&:before {
+				bottom: -15px;
+				top: auto;
+				border-top: 15px solid #f0f0f0;
+				border-bottom: none;
+				animation: .2s;
 			}
 		}
 
@@ -84,7 +101,6 @@ app-tutorial {
 				font-weight: normal;
 			}
 		}
-
 
 		p {
 			font-size: 2.5vh;

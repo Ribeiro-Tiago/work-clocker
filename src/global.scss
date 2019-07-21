@@ -150,7 +150,7 @@ ion-toolbar {
 		transition: .25s ease-out;
 	}
 
-	.backdrop {
+	.menu-backdrop {
 		height: 100%;
 		width: 100%;
 		background: rgba(0, 0, 0, .3);
@@ -163,7 +163,7 @@ ion-toolbar {
 	}
 
 	&.opened {
-		.backdrop {
+		.menu-backdrop {
 			animation: .2s showBackdrop;
 			opacity: 1;
 			left: 0;
@@ -178,6 +178,26 @@ ion-toolbar {
 		ion-header {
 			transform: translateX(-70vw);
 			transition: .2s ease-in-out;
+		}
+	}
+}
+
+.backdrop {
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	background-color: rgba(0, 0, 0, .5);
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: none;
+
+	&.visible {
+		display: block;
+
+		&.on-hours {
+			top: 50px;
+			height: calc(100% - 50px);
 		}
 	}
 }
