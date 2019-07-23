@@ -166,15 +166,22 @@ export class AppComponent implements OnInit {
 			}
 
 			if (settings) {
-				const { selectedDateFormat, selectedLanguage, selectedLunchDuration, selectedWorkDuration } = settings;
-
-				/* this.pushNotif.init(); */
+				const {
+					selectedDateFormat,
+					selectedLanguage,
+					selectedLunchDuration,
+					selectedWorkDuration,
+					clockinNotif,
+					clockoutNotif
+				} = settings;
 
 				this.store.dispatch(new UpdateSettings({
 					selectedDateFormat,
 					selectedLanguage,
 					selectedLunchDuration,
-					selectedWorkDuration
+					selectedWorkDuration,
+					clockinNotif,
+					clockoutNotif
 				}));
 			}
 

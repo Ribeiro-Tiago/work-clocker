@@ -53,7 +53,8 @@
 	<div class="list-item colapsable">
 		<div class="colapsable-item">
 			<ion-label>{{ "settings.clockinNotif" | translate }}</ion-label>
-			<ion-toggle (click)="toggleInNotif();" [value]="clockinNotif.enabled"></ion-toggle>
+			<ion-toggle (click)="toggleInNotif();" [checked]="clockinNotif.enabled" [value]="clockinNotif.enabled">
+			</ion-toggle>
 		</div>
 
 		<div class="colapsable-item" [ngClass]="{ 'visible': clockinNotif.enabled }">

@@ -1,11 +1,15 @@
 import { Setting, Action } from "./settings.model";
 import * as SettingsActions from "./settings.actions";
 
+import configs from "src/app/pages/settings/configs";
+
 const initState: Setting = {
-    selectedDateFormat: { key: "dd/mm/yyyy", label: "21/03/2018" },
-    selectedLanguage: { key: "en_US", label: "English (US)" },
-    selectedLunchDuration: 60,
-    selectedWorkDuration: 8
+    selectedDateFormat: configs.dateFormats[0],
+    selectedLanguage: configs.langs[0],
+    selectedLunchDuration: Number(configs.lunchDuration),
+    selectedWorkDuration: Number(configs.workDuration),
+    clockinNotif: { ...configs.clockNotif },
+    clockoutNotif: { ...configs.clockNotif }
 };
 
 export function settingsReducer(state: Setting = initState, action: Action) {

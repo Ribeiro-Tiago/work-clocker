@@ -83,6 +83,8 @@ export class SettingsPage implements OnInit, OnDestroy {
 				this.selectedLanguage = result.selectedLanguage;
 				this.selectedLunchDuration = result.selectedLunchDuration;
 				this.selectedWorkDuration = result.selectedWorkDuration;
+				this.clockinNotif = result.clockinNotif;
+				this.clockoutNotif = result.clockoutNotif;
 			}
 		});
 	}
