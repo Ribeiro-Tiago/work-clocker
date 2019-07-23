@@ -2,8 +2,8 @@ import langs from "src/configs/langs";
 
 export default {
     dateFormats: [
-        { key: "dd/mm/yyyy", label: "21/03/2018" },
-        { key: "mm/dd/yyyy", label: "09/21/2018" },
+        { key: "dd/mm/yyyy", hour: "HH:mm", label: "20:31 21/03/2018" },
+        { key: "mm/dd/yyyy", hour: "hh:mm A", label: "10:01 AM 09/21/2018" },
     ],
     langs,
     lunchDuration: [

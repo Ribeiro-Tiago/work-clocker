@@ -1,5 +1,6 @@
 export interface ConfigOption {
     label: string;
+    hour?: string;
     key: string;
 }
 

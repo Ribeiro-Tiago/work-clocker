@@ -59,7 +59,7 @@
 
 		<div class="colapsable-item" [ngClass]="{ 'visible': clockinNotif.enabled }">
 			<ion-label>{{ "settings.remindAt" | translate }}</ion-label>
-			<ion-datetime displayFormat="HH:mm" [value]="clockinNotif.time"
+			<ion-datetime [displayFormat]="displayFormat" [value]="clockinNotif.time"
 				(ionChange)="onInNotifTimerChange($event.target.value)" [cancelText]="'settings.cancelText' | translate"
 				[doneText]="'settings.confirmText' | translate">
 			</ion-datetime>
@@ -74,7 +74,7 @@
 
 		<div class="colapsable-item" [ngClass]="{ 'visible': clockoutNotif.enabled }">
 			<ion-label>{{ "settings.remindAt" | translate }}</ion-label>
-			<ion-datetime displayFormat="HH:mm" [value]="clockoutNotif.time"
+			<ion-datetime [displayFormat]="displayFormat" [value]="clockoutNotif.time"
 				(ionChange)="onOutNotifTimerChange($event.target.value)"
 				[cancelText]="'settings.cancelText' | translate" [doneText]="'settings.confirmText' | translate">
 			</ion-datetime>

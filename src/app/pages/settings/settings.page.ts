@@ -47,6 +47,8 @@ export class SettingsPage implements OnInit, OnDestroy {
 
 	isModalVisible: boolean;
 
+	displayFormat: string;
+
 	settings: Observable<Setting>;
 
 	today: Date;
@@ -64,6 +66,8 @@ export class SettingsPage implements OnInit, OnDestroy {
 		this.workDuration = configs.workDuration;
 		this.legalities = configs.legalities;
 		this.isModalVisible = false;
+
+		this.displayFormat = this.dateFormats[0].hour;
 
 		this.today = new Date();
 
@@ -85,6 +89,10 @@ export class SettingsPage implements OnInit, OnDestroy {
 				this.selectedWorkDuration = result.selectedWorkDuration;
 				this.clockinNotif = result.clockinNotif;
 				this.clockoutNotif = result.clockoutNotif;
+
+				if (result.selectedDateFormat.hour) {
+					this.displayFormat = result.selectedDateFormat.hour;
+				}
 			}
 		});
 	}
@@ -99,6 +107,8 @@ export class SettingsPage implements OnInit, OnDestroy {
 		}
 
 		this.selectedDateFormat = this.dateFormats.find(f => f.key === selectedId);
+
+		this.displayFormat = this.selectedDateFormat.hour;
 
 		this.events.publish("showToast", "settings.dateFormatSuccess");
 
