@@ -29,5 +29,6 @@ export default {
         { labelId: "settings.userAgreement", link: "https://www.google.pt" },
         { labelId: "settings.adPolicy", link: "https://www.google.pt" },
         { labelId: "settings.version", version: "1.0.0" },
-    ]
+    ],
+    clockNotif: { enabled: false, time: new Date().toISOString() }
 };

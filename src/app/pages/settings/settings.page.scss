@@ -41,6 +41,33 @@ app-settings {
 				transition: .2s;
 			}
 		}
+
+		&.colapsable {
+			flex-direction: column;
+
+			.colapsable-item {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				flex-direction: row;
+				width: 100%;
+
+				&:nth-child(2) {
+					margin-top: 1vh;
+					height: 0;
+					padding-right: 1vh;
+					overflow: hidden;
+					transition: .2s;
+				}
+
+				&.visible {
+					height: 40px;
+					transition: .2s;
+				}
+			}
+		}
+
+
 	}
 }
 

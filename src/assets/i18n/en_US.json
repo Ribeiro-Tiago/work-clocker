@@ -49,7 +49,16 @@
 		"languageSuccess": "Language updated",
 		"lunchDurationSuccess": "Lunch duration updated",
 		"workDurationSuccess": "Work duration updated",
-		"resetSuccess": "Data erased sucessfully"
+		"resetSuccess": "Data erased sucessfully",
+		"notifs": "Reminders",
+		"clockinNotif": "Clock in reminder",
+		"clockinNotifDisable": "Clock in reminder disabled",
+		"clockinNotifEnable": "Clock in reminder enabled",
+		"clockoutNotif": "Clock out reminder",
+		"clockoutNotifDisable": "Clock in reminder disabled",
+		"clockoutNotifEnable": "Clock in reminder enabled",
+		"remindAt": "Remind me at",
+		"remniderTimerUpdate": "Reminder timer updated"
 	},
 
 	"modal": {

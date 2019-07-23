@@ -2,6 +2,7 @@
 	<app-reset-modal class="modal" (onCancel)="toggleModal();" (onSubmit)="resetSettings();"
 		[ngClass]="{'is-visible': isModalVisible}"></app-reset-modal>
 
+	<!-- app settings -->
 	<h3 class="list-header">{{ "settings.appSettings" | translate }}</h3>
 
 	<div class="list-item">
@@ -46,18 +47,41 @@
 		</ion-select>
 	</div>
 
-	<h3 class="list-header">{{ "settings.misc" | translate }}</h3>
+	<!-- notifications -->
+	<h3 class="list-header">{{ "settings.notifs" | translate }}</h3>
 
-	<div class="list-item expand" (click)="resetTutorial();">
-		<ion-label>{{ "settings.repeatTutorial" | translate }}</ion-label>
-		<ion-icon name="information-circle"></ion-icon>
+	<div class="list-item colapsable">
+		<div class="colapsable-item">
+			<ion-label>{{ "settings.clockinNotif" | translate }}</ion-label>
+			<ion-toggle (click)="toggleInNotif();" [value]="clockinNotif.enabled"></ion-toggle>
+		</div>
+
+		<div class="colapsable-item" [ngClass]="{ 'visible': clockinNotif.enabled }">
+			<ion-label>{{ "settings.remindAt" | translate }}</ion-label>
+			<ion-datetime displayFormat="HH:mm" [value]="clockinNotif.time"
+				(ionChange)="onInNotifTimerChange($event.target.value)" [cancelText]="'settings.cancelText' | translate"
+				[doneText]="'settings.confirmText' | translate">
+			</ion-datetime>
+		</div>
 	</div>
 
-	<div class="list-item expand" (click)="toggleModal();">
-		<ion-label>{{ "settings.reset" | translate }}</ion-label>
-		<ion-icon name="trash"></ion-icon>
+	<div class="list-item colapsable">
+		<div class="colapsable-item">
+			<ion-label>{{ "settings.clockoutNotif" | translate }}</ion-label>
+			<ion-toggle (click)="toggleOutNotif($event);" [value]="clockoutNotif.enabled"></ion-toggle>
+		</div>
+
+		<div class="colapsable-item" [ngClass]="{ 'visible': clockoutNotif.enabled }">
+			<ion-label>{{ "settings.remindAt" | translate }}</ion-label>
+			<ion-datetime displayFormat="HH:mm" [value]="clockoutNotif.time"
+				(ionChange)="onOutNotifTimerChange($event.target.value)"
+				[cancelText]="'settings.cancelText' | translate" [doneText]="'settings.confirmText' | translate">
+			</ion-datetime>
+		</div>
 	</div>
 
+
+	<!-- about -->
 	<h3 class="list-header">{{ "settings.about" | translate }}</h3>
 
 	<div class="list-item expand" *ngFor="let item of legalities" (click)="openLink(item.link)"

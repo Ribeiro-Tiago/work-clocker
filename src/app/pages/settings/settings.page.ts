@@ -7,7 +7,7 @@ import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import configs from "./configs";
-import { ConfigOption, LegalOption } from "../../types/Misc";
+import { ConfigOption, LegalOption, NotifOption } from "../../types/Misc";
 import { StorageService } from '../../services/storage/storage.service';
 
 /* state models */
@@ -42,10 +42,14 @@ export class SettingsPage implements OnInit, OnDestroy {
 	selectedLanguage: ConfigOption;
 	selectedLunchDuration: number;
 	selectedWorkDuration: number;
+	clockinNotif: NotifOption;
+	clockoutNotif: NotifOption;
 
 	isModalVisible: boolean;
 
 	settings: Observable<Setting>;
+
+	today: Date;
 
 	constructor(
 		private translate: TranslateService,
@@ -60,6 +64,8 @@ export class SettingsPage implements OnInit, OnDestroy {
 		this.workDuration = configs.workDuration;
 		this.legalities = configs.legalities;
 		this.isModalVisible = false;
+
+		this.today = new Date();
 
 		this.settings = this.store.select("settings");
 
@@ -134,6 +140,62 @@ export class SettingsPage implements OnInit, OnDestroy {
 		this.updateSettings();
 	}
 
+	toggleInNotif(): void {
+		if (this.isResetting) {
+			return;
+		}
+
+		if (this.clockinNotif.enabled) {
+			this.events.publish("showToast", "settings.clockinNotifDisable");
+		} else {
+			this.events.publish("showToast", "settings.clockinNotifEnable");
+		}
+
+		this.clockinNotif.enabled = !this.clockinNotif.enabled;
+
+		this.updateSettings();
+	}
+
+	onInNotifTimerChange(time: string): void {
+		if (this.isResetting) {
+			return;
+		}
+
+		this.clockinNotif.time = time;
+
+		this.events.publish("showToast", "settings.remniderTimerUpdate");
+
+		this.updateSettings();
+	}
+
+	toggleOutNotif(): void {
+		if (this.isResetting) {
+			return;
+		}
+
+		if (this.clockoutNotif.enabled) {
+			this.events.publish("showToast", "settings.clockoutNotifDisable");
+		} else {
+			this.events.publish("showToast", "settings.clockoutNotifEnable");
+		}
+
+		this.clockoutNotif.enabled = !this.clockoutNotif.enabled;
+
+		this.updateSettings();
+	}
+
+	onOutNotifTimerChange(time: string): void {
+		if (this.isResetting) {
+			return;
+		}
+
+		this.clockoutNotif.time = time;
+
+		this.events.publish("showToast", "settings.remniderTimerUpdate");
+
+		this.updateSettings();
+	}
+
 	openLink(url: string) {
 		if (url) {
 			window.open(url, "_system");
@@ -165,7 +227,9 @@ export class SettingsPage implements OnInit, OnDestroy {
 			selectedDateFormat: this.selectedDateFormat,
 			selectedLanguage: this.selectedLanguage,
 			selectedLunchDuration: this.selectedLunchDuration,
-			selectedWorkDuration: this.selectedWorkDuration
+			selectedWorkDuration: this.selectedWorkDuration,
+			clockinNotif: this.clockinNotif,
+			clockoutNotif: this.clockoutNotif
 		};
 
 		this.store.dispatch(new UpdateSettings(newState));
@@ -180,6 +244,8 @@ export class SettingsPage implements OnInit, OnDestroy {
 		this.selectedLanguage = this.langs[0];
 		this.selectedLunchDuration = 60;
 		this.selectedWorkDuration = 8;
+		this.clockinNotif = { ...configs.clockNotif };
+		this.clockoutNotif = { ...configs.clockNotif };
 	}
 
 	private async resetApp(): Promise<void> {

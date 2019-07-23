@@ -14,3 +14,8 @@ export interface LangItem {
     label: string;
     key: string;
 }
+
+export interface NotifOption {
+    enabled: boolean;
+    time: string;
+}
