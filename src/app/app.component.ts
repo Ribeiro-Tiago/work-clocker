@@ -30,7 +30,8 @@ import { ClockedHourItem } from './state/clockedHours/clockedHours.model';
 import { Menu } from './State/menu/menu.model';
 import { Header } from './State/header/header.model';
 import { Intro } from './State/intro/intro.model';
-import { PushNotifsService } from './services/push-notifs/push-notifs.service';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { Location } from '@angular/common';
 
 @Component({
 	selector: 'app-root',
@@ -64,7 +65,8 @@ export class AppComponent implements OnInit {
 		private events: Events,
 		private toastController: ToastController,
 		private router: Router,
-		private pushNotif: PushNotifsService
+		private localNotif: LocalNotifications,
+		private location: Location
 	) {
 		this.isTutVisible = false;
 		this.isMenuOpen = false;
@@ -110,7 +112,7 @@ export class AppComponent implements OnInit {
 				this.menu$.subscribe(({ isVisible }) => this.isMenuOpen = isVisible),
 				this.header$.subscribe(({ showHeader }) => this.isHeaderVisible = showHeader),
 				this.intro$.subscribe(({ isDone }) => {
-					if (isDone) {
+					if (isDone && !this.location.path) {
 						this.router.navigate(["/home"], { replaceUrl: true });
 					}
 				}),

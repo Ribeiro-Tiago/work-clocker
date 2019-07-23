@@ -6,6 +6,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { LocalNotifications } from "@ionic-native/local-notifications/ngx";
 import { IonicStorageModule } from '@ionic/storage';
 
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -31,8 +32,6 @@ import { environment } from 'src/environments/environment';
 import { SanitizerModule } from './pipes/sanitizer/sanitizer.pipe.module';
 import { LoaderModule } from './components/loader/loader.component.module';
 import { SharedModule } from './shared.module';
-import { PushNotifsService } from './services/push-notifs/push-notifs.service';
-import { Push } from '@ionic-native/push/ngx';
 
 export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoader(http);
 
@@ -74,9 +73,8 @@ export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoad
 		StatusBar,
 		SplashScreen,
 		StorageService,
-		PushNotifsService,
 		IonicStorageModule,
-		Push,
+		LocalNotifications,
 		AdMobFree,
 		{
 			provide: RouteReuseStrategy,
