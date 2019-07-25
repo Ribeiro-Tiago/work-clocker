@@ -25,6 +25,9 @@ import { HeaderReducer } from './header/header.reducer';
 import { Intro } from './intro/intro.model';
 import { IntroReducer } from './intro/intro.reducer';
 
+import { Notification } from './notifications/notifications.model';
+import { NotificationReducer } from './notifications/notifications.reducer';
+
 export interface AppState {
     readonly settings: Setting;
     readonly extraHours: ExtraHour;
@@ -35,6 +38,7 @@ export interface AppState {
     readonly menu: Menu;
     readonly header: Header;
     readonly intro: Intro;
+    readonly notification: Notification;
 }
 
 export const reducers = {
@@ -46,5 +50,6 @@ export const reducers = {
     tutorial: TutorialsReducer,
     menu: MenuReducer,
     header: HeaderReducer,
-    intro: IntroReducer
+    intro: IntroReducer,
+    notification: NotificationReducer
 };

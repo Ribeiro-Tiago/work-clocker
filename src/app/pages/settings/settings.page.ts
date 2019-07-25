@@ -22,6 +22,8 @@ import { ResetHours as ResetClockedHours } from "../../state/clockedHours/clocke
 import { ResetHours as ResetSpentHours } from "../../state/spentHours/spentHours.actions";
 import { Reset as ResetTutorial } from "../../state/tutorial/tutorial.actions";
 
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+
 @Component({
 	selector: 'app-settings',
 	templateUrl: './settings.page.html',
@@ -58,7 +60,8 @@ export class SettingsPage implements OnInit, OnDestroy {
 		private storage: StorageService,
 		private store: Store<AppState>,
 		private location: Location,
-		private events: Events
+		private events: Events,
+		private localNotif: LocalNotifications
 	) {
 		this.dateFormats = configs.dateFormats;
 		this.langs = configs.langs;
@@ -152,28 +155,36 @@ export class SettingsPage implements OnInit, OnDestroy {
 		this.updateSettings();
 	}
 
-	toggleInNotif(): void {
+	toggleInNotif(): Promise<void> {
 		if (this.isResetting) {
 			return;
 		}
 
-		if (this.clockinNotif.enabled) {
+		const { enabled, time } = this.clockinNotif;
+
+		if (enabled) {
 			this.events.publish("showToast", "settings.clockinNotifDisable");
+			this.cancelNotif(1);
 		} else {
 			this.events.publish("showToast", "settings.clockinNotifEnable");
+			this.addClockinNotif(new Date(time));
 		}
 
-		this.clockinNotif.enabled = !this.clockinNotif.enabled;
+		this.clockinNotif.enabled = !enabled;
 
 		this.updateSettings();
 	}
 
-	onInNotifTimerChange(time: string): void {
+	onInNotifTimerChange(time: string): Promise<void> {
 		if (this.isResetting) {
 			return;
 		}
 
+		this.cancelNotif(1);
+
 		this.clockinNotif.time = time;
+
+		this.addClockinNotif(new Date(time));
 
 		this.events.publish("showToast", "settings.remniderTimerUpdate");
 
@@ -185,13 +196,17 @@ export class SettingsPage implements OnInit, OnDestroy {
 			return;
 		}
 
-		if (this.clockoutNotif.enabled) {
+		const { enabled, time } = this.clockinNotif;
+
+		if (enabled) {
 			this.events.publish("showToast", "settings.clockoutNotifDisable");
+			this.cancelNotif(2);
 		} else {
 			this.events.publish("showToast", "settings.clockoutNotifEnable");
+			this.addClockoutNotif(new Date(time));
 		}
 
-		this.clockoutNotif.enabled = !this.clockoutNotif.enabled;
+		this.clockoutNotif.enabled = !enabled;
 
 		this.updateSettings();
 	}
@@ -201,7 +216,11 @@ export class SettingsPage implements OnInit, OnDestroy {
 			return;
 		}
 
+		this.cancelNotif(2);
+
 		this.clockoutNotif.time = time;
+
+		this.addClockoutNotif(new Date(time));
 
 		this.events.publish("showToast", "settings.remniderTimerUpdate");
 
@@ -276,5 +295,45 @@ export class SettingsPage implements OnInit, OnDestroy {
 			.catch(console.error);
 
 		setTimeout(() => this.isResetting = false, 500);
+	}
+
+	private async getText(key: string): Promise<string> {
+		return await this.translate.get(key).toPromise();
+	}
+
+	private cancelNotif(id: number): void {
+		this.localNotif.cancel(id);
+	}
+
+	private async addClockinNotif(time: Date): Promise<void> {
+		this.localNotif.schedule({
+			id: 1,
+			foreground: true,
+			text: await this.getText("settings.clockinReminderText"),
+			vibrate: true,
+			wakeup: true,
+			title: await this.getText("settings.clockinReminderTitle,"),
+			trigger: {
+				every: {
+					hour: time.getHours(), minute: time.getMinutes()
+				}
+			}
+		});
+	}
+
+	private async addClockoutNotif(time: Date): Promise<void> {
+		this.localNotif.schedule({
+			id: 2,
+			foreground: true,
+			text: await this.getText("settings.clockoutReminderText"),
+			vibrate: true,
+			wakeup: true,
+			title: await this.getText("settings.clockoutReminderTitle,"),
+			trigger: {
+				every: {
+					hour: time.getHours(), minute: time.getMinutes()
+				}
+			}
+		});
 	}
 }

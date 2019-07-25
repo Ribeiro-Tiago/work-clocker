@@ -4,6 +4,7 @@ import { Router, NavigationEnd, Event } from '@angular/router';
 import { Platform, Events, ToastController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { TranslateService } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
 
@@ -18,6 +19,7 @@ import { SetTutorial, HideTut as HideTutorial } from "./state/tutorial/tutorial.
 import { SetOptions as SetHeader } from "src/app/State/header/header.actions";
 import { SetIntro } from "src/app/State/intro/intro.actions";
 import * as MenuActions from "src/app/state/menu/menu.actions";
+import { setPerms as setNotifPerms } from "src/app/state/notifications/notifications.actions";
 
 import { AppState } from './State';
 import { Tutorial } from './State/tutorial/tutorial.model';
@@ -30,7 +32,6 @@ import { ClockedHourItem } from './state/clockedHours/clockedHours.model';
 import { Menu } from './State/menu/menu.model';
 import { Header } from './State/header/header.model';
 import { Intro } from './State/intro/intro.model';
-import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { Location } from '@angular/common';
 
 @Component({
@@ -65,13 +66,13 @@ export class AppComponent implements OnInit {
 		private events: Events,
 		private toastController: ToastController,
 		private router: Router,
-		private localNotif: LocalNotifications,
-		private location: Location
+		private location: Location,
+		private localNotifs: LocalNotifications
 	) {
 		this.isTutVisible = false;
 		this.isMenuOpen = false;
 		this.isIntroScreen = true;
-		this.showSplash = false;
+		this.showSplash = true;
 
 		this.subs = [];
 
@@ -121,6 +122,14 @@ export class AppComponent implements OnInit {
 
 			this.statusBar.styleLightContent();
 			this.translate.setDefaultLang("en_US");
+
+			let perms = await this.localNotifs.hasPermission();
+
+			if (!perms) {
+				perms = await this.localNotifs.requestPermission();
+			}
+
+			this.store.dispatch(new setNotifPerms(perms));
 		});
 	}
 

@@ -58,7 +58,11 @@
 		"clockoutNotifDisable": "Clock in reminder disabled",
 		"clockoutNotifEnable": "Clock in reminder enabled",
 		"remindAt": "Remind me at",
-		"remniderTimerUpdate": "Reminder timer updated"
+		"remniderTimerUpdate": "Reminder timer updated",
+		"clockinReminderText": "Don't forget to clock in.",
+		"clockinReminderTitle": "Clock in reminder",
+		"clockoutReminderText": "The work day is coming to an end.",
+		"clockoutReminderTitle": "Clock out reminder"
 	},
 
 	"modal": {
