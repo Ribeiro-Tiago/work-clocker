@@ -19,7 +19,7 @@ import { SetTutorial, HideTut as HideTutorial } from "./state/tutorial/tutorial.
 import { SetOptions as SetHeader } from "src/app/State/header/header.actions";
 import { SetIntro } from "src/app/State/intro/intro.actions";
 import * as MenuActions from "src/app/state/menu/menu.actions";
-import { setPerms as setNotifPerms } from "src/app/state/notifications/notifications.actions";
+import { SetPerms as setNotifPerms } from "src/app/state/notifications/notifications.actions";
 
 import { AppState } from './State';
 import { Tutorial } from './State/tutorial/tutorial.model';
@@ -129,7 +129,7 @@ export class AppComponent implements OnInit {
 				perms = await this.localNotifs.requestPermission();
 			}
 
-			this.store.dispatch(new setNotifPerms(perms));
+			this.store.dispatch(new setNotifPerms({ hasPerms: perms }));
 		});
 	}
 

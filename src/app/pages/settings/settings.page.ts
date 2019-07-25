@@ -47,6 +47,9 @@ export class SettingsPage implements OnInit, OnDestroy {
 	clockinNotif: NotifOption;
 	clockoutNotif: NotifOption;
 
+	initClockInChecked: boolean;
+	initClockOutChecked: boolean;
+
 	isModalVisible: boolean;
 
 	displayFormat: string;
@@ -92,6 +95,11 @@ export class SettingsPage implements OnInit, OnDestroy {
 				this.selectedWorkDuration = result.selectedWorkDuration;
 				this.clockinNotif = result.clockinNotif;
 				this.clockoutNotif = result.clockoutNotif;
+
+				if (this.initClockInChecked === undefined) {
+					this.initClockInChecked = result.clockinNotif.enabled;
+					this.initClockOutChecked = result.clockoutNotif.enabled;
+				}
 
 				if (result.selectedDateFormat.hour) {
 					this.displayFormat = result.selectedDateFormat.hour;
@@ -196,7 +204,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 			return;
 		}
 
-		const { enabled, time } = this.clockinNotif;
+		const { enabled, time } = this.clockoutNotif;
 
 		if (enabled) {
 			this.events.publish("showToast", "settings.clockoutNotifDisable");

@@ -53,7 +53,11 @@
 	<div class="list-item colapsable">
 		<div class="colapsable-item">
 			<ion-label>{{ "settings.clockinNotif" | translate }}</ion-label>
-			<ion-toggle (click)="toggleInNotif();" [checked]="clockinNotif.enabled" [value]="clockinNotif.enabled">
+			<!-- retard fix because [checked] wasn't updating on first toggle  -->
+			<ion-toggle *ngIf="initClockInChecked" (click)="toggleInNotif();" checked>
+			</ion-toggle>
+
+			<ion-toggle *ngIf="!initClockInChecked" (click)="toggleInNotif();">
 			</ion-toggle>
 		</div>
 
@@ -69,7 +73,12 @@
 	<div class="list-item colapsable">
 		<div class="colapsable-item">
 			<ion-label>{{ "settings.clockoutNotif" | translate }}</ion-label>
-			<ion-toggle (click)="toggleOutNotif($event);" [value]="clockoutNotif.enabled"></ion-toggle>
+			<!-- retard fix because [checked] wasn't updating on first toggle  -->
+			<ion-toggle *ngIf="initClockOutChecked" (click)="toggleOutNotif();" checked>
+			</ion-toggle>
+
+			<ion-toggle *ngIf="!initClockOutChecked" (click)="toggleOutNotif();">
+			</ion-toggle>
 		</div>
 
 		<div class="colapsable-item" [ngClass]="{ 'visible': clockoutNotif.enabled }">
