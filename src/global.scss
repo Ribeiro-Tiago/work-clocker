@@ -16,23 +16,6 @@ p {
 	font-size: 2vh;
 }
 
-ion-toolbar {
-	color: $whiteTextColor !important;
-	background-color: $primaryColor !important;
-
-	ion-title {
-		display: flex;
-		align-items: center;
-		flex-direction: row;
-	}
-
-	ion-button {
-		.rotated {
-			transform: rotate(90deg);
-		}
-	}
-}
-
 .modal {
 	position: absolute;
 	z-index: 999;
@@ -88,7 +71,6 @@ ion-toolbar {
 			align-items: center;
 
 			ion-button {
-				--background: $primaryColor;
 				background: $primaryColor;
 				color: $whiteTextColor;
 			}

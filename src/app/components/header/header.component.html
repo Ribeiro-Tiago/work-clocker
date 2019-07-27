@@ -1,9 +1,9 @@
-<ion-toolbar color="primary">
+<ion-toolbar>
 	<div [ngClass]="{'visible': isTutVisible}" class="backdrop"></div>
 
 	<ion-buttons slot="start">
 		<ion-button *ngIf="!hideBackBtn" (click)="goBack()">
-			<ion-icon name="arrow-back"></ion-icon>
+			<ion-icon color="#fff" name="arrow-back"></ion-icon>
 		</ion-button>
 	</ion-buttons>
 
@@ -12,7 +12,7 @@
 	<ion-buttons slot="end">
 		<ion-button (click)="toggleMenu()"
 			[ngClass]="{'tut-item': isTutVisible, 'tut-active-item': tutStage === 'settingsBtn'}">
-			<ion-icon name="ios-more" size="large"></ion-icon>
+			<ion-icon color="#fff" name="ios-more" size="large"></ion-icon>
 		</ion-button>
 	</ion-buttons>
 </ion-toolbar>

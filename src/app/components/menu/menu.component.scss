@@ -1,3 +1,5 @@
+@import "./src/theme/variables.scss";
+
 app-menu {
 	transition: .3s;
 	box-shadow: 1px 4px 8px 0 rgba(0, 0, 0, 0.4);
@@ -34,7 +36,7 @@ app-menu {
 				align-items: center;
 				padding: 2vh;
 				border-bottom: 1px solid #ccc;
-				color: #333;
+				color: $darkTextColor;
 				outline: none;
 
 				span {

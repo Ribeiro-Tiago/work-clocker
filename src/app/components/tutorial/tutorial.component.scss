@@ -1,3 +1,5 @@
+@import "./src/theme/variables.scss";
+
 app-tutorial {
 	z-index: 9999;
 
@@ -104,7 +106,7 @@ app-tutorial {
 
 		p {
 			font-size: 2.5vh;
-			color: #666;
+			color: $lightTextColor;
 			text-align: center;
 			margin: 1em 0;
 		}

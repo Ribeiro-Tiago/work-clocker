@@ -41,6 +41,9 @@ const getPosition = (stage: number) => {
 };
 
 export function TutorialsReducer(state: Tutorial = initState, action: Action) {
+    const { type, payload } = action;
+    console.log(type, payload, state);
+
     switch (action.type) {
         case tutorialsActions.SET_TUTORIAL: {
             return { ...action.payload };

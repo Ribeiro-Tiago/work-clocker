@@ -1,16 +1,18 @@
+@import "./src/theme/variables.scss";
+
 app-loader {
 	z-index: 999999999;
 	position: absolute;
-	height: 100%;
-	width: 100%;
+	height: 100vh;
+	width: 100vw;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: #DFFBE0;
+	background-color: $secondaryColor;
 
 	.wrapper {
-		height: 100%;
-		width: 100%;
+		height: 100vh;
+		width: 100vw;
 		display: flex;
 		justify-content: center;
 		align-items: center;

@@ -6,8 +6,8 @@ import configs from "src/app/pages/settings/configs";
 const initState: Setting = {
     selectedDateFormat: configs.dateFormats[0],
     selectedLanguage: configs.langs[0],
-    selectedLunchDuration: Number(configs.lunchDuration),
-    selectedWorkDuration: Number(configs.workDuration),
+    selectedLunchDuration: 60,
+    selectedWorkDuration: 8,
     clockinNotif: { ...configs.clockNotif },
     clockoutNotif: { ...configs.clockNotif }
 };

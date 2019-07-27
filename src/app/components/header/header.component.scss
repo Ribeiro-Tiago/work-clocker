@@ -1,3 +1,10 @@
+ion-toolbar {
+	ion-title {
+		display: flex;
+		align-items: center;
+		flex-direction: row;
+	}
+
 	ion-button {
 		button {
 			&.button-native {
@@ -5,3 +12,4 @@
 			}
 		}
 	}
+}

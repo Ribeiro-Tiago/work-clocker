@@ -97,7 +97,9 @@ export class AppComponent implements OnInit {
 			this.events.subscribe('showToast', (key: string) => this.showToast(key));
 
 			this.subs.push(
-				this.tut$.subscribe(({ isVisible, currStage }) => {
+				this.tut$.subscribe((tut) => {
+					const { isVisible, currStage } = tut;
+
 					this.isTutVisible = isVisible;
 
 					if (isVisible) {
@@ -117,7 +119,8 @@ export class AppComponent implements OnInit {
 						this.router.navigate(["/home"], { replaceUrl: true });
 					}
 				}),
-				this.router.events.subscribe((event) => this.onRouteChange(event))
+				this.router.events.subscribe((event) => this.onRouteChange(event)),
+				this.store.select("settings").subscribe(res => console.log(res))
 			);
 
 			this.statusBar.styleLightContent();
