@@ -13,6 +13,7 @@ import { SetIntro } from "src/app/state/intro/intro.actions";
 import { SetPool as SetPoolHour } from "src/app/state/hourPool/hourPool.actions";
 import { ShowTut } from 'src/app/state/tutorial/tutorial.actions';
 import configs from 'src/configs/hourPool';
+import { HourPool, PoolType } from 'src/app/state/hourPool/hourpool.model';
 
 @Component({
 	selector: 'app-intro',
@@ -64,10 +65,11 @@ export class IntroPage {
 	}
 
 	finishIntro(): void {
-		const poolHour = {
+		const poolHour: HourPool = {
 			hasPool: this.hoursVisible,
-			poolType: this.poolType,
-			poolValue: this.hourPool
+			poolType: this.poolType as PoolType,
+			poolValue: this.hourPool,
+			hoursLeft: this.hourPool
 		};
 
 		this.store.dispatch(new SetPoolHour(poolHour));

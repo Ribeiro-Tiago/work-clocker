@@ -1,7 +1,12 @@
 import { HourPool, Action } from "./hourPool.model";
 import * as hourPoolActions from "./hourPool.actions";
 
-const initState: HourPool = { hasPool: false };
+const initState: HourPool = {
+    hasPool: false,
+    poolType: "monthly",
+    poolValue: 60,
+    hoursLeft: 60
+};
 
 export function HourPoolReducer(state: HourPool = initState, action: Action) {
     const { type, payload } = action;
@@ -18,6 +23,13 @@ export function HourPoolReducer(state: HourPool = initState, action: Action) {
             };
         }
 
+        case hourPoolActions.UPDATE_HOURS_LEFT: {
+            return {
+                ...state,
+                hoursLeft: payload
+            };
+        }
+
         case hourPoolActions.UPDATE_TYPE: {
             return {
                 ...state,
@@ -30,6 +42,10 @@ export function HourPoolReducer(state: HourPool = initState, action: Action) {
                 ...state,
                 hasPool: !state.hasPool
             };
+        }
+
+        case hourPoolActions.RESET_POOL: {
+            return { ...initState };
         }
 
         default:

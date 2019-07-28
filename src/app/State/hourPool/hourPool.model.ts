@@ -1,5 +1,6 @@
 export interface HourPool {
     hasPool: boolean;
+    hoursLeft?: number;
     poolValue?: number;
     poolType?: PoolType;
 }
