@@ -184,6 +184,10 @@ p {
 	}
 }
 
+.action-sheet-group:last-child {
+	display: none !important;
+}
+
 @keyframes showBackdrop {
 	0% {
 		opacity: 0;
