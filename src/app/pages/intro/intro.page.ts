@@ -12,7 +12,7 @@ import { UpdateLang as SetLango } from "src/app/state/settings/settings.actions"
 import { SetIntro } from "src/app/state/intro/intro.actions";
 import { SetPool as SetPoolHour } from "src/app/state/hourPool/hourPool.actions";
 import { ShowTut } from 'src/app/state/tutorial/tutorial.actions';
-import configs from './configs';
+import configs from 'src/configs/hourPool';
 
 @Component({
 	selector: 'app-intro',
