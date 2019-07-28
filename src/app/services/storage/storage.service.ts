@@ -49,7 +49,6 @@ export class StorageService {
 		let tmp: StorageKey;
 
 		this.storage.forEach(async (_v: any, k: StorageKey) => {
-			console.log(k);
 			tmp = this.unformKey(k);
 
 			if (!keys.includes(tmp)) {

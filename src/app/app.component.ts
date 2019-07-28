@@ -119,8 +119,7 @@ export class AppComponent implements OnInit {
 						this.router.navigate(["/home"], { replaceUrl: true });
 					}
 				}),
-				this.router.events.subscribe((event) => this.onRouteChange(event)),
-				this.store.select("settings").subscribe(res => console.log(res))
+				this.router.events.subscribe((event) => this.onRouteChange(event))
 			);
 
 			this.statusBar.styleLightContent();
