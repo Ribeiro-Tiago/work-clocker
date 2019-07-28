@@ -10,6 +10,7 @@ import { AppState } from 'src/app/State';
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { UpdateLang as SetLango } from "src/app/state/settings/settings.actions";
 import { SetIntro } from "src/app/state/intro/intro.actions";
+import { SetPool as SetPoolHour } from "src/app/state/hourPool/hourPool.actions";
 import { ShowTut } from 'src/app/state/tutorial/tutorial.actions';
 import configs from './configs';
 
@@ -63,9 +64,19 @@ export class IntroPage {
 	}
 
 	finishIntro(): void {
-		this.store.dispatch(new ShowTut());
+		const poolHour = {
+			hasPool: this.hoursVisible,
+			isPoolMonthly: this.poolType === "monthly",
+			poolValue: this.hourPool
+		};
+
+		this.store.dispatch(new SetPoolHour(poolHour));
 		this.store.dispatch(new SetIntro(true));
+		this.store.dispatch(new ShowTut());
+
 		this.storage.set("intro", true);
+		this.storage.set("poolHour", poolHour);
+
 		this.router.navigate(["/home"], { replaceUrl: true });
 	}
 

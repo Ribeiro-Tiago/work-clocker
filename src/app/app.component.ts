@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd, Event } from '@angular/router';
+import { Location } from '@angular/common';
 
 import { Platform, Events, ToastController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -20,6 +21,7 @@ import { SetOptions as SetHeader } from "src/app/State/header/header.actions";
 import { SetIntro } from "src/app/State/intro/intro.actions";
 import * as MenuActions from "src/app/state/menu/menu.actions";
 import { SetPerms as setNotifPerms } from "src/app/state/notifications/notifications.actions";
+import { SetPool as SetPoolHour } from "src/app/state/hourPool/hourPool.actions";
 
 import { AppState } from './State';
 import { Tutorial } from './State/tutorial/tutorial.model';
@@ -32,7 +34,7 @@ import { ClockedHourItem } from './state/clockedHours/clockedHours.model';
 import { Menu } from './State/menu/menu.model';
 import { Header } from './State/header/header.model';
 import { Intro } from './State/intro/intro.model';
-import { Location } from '@angular/common';
+import { HourPool as PoolHour } from './State/hourPool/hourPool.model';
 
 @Component({
 	selector: 'app-root',
@@ -154,7 +156,8 @@ export class AppComponent implements OnInit {
 			this.storage.get("settings"),
 			this.storage.get("clockedHours"),
 			this.storage.get("tutorial"),
-			this.storage.get("intro")
+			this.storage.get("intro"),
+			this.storage.get("poolHour"),
 		]).then(results => {
 			const extraHours: ExtraHour = results[0];
 			const owedHours: OwedHour = results[1];
@@ -163,6 +166,7 @@ export class AppComponent implements OnInit {
 			const clockedHours: ClockedHourItem[] = results[4];
 			const tutorial: Tutorial = results[5];
 			const intro: Intro = results[6];
+			const poolHour: PoolHour = results[7];
 
 			if (extraHours) {
 				this.store.dispatch(new SetExtraHours(extraHours));
@@ -211,6 +215,10 @@ export class AppComponent implements OnInit {
 				this.store.dispatch(new SetIntro(true));
 			} else {
 				this.store.dispatch(new HideTutorial());
+			}
+
+			if (poolHour) {
+				this.store.dispatch(new SetPoolHour(poolHour));
 			}
 		});
 	}
