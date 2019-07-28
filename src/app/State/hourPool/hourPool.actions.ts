@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { HourPool } from './hourPool.model';
+import { HourPool, PoolType } from './hourPool.model';
 
 export const SET_POOL = "[Pool] Set Pool";
 export const UPDATE_VALUE = "[Pool] Update Value";
@@ -18,6 +18,7 @@ export class UpdateValue implements Action {
 
 export class UpdateType implements Action {
     readonly type = UPDATE_TYPE;
+    constructor(public payload: PoolType) { }
 }
 
 export class TooglePool implements Action {

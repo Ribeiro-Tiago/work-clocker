@@ -1,10 +1,12 @@
 export interface HourPool {
     hasPool: boolean;
     poolValue?: number;
-    isPoolMonthly?: boolean;
+    poolType?: PoolType;
 }
 
 export interface Action {
     type: string;
     payload?: HourPool;
 }
+
+export type PoolType = "monthly" | "yearly";

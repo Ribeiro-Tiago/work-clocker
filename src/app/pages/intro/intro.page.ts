@@ -66,7 +66,7 @@ export class IntroPage {
 	finishIntro(): void {
 		const poolHour = {
 			hasPool: this.hoursVisible,
-			isPoolMonthly: this.poolType === "monthly",
+			poolType: this.poolType,
 			poolValue: this.hourPool
 		};
 

@@ -21,7 +21,7 @@ export function HourPoolReducer(state: HourPool = initState, action: Action) {
         case hourPoolActions.UPDATE_TYPE: {
             return {
                 ...state,
-                poolType: !state.isPoolMonthly
+                poolType: payload
             };
         }
 
