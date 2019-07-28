@@ -1,10 +1,14 @@
 <div class="bg"></div>
+
+<app-owed-hour-modal class="modal" [ngClass]="{'is-visible': poolModalConfs.isVisible }" [configs]="poolModalConfs"
+	(onClick)="calcOwedHours($event)"></app-owed-hour-modal>
+
 <div class="wrapper">
 	<ng-container *ngIf="!!currHour; else elseTemplate">
 		<h2 [innerHTML]="'home.startAt' | translate | formatTime: currHour.startHour | sanitize">
 		</h2>
 
-		<div class="button" (click)="clockOut()">
+		<div class="btn" (click)="clockOut()">
 			<h3>{{ "home.clockout" | translate }}</h3>
 
 			<p>{{ timer }}</p>
@@ -22,7 +26,7 @@
 	</ng-container>
 
 	<ng-template #elseTemplate>
-		<div class="button" (click)="clockIn()"
+		<div class="btn" (click)="clockIn()"
 			[ngClass]="{'tut-item': isTutActive && !isCurrTutStage, 'tut-visible': isCurrTutStage}">
 			<h3>{{ "home.clockin" | translate }}</h3>
 		</div>

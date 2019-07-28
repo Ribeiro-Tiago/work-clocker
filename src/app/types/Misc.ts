@@ -25,3 +25,12 @@ export interface GenericOption {
     label: string;
     value: string;
 }
+
+export interface OwedHourModalConf {
+    isVisible: boolean;
+    isExtra: boolean;
+    isPool: boolean;
+    owedHours: number;
+    extraHours?: number;
+    poolHours?: number;
+}

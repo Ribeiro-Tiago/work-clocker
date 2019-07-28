@@ -120,5 +120,17 @@
 		"month": "horas mensais",
 		"year": "horas anuais",
 		"hoursText": "<p>Algumas pessoas têm x horas anuais / mensais justificáveis.</p><p>Estas horas permitem chegar mais tarde ou sair mais cedo sem penalidades</p><p>Se existirem, o Work Clocker usa estas horas para cálculo de horas trabalhadas a menos</p>"
+	},
+
+	"hourPoolModal": {
+		"title": "Use hours from pool",
+		"bodyPoolExtra": "You have worked less {{ hours }} than you were supposed to.</p><p>You have {{ poolHours }} hours in your pool and {{ extraHours }} extra hours.",
+		"bodyPool": "You have worked less {{ hours }} than you were supposed to.</p><p>You have {{ poolHours }} hours. Do you want to use them ?",
+		"bodyExtra": "You have worked less {{ hours }} than you were supposed to.</p><p>You have {{ extraHours }} extra hours. Do you want to use them ?",
+		"usePool": "Use pool",
+		"useExtra": "Use extra",
+		"useNone": "Use none",
+		"yes": "Yes",
+		"no": "No"
 	}
 }
