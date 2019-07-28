@@ -111,6 +111,11 @@
 	"intro": {
 		"title_1": "Bem vindo ao Work Clocker",
 		"next": "Próximo",
-		"finish": "Começar a usar o Work Clocker"
+		"finish": "Começar a usar o Work Clocker",
+		"title_2": "Horas justificáveis",
+		"hoursToggle": "Eu tenho horas justificáveis",
+		"month": "horas mensais",
+		"year": "horas anuais",
+		"hoursText": "<p>Algumas pessoas têm x horas anuais / mensais justificáveis.</p><p>Estas horas permitem chegar mais tarde ou sair mais cedo sem penalidades</p><p>Se existirem, o Work Clocker usa estas horas para cálculo de horas trabalhadas a menos</p>"
 	}
 }

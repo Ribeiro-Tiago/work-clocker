@@ -111,6 +111,11 @@
 	"intro": {
 		"title_1": "Welcome to Work Clocker",
 		"next": "Next",
-		"finish": "Start using Work Clocker"
+		"finish": "Start using Work Clocker",
+		"title_2": "Justifiable hours",
+		"hoursToggle": "I have a pool of hours",
+		"month": "Monthly hours",
+		"year": "Yearly hours",
+		"hoursText": "<p>Some people have a yearly or month pool of justifiable hours</p><p>This pool can be used to get in later or leave earlier without any penalty</p><p>If you have a pool, Work Clocker uses the pool to calculate the owed hours</p>"
 	}
 }

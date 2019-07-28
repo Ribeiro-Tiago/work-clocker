@@ -1,6 +1,6 @@
 <ion-slides>
 	<!-- lang select -->
-	<ion-slide class="language">
+	<!-- <ion-slide class="language">
 		<div class="header">
 			<img src="assets/icon/favicon.png" />
 
@@ -15,12 +15,34 @@
 			</section>
 		</div>
 
+		<ion-button (click)="nextSlide()">{{ "intro.next" | translate }}</ion-button>
+	</ion-slide> -->
+
+	<!-- hour pool -->
+	<ion-slide class="hours">
+		<h1>{{ "intro.title_2" | translate }}</h1>
+
+		<div [innerHTML]="'intro.hoursText' | translate | sanitize"></div>
+
+		<div class="content">
+			<div class="grouped">
+				<ion-label>{{ "intro.hoursToggle" | translate }}</ion-label>
+				<ion-toggle mode="ios" (ionChange)="togglePool();"></ion-toggle>
+			</div>
+
+			<div class="grouped" [ngClass]="{'visible': hoursVisible}">
+				<ion-input [(ngModel)]="hourPool" type="number" inputmode="numeric" min="1"></ion-input>
+
+				<ion-select interface="action-sheet" [(ngModel)]="poolType">
+					<ion-select-option *ngFor="let type of poolTypes" [value]="type.value">
+						{{ type.label | translate }}
+					</ion-select-option>
+				</ion-select>
+			</div>
+		</div>
+
 		<ion-button (click)="finishIntro()">{{ "intro.finish" | translate }}</ion-button>
 	</ion-slide>
-
-	<!-- <ion-slide>
-		<h1>Slide 2</h1>
-	</ion-slide> -->
 
 	<!-- jira -->
 	<!-- <ion-slide>

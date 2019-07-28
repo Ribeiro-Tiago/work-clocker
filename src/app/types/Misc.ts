@@ -20,3 +20,8 @@ export interface NotifOption {
     enabled: boolean;
     time: string;
 }
+
+export interface GenericOption {
+    label: string;
+    value: string;
+}
