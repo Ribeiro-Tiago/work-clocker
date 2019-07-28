@@ -8,6 +8,7 @@ import { OwedExtraHoursComponent } from 'src/app/components/owed-extra-hours/owe
 import { ClockButtonComponent } from 'src/app/components/clock-button/clock-button.component';
 
 import { SharedModule } from 'src/app/shared.module';
+import { OwedHourModalComponent } from 'src/app/components/owed-hour-modal/owed-hour-modal.component';
 
 @NgModule({
 	declarations: [
@@ -15,6 +16,7 @@ import { SharedModule } from 'src/app/shared.module';
 		UpdateLunchModalComponent,
 		OwedExtraHoursComponent,
 		ClockButtonComponent,
+		OwedHourModalComponent
 	],
 	imports: [
 		SharedModule,
