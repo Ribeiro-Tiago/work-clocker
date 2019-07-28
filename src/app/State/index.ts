@@ -28,6 +28,9 @@ import { IntroReducer } from './intro/intro.reducer';
 import { Notification } from './notifications/notifications.model';
 import { NotificationReducer } from './notifications/notifications.reducer';
 
+import { HourPool } from './hourPool/hourPool.model';
+import { HourPoolReducer } from './hourPool/hourPool.reducer';
+
 export interface AppState {
     readonly settings: Setting;
     readonly extraHours: ExtraHour;
@@ -39,6 +42,7 @@ export interface AppState {
     readonly header: Header;
     readonly intro: Intro;
     readonly notification: Notification;
+    readonly hourPool: HourPool;
 }
 
 export const reducers = {
@@ -51,5 +55,6 @@ export const reducers = {
     menu: MenuReducer,
     header: HeaderReducer,
     intro: IntroReducer,
-    notification: NotificationReducer
+    notification: NotificationReducer,
+    hourPool: HourPoolReducer
 };
