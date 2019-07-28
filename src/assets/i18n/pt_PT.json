@@ -62,7 +62,10 @@
 		"clockinReminderText": "Don't forget to clock in.",
 		"clockinReminderTitle": "Lembrete de entrada",
 		"clockoutReminderText": "O dia está a chegar ao fim.",
-		"clockoutReminderTitle": "Lembrete de saída"
+		"clockoutReminderTitle": "Lembrete de saída",
+		"hourPool": "Horas justificáveis",
+		"updatePoolSuccess": "Horas justicáveis atualizadas",
+		"poolHoursLeft": "restam {{ hours }}"
 	},
 
 	"modal": {

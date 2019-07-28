@@ -90,6 +90,34 @@
 		</div>
 	</div>
 
+	<!-- hour pool -->
+	<h3 class="list-header">{{ "settings.hourPool" | translate }}</h3>
+
+	<div class="list-item colapsable">
+		<div class="colapsable-item">
+			<ion-label>{{ "intro.hoursToggle" | translate }}</ion-label>
+			<!-- retard fix because [checked] wasn't updating on first toggle  -->
+			<ion-toggle *ngIf="initPoolToggle" (click)="togglePool();" checked>
+			</ion-toggle>
+
+			<ion-toggle *ngIf="!initPoolToggle" (click)="togglePool();">
+			</ion-toggle>
+		</div>
+
+		<div class="colapsable-item pool" [ngClass]="{ 'visible': hourPool.hasPool }">
+			<ion-input [(ngModel)]="hourPool.poolValue" (ionChange)="onInputChange($event.target.value);" type="number"
+				inputmode="numeric" min="1" debounce="500"></ion-input>
+
+			<ion-select interface="action-sheet" [(ngModel)]="hourPool.poolType" (ionChange)="updatePool();">
+				<ion-select-option *ngFor="let type of poolTypes" [value]="type.value">
+					{{ type.label | translate }}
+				</ion-select-option>
+			</ion-select>
+
+			<ion-label>({{ "settings.poolHoursLeft" | translate : { hours: hourPool.hoursLeft } }})</ion-label>
+		</div>
+	</div>
+
 	<!-- resets -->
 	<h3 class="list-header">{{ "settings.misc" | translate }}</h3>
 

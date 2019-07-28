@@ -2,27 +2,29 @@ import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { Events } from '@ionic/angular';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import configs from "./configs";
-import { ConfigOption, LegalOption, NotifOption } from "../../types/Misc";
-import { StorageService } from '../../services/storage/storage.service';
+import poolConfigs from 'src/configs/hourPool';
+import { ConfigOption, LegalOption, NotifOption, GenericOption } from "src/app/types/Misc";
+import { StorageService } from 'src/app/services/storage/storage.service';
 
 /* state models */
-import { Setting } from '../../State/settings/settings.model';
-import { AppState } from '../../State';
+import { Setting } from 'src/app/State/settings/settings.model';
+import { HourPool } from 'src/app/state/hourPool/hourpool.model';
+import { AppState } from 'src/app/State';
 
 /* state actions */
-import { Update as UpdateSettings } from "../../state/settings/settings.actions";
-import { ResetHours as ResetExtraHours } from "../../state/extraHours/extraHours.actions";
-import { ResetHours as ResetOwedHours } from "../../state/owedHours/owedHours.actions";
-import { ResetHours as ResetClockedHours } from "../../state/clockedHours/clockedHours.actions";
-import { ResetHours as ResetSpentHours } from "../../state/spentHours/spentHours.actions";
-import { Reset as ResetTutorial } from "../../state/tutorial/tutorial.actions";
-
-import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { Update as UpdateSettings } from "src/app/state/settings/settings.actions";
+import { ResetHours as ResetExtraHours } from "src/app/state/extraHours/extraHours.actions";
+import { ResetHours as ResetOwedHours } from "src/app/state/owedHours/owedHours.actions";
+import { ResetHours as ResetClockedHours } from "src/app/state/clockedHours/clockedHours.actions";
+import { ResetHours as ResetSpentHours } from "src/app/state/spentHours/spentHours.actions";
+import { Reset as ResetTutorial } from "src/app/state/tutorial/tutorial.actions";
+import { ResetPool, SetPool } from "src/app/state/hourPool/hourPool.actions";
 
 @Component({
 	selector: 'app-settings',
@@ -31,7 +33,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 	encapsulation: ViewEncapsulation.None
 })
 export class SettingsPage implements OnInit, OnDestroy {
-	private sub: Subscription;
+	private subs: Subscription[];
 	private isResetting: boolean;
 
 	dateFormats: ConfigOption[];
@@ -54,9 +56,14 @@ export class SettingsPage implements OnInit, OnDestroy {
 
 	displayFormat: string;
 
-	settings: Observable<Setting>;
+	settings$: Observable<Setting>;
+	hourPool$: Observable<HourPool>;
 
 	today: Date;
+
+	hourPool: HourPool;
+	poolTypes: GenericOption[];
+	initPoolToggle: boolean;
 
 	constructor(
 		private translate: TranslateService,
@@ -77,42 +84,56 @@ export class SettingsPage implements OnInit, OnDestroy {
 
 		this.today = new Date();
 
-		this.settings = this.store.select("settings");
+		this.settings$ = this.store.select("settings");
+		this.hourPool$ = this.store.select("hourPool");
 
-		this.sub = null;
+		this.subs = [];
 
 		this.isResetting = false;
+
+		this.hourPool = { hasPool: false };
+
+		this.poolTypes = poolConfigs;
 
 		this.initInputs();
 	}
 
 	ngOnInit(): void {
-		this.sub = this.settings.subscribe(result => {
-			if (result) {
-				this.selectedDateFormat = result.selectedDateFormat;
-				this.selectedLanguage = result.selectedLanguage;
-				this.selectedLunchDuration = result.selectedLunchDuration;
-				this.selectedWorkDuration = result.selectedWorkDuration;
-				this.clockinNotif = result.clockinNotif;
-				this.clockoutNotif = result.clockoutNotif;
+		this.subs.push(
+			this.settings$.subscribe(result => {
+				if (result) {
+					this.selectedDateFormat = result.selectedDateFormat;
+					this.selectedLanguage = result.selectedLanguage;
+					this.selectedLunchDuration = result.selectedLunchDuration;
+					this.selectedWorkDuration = result.selectedWorkDuration;
+					this.clockinNotif = result.clockinNotif;
+					this.clockoutNotif = result.clockoutNotif;
 
-				if (this.initClockInChecked === undefined) {
-					this.initClockInChecked = result.clockinNotif.enabled;
-					this.initClockOutChecked = result.clockoutNotif.enabled;
-				}
+					if (this.initClockInChecked === undefined) {
+						this.initClockInChecked = result.clockinNotif.enabled;
+						this.initClockOutChecked = result.clockoutNotif.enabled;
+					}
 
-				if (result.selectedDateFormat.hour) {
-					this.displayFormat = result.selectedDateFormat.hour;
+					if (result.selectedDateFormat.hour) {
+						this.displayFormat = result.selectedDateFormat.hour;
+					}
 				}
-			}
-		});
+			}),
+			this.hourPool$.subscribe(result => {
+				this.hourPool = result;
+
+				if (this.initPoolToggle === undefined) {
+					this.initPoolToggle = result.hasPool;
+				}
+			})
+		);
 	}
 
 	ngOnDestroy(): void {
-		this.sub.unsubscribe();
+		this.subs.forEach(s => s.unsubscribe());
 	}
 
-	onDateFormatChange(selectedId: string) {
+	onDateFormatChange(selectedId: string): void {
 		if (this.isResetting) {
 			return;
 		}
@@ -126,7 +147,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 		this.updateSettings();
 	}
 
-	onLangChange(selectedId: string) {
+	onLangChange(selectedId: string): void {
 		if (this.isResetting) {
 			return;
 		}
@@ -139,7 +160,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 		this.updateSettings();
 	}
 
-	onLunchChange(minute: number) {
+	onLunchChange(minute: number): void {
 		if (this.isResetting) {
 			return;
 		}
@@ -151,7 +172,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 		this.updateSettings();
 	}
 
-	onWorkChange(hour: number) {
+	onWorkChange(hour: number): void {
 		if (this.isResetting) {
 			return;
 		}
@@ -241,7 +262,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 		}
 	}
 
-	resetSettings() {
+	resetSettings(): void {
 		this.toggleModal();
 		this.isResetting = true;
 		this.resetApp();
@@ -261,7 +282,33 @@ export class SettingsPage implements OnInit, OnDestroy {
 		this.store.dispatch(new ResetTutorial());
 	}
 
-	private updateSettings() {
+	togglePool(): void {
+		if (this.isResetting) {
+			return;
+		}
+
+		this.hourPool.hasPool = !this.hourPool.hasPool;
+
+		this.updatePool();
+	}
+
+	onInputChange(num: number): void {
+		this.hourPool.hoursLeft = num;
+
+		this.updatePool();
+	}
+
+	updatePool(): void {
+		this.events.publish("showToast", "settings.updatePoolSuccess");
+
+		this.store.dispatch(new SetPool(this.hourPool));
+
+		this.storage.set("poolHour", this.hourPool)
+			.then(() => console.log("hour pool updated"))
+			.catch(err => console.log(err));
+	}
+
+	private updateSettings(): void {
 		const newState = {
 			selectedDateFormat: this.selectedDateFormat,
 			selectedLanguage: this.selectedLanguage,
@@ -278,7 +325,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 			.catch(err => console.log(err));
 	}
 
-	private initInputs() {
+	private initInputs(): void {
 		this.selectedDateFormat = this.dateFormats[0];
 		this.selectedLanguage = this.langs[0];
 		this.selectedLunchDuration = 60;
@@ -297,8 +344,9 @@ export class SettingsPage implements OnInit, OnDestroy {
 		this.store.dispatch(new ResetOwedHours());
 		this.store.dispatch(new ResetSpentHours());
 		this.store.dispatch(new ResetClockedHours());
+		this.store.dispatch(new ResetPool());
 
-		this.storage.clearExcept(["settings", "tutorial", "intro"])
+		this.storage.clearExcept(["settings", "tutorial", "intro", "poolHour"])
 			.then(() => console.log("settings cleared"))
 			.catch(console.error);
 

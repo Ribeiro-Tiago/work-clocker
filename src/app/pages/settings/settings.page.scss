@@ -67,6 +67,19 @@ app-settings {
 			}
 		}
 
+		.pool {
+			ion-input {
+				width: 30%;
+				border-bottom: 3px dotted rgba(73, 172, 77, 0.4);
+				height: 30px;
+			}
 
+			ion-label {
+				color: $lighterTextColor;
+				color: #999;
+				width: 20%;
+				text-align: right;
+			}
+		}
 	}
 }

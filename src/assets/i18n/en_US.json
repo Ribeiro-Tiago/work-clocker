@@ -62,7 +62,10 @@
 		"clockinReminderText": "Don't forget to clock in.",
 		"clockinReminderTitle": "Clock in reminder",
 		"clockoutReminderText": "The work day is coming to an end.",
-		"clockoutReminderTitle": "Clock out reminder"
+		"clockoutReminderTitle": "Clock out reminder",
+		"hourPool": "Justifiable hours",
+		"updatePoolSuccess": "Hour pool updated",
+		"poolHoursLeft": "{{ hours }} left"
 	},
 
 	"modal": {
