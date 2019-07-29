@@ -125,7 +125,7 @@
 	"hourPoolModal": {
 		"title": "Use hours from pool",
 		"bodyPoolExtra": "You have worked less {{ hours }} than you were supposed to.</p><p>You have {{ poolHours }} hours in your pool and {{ extraHours }} extra hours.",
-		"bodyPool": "You have worked less {{ hours }} than you were supposed to.</p><p>You have {{ poolHours }} hours. Do you want to use them ?",
+		"bodyPool": "You have worked less {{ hours }} than you were supposed to.</p><p>You have {{ poolHours }} hours in your pool. Do you want to use them ?",
 		"bodyExtra": "You have worked less {{ hours }} than you were supposed to.</p><p>You have {{ extraHours }} extra hours. Do you want to use them ?",
 		"usePool": "Use pool",
 		"useExtra": "Use extra",
