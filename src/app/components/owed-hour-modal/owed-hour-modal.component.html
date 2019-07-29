@@ -5,7 +5,7 @@
 		<ng-container *ngIf="configs.isExtra && configs.isPool; else elseTemplate">
 			<div class="body">
 				<p
-					[innerHTML]="'hourPoolModal.bodyPoolExtra' | translate: { hours: configs.owedHours, poolHours: configs.poolHours, extraHours: configs.extraHours  } | sanitize">
+					[innerHTML]="'hourPoolModal.bodyPoolExtra' | translate: { hours: configs.owedHours, poolHours: configs.poolHours, extraHours: configs.extraHours } | sanitize">
 				</p>
 			</div>
 
@@ -19,8 +19,11 @@
 
 		<ng-template #elseTemplate>
 			<div class="body">
-				<p
-					[innerHTML]="(configs.isExtra ? 'hourPoolModal.bodyPool' : 'hourPoolModal.bodyExtra') | translate: { hours: configs.owedHours, poolHours: configs.poolHours } | sanitize">
+				<p *ngIf="configs.isExtra"
+					[innerHTML]="'hourPoolModal.bodyExtra' | translate: { hours: configs.owedHours, extraHours: configs.extraHours } | sanitize">
+				</p>
+				<p *ngIf="!configs.isExtra"
+					[innerHTML]="'hourPoolModal.bodyPool' | translate: { hours: configs.owedHours, poolHours: configs.poolHours } | sanitize">
 				</p>
 			</div>
 
@@ -28,7 +31,8 @@
 				<ion-button rounded (click)="triggerButton(configs.isExtra ? 2 : 3 );">
 					{{ "hourPoolModal.yes" | translate }}</ion-button>
 
-				<ion-button color="light" rounded (click)="triggerButton(1);">{{ "hourPoolModal.no" | translate }}
+				<ion-button color="light" rounded (click)="triggerButton(1);">
+					{{ "hourPoolModal.no" | translate }}
 				</ion-button>
 			</div>
 		</ng-template>

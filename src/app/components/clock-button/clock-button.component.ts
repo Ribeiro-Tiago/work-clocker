@@ -18,6 +18,7 @@ import { AddHours as AddSpentHour } from "src/app/state/spentHours/spentHours.ac
 import { Tutorial } from 'src/app/state/tutorial/tutorial.model';
 import { HourPool } from 'src/app/state/hourPool/hourpool.model';
 import { OwedHourModalConf } from 'src/app/types/Misc';
+import { UpdateHoursLeft as UpdatePoolHoursLeft } from 'src/app/state/hourPool/hourPool.actions';
 
 @Component({
 	selector: 'app-clock-button',
@@ -83,12 +84,12 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 		this.hasPoolHours = false;
 
 		this.poolModalConfs = {
-			isVisible: true,
-			isExtra: true,
-			isPool: true,
-			owedHours: 10,
-			extraHours: 20,
-			poolHours: 30
+			isVisible: false,
+			isExtra: false,
+			isPool: false,
+			owedHours: 0,
+			extraHours: 0,
+			poolHours: 0
 		};
 	}
 
@@ -304,7 +305,17 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 	}
 
 	private usePoolHours(owedMinutes: number): number {
-		return owedMinutes;
+		let owed = (this.poolHoursLeft * 60) - owedMinutes;
+
+		if (owed <= 0) {
+			owed = Math.abs(owed);
+
+			this.store.dispatch(new UpdatePoolHoursLeft(0));
+		} else {
+			this.store.dispatch(new UpdatePoolHoursLeft(owedMinutes));
+		}
+
+		return owed;
 	}
 
 	private calcExtraHours(timeWorkedDiff: number): void {
