@@ -9,6 +9,8 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { TranslateService } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
 
+import * as moment from 'moment';
+
 import { StorageService } from './services/storage/storage.service';
 
 import { Update as UpdateSettings } from "./state/settings/settings.actions";
@@ -21,7 +23,7 @@ import { SetOptions as SetHeader } from "src/app/State/header/header.actions";
 import { SetIntro } from "src/app/State/intro/intro.actions";
 import * as MenuActions from "src/app/state/menu/menu.actions";
 import { SetPerms as setNotifPerms } from "src/app/state/notifications/notifications.actions";
-import { SetPool as SetPoolHour } from "src/app/state/hourPool/hourPool.actions";
+import { SetPool as SetPoolHour, UpdateHoursLeft } from "src/app/state/hourPool/hourPool.actions";
 
 import { AppState } from './State';
 import { Tutorial } from './State/tutorial/tutorial.model';
@@ -34,7 +36,7 @@ import { ClockedHourItem } from './state/clockedHours/clockedHours.model';
 import { Menu } from './State/menu/menu.model';
 import { Header } from './State/header/header.model';
 import { Intro } from './State/intro/intro.model';
-import { HourPool as PoolHour } from './State/hourPool/hourPool.model';
+import { HourPool as PoolHour, HourPool, PoolType } from './State/hourPool/hourPool.model';
 
 @Component({
 	selector: 'app-root',
@@ -46,6 +48,7 @@ export class AppComponent implements OnInit {
 	private menu$: Observable<Menu>;
 	private intro$: Observable<Intro>;
 	private header$: Observable<Header>;
+	private hourPool$: Observable<HourPool>;
 
 	showSplash: boolean;
 
@@ -82,6 +85,7 @@ export class AppComponent implements OnInit {
 		this.menu$ = this.store.select("menu");
 		this.intro$ = this.store.select("intro");
 		this.header$ = this.store.select("header");
+		this.hourPool$ = this.store.select("hourPool");
 
 		this.isHeaderVisible = false;
 		this.headerBtnVisible = false;
@@ -121,7 +125,8 @@ export class AppComponent implements OnInit {
 						this.router.navigate(["/home"], { replaceUrl: true });
 					}
 				}),
-				this.router.events.subscribe((event) => this.onRouteChange(event))
+				this.hourPool$.subscribe(({ poolValue, poolType }) => this.checkForPoolRefresh(poolValue, poolType)),
+				this.router.events.subscribe((event) => this.onRouteChange(event)),
 			);
 
 			this.statusBar.styleLightContent();
@@ -267,5 +272,15 @@ export class AppComponent implements OnInit {
 		});
 
 		toast.present();
+	}
+
+	private checkForPoolRefresh(maxVal: number, type: PoolType): void {
+		const d = moment();
+		const day = d.date();
+		const month = d.month();
+
+		if (day === 1 && (type === "monthly" || (type === "yearly" && month === 0))) {
+			this.store.dispatch(new UpdateHoursLeft(maxVal * 60));
+		}
 	}
 }
