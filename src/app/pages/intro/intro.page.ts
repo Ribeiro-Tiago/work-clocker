@@ -69,7 +69,7 @@ export class IntroPage {
 			hasPool: this.hoursVisible,
 			poolType: this.poolType as PoolType,
 			poolValue: this.hourPool,
-			hoursLeft: this.hourPool
+			hoursLeft: this.hourPool * 60
 		};
 
 		this.store.dispatch(new SetPoolHour(poolHour));

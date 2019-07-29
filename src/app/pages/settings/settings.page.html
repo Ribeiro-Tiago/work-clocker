@@ -114,7 +114,9 @@
 				</ion-select-option>
 			</ion-select>
 
-			<ion-label>({{ "settings.poolHoursLeft" | translate : { hours: hourPool.hoursLeft } }})</ion-label>
+			<ion-label>
+				({{ "settings.poolHoursLeft" | translate | convertTime: { destType: 'hours', payload: hourPool.hoursLeft } }})
+			</ion-label>
 		</div>
 	</div>
 

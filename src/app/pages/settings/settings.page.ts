@@ -293,7 +293,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 	}
 
 	onInputChange(num: number): void {
-		this.hourPool.hoursLeft = num;
+		this.hourPool.hoursLeft = num * 60;
 
 		this.updatePool();
 	}
@@ -368,7 +368,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 			text: await this.getText("settings.clockinReminderText"),
 			vibrate: true,
 			wakeup: true,
-			title: await this.getText("settings.clockinReminderTitle,"),
+			title: await this.getText("settings.clockinReminderTitle"),
 			trigger: {
 				every: {
 					hour: time.getHours(), minute: time.getMinutes()
@@ -384,7 +384,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 			text: await this.getText("settings.clockoutReminderText"),
 			vibrate: true,
 			wakeup: true,
-			title: await this.getText("settings.clockoutReminderTitle,"),
+			title: await this.getText("settings.clockoutReminderTitle"),
 			trigger: {
 				every: {
 					hour: time.getHours(), minute: time.getMinutes()
