@@ -64,12 +64,7 @@ export class ConvertTimePipe implements PipeTransform {
 		if (multipleFields) {
 			let text = originText;
 
-			console.log(text);
-			(replaceText as PayloadOption[])
-				.forEach(({ key, value }) => {
-					console.log(key, value);
-					text = text.replace(`{{ ${key} }}`, value);
-				});
+			(replaceText as PayloadOption[]).forEach(({ key, value }) => text = text.replace(`{{ ${key} }}`, value));
 
 			return text;
 		}

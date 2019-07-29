@@ -166,14 +166,20 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 		currItem.timeWorked = minutesWorked;
 		currItem.isActive = false;
 
-		if (timeWorkedDiff === 0) {
-			this.updateClockedHours();
-		} else if (timeWorkedDiff > 0) {
+		if (timeWorkedDiff > 0) {
 			this.calcExtraHours(timeWorkedDiff * 60);
-		} else {
+		} else if (timeWorkedDiff < 0) {
 			this.owedTimeWorked = Math.abs(timeWorkedDiff);
 			this.handlePoolModal(this.owedTimeWorked);
+		} else {
+			this.closeModal();
 		}
+
+		this.store.dispatch(new clockedActions.UpdateHours({ hours: this.clockedHours, isActive: false }));
+
+		this.storage.set("clockedHours", this.clockedHours)
+			.then(() => console.log("updated hour"))
+			.catch(console.error);
 	}
 
 	triggerLunchClick(): void {
@@ -204,6 +210,8 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 				.then(() => console.log("owed hours updated: ", this.owedHours.hours))
 				.catch(console.error);
 		}
+
+		this.closeModal();
 	}
 
 	private handlePoolModal(owedHours: number): void {
@@ -327,18 +335,17 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 		this.storage.set("extraHours", this.extraHours)
 			.then(() => console.log("extra hours updated: ", this.extraHours.hours))
 			.catch(console.error);
-
-		this.updateClockedHours();
 	}
 
-	private updateClockedHours(): void {
-		this.store.dispatch(new clockedActions.UpdateHours({ hours: this.clockedHours, isActive: false }));
-
-		this.storage.set("clockedHours", this.clockedHours)
-			.then(() => console.log("updated hour"))
-			.catch(console.error);
-
+	private closeModal(): void {
 		this.showToast("home.clockedOut");
+
+		this.poolModalConfs = {
+			isVisible: false,
+			isExtra: false,
+			isPool: false,
+			owedHours: 0
+		};
 	}
 
 	private showToast(key: string) {
