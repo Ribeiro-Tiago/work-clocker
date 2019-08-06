@@ -27,7 +27,6 @@ import { SettingsPageModule } from './pages/settings/settings.module';
 import { StorageService } from './services/storage/storage.service';
 
 import { reducers } from './State';
-import { AdMobFree } from '@ionic-native/admob-free/ngx';
 import { environment } from 'src/environments/environment';
 import { SanitizerModule } from './pipes/sanitizer/sanitizer.pipe.module';
 import { LoaderModule } from './components/loader/loader.component.module';
@@ -75,7 +74,6 @@ export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoad
 		StorageService,
 		IonicStorageModule,
 		LocalNotifications,
-		AdMobFree,
 		{
 			provide: RouteReuseStrategy,
 			useClass: IonicRouteStrategy

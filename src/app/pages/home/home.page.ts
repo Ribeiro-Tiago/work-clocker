@@ -1,12 +1,9 @@
 import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { AdMobFree } from '@ionic-native/admob-free/ngx';
 import { Platform } from '@ionic/angular';
 
 import { AppState } from 'src/app/State';
-
-import { environment } from 'src/environments/environment.prod';
 
 import { Setting } from 'src/app/state/settings/settings.model';
 import { Tutorial } from 'src/app/State/tutorial/tutorial.model';
@@ -35,7 +32,6 @@ export class HomePage implements OnInit, OnDestroy {
 
 	constructor(
 		store: Store<AppState>,
-		private admobFree: AdMobFree,
 		private platform: Platform,
 	) {
 		this.settingsObs = store.select("settings");
@@ -45,8 +41,6 @@ export class HomePage implements OnInit, OnDestroy {
 		this.isTutVisible = false;
 
 		this.isModalVisible = false;
-
-		this.setupAd();
 	}
 
 	ngOnInit(): void {
@@ -65,30 +59,5 @@ export class HomePage implements OnInit, OnDestroy {
 
 	toggleLunchUpdate(): void {
 		this.isModalVisible = !this.isModalVisible;
-	}
-
-	private setupAd() {
-		const id = (this.platform.is('android'))
-			? environment.adId.android
-			: environment.adId.ios;
-
-		this.admobFree.banner.config({
-			id,
-			isTesting: !environment.production,
-			autoShow: true,
-			bannerAtTop: false
-		});
-	}
-
-	private showAd() {
-		this.admobFree.banner.show()
-			.then(() => console.log("ad shown"))
-			.catch(err => console.log("err showing ad: ", err));
-	}
-
-	private hideAd() {
-		this.admobFree.banner.hide()
-			.then(() => console.log("ad hidden"))
-			.catch(err => console.log("err hiding ad: ", err));
 	}
 }
