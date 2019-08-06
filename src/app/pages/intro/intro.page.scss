@@ -98,14 +98,14 @@ app-intro {
 		}
 
 		ion-button {
-			align-self: flex-end;
-			height: 50px;
-			font-weight: bold;
-			width: 90vw;
-			font-size: 2vh;
-			background-color: rgba(73, 172, 77, 0.1);
-			border: 1px solid #49ac4d;
-			color: #49ac4d;
+			align-self: flex-end !important;
+			height: 50px !important;
+			font-weight: bold !important;
+			width: 90vw !important;
+			font-size: 2vh !important;
+			background-color: rgba(73, 172, 77, 0.1) !important;
+			border: 1px solid #49ac4d !important;
+			color: #49ac4d !important;
 		}
 	}
 }

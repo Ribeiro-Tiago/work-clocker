@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { Events } from '@ionic/angular';
-import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native/local-notifications/ngx';
 
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -184,7 +184,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 		this.updateSettings();
 	}
 
-	toggleInNotif(): Promise<void> {
+	async toggleInNotif(): Promise<void> {
 		if (this.isResetting) {
 			return;
 		}
@@ -193,10 +193,14 @@ export class SettingsPage implements OnInit, OnDestroy {
 
 		if (enabled) {
 			this.events.publish("showToast", "settings.clockinNotifDisable");
-			this.cancelNotif(1);
+			await this.cancelNotif(1);
 		} else {
 			this.events.publish("showToast", "settings.clockinNotifEnable");
-			this.addClockinNotif(new Date(time));
+
+			const d = new Date(time);
+			d.setMinutes(d.getMinutes() - 1);
+
+			this.addClockinNotif(d);
 		}
 
 		this.clockinNotif.enabled = !enabled;
@@ -204,12 +208,10 @@ export class SettingsPage implements OnInit, OnDestroy {
 		this.updateSettings();
 	}
 
-	onInNotifTimerChange(time: string): Promise<void> {
+	onInNotifTimerChange(time: string): void {
 		if (this.isResetting) {
 			return;
 		}
-
-		this.cancelNotif(1);
 
 		this.clockinNotif.time = time;
 
@@ -220,7 +222,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 		this.updateSettings();
 	}
 
-	toggleOutNotif(): void {
+	async toggleOutNotif(): Promise<void> {
 		if (this.isResetting) {
 			return;
 		}
@@ -229,10 +231,14 @@ export class SettingsPage implements OnInit, OnDestroy {
 
 		if (enabled) {
 			this.events.publish("showToast", "settings.clockoutNotifDisable");
-			this.cancelNotif(2);
+			await this.cancelNotif(2);
 		} else {
 			this.events.publish("showToast", "settings.clockoutNotifEnable");
-			this.addClockoutNotif(new Date(time));
+
+			const d = new Date(time);
+			d.setMinutes(d.getMinutes() - 1);
+
+			this.addClockoutNotif(d);
 		}
 
 		this.clockoutNotif.enabled = !enabled;
@@ -244,8 +250,6 @@ export class SettingsPage implements OnInit, OnDestroy {
 		if (this.isResetting) {
 			return;
 		}
-
-		this.cancelNotif(2);
 
 		this.clockoutNotif.time = time;
 
@@ -357,18 +361,35 @@ export class SettingsPage implements OnInit, OnDestroy {
 		return await this.translate.get(key).toPromise();
 	}
 
-	private cancelNotif(id: number): void {
-		this.localNotif.cancel(id);
+	private async cancelNotif(id: number): Promise<void> {
+		await Promise.all([
+			this.localNotif.cancel(id),
+			this.localNotif.clear(id)
+		]);
 	}
 
 	private async addClockinNotif(time: Date): Promise<void> {
+		const texts = await Promise.all([
+			this.getText("settings.clockinReminderText"),
+			this.getText("settings.clockinReminderTitle")
+		]);
+
+		console.log("added in notif");
+
+		await this.cancelNotif(1);
+
 		this.localNotif.schedule({
 			id: 1,
-			foreground: true,
-			text: await this.getText("settings.clockinReminderText"),
+			autoClear: true,
+			text: texts[0],
 			vibrate: true,
 			wakeup: true,
-			title: await this.getText("settings.clockinReminderTitle"),
+			title: texts[1],
+			icon: "src/assets/icon/favicon.png",
+			channel: "reminder",
+			number: 1,
+			launch: true,
+			led: true,
 			trigger: {
 				every: {
 					hour: time.getHours(), minute: time.getMinutes()
@@ -378,17 +399,30 @@ export class SettingsPage implements OnInit, OnDestroy {
 	}
 
 	private async addClockoutNotif(time: Date): Promise<void> {
+		const texts = Promise.all([
+			this.getText("settings.clockoutReminderText"),
+			this.getText("settings.clockoutReminderTitle")
+		]);
+
+		console.log("added out notif");
+
+		await this.cancelNotif(2);
+
 		this.localNotif.schedule({
 			id: 2,
-			foreground: true,
-			text: await this.getText("settings.clockoutReminderText"),
+			autoClear: true,
+			text: texts[0],
 			vibrate: true,
 			wakeup: true,
-			title: await this.getText("settings.clockoutReminderTitle"),
+			title: texts[1],
+			icon: "src/assets/icon/favicon.png",
+			channel: "reminder",
+			number: 1,
+			launch: true,
+			led: true,
 			trigger: {
-				every: {
-					hour: time.getHours(), minute: time.getMinutes()
-				}
+				at: time,
+				every: ELocalNotificationTriggerUnit.DAY
 			}
 		});
 	}

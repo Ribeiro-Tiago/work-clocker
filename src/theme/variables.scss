@@ -90,21 +90,22 @@ $lighterTextColor: #999;
 }
 
 ion-toggle {
-	--background: #999;
-	--background-checked: #49AC4D;
-	--handle-background-checked: #DFFBE0;
+	--background: #999 !important;
+	--background-checked: #49AC4D !important;
+	--handle-background-checked: #DFFBE0 !important;
+	--handle-background: #FFF !important;
 }
 
 ion-toolbar {
-	--background: #49AC4D;
-	--color: #fff;
+	--background: #49AC4D !important;
+	--color: #fff !important;
 }
 
 ion-button {
-	--color: #fff;
-	--background-color: transparent;
+	--color: #fff !important;
+	--background-color: transparent !important;
 }
 
 ion-title {
-	--color: #fff;
+	--color: #fff !important;
 }

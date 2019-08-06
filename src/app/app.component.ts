@@ -139,6 +139,11 @@ export class AppComponent implements OnInit {
 			}
 
 			this.store.dispatch(new setNotifPerms({ hasPerms: perms }));
+
+			if (!perms) {
+				this.localNotifs.clearAll();
+				this.localNotifs.cancelAll();
+			}
 		});
 	}
 
