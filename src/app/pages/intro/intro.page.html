@@ -33,7 +33,8 @@
 			<div class="grouped" [ngClass]="{'visible': hoursVisible}">
 				<ion-input [(ngModel)]="hourPool" type="number" inputmode="numeric" min="1"></ion-input>
 
-				<ion-select interface="action-sheet" [(ngModel)]="poolType">
+				<ion-select interface="action-sheet" [(ngModel)]="poolType"
+					selectedText="{{ poolType.label | translate }}">
 					<ion-select-option *ngFor="let type of poolTypes" [value]="type.value">
 						{{ type.label | translate }}
 					</ion-select-option>

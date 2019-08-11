@@ -29,7 +29,7 @@ export class IntroPage {
 
 	hoursVisible: boolean;
 	hourPool: number;
-	poolType: string;
+	poolType: GenericOption;
 
 	poolTypes: GenericOption[];
 
@@ -49,7 +49,7 @@ export class IntroPage {
 
 		this.poolTypes = configs;
 
-		this.poolType = configs[0].value;
+		this.poolType = configs[0];
 	}
 
 	onLangSelect(ev: Event, key: string): void {
@@ -67,7 +67,7 @@ export class IntroPage {
 	finishIntro(): void {
 		const poolHour: HourPool = {
 			hasPool: this.hoursVisible,
-			poolType: this.poolType as PoolType,
+			poolType: this.poolType.value as PoolType,
 			poolValue: this.hourPool,
 			hoursLeft: this.hourPool * 60
 		};
@@ -84,5 +84,9 @@ export class IntroPage {
 
 	togglePool(): void {
 		this.hoursVisible = !this.hoursVisible;
+	}
+
+	onTypeChange(type: GenericOption): void {
+		this.poolType = type;
 	}
 }
