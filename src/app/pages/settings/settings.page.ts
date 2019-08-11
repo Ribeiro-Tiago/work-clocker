@@ -1,9 +1,12 @@
 import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
-import { Events } from '@ionic/angular';
+import { Events, Platform } from '@ionic/angular';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { AppVersion } from '@ionic-native/app-version/ngx';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { DocumentViewer, DocumentViewerOptions } from '@ionic-native/document-Viewer/ngx';
+import { File } from '@ionic-native/file/ngx';
 
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -75,7 +78,11 @@ export class SettingsPage implements OnInit, OnDestroy {
 		private location: Location,
 		private events: Events,
 		private localNotif: LocalNotifications,
-		private appVersion: AppVersion
+		private appVersion: AppVersion,
+		private platform: Platform,
+		private file: File,
+		private fileOpener: FileOpener,
+		private documentViewer: DocumentViewer,
 	) {
 		this.dateFormats = configs.dateFormats;
 		this.langs = configs.langs;
@@ -266,8 +273,19 @@ export class SettingsPage implements OnInit, OnDestroy {
 		this.updateSettings();
 	}
 
-	openLink(name: string): void {
-		window.location.href = `assets/docs/${name}.pdf`;
+	async openLink(name: string): Promise<void> {
+		const path = `${this.file.applicationDirectory}/www/assets/docs`;
+
+		if (this.platform.is("android")) {
+			const fakeName = Date.now();
+
+			const { nativeURL } = await this.file.copyFile(path, `${name}.pdf`, this.file.dataDirectory, `${fakeName}.pdf`);
+			this.fileOpener.open(nativeURL, "application/pdf");
+		} else {
+			this.documentViewer.viewDocument(`${path}/${name}.pdf`, "application/pdf", {
+				title: await this.translate.getTranslation(`settings.${name}`).toPromise()
+			});
+		}
 	}
 
 	resetSettings(): void {

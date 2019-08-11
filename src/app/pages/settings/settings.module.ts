@@ -7,6 +7,9 @@ import { ResetModalComponent } from 'src/app/components/reset-modal/reset-modal.
 
 import { SharedModule } from 'src/app/shared.module';
 import { AppVersion } from '@ionic-native/app-version/ngx';
+import { File } from "@ionic-native/file/ngx";
+import { FileOpener } from "@ionic-native/file-opener/ngx";
+import { DocumentViewer } from "@ionic-native/document-Viewer/ngx";
 
 @NgModule({
 	imports: [
@@ -17,6 +20,11 @@ import { AppVersion } from '@ionic-native/app-version/ngx';
 		}])
 	],
 	declarations: [SettingsPage, ResetModalComponent],
-	providers: [AppVersion]
+	providers: [
+		AppVersion,
+		File,
+		FileOpener,
+		DocumentViewer
+	]
 })
 export class SettingsPageModule { }
