@@ -108,7 +108,8 @@
 	},
 
 	"clockedHours": {
-		"title": "Horas feitas"
+		"title": "Horas feitas",
+		"desc": "Agora consegues ver todas as horas que já tens registadas"
 	},
 
 	"intro": {

@@ -150,6 +150,15 @@ p {
 	}
 }
 
+.list-header-desc {
+	background: $secondaryColor;
+	margin: 0;
+	padding: 2vh;
+	text-align: center;
+	color: $darkTextColor;
+	box-shadow: 0 1px #888;
+}
+
 .main-wrapper {
 
 	ion-router-outlet,

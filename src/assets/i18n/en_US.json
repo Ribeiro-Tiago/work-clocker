@@ -108,7 +108,8 @@
 	},
 
 	"clockedHours": {
-		"title": "Clocked hours"
+		"title": "Clocked hours",
+		"desc": "Here you see see all of your clocked hours"
 	},
 
 	"intro": {
