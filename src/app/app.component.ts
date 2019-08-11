@@ -121,7 +121,7 @@ export class AppComponent implements OnInit {
 				this.menu$.subscribe(({ isVisible }) => this.isMenuOpen = isVisible),
 				this.header$.subscribe(({ showHeader }) => this.isHeaderVisible = showHeader),
 				this.intro$.subscribe(({ isDone }) => {
-					if (isDone && !this.location.path) {
+					if (isDone && !this.location.path()) {
 						this.router.navigate(["/home"], { replaceUrl: true });
 					}
 				}),

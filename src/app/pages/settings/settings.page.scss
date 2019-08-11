@@ -72,6 +72,10 @@ app-settings {
 				width: 30%;
 				border-bottom: 3px dotted rgba(73, 172, 77, 0.4);
 				height: 30px;
+
+				input {
+					padding: 0 !important;
+				}
 			}
 
 			ion-label {
