@@ -64,7 +64,11 @@
 		"clockoutReminderTitle": "Lembrete de saída",
 		"hourPool": "Horas justificáveis",
 		"updatePoolSuccess": "Horas justicáveis atualizadas",
-		"poolHoursLeft": "restam {{ hours }}"
+		"poolHoursLeft": "restam {{ hours }}",
+		"lunchType": "Controlo de hora de almoço",
+		"auto": "Automático",
+		"manual": "Manual",
+		"lunchTypeSuccess": "Lunch type updated"
 	},
 
 	"modal": {

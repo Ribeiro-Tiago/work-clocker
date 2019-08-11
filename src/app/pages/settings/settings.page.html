@@ -26,6 +26,17 @@
 	</div>
 
 	<div class="list-item">
+		<ion-label>{{ "settings.lunchType" | translate }}</ion-label>
+		<ion-select [value]="selectedLunchType" interface="action-sheet"
+			selectedText="{{ selectedLunchType.label | translate }}"
+			(ionChange)="onWorkTypeChange($event.target.value)">
+			<ion-select-option *ngFor="let type of lunchTypes" [value]="type">
+				{{ type.label | translate }}
+			</ion-select-option>
+		</ion-select>
+	</div>
+
+	<div *ngIf="selectedLunchType.value === 'auto'" class="list-item">
 		<ion-label>{{ "settings.lunchDuration" | translate }}</ion-label>
 		<ion-select [value]="selectedLunchDuration" interface="action-sheet"
 			selectedText="{{ 'misc.minutes' | translate: { time: selectedLunchDuration } }}"

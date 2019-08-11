@@ -1,9 +1,10 @@
-import { ConfigOption, NotifOption } from 'src/app/types/Misc';
+import { ConfigOption, NotifOption, GenericOption } from 'src/app/types/Misc';
 
 export interface Setting {
     selectedDateFormat: ConfigOption;
     selectedLanguage: ConfigOption;
     selectedLunchDuration: number;
+    selectedLunchType: GenericOption;
     selectedWorkDuration: number;
     clockinNotif: NotifOption;
     clockoutNotif: NotifOption;

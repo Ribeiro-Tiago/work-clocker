@@ -196,6 +196,7 @@ export class AppComponent implements OnInit {
 					selectedLanguage,
 					selectedLunchDuration,
 					selectedWorkDuration,
+					selectedLunchType,
 					clockinNotif,
 					clockoutNotif
 				} = settings;
@@ -205,6 +206,7 @@ export class AppComponent implements OnInit {
 					selectedLanguage,
 					selectedLunchDuration,
 					selectedWorkDuration,
+					selectedLunchType,
 					clockinNotif,
 					clockoutNotif
 				}));

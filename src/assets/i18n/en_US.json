@@ -64,7 +64,11 @@
 		"clockoutReminderTitle": "Clock out reminder",
 		"hourPool": "Justifiable hours",
 		"updatePoolSuccess": "Hour pool updated",
-		"poolHoursLeft": "{{ hours }} left"
+		"poolHoursLeft": "{{ hours }} left",
+		"lunchType": "Lunch hour control type",
+		"auto": "Automatic",
+		"manual": "Manual",
+		"lunchTypeSuccess": "Lunch type updated"
 	},
 
 	"modal": {

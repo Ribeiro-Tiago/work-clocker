@@ -16,6 +16,10 @@ export default {
         90,
         120,
     ],
+    lunchTypes: [
+        { label: "settings.auto", value: "auto" },
+        { label: "settings.manual", value: "manual" },
+    ],
     workDuration: [
         4,
         5,

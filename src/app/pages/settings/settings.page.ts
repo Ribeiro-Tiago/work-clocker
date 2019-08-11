@@ -42,6 +42,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 
 	dateFormats: ConfigOption[];
 	langs: ConfigOption[];
+	lunchTypes: GenericOption[];
 	legalities: LegalOption[];
 	lunchDuration: number[];
 	workDuration: number[];
@@ -49,6 +50,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 	selectedDateFormat: ConfigOption;
 	selectedLanguage: ConfigOption;
 	selectedLunchDuration: number;
+	selectedLunchType: GenericOption;
 	selectedWorkDuration: number;
 	clockinNotif: NotifOption;
 	clockoutNotif: NotifOption;
@@ -89,9 +91,11 @@ export class SettingsPage implements OnInit, OnDestroy {
 		this.lunchDuration = configs.lunchDuration;
 		this.workDuration = configs.workDuration;
 		this.legalities = configs.legalities;
+		this.lunchTypes = configs.lunchTypes;
 		this.isModalVisible = false;
 
 		this.displayFormat = this.dateFormats[0].hour;
+		this.selectedLunchType = this.lunchTypes[0];
 
 		this.today = new Date();
 
@@ -119,6 +123,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 					this.selectedLanguage = result.selectedLanguage;
 					this.selectedLunchDuration = result.selectedLunchDuration;
 					this.selectedWorkDuration = result.selectedWorkDuration;
+					this.selectedLunchType = result.selectedLunchType;
 					this.clockinNotif = result.clockinNotif;
 					this.clockoutNotif = result.clockoutNotif;
 
@@ -181,6 +186,18 @@ export class SettingsPage implements OnInit, OnDestroy {
 		this.selectedLunchDuration = minute;
 
 		this.events.publish("showToast", "settings.lunchDurationSuccess");
+
+		this.updateSettings();
+	}
+
+	onWorkTypeChange(type: GenericOption): void {
+		if (this.isResetting) {
+			return;
+		}
+
+		this.selectedLunchType = type;
+
+		this.events.publish("showToast", "settings.lunchTypeSuccess");
 
 		this.updateSettings();
 	}
@@ -340,6 +357,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 			selectedLanguage: this.selectedLanguage,
 			selectedLunchDuration: this.selectedLunchDuration,
 			selectedWorkDuration: this.selectedWorkDuration,
+			selectedLunchType: this.selectedLunchType,
 			clockinNotif: this.clockinNotif,
 			clockoutNotif: this.clockoutNotif
 		};
