@@ -132,5 +132,11 @@
 		"useNone": "Use none",
 		"yes": "Yes",
 		"no": "No"
+	},
+
+	"menu": {
+		"clockedHours": "Horas feitas",
+		"spentHours": "Horas gastas",
+		"settings": "Configurações"
 	}
 }
