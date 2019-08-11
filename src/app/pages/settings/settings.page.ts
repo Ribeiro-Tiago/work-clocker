@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { Events } from '@ionic/angular';
-import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native/local-notifications/ngx';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -380,17 +380,17 @@ export class SettingsPage implements OnInit, OnDestroy {
 
 		this.localNotif.schedule({
 			id: 1,
-			autoClear: true,
 			text: texts[0],
+			title: texts[1],
+			number: 1,
+			foreground: true,
 			vibrate: true,
 			wakeup: true,
-			title: texts[1],
-			icon: "src/assets/icon/favicon.png",
-			channel: "reminder",
-			number: 1,
-			launch: true,
 			led: true,
+			smallIcon: 'res://icon',
+			icon: 'res://icon',
 			trigger: {
+				count: 1,
 				every: {
 					hour: time.getHours(), minute: time.getMinutes()
 				}
@@ -410,19 +410,20 @@ export class SettingsPage implements OnInit, OnDestroy {
 
 		this.localNotif.schedule({
 			id: 2,
-			autoClear: true,
 			text: texts[0],
+			title: texts[1],
+			number: 2,
+			foreground: true,
 			vibrate: true,
 			wakeup: true,
-			title: texts[1],
-			icon: "src/assets/icon/favicon.png",
-			channel: "reminder",
-			number: 1,
-			launch: true,
 			led: true,
+			smallIcon: 'res://icon',
+			icon: 'res://icon',
 			trigger: {
-				at: time,
-				every: ELocalNotificationTriggerUnit.DAY
+				count: 1,
+				every: {
+					hour: time.getHours(), minute: time.getMinutes()
+				}
 			}
 		});
 	}

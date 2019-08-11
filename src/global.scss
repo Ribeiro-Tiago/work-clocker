@@ -88,12 +88,16 @@ p {
 			}
 
 			ion-button {
-				background: $primaryColor;
+				background-color: $primaryColor;
 				color: $whiteTextColor;
 				font-size: 2vh;
 				border-radius: 1vh;
 				overflow: hidden;
 				border: 1px solid #49AC4D;
+
+				button {
+					background-color: transparent;
+				}
 			}
 		}
 	}

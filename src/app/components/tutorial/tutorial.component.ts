@@ -28,6 +28,10 @@ export class TutorialComponent implements OnInit, OnDestroy {
 
 	constructor(private store: Store<AppState>, private storage: StorageService) {
 		this.tut$ = store.select("tutorial");
+
+		this.tutText = `tutorial.intro`;
+		this.title = `tutorial.introTitle`;
+		this.position = "on-intro";
 	}
 
 	ngOnInit(): void {
