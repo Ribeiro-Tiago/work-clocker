@@ -136,10 +136,15 @@
 	<!-- about -->
 	<h3 class="list-header">{{ "settings.about" | translate }}</h3>
 
-	<div class="list-item expand" *ngFor="let item of legalities" (click)="openLink(item.link)"
+	<div class="list-item expand" *ngFor="let item of legalities" (click)="openLink(item.name)"
 		[ngClass]="{'clickable': item.link}">
 		<ion-label>{{ item.labelId | translate }}</ion-label>
-		<ion-icon *ngIf="item.link" name="arrow-forward" mode="ios"></ion-icon>
-		<ion-label *ngIf="item.version">{{ item.version }}</ion-label>
+		<ion-icon name="arrow-forward" mode="ios"></ion-icon>
 	</div>
+
+	<div class="list-item expand">
+		<ion-label>{{ "settings.version" | translate }}</ion-label>
+		<ion-label>{{ version }}</ion-label>
+	</div>
+
 </ion-content>

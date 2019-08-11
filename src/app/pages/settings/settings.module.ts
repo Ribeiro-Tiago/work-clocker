@@ -6,6 +6,7 @@ import { SettingsPage } from './settings.page';
 import { ResetModalComponent } from 'src/app/components/reset-modal/reset-modal.component';
 
 import { SharedModule } from 'src/app/shared.module';
+import { AppVersion } from '@ionic-native/app-version/ngx';
 
 @NgModule({
 	imports: [
@@ -16,5 +17,6 @@ import { SharedModule } from 'src/app/shared.module';
 		}])
 	],
 	declarations: [SettingsPage, ResetModalComponent],
+	providers: [AppVersion]
 })
 export class SettingsPageModule { }

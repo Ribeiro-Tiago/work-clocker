@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { Events } from '@ionic/angular';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { AppVersion } from '@ionic-native/app-version/ngx';
 
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -61,6 +62,8 @@ export class SettingsPage implements OnInit, OnDestroy {
 
 	today: Date;
 
+	version: string;
+
 	hourPool: HourPool;
 	poolTypes: GenericOption[];
 	initPoolToggle: boolean;
@@ -71,7 +74,8 @@ export class SettingsPage implements OnInit, OnDestroy {
 		private store: Store<AppState>,
 		private location: Location,
 		private events: Events,
-		private localNotif: LocalNotifications
+		private localNotif: LocalNotifications,
+		private appVersion: AppVersion
 	) {
 		this.dateFormats = configs.dateFormats;
 		this.langs = configs.langs;
@@ -94,6 +98,8 @@ export class SettingsPage implements OnInit, OnDestroy {
 		this.hourPool = { hasPool: false };
 
 		this.poolTypes = poolConfigs;
+
+		this.appVersion.getVersionNumber().then((version) => this.version = version);
 
 		this.initInputs();
 	}
@@ -260,10 +266,8 @@ export class SettingsPage implements OnInit, OnDestroy {
 		this.updateSettings();
 	}
 
-	openLink(url: string) {
-		if (url) {
-			window.open(url, "_system");
-		}
+	openLink(name: string): void {
+		window.location.href = `assets/docs/${name}.pdf`;
 	}
 
 	resetSettings(): void {
@@ -374,8 +378,6 @@ export class SettingsPage implements OnInit, OnDestroy {
 			this.getText("settings.clockinReminderTitle")
 		]);
 
-		console.log("added in notif");
-
 		await this.cancelNotif(1);
 
 		this.localNotif.schedule({
@@ -403,8 +405,6 @@ export class SettingsPage implements OnInit, OnDestroy {
 			this.getText("settings.clockoutReminderText"),
 			this.getText("settings.clockoutReminderTitle")
 		]);
-
-		console.log("added out notif");
 
 		await this.cancelNotif(2);
 

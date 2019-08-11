@@ -25,10 +25,8 @@ export default {
         12
     ],
     legalities: [
-        { labelId: "settings.privacyPolicy", link: "https://www.google.pt" },
-        { labelId: "settings.userAgreement", link: "https://www.google.pt" },
-        { labelId: "settings.adPolicy", link: "https://www.google.pt" },
-        { labelId: "settings.version", version: "1.0.0" },
+        { labelId: "settings.privacyPolicy", name: "pp" },
+        { labelId: "settings.userAgreement", name: "eula" }
     ],
     clockNotif: { enabled: false, time: new Date().toISOString() }
 };
