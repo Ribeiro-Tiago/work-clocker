@@ -1,6 +1,6 @@
 <ion-content>
-	<app-update-lunch-modal class="modal" (onCancel)="toggleLunchUpdate();" (onSubmit)="updateLunchTime($event);"
-		[currDuration]="lunchDuration" [ngClass]="{'is-visible': isModalVisible}" [index]="selectedItemIndex">
+	<app-update-lunch-modal class="modal" (onCancel)="toggleLunchUpdate();" (onSubmit)="toggleLunchUpdate();"
+		[ngClass]="{'is-visible': isModalVisible}" [index]="selectedItemIndex">
 	</app-update-lunch-modal>
 
 	<app-owed-extra-hours></app-owed-extra-hours>

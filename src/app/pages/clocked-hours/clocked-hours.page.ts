@@ -7,7 +7,6 @@ import { Tutorial, TutorialStage } from 'src/app/state/tutorial/tutorial.model';
 import { AppState } from 'src/app/State';
 import { ClockedHour, ClockedHourItem } from 'src/app/state/clockedHours/clockedHours.model';
 import { StorageService } from 'src/app/services/storage/storage.service';
-import { UpdateHours as UpdateHoursAction } from "src/app/state/clockedHours/clockedHours.actions";
 import { Setting } from 'src/app/state/settings/settings.model';
 
 @Component({
@@ -80,27 +79,4 @@ export class ClockedHoursPage implements OnInit, OnDestroy {
 			this.isModalVisible = !this.isModalVisible;
 		}
 	}
-
-	updateLunchTime(duration: number): void {
-		if (this.clockedHours[0].lunchDuration === duration) {
-			this.toggleLunchUpdate();
-			return;
-		}
-
-		this.clockedHours[0].lunchDuration = duration;
-
-		this.toggleLunchUpdate();
-
-		this.events.publish("showToast", "listItem.lunchHourUpdated");
-
-		this.store.dispatch(new UpdateHoursAction({
-			hours: this.clockedHours,
-			isActive: this.isActiveClock
-		}));
-
-		this.storage.set("clockedHours", this.clockedHours)
-			.then(() => console.log("updated lunch hour"))
-			.catch((err) => console.log("err updating hour: ", err));
-	}
-
 }

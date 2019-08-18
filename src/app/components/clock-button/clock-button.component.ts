@@ -34,7 +34,7 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 
 	private lunchDuration: number;
 	private workDuration: number;
-	private clockedHours: ClockedHourItem[];
+	private clockedHours: ClockedHour;
 	private extraHours: ExtraHour;
 	private owedHours: OwedHour;
 
@@ -106,16 +106,16 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 				this.isTutActive = isVisible;
 				this.isCurrTutStage = currStage === 1;
 			}),
-			this.clockedHours$.subscribe(({ hours }) => {
-				if (hours[0] && hours[0].isActive) {
-					this.currHour = hours[0];
+			this.clockedHours$.subscribe((clockedHours) => {
+				if (clockedHours.hours[0] && clockedHours.isActive) {
+					this.currHour = clockedHours.hours[0];
 					this.setupTimer();
 				} else {
 					this.clearTimer();
 					this.currHour = null;
 				}
 
-				this.clockedHours = hours;
+				this.clockedHours = clockedHours;
 			}),
 			this.hourpool$.subscribe(({ hoursLeft, hasPool }) => {
 				this.poolHoursLeft = hoursLeft;
@@ -134,13 +134,12 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 		const item: ClockedHourItem = {
 			day: d,
 			startHour: d,
-			isActive: true,
 			lunchDuration: this.lunchDuration
 		};
 
 		this.store.dispatch(new clockedActions.AddHour(item));
 
-		this.storage.update("clockedHours", item)
+		this.storage.update("clockedHours", this.clockedHours)
 			.then(() => console.log("added hour"))
 			.catch((err) => console.log("err adding hour: ", err));
 
@@ -148,7 +147,7 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 	}
 
 	clockOut(): void {
-		const currItem = this.clockedHours[0];
+		const currItem = this.clockedHours.hours[0];
 		const d = Date.now();
 		const lunchSecs = (currItem.lunchDuration * 60000);
 		let timeWorkedSecs = (d - currItem.startHour);
@@ -164,7 +163,6 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 
 		currItem.endHour = d;
 		currItem.timeWorked = minutesWorked;
-		currItem.isActive = false;
 
 		if (timeWorkedDiff > 0) {
 			this.calcExtraHours(timeWorkedDiff * 60);
@@ -175,7 +173,7 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 			this.closeModal();
 		}
 
-		this.store.dispatch(new clockedActions.UpdateHours({ hours: this.clockedHours, isActive: false }));
+		this.store.dispatch(new clockedActions.UpdateHours({ hours: this.clockedHours.hours, isActive: false }));
 
 		this.storage.set("clockedHours", this.clockedHours)
 			.then(() => console.log("updated hour"))

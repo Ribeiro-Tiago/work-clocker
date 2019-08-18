@@ -32,7 +32,7 @@ import { Setting } from './state/settings/settings.model';
 import { SpentHour } from './state/spentHours/spentHours.model';
 import { OwedHour } from './state/owedHours/owedHours.model';
 import { ExtraHour } from './state/extraHours/extraHours.model';
-import { ClockedHourItem } from './state/clockedHours/clockedHours.model';
+import { ClockedHour } from './state/clockedHours/clockedHours.model';
 import { Menu } from './State/menu/menu.model';
 import { Header } from './State/header/header.model';
 import { Intro } from './State/intro/intro.model';
@@ -173,7 +173,7 @@ export class AppComponent implements OnInit {
 			const owedHours: OwedHour = results[1];
 			const spentHours: SpentHour[] = results[2];
 			const settings: Setting = results[3];
-			const clockedHours: ClockedHourItem[] = results[4];
+			const clockedHours: ClockedHour = results[4];
 			const tutorial: Tutorial = results[5];
 			const intro: Intro = results[6];
 			const poolHour: PoolHour = results[7];
@@ -213,10 +213,7 @@ export class AppComponent implements OnInit {
 			}
 
 			if (clockedHours) {
-				this.store.dispatch(new SetClockedHours({
-					hours: clockedHours,
-					isActive: clockedHours[0].isActive
-				}));
+				this.store.dispatch(new SetClockedHours(clockedHours));
 			}
 
 			if (tutorial) {
