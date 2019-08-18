@@ -167,7 +167,7 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 		if (timeWorkedDiff > 0) {
 			this.calcExtraHours(timeWorkedDiff * 60);
 		} else if (timeWorkedDiff < 0) {
-			this.owedTimeWorked = Math.abs(timeWorkedDiff);
+			this.owedTimeWorked = Math.abs(timeWorkedDiff * 60);
 			this.handlePoolModal(this.owedTimeWorked);
 		} else {
 			this.closeModal();
