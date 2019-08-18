@@ -68,7 +68,13 @@
 		"lunchType": "Controlo de hora de almoço",
 		"auto": "Automático",
 		"manual": "Manual",
-		"lunchTypeSuccess": "Lunch type updated"
+		"lunchTypeSuccess": "Controlo de hora de almoço atualizado",
+		"lunchClockOutNotif": "Lembrete de ir almoçar",
+		"lunchClockInNotif": "Lembrete de voltar ao trabalho",
+		"lunchInReminderText": "Está na hora de voltar ao trabalho",
+		"lunchInReminderTitle": "Lembrete de voltar ao trabalho",
+		"lunchOutReminderText": "É hora de almoço!",
+		"lunchOutReminderTitle": "Lembrete de ir almoçar"
 	},
 
 	"modal": {

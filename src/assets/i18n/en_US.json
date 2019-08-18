@@ -68,7 +68,13 @@
 		"lunchType": "Lunch hour control type",
 		"auto": "Automatic",
 		"manual": "Manual",
-		"lunchTypeSuccess": "Lunch type updated"
+		"lunchTypeSuccess": "Lunch type updated",
+		"lunchClockOutNotif": "Out for lunch reminder",
+		"lunchClockInNotif": "Back to work reminder",
+		"lunchInReminderText": "It's time to get back to work",
+		"lunchInReminderTitle": "Back to work reminder",
+		"lunchOutReminderText": "It's lunchtime!",
+		"lunchOutReminderTitle": "Out for lunch reminder"
 	},
 
 	"modal": {

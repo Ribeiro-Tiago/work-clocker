@@ -198,7 +198,9 @@ export class AppComponent implements OnInit {
 					selectedWorkDuration,
 					selectedLunchType,
 					clockinNotif,
-					clockoutNotif
+					clockoutNotif,
+					clockinLunchNotif,
+					clockoutLunchNotif
 				} = settings;
 
 				this.store.dispatch(new UpdateSettings({
@@ -208,7 +210,9 @@ export class AppComponent implements OnInit {
 					selectedWorkDuration,
 					selectedLunchType,
 					clockinNotif,
-					clockoutNotif
+					clockoutNotif,
+					clockinLunchNotif,
+					clockoutLunchNotif
 				}));
 			}
 

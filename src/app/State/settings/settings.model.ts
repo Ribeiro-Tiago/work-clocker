@@ -8,6 +8,8 @@ export interface Setting {
     selectedWorkDuration: number;
     clockinNotif: NotifOption;
     clockoutNotif: NotifOption;
+    clockoutLunchNotif: NotifOption;
+    clockinLunchNotif: NotifOption;
 }
 
 export interface Action {

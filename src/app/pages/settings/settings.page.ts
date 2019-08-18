@@ -54,9 +54,13 @@ export class SettingsPage implements OnInit, OnDestroy {
 	selectedWorkDuration: number;
 	clockinNotif: NotifOption;
 	clockoutNotif: NotifOption;
+	clockinLunchNotif: NotifOption;
+	clockoutLunchNotif: NotifOption;
 
 	initClockInChecked: boolean;
 	initClockOutChecked: boolean;
+	initLunchClockOutChecked: boolean;
+	initLunchClockInChecked: boolean;
 
 	isModalVisible: boolean;
 
@@ -126,10 +130,23 @@ export class SettingsPage implements OnInit, OnDestroy {
 					this.selectedLunchType = result.selectedLunchType;
 					this.clockinNotif = result.clockinNotif;
 					this.clockoutNotif = result.clockoutNotif;
+					this.clockinLunchNotif = result.clockinLunchNotif;
+					this.clockoutLunchNotif = result.clockoutLunchNotif;
 
-					if (this.initClockInChecked === undefined) {
+					if (this.initClockInChecked === undefined && result.clockoutLunchNotif) {
 						this.initClockInChecked = result.clockinNotif.enabled;
+					}
+
+					if (this.initClockOutChecked === undefined && result.clockoutLunchNotif) {
 						this.initClockOutChecked = result.clockoutNotif.enabled;
+					}
+
+					if (this.initLunchClockOutChecked === undefined && result.clockoutLunchNotif) {
+						this.initLunchClockOutChecked = result.clockoutLunchNotif.enabled;
+					}
+
+					if (this.initLunchClockInChecked === undefined && result.clockinLunchNotif) {
+						this.initLunchClockInChecked = result.clockinLunchNotif.enabled;
 					}
 
 					if (result.selectedDateFormat.hour) {
@@ -223,14 +240,14 @@ export class SettingsPage implements OnInit, OnDestroy {
 
 		if (enabled) {
 			this.events.publish("showToast", "settings.clockinNotifDisable");
-			await this.cancelNotif(1);
+			await this.cancelNotif(configs.notifs.ids.clockIn);
 		} else {
 			this.events.publish("showToast", "settings.clockinNotifEnable");
 
 			const d = new Date(time);
 			d.setMinutes(d.getMinutes() - 1);
 
-			this.addClockinNotif(d);
+			this.addNotif(configs.notifs.ids.clockIn, d, "clockin");
 		}
 
 		this.clockinNotif.enabled = !enabled;
@@ -245,7 +262,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 
 		this.clockinNotif.time = time;
 
-		this.addClockinNotif(new Date(time));
+		this.addNotif(configs.notifs.ids.clockIn, new Date(time), "clockin");
 
 		this.events.publish("showToast", "settings.remniderTimerUpdate");
 
@@ -261,14 +278,14 @@ export class SettingsPage implements OnInit, OnDestroy {
 
 		if (enabled) {
 			this.events.publish("showToast", "settings.clockoutNotifDisable");
-			await this.cancelNotif(2);
+			await this.cancelNotif(configs.notifs.ids.clockOut);
 		} else {
 			this.events.publish("showToast", "settings.clockoutNotifEnable");
 
 			const d = new Date(time);
 			d.setMinutes(d.getMinutes() - 1);
 
-			this.addClockoutNotif(d);
+			this.addNotif(configs.notifs.ids.clockOut, d, "clockout");
 		}
 
 		this.clockoutNotif.enabled = !enabled;
@@ -283,7 +300,83 @@ export class SettingsPage implements OnInit, OnDestroy {
 
 		this.clockoutNotif.time = time;
 
-		this.addClockoutNotif(new Date(time));
+		this.addNotif(configs.notifs.ids.clockOut, new Date(time), "clockout");
+
+		this.events.publish("showToast", "settings.remniderTimerUpdate");
+
+		this.updateSettings();
+	}
+
+	async toggleLunchInNotif(): Promise<void> {
+		if (this.isResetting) {
+			return;
+		}
+
+		const { enabled, time } = this.clockinLunchNotif;
+
+		if (enabled) {
+			this.events.publish("showToast", "settings.clockinLunchNotifDisable");
+			await this.cancelNotif(configs.notifs.ids.lunchIn);
+		} else {
+			this.events.publish("showToast", "settings.clockinLunchNotifEnable");
+
+			const d = new Date(time);
+			d.setMinutes(d.getMinutes() - 1);
+
+			this.addNotif(configs.notifs.ids.clockOut, d, "clockout");
+		}
+
+		this.clockinLunchNotif.enabled = !enabled;
+
+		this.updateSettings();
+	}
+
+	onLunchInNotifTimerChange(time: string): void {
+		if (this.isResetting) {
+			return;
+		}
+
+		this.clockinLunchNotif.time = time;
+
+		this.addNotif(configs.notifs.ids.lunchIn, new Date(time), "lunchIn");
+
+		this.events.publish("showToast", "settings.remniderTimerUpdate");
+
+		this.updateSettings();
+	}
+
+	async toggleLunchOutNotif(): Promise<void> {
+		if (this.isResetting) {
+			return;
+		}
+
+		const { enabled, time } = this.clockoutLunchNotif;
+
+		if (enabled) {
+			this.events.publish("showToast", "settings.clockoutLunchNotifDisable");
+			await this.cancelNotif(configs.notifs.ids.lunchOut);
+		} else {
+			this.events.publish("showToast", "settings.clockoutLunchNotifEnable");
+
+			const d = new Date(time);
+			d.setMinutes(d.getMinutes() - 1);
+
+			this.addNotif(configs.notifs.ids.lunchIn, d, "lunchIn");
+		}
+
+		this.clockoutLunchNotif.enabled = !enabled;
+
+		this.updateSettings();
+	}
+
+	onLunchOutNotifTimerChange(time: string): void {
+		if (this.isResetting) {
+			return;
+		}
+
+		this.clockoutLunchNotif.time = time;
+
+		this.addNotif(configs.notifs.ids.lunchOut, new Date(time), "lunchOut");
 
 		this.events.publish("showToast", "settings.remniderTimerUpdate");
 
@@ -359,7 +452,9 @@ export class SettingsPage implements OnInit, OnDestroy {
 			selectedWorkDuration: this.selectedWorkDuration,
 			selectedLunchType: this.selectedLunchType,
 			clockinNotif: this.clockinNotif,
-			clockoutNotif: this.clockoutNotif
+			clockoutNotif: this.clockoutNotif,
+			clockinLunchNotif: this.clockinLunchNotif,
+			clockoutLunchNotif: this.clockoutLunchNotif
 		};
 
 		this.store.dispatch(new UpdateSettings(newState));
@@ -374,8 +469,8 @@ export class SettingsPage implements OnInit, OnDestroy {
 		this.selectedLanguage = this.langs[0];
 		this.selectedLunchDuration = 60;
 		this.selectedWorkDuration = 8;
-		this.clockinNotif = { ...configs.clockNotif };
-		this.clockoutNotif = { ...configs.clockNotif };
+		this.clockinNotif = { ...configs.notifs.defaultTime };
+		this.clockoutNotif = { ...configs.notifs.defaultTime };
 	}
 
 	private async resetApp(): Promise<void> {
@@ -390,8 +485,8 @@ export class SettingsPage implements OnInit, OnDestroy {
 		this.store.dispatch(new ResetClockedHours());
 		this.store.dispatch(new ResetPool());
 
-		this.cancelNotif(1);
-		this.cancelNotif(2);
+		this.cancelNotif(configs.notifs.ids.clockIn);
+		this.cancelNotif(configs.notifs.ids.clockOut);
 
 		this.initClockInChecked = false;
 		this.initClockOutChecked = false;
@@ -414,47 +509,18 @@ export class SettingsPage implements OnInit, OnDestroy {
 		]);
 	}
 
-	private async addClockinNotif(time: Date): Promise<void> {
+	private async addNotif(id: number, time: Date, text: string): Promise<void> {
 		const texts = await Promise.all([
-			this.getText("settings.clockinReminderText"),
-			this.getText("settings.clockinReminderTitle")
+			this.getText(`settings.${text}ReminderText`),
+			this.getText(`settings.${text}ReminderTitle`)
 		]);
 
-		await this.cancelNotif(1);
+		await this.cancelNotif(id);
 
 		this.localNotif.schedule({
-			id: 1,
+			id,
 			text: texts[0],
 			title: texts[1],
-			number: 1,
-			foreground: true,
-			vibrate: true,
-			wakeup: true,
-			led: true,
-			smallIcon: 'res://icon',
-			icon: 'res://icon',
-			trigger: {
-				count: 1,
-				every: {
-					hour: time.getHours(), minute: time.getMinutes()
-				}
-			}
-		});
-	}
-
-	private async addClockoutNotif(time: Date): Promise<void> {
-		const texts = Promise.all([
-			this.getText("settings.clockoutReminderText"),
-			this.getText("settings.clockoutReminderTitle")
-		]);
-
-		await this.cancelNotif(2);
-
-		this.localNotif.schedule({
-			id: 2,
-			text: texts[0],
-			title: texts[1],
-			number: 2,
 			foreground: true,
 			vibrate: true,
 			wakeup: true,

@@ -9,8 +9,10 @@ const initState: Setting = {
     selectedLunchType: configs.lunchTypes[0],
     selectedLunchDuration: 60,
     selectedWorkDuration: 8,
-    clockinNotif: { ...configs.clockNotif },
-    clockoutNotif: { ...configs.clockNotif }
+    clockinNotif: { ...configs.notifs.defaultTime },
+    clockoutNotif: { ...configs.notifs.defaultTime },
+    clockinLunchNotif: { ...configs.notifs.defaultTime },
+    clockoutLunchNotif: { ...configs.notifs.defaultTime }
 };
 
 export function settingsReducer(state: Setting = initState, action: Action) {
