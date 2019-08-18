@@ -157,6 +157,7 @@ p {
 	text-align: center;
 	color: $darkTextColor;
 	box-shadow: 0 1px #888;
+	border-bottom: .1vh solid #000;
 }
 
 .main-wrapper {
@@ -220,6 +221,10 @@ p {
 
 .action-sheet-group:last-child {
 	display: none !important;
+}
+
+.list-md {
+	padding-top: 0;
 }
 
 @keyframes showBackdrop {
