@@ -390,6 +390,12 @@ export class SettingsPage implements OnInit, OnDestroy {
 		this.store.dispatch(new ResetClockedHours());
 		this.store.dispatch(new ResetPool());
 
+		this.cancelNotif(1);
+		this.cancelNotif(2);
+
+		this.initClockInChecked = false;
+		this.initClockOutChecked = false;
+
 		this.storage.clearExcept(["settings", "tutorial", "intro", "poolHour"])
 			.then(() => console.log("settings cleared"))
 			.catch(console.error);
