@@ -32,5 +32,13 @@ export default {
         { labelId: "settings.privacyPolicy", name: "pp" },
         { labelId: "settings.userAgreement", name: "eula" }
     ],
-    clockNotif: { enabled: false, time: new Date().toISOString() }
+    notifs: {
+        defaultTime: { enabled: false, time: new Date().toISOString() },
+        ids: {
+            clockIn: 1,
+            clockOut: 2,
+            lunchIn: 3,
+            lunchOut: 4
+        }
+    }
 };
