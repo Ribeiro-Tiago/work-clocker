@@ -46,7 +46,6 @@ export class ClockedHoursPage implements OnInit, OnDestroy {
 		this.tutItem = {
 			day: 1560893131236,
 			startHour: 1560893131236,
-			isActive: false,
 			lunchDuration: 60,
 			endHour: 1560921931236,
 			timeWorked: 480
