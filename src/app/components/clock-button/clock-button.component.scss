@@ -64,6 +64,24 @@ app-clock-button {
 			font-size: 4vh;
 			transform: scale(1);
 			color: $darkTextColor;
+
+			&.frozen {
+				animation: fade 2s infinite;
+			}
 		}
+	}
+}
+
+@keyframes fade {
+	0% {
+		opacity: 1;
+	}
+
+	50% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
 	}
 }

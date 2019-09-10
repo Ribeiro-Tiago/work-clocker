@@ -48,7 +48,9 @@ export class ClockedHoursPage implements OnInit, OnDestroy {
 			startHour: 1560893131236,
 			lunchDuration: 60,
 			endHour: 1560921931236,
-			timeWorked: 480
+			timeWorked: 480,
+			isLunchAuto: true,
+			status: 1
 		};
 	}
 

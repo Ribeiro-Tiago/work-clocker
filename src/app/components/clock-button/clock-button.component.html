@@ -8,20 +8,28 @@
 		<h2 [innerHTML]="'home.startAt' | translate | formatTime: currHour.startHour | sanitize">
 		</h2>
 
-		<div class="btn" (click)="clockOut()">
-			<h3>{{ "home.clockout" | translate }}</h3>
+		<div class="btn" (click)="buttonClick()">
+			<h3>{{ buttonText | translate }}</h3>
 
-			<p>{{ timer }}</p>
+			<p [ngClass]="{'frozen': currHour.status === 2}">{{ timer }}</p>
 		</div>
 
 		<div class="clockout-wrapper">
-			<h2 (click)="triggerLunchClick()"
-				[innerHTML]="'home.lunchDuration' | translate | convertTime: { destType: 'hours', payload: currHour.lunchDuration } | sanitize">
-			</h2>
+			<ng-container *ngIf="!isLunchAuto; else manualLunchTemplate">
+				<h2 (click)="triggerLunchClick()"
+					[innerHTML]="'home.lunchDuration' | translate | convertTime: { destType: 'hours', payload: currHour.lunchDuration } | sanitize">
+				</h2>
 
-			<h2
-				[innerHTML]="'home.exitETA' | translate | calcClockout: { clockIn: currHour.day, format: dateFormat, lunchTime: currHour.lunchDuration, workDuration: workDuration }">
-			</h2>
+				<h2
+					[innerHTML]="'home.exitETA' | translate | calcClockout: { clockIn: currHour.day, format: dateFormat, lunchTime: currHour.lunchDuration, workDuration: workDuration }">
+				</h2>
+			</ng-container>
+			<ng-template #manualLunchTemplate>
+				<!-- TODO: update innerhtml bit -->
+				<h2 *ngIf="currHour.status === 3"
+					[innerHTML]="'home.exitETA' | translate | calcClockout: { clockIn: currHour.day, format: dateFormat, lunchTime: currHour.lunchDuration, workDuration: workDuration }">
+				</h2>
+			</ng-template>
 		</div>
 	</ng-container>
 

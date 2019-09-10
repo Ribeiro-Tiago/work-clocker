@@ -61,6 +61,9 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 
 	poolModalConfs: OwedHourModalConf;
 
+	isLunchAuto: boolean;
+	buttonText: string;
+
 	constructor(
 		private events: Events,
 		private storage: StorageService,
@@ -95,10 +98,11 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		this.subs.push(
-			this.settings$.subscribe(({ selectedLunchDuration, selectedWorkDuration, selectedDateFormat }) => {
+			this.settings$.subscribe(({ selectedLunchDuration, selectedWorkDuration, selectedDateFormat, selectedLunchType }) => {
 				this.lunchDuration = selectedLunchDuration;
 				this.workDuration = selectedWorkDuration;
 				this.dateFormat = selectedDateFormat.key;
+				this.isLunchAuto = selectedLunchType.value !== "manual";
 			}),
 			this.extraHours$.subscribe(result => this.extraHours = result),
 			this.owedHours$.subscribe(result => this.owedHours = result),
@@ -107,12 +111,30 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 				this.isCurrTutStage = currStage === 1;
 			}),
 			this.clockedHours$.subscribe((clockedHours) => {
-				if (clockedHours.hours[0] && clockedHours.isActive) {
-					this.currHour = clockedHours.hours[0];
-					this.setupTimer();
+				const currHour = clockedHours.hours[0];
+
+				if (currHour && clockedHours.isActive) {
+					this.currHour = currHour;
+
+					if (currHour.status === 2) {
+						this.updateTimer();
+					} else {
+						this.setupTimer();
+					}
+
+					this.buttonText = "home.clockout";
+
+					if (this.isLunchAuto) {
+						if (currHour.status === 1) {
+							this.buttonText = "home.clockoutLunch";
+						} else if (currHour.status === 2) {
+							this.buttonText = "home.clockinLunch";
+						}
+					} else {
+						this.buttonText = "home.clockout";
+					}
 				} else {
 					this.clearTimer();
-					this.currHour = null;
 				}
 
 				this.clockedHours = clockedHours;
@@ -134,14 +156,15 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 		const item: ClockedHourItem = {
 			day: d,
 			startHour: d,
-			lunchDuration: this.lunchDuration
+			lunchDuration: this.lunchDuration,
+			status: 1,
+			isLunchAuto: this.isLunchAuto
 		};
 
 		this.store.dispatch(new clockedActions.AddHour(item));
 
-		this.storage.update("clockedHours", this.clockedHours)
-			.then(() => console.log("added hour"))
-			.catch((err) => console.log("err adding hour: ", err));
+
+		this.updateClockedHoursStorage();
 
 		this.showToast("home.clockedIn");
 	}
@@ -163,6 +186,7 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 
 		currItem.endHour = d;
 		currItem.timeWorked = minutesWorked;
+		currItem.status = 4;
 
 		if (timeWorkedDiff > 0) {
 			this.calcExtraHours(timeWorkedDiff * 60);
@@ -172,6 +196,8 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 		} else {
 			this.closeModal();
 		}
+
+		this.currHour = null;
 
 		this.store.dispatch(new clockedActions.UpdateHours({ hours: this.clockedHours.hours, isActive: false }));
 
@@ -210,6 +236,30 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 		}
 
 		this.closeModal();
+	}
+
+	buttonClick(): void {
+		switch (this.currHour.status) {
+			case 1: {
+				// goToLunch
+				this.store.dispatch(new clockedActions.ClockoutLunch());
+				this.updateClockedHoursStorage();
+				this.pauseTimer();
+				break;
+			}
+
+			case 2: {
+				// return lunch
+				this.store.dispatch(new clockedActions.ClockinLunch());
+				this.updateClockedHoursStorage();
+				this.resumeTimer();
+				break;
+			}
+
+			case 3: {
+				this.clockOut();
+			}
+		}
 	}
 
 	private handlePoolModal(owedHours: number): void {
@@ -353,20 +403,33 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 	private setupTimer(): void {
 		if (!this.timerInterval) {
 			this.updateTimer(); // makes sure the timer has a value before the first tick
-			this.timerInterval = interval(1000).subscribe(() => this.updateTimer());
+			this.resumeTimer();
 		}
+	}
+
+	private resumeTimer(): void {
+		this.timerInterval = interval(1000).subscribe(() => this.updateTimer());
+	}
+
+	private pauseTimer(): void {
+		clearInterval(this.timerInterval as any);
+		this.timerInterval.unsubscribe();
 	}
 
 	private clearTimer(): void {
 		if (this.timerInterval) {
-			this.timerInterval.unsubscribe();
-			this.timerInterval = null;
+			this.pauseTimer();
 			this.timer = "00:00:00";
 		}
 	}
 
 	private updateTimer(): void {
-		const time = Date.now() - this.currHour.startHour;
+		const { status, startHour, lunchInAt, lunchOutAt } = this.currHour;
+
+		const time = (status === 3)
+			? Date.now() - (startHour + (lunchInAt - lunchOutAt))
+			: Date.now() - startHour;
+
 		const leadZero = (val: number): string => `0${val}`.substr(-2);
 
 		const hours = leadZero(Math.floor((time / 3600000) % 24));
@@ -374,5 +437,11 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 		const seconds = leadZero(Math.floor((time / 1000) % 60));
 
 		this.timer = `${hours}:${minutes}:${seconds}`;
+	}
+
+	private updateClockedHoursStorage(): void {
+		this.storage.set("clockedHours", this.clockedHours)
+			.then(() => console.log("updated clock hours"))
+			.catch((err) => console.log("err adding hour: ", err));
 	}
 }
