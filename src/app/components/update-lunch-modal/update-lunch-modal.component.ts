@@ -43,7 +43,10 @@ export class UpdateLunchModalComponent implements OnInit {
 
 		this.sub = this.store.select("clockedHours").subscribe(result => {
 			this.clockedHours = result;
-			this.selectedDuration = result.hours[0].lunchDuration;
+
+			if (result.hours[0]) {
+				this.selectedDuration = result.hours[0].lunchDuration;
+			}
 		});
 	}
 
