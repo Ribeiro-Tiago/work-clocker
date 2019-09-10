@@ -29,7 +29,7 @@
 		<ion-label>{{ "settings.lunchType" | translate }}</ion-label>
 		<ion-select [value]="selectedLunchType.value" interface="action-sheet"
 			selectedText="{{ selectedLunchType.label | translate }}"
-			(ionChange)="onWorkTypeChange($event.target.value)">
+			(ionChange)="onLunchTypeChange($event.target.value)">
 			<ion-select-option *ngFor="let type of lunchTypes" [value]="type.value">
 				{{ type.label | translate }}
 			</ion-select-option>

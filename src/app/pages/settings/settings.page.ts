@@ -207,12 +207,12 @@ export class SettingsPage implements OnInit, OnDestroy {
 		this.updateSettings();
 	}
 
-	onWorkTypeChange(type: GenericOption): void {
-		if (this.isResetting) {
+	onLunchTypeChange(type: string): void {
+		if (this.isResetting || !type) {
 			return;
 		}
 
-		this.selectedLunchType = type;
+		this.selectedLunchType = this.lunchTypes.find(l => l.value === type);
 
 		this.events.publish("showToast", "settings.lunchTypeSuccess");
 
@@ -467,6 +467,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 	private initInputs(): void {
 		this.selectedDateFormat = this.dateFormats[0];
 		this.selectedLanguage = this.langs[0];
+		this.selectedLunchType = this.lunchTypes[0];
 		this.selectedLunchDuration = 60;
 		this.selectedWorkDuration = 8;
 		this.clockinNotif = { ...configs.notifs.defaultTime };
