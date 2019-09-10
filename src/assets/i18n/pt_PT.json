@@ -15,7 +15,9 @@
 		"clockin": "Picar o ponto",
 		"startAt": "Picaste o ponto às <b>{{time}}</b>",
 		"lunchDuration": "Se fizeres <u>{{duration}}</u> de almoço, ",
-		"exitETA": "deves sair às <b>{{time}}</b>"
+		"exitETA": "deves sair às <b>{{time}}</b>",
+		"clockoutLunch": "Ir almoçar",
+		"clockinLunch": "Voltar do almoço"
 	},
 
 	"listItem": {

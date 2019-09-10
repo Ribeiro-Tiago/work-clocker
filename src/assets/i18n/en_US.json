@@ -15,7 +15,9 @@
 		"clockin": "Clock in",
 		"startAt": "Clocked in at <b>{{time}}</b>",
 		"lunchDuration": "If you have a <u>{{duration}}</u> lunch, ",
-		"exitETA": "you should leave at <b>{{time}}</b>"
+		"exitETA": "you should leave at <b>{{time}}</b>",
+		"clockoutLunch": "Going for lunch",
+		"clockinLunch": "Back from lunch"
 	},
 
 	"listItem": {
