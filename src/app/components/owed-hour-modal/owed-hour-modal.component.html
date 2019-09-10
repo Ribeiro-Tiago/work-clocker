@@ -43,11 +43,12 @@
 			</div>
 
 			<div class="button-wrapper">
-				<ion-button rounded (click)="triggerButton(configs.isExtra ? 2 : 3 );">
-					{{ "hourPoolModal.yes" | translate }}</ion-button>
-
 				<ion-button color="light" rounded (click)="triggerButton(1);">
 					{{ "hourPoolModal.no" | translate }}
+				</ion-button>
+
+				<ion-button rounded (click)="triggerButton(configs.isExtra ? 2 : 3 );">
+					{{ "hourPoolModal.yes" | translate }}
 				</ion-button>
 			</div>
 		</ng-template>
