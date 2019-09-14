@@ -44,6 +44,8 @@ export class TimeService {
 	}
 
 	private addLeadZero(num: number): string {
-		return `0${num}`.substr(-2);
+		return (num < 10)
+			? `0${num}`
+			: `${num}`;
 	}
 }
