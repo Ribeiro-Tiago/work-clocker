@@ -20,12 +20,11 @@
 					[innerHTML]="'home.lunchDuration' | translate | convertTime: { destType: 'hours', payload: currHour.lunchDuration } | sanitize">
 				</h2>
 
-				<h2
+				<h2 *ngIf="currHour.status === 3"
 					[innerHTML]="'home.exitETA' | translate | calcClockout: { clockIn: currHour.day, format: dateFormat, lunchTime: currHour.lunchDuration, workDuration: workDuration }">
 				</h2>
 			</ng-container>
 			<ng-template #manualLunchTemplate>
-				<!-- TODO: update innerhtml bit -->
 				<h2 *ngIf="currHour.status === 3"
 					[innerHTML]="'home.exitETA' | translate | calcClockout: { clockIn: currHour.day, format: dateFormat, lunchTime: currHour.lunchDuration, workDuration: workDuration }">
 				</h2>

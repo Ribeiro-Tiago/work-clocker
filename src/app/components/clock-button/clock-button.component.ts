@@ -401,10 +401,8 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 	}
 
 	private setupTimer(): void {
-		if (!this.timerInterval) {
-			this.updateTimer(); // makes sure the timer has a value before the first tick
-			this.resumeTimer();
-		}
+		this.updateTimer(); // makes sure the timer has a value before the first tick
+		this.resumeTimer();
 	}
 
 	private resumeTimer(): void {
@@ -424,6 +422,10 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 	}
 
 	private updateTimer(): void {
+		if (!this.currHour) {
+			return;
+		}
+
 		const { status, startHour, lunchInAt, lunchOutAt } = this.currHour;
 
 		const time = (status === 3)
