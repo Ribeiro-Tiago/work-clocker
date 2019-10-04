@@ -131,7 +131,9 @@
 		"hoursToggle": "Eu tenho horas justificáveis",
 		"month": "Horas mensais",
 		"year": "Horas anuais",
-		"hoursText": "<p>Algumas pessoas têm x horas anuais / mensais justificáveis.</p><p>Estas horas permitem chegar mais tarde ou sair mais cedo sem penalidades</p><p>Se existirem, o Work Clocker usa estas horas para cálculo de horas trabalhadas a menos</p>"
+		"hoursText": "<p>Algumas pessoas têm x horas anuais / mensais justificáveis.</p><p>Estas horas permitem chegar mais tarde ou sair mais cedo sem penalidades</p><p>Se existirem, o Work Clocker usa estas horas para cálculo de horas trabalhadas a menos</p>",
+		"title_3": "Configurações da aplicaçao",
+		"appSettings": "Último passo antes de começar"
 	},
 
 	"hourPoolModal": {
