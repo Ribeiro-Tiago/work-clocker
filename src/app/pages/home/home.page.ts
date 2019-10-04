@@ -1,7 +1,6 @@
 import { Component, ViewEncapsulation, OnInit, OnDestroy } from "@angular/core";
 import { Observable, Subscription } from "rxjs";
 import { Store } from "@ngrx/store";
-import { Platform } from "@ionic/angular";
 
 import { AppState } from "src/app/state";
 
@@ -32,10 +31,7 @@ export class HomePage implements OnInit, OnDestroy {
 
 	isLunchManual: boolean;
 
-	constructor(
-		store: Store<AppState>,
-		private platform: Platform,
-	) {
+	constructor(store: Store<AppState>) {
 		this.settingsObs = store.select("settings");
 		this.tutObs = store.select("tutorial");
 
