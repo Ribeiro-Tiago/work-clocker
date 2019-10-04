@@ -1,4 +1,4 @@
-<div class="item" (click)="triggerOnClick(item)">
+<div class="item" (click)="triggerOnClick()">
 	<div class="row">
 		<p>
 			{{ "listItem.listDay" | translate | convertTime: { destType: "day", payload: item.day, format: dateFormat } }}

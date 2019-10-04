@@ -1,8 +1,8 @@
 <div class="hours-worked ion-padding">
-	<span [ngClass]="{'tut-active-item': tutStage === 'owedHours'}">
+	<span [ngClass]="{'tut-active-item': tutStage === 'hours'}">
 		{{ "home.owedHours" | translate | convertTime: { destType: "hours", payload: owedHours.hours } }}
 	</span>
-	<span [ngClass]="{'tut-active-item': tutStage === 'extraHours'}">
+	<span [ngClass]="{'tut-active-item': tutStage === 'hours'}">
 		{{ "home.extraHours" | translate | convertTime: { destType: "hours", payload: extraHours.hours } }}
 	</span>
 </div>

@@ -1,15 +1,15 @@
-import { Component, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
+import { Component, ViewEncapsulation, Input, Output, EventEmitter } from "@angular/core";
 
-import { ClockedHour } from 'src/app/state/clockedHours/clockedHours.model';
+import { ClockedHourItem } from "src/app/state/clockedHours/clockedHours.model";
 
 @Component({
-	selector: 'app-list-item',
-	templateUrl: './list-item.component.html',
-	styleUrls: ['./list-item.component.scss'],
+	selector: "app-list-item",
+	templateUrl: "./list-item.component.html",
+	styleUrls: ["./list-item.component.scss"],
 	encapsulation: ViewEncapsulation.None
 })
 export class ListItemComponent {
-	@Input() item: ClockedHour;
+	@Input() item: ClockedHourItem;
 	@Input() dateFormat: string;
 	@Input() lunchDuration: number;
 	@Input() workDuration: number;
@@ -17,6 +17,6 @@ export class ListItemComponent {
 	@Output() onClick = new EventEmitter<boolean>();
 
 	triggerOnClick() {
-		this.onClick.emit(this.item.isActive);
+		this.onClick.emit(this.item.status !== 4);
 	}
 }
