@@ -22,10 +22,6 @@ export function settingsReducer(state: Setting = initState, action: Action) {
 			return { ...payload };
 		}
 
-		case SettingsActions.UPDATE_INTRO_SETTINGS: {
-			return { ...state, ...payload };
-		}
-
 		case SettingsActions.UPDATE_LANG: {
 			return {
 				...state,
