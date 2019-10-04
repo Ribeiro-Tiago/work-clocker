@@ -14,7 +14,7 @@ import { SetIntro } from "src/app/state/intro/intro.actions";
 import { SetPool as SetPoolHour } from "src/app/state/hourPool/hourPool.actions";
 import { ShowTut } from "src/app/state/tutorial/tutorial.actions";
 import { HourPool, PoolType } from "src/app/state/hourPool/hourPool.model";
-import { UpdateIntroSettings } from "src/app/state/settings/settings.actions";
+import { Update as UpdateSettings } from "src/app/state/settings/settings.actions";
 
 @Component({
 	selector: "app-intro",
@@ -85,14 +85,20 @@ export class IntroPage {
 			poolValue: this.hourPool,
 			hoursLeft: this.hourPool * 60
 		};
-
-		this.store.dispatch(new UpdateIntroSettings({
+		const notifTime = configs.notifs.defaultTime;
+		const settings = {
 			selectedDateFormat: this.dateFormat,
 			selectedLanguage: this.currLang,
 			selectedLunchDuration: this.lunchDuration,
 			selectedLunchType: this.lunchType,
 			selectedWorkDuration: this.workDuration,
-		}));
+			clockinNotif: { ...notifTime },
+			clockoutNotif: { ...notifTime },
+			clockinLunchNotif: { ...notifTime },
+			clockoutLunchNotif: { ...notifTime }
+		};
+
+		this.store.dispatch(new UpdateSettings(settings));
 		this.store.dispatch(new SetPoolHour(poolHour));
 		this.store.dispatch(new SetIntro(true));
 		this.store.dispatch(new ShowTut());
@@ -100,8 +106,7 @@ export class IntroPage {
 
 		this.storage.set("intro", true);
 		this.storage.set("poolHour", poolHour);
-		this.store.select("settings").toPromise()
-			.then(result => this.storage.set("settings", result));
+		this.storage.set("settings", settings);
 
 		this.router.navigate(["/home"], { replaceUrl: true });
 	}
