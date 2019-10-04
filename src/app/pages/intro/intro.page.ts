@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 
 import langs from "src/configs/langs";
 import { LangItem, GenericOption } from 'src/app/types/Misc';
-import { AppState } from 'src/app/State';
+import { AppState } from 'src/app/state';
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { UpdateLang as SetLango } from "src/app/state/settings/settings.actions";
 import { SetIntro } from "src/app/state/intro/intro.actions";

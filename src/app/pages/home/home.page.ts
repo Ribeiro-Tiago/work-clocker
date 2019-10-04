@@ -3,7 +3,7 @@ import { Observable, Subscription } from "rxjs";
 import { Store } from "@ngrx/store";
 import { Platform } from "@ionic/angular";
 
-import { AppState } from "src/app/State";
+import { AppState } from "src/app/state";
 
 import { Setting } from "src/app/state/settings/settings.model";
 import { Tutorial } from "src/app/state/tutorial/tutorial.model";

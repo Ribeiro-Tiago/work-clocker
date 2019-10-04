@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Tutorial } from 'src/app/state/tutorial/tutorial.model';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/State';
+import { AppState } from 'src/app/state';
 
 @Component({
 	selector: 'app-menu',

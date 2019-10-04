@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation, OnInit, OnDestroy } from "@angular/core";
 import { Observable, Subscription } from "rxjs";
 import { Store } from "@ngrx/store";
 
-import { AppState } from "src/app/State";
+import { AppState } from "src/app/state";
 import { Tutorial } from "src/app/state/tutorial/tutorial.model";
 import * as TutorialActions from "src/app/state/tutorial/tutorial.actions";
 import { StorageService } from "src/app/services/storage/storage.service";

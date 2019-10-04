@@ -3,7 +3,7 @@ import { Events } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
-import { AppState } from 'src/app/State';
+import { AppState } from 'src/app/state';
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { ClockedHour } from 'src/app/state/clockedHours/clockedHours.model';
 import { UpdateHours as UpdateHoursAction } from "src/app/state/clockedHours/clockedHours.actions";

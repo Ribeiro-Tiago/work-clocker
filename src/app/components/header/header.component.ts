@@ -3,7 +3,7 @@ import { Router } from "@angular/router";
 import { Subscription, Observable } from "rxjs";
 import { Store } from "@ngrx/store";
 
-import { AppState } from "src/app/State";
+import { AppState } from "src/app/state";
 
 import { Tutorial, TutorialStage } from "src/app/state/tutorial/tutorial.model";
 

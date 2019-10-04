@@ -6,7 +6,7 @@ import { Observable, Subscription, interval } from 'rxjs';
 
 import { StorageService } from 'src/app/services/storage/storage.service';
 
-import { AppState } from 'src/app/State';
+import { AppState } from 'src/app/state';
 import { ClockedHour, ClockedHourItem } from 'src/app/state/clockedHours/clockedHours.model';
 import { ExtraHour } from 'src/app/state/extraHours/extraHours.model';
 import { OwedHour } from 'src/app/state/owedHours/owedHours.model';

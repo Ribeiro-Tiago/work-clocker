@@ -4,7 +4,7 @@ import { Events } from '@ionic/angular';
 import { Subscription, Observable } from 'rxjs';
 
 import { Tutorial, TutorialStage } from 'src/app/state/tutorial/tutorial.model';
-import { AppState } from 'src/app/State';
+import { AppState } from 'src/app/state';
 import { ClockedHour, ClockedHourItem } from 'src/app/state/clockedHours/clockedHours.model';
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { Setting } from 'src/app/state/settings/settings.model';

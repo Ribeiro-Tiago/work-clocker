@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ViewEncapsulation } from "@angular/core";
 import { Observable, Subscription } from "rxjs";
 import { Store } from "@ngrx/store";
 
-import { AppState } from "src/app/State";
+import { AppState } from "src/app/state";
 import { SpentHour } from "src/app/state/spentHours/spentHours.model";
 
 @Component({

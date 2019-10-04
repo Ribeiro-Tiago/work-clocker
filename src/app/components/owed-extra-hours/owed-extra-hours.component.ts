@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { Tutorial, TutorialStage } from 'src/app/state/tutorial/tutorial.model';
 import { OwedHour } from 'src/app/state/owedHours/owedHours.model';
 import { ExtraHour } from 'src/app/state/extraHours/extraHours.model';
-import { AppState } from 'src/app/State';
+import { AppState } from 'src/app/state';
 
 @Component({
 	selector: 'app-owed-extra-hours',
