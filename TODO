@@ -1,12 +1,7 @@
 ## List of major planned features
 
-1.0:
-- ???
+1.0.1:
+- add location-based clock in / out and respective reminder notifications
 
-2.0:
-- Extensions API
-- JIRA Tempo integration extension
-- ???
-
-Later / unspecified:
-- ???
+1.0.2:
+- add JIRA integration
