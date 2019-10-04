@@ -4,15 +4,15 @@ import { TranslateService } from "@ngx-translate/core";
 import { Store } from "@ngrx/store";
 import { Router } from "@angular/router";
 
-import langs from "src/configs/langs";
-import { LangItem, GenericOption } from "src/app/types/Misc";
+import configs from "../settings/configs";
+import poolConfigs from "src/configs/hourPool";
+import { LangItem, GenericOption, ConfigOption } from "src/app/types/Misc";
 import { AppState } from "src/app/state";
 import { StorageService } from "src/app/services/storage/storage.service";
 import { UpdateLang as SetLango } from "src/app/state/settings/settings.actions";
 import { SetIntro } from "src/app/state/intro/intro.actions";
 import { SetPool as SetPoolHour } from "src/app/state/hourPool/hourPool.actions";
 import { ShowTut } from "src/app/state/tutorial/tutorial.actions";
-import configs from "src/configs/hourPool";
 import { HourPool, PoolType } from "src/app/state/hourPool/hourPool.model";
 
 @Component({
@@ -25,12 +25,20 @@ export class IntroPage {
 	@ViewChild(IonSlides) slider: IonSlides;
 
 	currLang: string;
+	lunchDuration: number;
+	dateFormat: ConfigOption;
+	lunchType: GenericOption;
+	workDuration: number;
+
 	langs: LangItem[];
+	dateFormats: ConfigOption[];
+	lunchTypes: GenericOption[];
+	lunchDurations: number[];
+	workDurations: number[];
 
 	hoursVisible: boolean;
 	hourPool: number;
 	poolType: GenericOption;
-
 	poolTypes: GenericOption[];
 
 	constructor(
@@ -39,17 +47,22 @@ export class IntroPage {
 		private storage: StorageService,
 		private router: Router
 	) {
-		this.langs = langs;
-
-		this.currLang = langs[0].key;
+		this.langs = configs.langs;
+		this.dateFormats = configs.dateFormats;
+		this.lunchDurations = configs.lunchDuration;
+		this.workDurations = configs.workDuration;
+		this.lunchTypes = configs.lunchTypes;
+		this.poolTypes = poolConfigs;
 
 		this.hoursVisible = false;
 
 		this.hourPool = 60;
-
-		this.poolTypes = configs;
-
-		this.poolType = configs[0];
+		this.poolType = poolConfigs[0];
+		this.currLang = configs.langs[0].key;
+		this.dateFormat = configs.dateFormats[0];
+		this.lunchDuration = configs.lunchDuration[5];
+		this.lunchType = configs.lunchTypes[0];
+		this.workDuration = configs.workDuration[2];
 	}
 
 	onLangSelect(ev: Event, key: string): void {
@@ -86,7 +99,19 @@ export class IntroPage {
 		this.hoursVisible = !this.hoursVisible;
 	}
 
-	onTypeChange(type: GenericOption): void {
-		this.poolType = type;
+	onDateSelect(key: string): void {
+		this.dateFormat = this.dateFormats.find(d => d.key === key);
+	}
+
+	onWorkSelect(value: number): void {
+		this.workDuration = value;
+	}
+
+	onLunchTypeSelect(value: string): void {
+		this.lunchType = this.lunchTypes.find(t => t.value === value);
+	}
+
+	onLunchHourSelect(value: number): void {
+		this.lunchDuration = value;
 	}
 }

@@ -42,6 +42,60 @@
 			</div>
 		</div>
 
+		<ion-button (click)="nextSlide()">{{ "intro.next" | translate }}</ion-button>
+	</ion-slide>
+
+	<!-- app settings -->
+	<ion-slide class="settings">
+		<h1>{{ "intro.title_3" | translate }}</h1>
+
+		<div [innerHTML]="'intro.appSettings' | translate | sanitize"></div>
+
+		<div class="content">
+			<div class="list-item">
+				<ion-label>{{ "settings.dateFormat" | translate }}</ion-label>
+				<ion-select [value]="dateFormat.key" interface="action-sheet" [selectedText]="dateFormat.label"
+					(ionChange)="onDateSelect($event.target.value)">
+					<ion-select-option *ngFor="let format of dateFormats" [value]="format.key">
+						{{ format.label }}
+					</ion-select-option>
+				</ion-select>
+			</div>
+
+			<div class="list-item">
+				<ion-label>{{ "settings.workDuration" | translate }}</ion-label>
+				<ion-select [value]="workDuration" interface="action-sheet"
+					selectedText="{{ 'misc.hours' | translate: { time: workDuration } }}"
+					(ionChange)="onWorkSelect($event.target.value)">
+					<ion-select-option *ngFor="let duration of workDurations" [value]="duration">
+						{{ "misc.hours" | translate: { time: duration } }}
+					</ion-select-option>
+				</ion-select>
+			</div>
+
+			<div class="list-item">
+				<ion-label>{{ "settings.lunchType" | translate }}</ion-label>
+				<ion-select [value]="lunchType.value" interface="action-sheet"
+					selectedText="{{ lunchType.label | translate }}"
+					(ionChange)="onLunchTypeSelect($event.target.value)">
+					<ion-select-option *ngFor="let type of lunchTypes" [value]="type.value">
+						{{ type.label | translate }}
+					</ion-select-option>
+				</ion-select>
+			</div>
+
+			<div *ngIf="lunchType.value === 'auto'" class="list-item">
+				<ion-label>{{ "settings.lunchDuration" | translate }}</ion-label>
+				<ion-select [value]="lunchDuration" interface="action-sheet"
+					selectedText="{{ 'misc.minutes' | translate: { time: lunchDuration } }}"
+					(ionChange)="onLunchHourSelect($event.target.value)">
+					<ion-select-option *ngFor="let duration of lunchDurations" [value]="duration">
+						{{ "misc.minutes" | translate: { time: duration } }}
+					</ion-select-option>
+				</ion-select>
+			</div>
+		</div>
+
 		<ion-button (click)="finishIntro()">{{ "intro.finish" | translate }}</ion-button>
 	</ion-slide>
 
