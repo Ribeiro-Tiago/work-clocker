@@ -1,17 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd, Event } from '@angular/router';
-import { Location } from '@angular/common';
+import { Component, OnInit } from "@angular/core";
+import { Router, NavigationEnd, Event } from "@angular/router";
+import { Location } from "@angular/common";
 
-import { Platform, Events, ToastController } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
-import { TranslateService } from '@ngx-translate/core';
-import { Store } from '@ngrx/store';
+import { Platform, Events, ToastController } from "@ionic/angular";
+import { SplashScreen } from "@ionic-native/splash-screen/ngx";
+import { StatusBar } from "@ionic-native/status-bar/ngx";
+import { LocalNotifications } from "@ionic-native/local-notifications/ngx";
+import { TranslateService } from "@ngx-translate/core";
+import { Store } from "@ngrx/store";
 
-import * as moment from 'moment';
+import * as moment from "moment";
 
-import { StorageService } from './services/storage/storage.service';
+import { StorageService } from "./services/storage/storage.service";
 
 import { Update as UpdateSettings } from "./state/settings/settings.actions";
 import { SetHours as SetExtraHours } from "./state/extraHours/extraHours.actions";
@@ -19,28 +19,28 @@ import { SetHours as SetOwedHours } from "./state/owedHours/owedHours.actions";
 import { SetHours as SetClockedHours } from "./state/clockedHours/clockedHours.actions";
 import { SetHours as SetSpentHours } from "./state/spentHours/spentHours.actions";
 import { SetTutorial, HideTut as HideTutorial } from "./state/tutorial/tutorial.actions";
-import { SetOptions as SetHeader } from "src/app/State/header/header.actions";
-import { SetIntro } from "src/app/State/intro/intro.actions";
+import { SetOptions as SetHeader } from "src/app/state/header/header.actions";
+import { SetIntro } from "src/app/state/intro/intro.actions";
 import * as MenuActions from "src/app/state/menu/menu.actions";
 import { SetPerms as setNotifPerms } from "src/app/state/notifications/notifications.actions";
 import { SetPool as SetPoolHour, UpdateHoursLeft } from "src/app/state/hourPool/hourPool.actions";
 
-import { AppState } from './State';
-import { Tutorial } from './State/tutorial/tutorial.model';
-import { Subscription, Observable, timer } from 'rxjs';
-import { Setting } from './state/settings/settings.model';
-import { SpentHour } from './state/spentHours/spentHours.model';
-import { OwedHour } from './state/owedHours/owedHours.model';
-import { ExtraHour } from './state/extraHours/extraHours.model';
-import { ClockedHour } from './state/clockedHours/clockedHours.model';
-import { Menu } from './State/menu/menu.model';
-import { Header } from './State/header/header.model';
-import { Intro } from './State/intro/intro.model';
-import { HourPool as PoolHour, HourPool, PoolType } from './State/hourPool/hourPool.model';
+import { AppState } from "./state";
+import { Tutorial } from "./state/tutorial/tutorial.model";
+import { Subscription, Observable, timer } from "rxjs";
+import { Setting } from "./state/settings/settings.model";
+import { SpentHour } from "./state/spentHours/spentHours.model";
+import { OwedHour } from "./state/owedHours/owedHours.model";
+import { ExtraHour } from "./state/extraHours/extraHours.model";
+import { ClockedHour } from "./state/clockedHours/clockedHours.model";
+import { Menu } from "./state/menu/menu.model";
+import { Header } from "./state/header/header.model";
+import { Intro } from "./state/intro/intro.model";
+import { HourPool as PoolHour, HourPool, PoolType } from "./state/hourPool/hourPool.model";
 
 @Component({
-	selector: 'app-root',
-	templateUrl: 'app.component.html'
+	selector: "app-root",
+	templateUrl: "app.component.html"
 })
 export class AppComponent implements OnInit {
 	private subs: Subscription[];
@@ -100,7 +100,7 @@ export class AppComponent implements OnInit {
 
 			this.getStorageData();
 
-			this.events.subscribe('showToast', (key: string) => this.showToast(key));
+			this.events.subscribe("showToast", (key: string) => this.showToast(key));
 
 			this.subs.push(
 				this.tut$.subscribe((tut) => {
@@ -249,15 +249,15 @@ export class AppComponent implements OnInit {
 					break;
 
 				case "/clocked-hours":
-					configs = { ...configs, title: 'clockedHours.title' };
+					configs = { ...configs, title: "clockedHours.title" };
 					break;
 
 				case "/hours-spent":
-					configs = { ...configs, title: 'spentHours.title' };
+					configs = { ...configs, title: "spentHours.title" };
 					break;
 
 				case "/settings":
-					configs = { ...configs, title: 'settings.title' };
+					configs = { ...configs, title: "settings.title" };
 					break;
 
 				default:

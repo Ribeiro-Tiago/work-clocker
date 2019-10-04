@@ -1,25 +1,25 @@
-import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
-import { Location } from '@angular/common';
-import { TranslateService } from '@ngx-translate/core';
-import { Events, Platform } from '@ionic/angular';
-import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
-import { AppVersion } from '@ionic-native/app-version/ngx';
-import { FileOpener } from '@ionic-native/file-opener/ngx';
-import { DocumentViewer, DocumentViewerOptions } from '@ionic-native/document-Viewer/ngx';
-import { File } from '@ionic-native/file/ngx';
+import { Component, OnInit, ViewEncapsulation, OnDestroy } from "@angular/core";
+import { Location } from "@angular/common";
+import { TranslateService } from "@ngx-translate/core";
+import { Events, Platform } from "@ionic/angular";
+import { LocalNotifications } from "@ionic-native/local-notifications/ngx";
+import { AppVersion } from "@ionic-native/app-version/ngx";
+import { FileOpener } from "@ionic-native/file-opener/ngx";
+import { DocumentViewer, DocumentViewerOptions } from "@ionic-native/document-Viewer/ngx";
+import { File } from "@ionic-native/file/ngx";
 
-import { Observable, Subscription } from 'rxjs';
-import { Store } from '@ngrx/store';
+import { Observable, Subscription } from "rxjs";
+import { Store } from "@ngrx/store";
 
 import configs from "./configs";
-import poolConfigs from 'src/configs/hourPool';
+import poolConfigs from "src/configs/hourPool";
 import { ConfigOption, LegalOption, NotifOption, GenericOption } from "src/app/types/Misc";
-import { StorageService } from 'src/app/services/storage/storage.service';
+import { StorageService } from "src/app/services/storage/storage.service";
 
 /* state models */
-import { Setting } from 'src/app/State/settings/settings.model';
-import { HourPool } from 'src/app/state/hourPool/hourpool.model';
-import { AppState } from 'src/app/State';
+import { Setting } from "src/app/state/settings/settings.model";
+import { HourPool } from "src/app/state/hourPool/hourpool.model";
+import { AppState } from "src/app/State";
 
 /* state actions */
 import { Update as UpdateSettings } from "src/app/state/settings/settings.actions";
@@ -31,9 +31,9 @@ import { Reset as ResetTutorial } from "src/app/state/tutorial/tutorial.actions"
 import { ResetPool, SetPool } from "src/app/state/hourPool/hourPool.actions";
 
 @Component({
-	selector: 'app-settings',
-	templateUrl: './settings.page.html',
-	styleUrls: ['./settings.page.scss'],
+	selector: "app-settings",
+	templateUrl: "./settings.page.html",
+	styleUrls: ["./settings.page.scss"],
 	encapsulation: ViewEncapsulation.None
 })
 export class SettingsPage implements OnInit, OnDestroy {
@@ -526,8 +526,8 @@ export class SettingsPage implements OnInit, OnDestroy {
 			vibrate: true,
 			wakeup: true,
 			led: true,
-			smallIcon: 'res://icon',
-			icon: 'res://icon',
+			smallIcon: "res://icon",
+			icon: "res://icon",
 			trigger: {
 				count: 1,
 				every: {

@@ -1,17 +1,17 @@
-import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
-import { Store } from '@ngrx/store';
+import { Component, ViewEncapsulation, OnInit, OnDestroy } from "@angular/core";
+import { Observable, Subscription } from "rxjs";
+import { Store } from "@ngrx/store";
 
-import { AppState } from 'src/app/State';
-import { Tutorial } from 'src/app/State/tutorial/tutorial.model';
-import * as TutorialActions from 'src/app/State/tutorial/tutorial.actions';
-import { StorageService } from 'src/app/services/storage/storage.service';
-import { CloseMenu } from 'src/app/state/menu/menu.actions';
+import { AppState } from "src/app/State";
+import { Tutorial } from "src/app/state/tutorial/tutorial.model";
+import * as TutorialActions from "src/app/state/tutorial/tutorial.actions";
+import { StorageService } from "src/app/services/storage/storage.service";
+import { CloseMenu } from "src/app/state/menu/menu.actions";
 
 @Component({
-	selector: 'app-tutorial',
-	templateUrl: './tutorial.component.html',
-	styleUrls: ['./tutorial.component.scss'],
+	selector: "app-tutorial",
+	templateUrl: "./tutorial.component.html",
+	styleUrls: ["./tutorial.component.scss"],
 	encapsulation: ViewEncapsulation.None
 })
 export class TutorialComponent implements OnInit, OnDestroy {
