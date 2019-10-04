@@ -24,6 +24,12 @@ app-tutorial {
 		border-radius: 1vh;
 		z-index: 2;
 		animation: .2s;
+		opacity: 0;
+
+		&.visible {
+			opacity: 1;
+			transition: .2s;
+		}
 
 		&:before {
 			content: "";
