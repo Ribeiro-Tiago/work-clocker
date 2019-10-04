@@ -8,8 +8,8 @@
 		</div>
 
 		<div class="content">
-			<section *ngFor="let lang of langs" (click)="onLangSelect($event, lang.key)"
-				[ngClass]="{ 'selected': currLang === lang.key }">
+			<section *ngFor="let lang of langs" (click)="onLangSelect($event, lang)"
+				[ngClass]="{ 'selected': currLang.key === lang.key }">
 				<img [src]="lang.icon" [alt]="lang.label">
 				<span>{{ lang.label }}</span>
 			</section>

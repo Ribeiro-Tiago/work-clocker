@@ -14,6 +14,7 @@ import { SetIntro } from "src/app/state/intro/intro.actions";
 import { SetPool as SetPoolHour } from "src/app/state/hourPool/hourPool.actions";
 import { ShowTut } from "src/app/state/tutorial/tutorial.actions";
 import { HourPool, PoolType } from "src/app/state/hourPool/hourPool.model";
+import { UpdateIntroSettings } from "src/app/state/settings/settings.actions";
 
 @Component({
 	selector: "app-intro",
@@ -24,7 +25,7 @@ import { HourPool, PoolType } from "src/app/state/hourPool/hourPool.model";
 export class IntroPage {
 	@ViewChild(IonSlides) slider: IonSlides;
 
-	currLang: string;
+	currLang: LangItem;
 	lunchDuration: number;
 	dateFormat: ConfigOption;
 	lunchType: GenericOption;
@@ -58,19 +59,19 @@ export class IntroPage {
 
 		this.hourPool = 60;
 		this.poolType = poolConfigs[0];
-		this.currLang = configs.langs[0].key;
+		this.currLang = configs.langs[0];
 		this.dateFormat = configs.dateFormats[0];
 		this.lunchDuration = configs.lunchDuration[5];
 		this.lunchType = configs.lunchTypes[0];
 		this.workDuration = configs.workDuration[2];
 	}
 
-	onLangSelect(ev: Event, key: string): void {
+	onLangSelect(ev: Event, lang: LangItem): void {
 		ev.preventDefault();
 
-		this.currLang = key;
-		this.translate.setDefaultLang(key);
-		this.store.dispatch(new SetLango(this.langs.find(l => l.key === key)));
+		this.currLang = lang;
+		this.translate.setDefaultLang(lang.key);
+		this.store.dispatch(new SetLango(this.currLang));
 	}
 
 	nextSlide(): void {
@@ -85,12 +86,22 @@ export class IntroPage {
 			hoursLeft: this.hourPool * 60
 		};
 
+		this.store.dispatch(new UpdateIntroSettings({
+			selectedDateFormat: this.dateFormat,
+			selectedLanguage: this.currLang,
+			selectedLunchDuration: this.lunchDuration,
+			selectedLunchType: this.lunchType,
+			selectedWorkDuration: this.workDuration,
+		}));
 		this.store.dispatch(new SetPoolHour(poolHour));
 		this.store.dispatch(new SetIntro(true));
 		this.store.dispatch(new ShowTut());
 
+
 		this.storage.set("intro", true);
 		this.storage.set("poolHour", poolHour);
+		this.store.select("settings").toPromise()
+			.then(result => this.storage.set("settings", result));
 
 		this.router.navigate(["/home"], { replaceUrl: true });
 	}
