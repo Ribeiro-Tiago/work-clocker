@@ -1,4 +1,4 @@
-# ![Work Clocker logo](src/assets/icon/favicon.png) Work Clocker
+# Work Clocker
 
 ***A KISS Time Card program***
 
@@ -8,10 +8,10 @@ lunch duration and duration of a regular work day.
 
 [![SourceForge](https://img.shields.io/github/downloads/Ribeiro-Tiago/work-clocker/total.svg?style=social)](https://github.com/Ribeiro-Tiago/work-clocker)
 
-[![Screenshot](screenshots/1.png)](https://github.com/Ribeiro-Tiago/work-clocker/blob/master/screenshots/1.png)
-[![Screenshot](screenshots/2.png)](https://github.com/Ribeiro-Tiago/work-clocker/blob/master/screenshots/2.png)
+[![Screenshot](screenshots/1.png)](screenshots/1.png)
+[![Screenshot](screenshots/2.png)](screenshots/2.png)
 
-Planned features are listed in the[*TODO*](https://github.com/Ribeiro-Tiago/work-clocker/blob/master/TODO) file. Details on already implemented features are available in the [*CHANGELOG*](https://github.com/Ribeiro-Tiago/work-clocker/blob/master/CHANGELOG) file. 
+Planned features are listed in the [*TODO*](TODO) file. Details on already implemented features are available in the  [*CHANGELOG*](CHANGELOG) file. 
 If you have an idea that has not yet been proposed or rejected, feel free to [open a new issue](https://github.com/Ribeiro-Tiago/work-clocker/issues/new).
 
 ## Run locally
