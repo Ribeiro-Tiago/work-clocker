@@ -1,29 +1,29 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation, Output, EventEmitter } from '@angular/core';
-import { Events } from '@ionic/angular';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, Output, EventEmitter } from "@angular/core";
+import { Events } from "@ionic/angular";
 
-import { Store } from '@ngrx/store';
-import { Observable, Subscription, interval } from 'rxjs';
+import { Store } from "@ngrx/store";
+import { Observable, Subscription, interval } from "rxjs";
 
-import { StorageService } from 'src/app/services/storage/storage.service';
+import { StorageService } from "src/app/services/storage/storage.service";
 
-import { AppState } from 'src/app/state';
-import { ClockedHour, ClockedHourItem } from 'src/app/state/clockedHours/clockedHours.model';
-import { ExtraHour } from 'src/app/state/extraHours/extraHours.model';
-import { OwedHour } from 'src/app/state/owedHours/owedHours.model';
-import { Setting } from 'src/app/state/settings/settings.model';
+import { AppState } from "src/app/state";
+import { ClockedHour, ClockedHourItem } from "src/app/state/clockedHours/clockedHours.model";
+import { ExtraHour } from "src/app/state/extraHours/extraHours.model";
+import { OwedHour } from "src/app/state/owedHours/owedHours.model";
+import { Setting } from "src/app/state/settings/settings.model";
 import * as extraHoursActions from "src/app/state/extraHours/extraHours.actions";
 import * as owedHoursActions from "src/app/state/owedHours/owedHours.actions";
 import * as clockedActions from "src/app/state/clockedHours/clockedHours.actions";
 import { AddHours as AddSpentHour } from "src/app/state/spentHours/spentHours.actions";
-import { Tutorial } from 'src/app/state/tutorial/tutorial.model';
-import { HourPool } from 'src/app/state/hourPool/hourpool.model';
-import { OwedHourModalConf } from 'src/app/types/Misc';
-import { UpdateHoursLeft as UpdatePoolHoursLeft } from 'src/app/state/hourPool/hourPool.actions';
+import { Tutorial } from "src/app/state/tutorial/tutorial.model";
+import { HourPool } from "src/app/state/hourPool/hourPool.model";
+import { OwedHourModalConf } from "src/app/types/Misc";
+import { UpdateHoursLeft as UpdatePoolHoursLeft } from "src/app/state/hourPool/hourPool.actions";
 
 @Component({
-	selector: 'app-clock-button',
-	templateUrl: './clock-button.component.html',
-	styleUrls: ['./clock-button.component.scss'],
+	selector: "app-clock-button",
+	templateUrl: "./clock-button.component.html",
+	styleUrls: ["./clock-button.component.scss"],
 	encapsulation: ViewEncapsulation.None
 })
 export class ClockButtonComponent implements OnInit, OnDestroy {

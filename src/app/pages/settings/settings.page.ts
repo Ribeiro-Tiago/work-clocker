@@ -18,7 +18,7 @@ import { StorageService } from "src/app/services/storage/storage.service";
 
 /* state models */
 import { Setting } from "src/app/state/settings/settings.model";
-import { HourPool } from "src/app/state/hourPool/hourpool.model";
+import { HourPool } from "src/app/state/hourPool/hourPool.model";
 import { AppState } from "src/app/state";
 
 /* state actions */

@@ -1,5 +1,5 @@
-import { Pipe, PipeTransform } from '@angular/core';
-import { TimeService } from 'src/app/services/time/time.service';
+import { Pipe, PipeTransform } from "@angular/core";
+import { TimeService } from "src/app/services/time/time.service";
 
 interface ClockOutArgs {
 	clockIn: number;
@@ -9,7 +9,7 @@ interface ClockOutArgs {
 }
 
 @Pipe({
-	name: 'calcClockout'
+	name: "calcClockout"
 })
 export class CalcClockoutPipe implements PipeTransform {
 	constructor(private time: TimeService) { }

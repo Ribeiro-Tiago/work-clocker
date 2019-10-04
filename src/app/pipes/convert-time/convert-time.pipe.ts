@@ -1,5 +1,5 @@
-import { Pipe, PipeTransform } from '@angular/core';
-import { TimeService } from 'src/app/services/time/time.service';
+import { Pipe, PipeTransform } from "@angular/core";
+import { TimeService } from "src/app/services/time/time.service";
 
 interface ConvertTimeOpts {
 	destType: "day" | "hours" | "timestamp";
@@ -13,7 +13,7 @@ interface PayloadOption {
 }
 
 @Pipe({
-	name: 'convertTime'
+	name: "convertTime"
 })
 export class ConvertTimePipe implements PipeTransform {
 	constructor(private timeHandle: TimeService) { }

@@ -1,16 +1,16 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Subscription, Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
+import { Component, OnInit, ViewEncapsulation } from "@angular/core";
+import { Subscription, Observable } from "rxjs";
+import { Store } from "@ngrx/store";
 
-import { Tutorial, TutorialStage } from 'src/app/state/tutorial/tutorial.model';
-import { OwedHour } from 'src/app/state/owedHours/owedHours.model';
-import { ExtraHour } from 'src/app/state/extraHours/extraHours.model';
-import { AppState } from 'src/app/state';
+import { Tutorial, TutorialStage } from "src/app/state/tutorial/tutorial.model";
+import { OwedHour } from "src/app/state/owedHours/owedHours.model";
+import { ExtraHour } from "src/app/state/extraHours/extraHours.model";
+import { AppState } from "src/app/state";
 
 @Component({
-	selector: 'app-owed-extra-hours',
-	templateUrl: './owed-extra-hours.component.html',
-	styleUrls: ['./owed-extra-hours.component.scss'],
+	selector: "app-owed-extra-hours",
+	templateUrl: "./owed-extra-hours.component.html",
+	styleUrls: ["./owed-extra-hours.component.scss"],
 	encapsulation: ViewEncapsulation.None
 })
 export class OwedExtraHoursComponent implements OnInit {

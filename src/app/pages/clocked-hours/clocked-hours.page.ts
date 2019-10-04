@@ -1,18 +1,18 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Events } from '@ionic/angular';
-import { Subscription, Observable } from 'rxjs';
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from "@angular/core";
+import { Store } from "@ngrx/store";
+import { Events } from "@ionic/angular";
+import { Subscription, Observable } from "rxjs";
 
-import { Tutorial, TutorialStage } from 'src/app/state/tutorial/tutorial.model';
-import { AppState } from 'src/app/state';
-import { ClockedHour, ClockedHourItem } from 'src/app/state/clockedHours/clockedHours.model';
-import { StorageService } from 'src/app/services/storage/storage.service';
-import { Setting } from 'src/app/state/settings/settings.model';
+import { Tutorial, TutorialStage } from "src/app/state/tutorial/tutorial.model";
+import { AppState } from "src/app/state";
+import { ClockedHour, ClockedHourItem } from "src/app/state/clockedHours/clockedHours.model";
+import { StorageService } from "src/app/services/storage/storage.service";
+import { Setting } from "src/app/state/settings/settings.model";
 
 @Component({
-	selector: 'app-clocked-hours',
-	templateUrl: './clocked-hours.page.html',
-	styleUrls: ['./clocked-hours.page.scss'],
+	selector: "app-clocked-hours",
+	templateUrl: "./clocked-hours.page.html",
+	styleUrls: ["./clocked-hours.page.scss"],
 	encapsulation: ViewEncapsulation.None
 })
 export class ClockedHoursPage implements OnInit, OnDestroy {
