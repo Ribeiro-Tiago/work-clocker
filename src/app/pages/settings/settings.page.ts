@@ -497,6 +497,8 @@ export class SettingsPage implements OnInit, OnDestroy {
 			.catch(console.error);
 
 		setTimeout(() => this.isResetting = false, 500);
+
+		this.location.back();
 	}
 
 	private async getText(key: string): Promise<string> {
