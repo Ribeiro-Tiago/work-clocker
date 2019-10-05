@@ -40,5 +40,6 @@ export default {
 			lunchIn: 3,
 			lunchOut: 4
 		}
-	}
+	},
+	docHosting: "https://workclocker-ef32c.firebaseapp.com"
 };

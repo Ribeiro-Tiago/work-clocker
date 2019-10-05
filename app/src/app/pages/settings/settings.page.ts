@@ -384,18 +384,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 	}
 
 	async openLink(name: string): Promise<void> {
-		const path = `${this.file.applicationDirectory}/www/assets/docs`;
-
-		if (this.platform.is("android")) {
-			const fakeName = Date.now();
-
-			const { nativeURL } = await this.file.copyFile(path, `${name}.pdf`, this.file.dataDirectory, `${fakeName}.pdf`);
-			this.fileOpener.open(nativeURL, "application/pdf");
-		} else {
-			this.documentViewer.viewDocument(`${path}/${name}.pdf`, "application/pdf", {
-				title: await this.translate.getTranslation(`settings.${name}`).toPromise()
-			});
-		}
+		window.open(`${configs.docHosting}/${name}.pdf`, "_blank");
 	}
 
 	resetSettings(): void {
