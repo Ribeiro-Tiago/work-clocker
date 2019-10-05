@@ -384,7 +384,11 @@ export class SettingsPage implements OnInit, OnDestroy {
 	}
 
 	async openLink(name: string): Promise<void> {
-		window.open(`${configs.docHosting}/${name}.pdf`, "_blank");
+		if (this.platform.is("ios")) {
+			window.location.href = `${configs.docHosting}/${name}.pdf`;
+		} else {
+			window.open(`${configs.docHosting}/${name}.pdf`, "_blank");
+		}
 	}
 
 	resetSettings(): void {
