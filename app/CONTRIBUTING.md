@@ -15,11 +15,13 @@ If you want to help with the development of Work Clocker, please follow the foll
     * system version
     * platform you were running and it's specifications
 
-## Submitting patches
+## New features or fixes
 
 * Fork the repository on GitHub.
-* Create a branch just for that task.
-* Submit your changes as a pull request so they can be reviewed.
+* Create your feature branch (git checkout -b my-new-feature)
+* Commit your changes (git commit -am 'Add some feature')
+* Push to the branch (git push origin my-new-feature)
+* Create new Pull Request
 * Patiently wait for the review.
 
 ## Coding rules
