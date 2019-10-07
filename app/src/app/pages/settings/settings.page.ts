@@ -4,9 +4,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { Events, Platform } from "@ionic/angular";
 import { LocalNotifications } from "@ionic-native/local-notifications/ngx";
 import { AppVersion } from "@ionic-native/app-version/ngx";
-import { FileOpener } from "@ionic-native/file-opener/ngx";
-import { DocumentViewer, DocumentViewerOptions } from "@ionic-native/document-Viewer/ngx";
-import { File } from "@ionic-native/file/ngx";
+import { Vibration } from "@ionic-native/vibration/ngx";
 
 import { Observable, Subscription } from "rxjs";
 import { Store } from "@ngrx/store";
@@ -87,9 +85,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 		private localNotif: LocalNotifications,
 		private appVersion: AppVersion,
 		private platform: Platform,
-		private file: File,
-		private fileOpener: FileOpener,
-		private documentViewer: DocumentViewer,
+		private vibration: Vibration
 	) {
 		this.dateFormats = configs.dateFormats;
 		this.langs = configs.langs;
