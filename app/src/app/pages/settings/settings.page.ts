@@ -168,6 +168,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 
 	ngOnDestroy(): void {
 		this.subs.forEach(s => s.unsubscribe());
+		this.$notifHandler.unsubscribe();
 	}
 
 	onDateFormatChange(selectedId: string): void {
@@ -540,12 +541,8 @@ export class SettingsPage implements OnInit, OnDestroy {
 			id,
 			text: texts[0],
 			title: texts[1],
-			foreground: true,
-			lockscreen: true,
-			sound: "res://platform_default",
 			vibrate: true,
 			wakeup: true,
-			led: true,
 			icon: "res://ic_launcher",
 			smallIcon: "res://smallicon",
 			color: "49AC4D",
