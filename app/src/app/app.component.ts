@@ -102,6 +102,25 @@ export class AppComponent implements OnInit {
 
 			this.events.subscribe("showToast", (key: string) => this.showToast(key));
 
+			document.addEventListener("resume", this.onResume.bind(this), false);
+			document.addEventListener("active", this.onResume.bind(this), false);
+
+			this.statusBar.styleLightContent();
+			this.translate.setDefaultLang("en_US");
+
+			let perms = await this.localNotifs.hasPermission();
+
+			if (!perms) {
+				perms = await this.localNotifs.requestPermission();
+			}
+
+			this.store.dispatch(new setNotifPerms({ hasPerms: perms }));
+
+			if (!perms) {
+				this.localNotifs.clearAll();
+				this.localNotifs.cancelAll();
+			}
+
 			this.subs.push(
 				this.tut$.subscribe((tut) => {
 					const { isVisible, currStage } = tut;
@@ -128,27 +147,14 @@ export class AppComponent implements OnInit {
 				this.hourPool$.subscribe(({ poolValue, poolType }) => this.checkForPoolRefresh(poolValue, poolType)),
 				this.router.events.subscribe((event) => this.onRouteChange(event)),
 			);
-
-			this.statusBar.styleLightContent();
-			this.translate.setDefaultLang("en_US");
-
-			let perms = await this.localNotifs.hasPermission();
-
-			if (!perms) {
-				perms = await this.localNotifs.requestPermission();
-			}
-
-			this.store.dispatch(new setNotifPerms({ hasPerms: perms }));
-
-			if (!perms) {
-				this.localNotifs.clearAll();
-				this.localNotifs.cancelAll();
-			}
 		});
 	}
 
 	ngOnDestroy(): void {
 		this.subs.forEach(s => s.unsubscribe());
+
+		document.removeEventListener("resume", this.onResume.bind(this), false);
+		document.removeEventListener("active", this.onResume.bind(this), false);
 	}
 
 	onContentClick(): void {
@@ -291,4 +297,11 @@ export class AppComponent implements OnInit {
 			this.store.dispatch(new UpdateHoursLeft(maxVal * 60));
 		}
 	}
+
+	private onResume(): void {
+		if (this.location.path() !== "/home") {
+			this.router.navigate(["/home"], { replaceUrl: true });
+		}
+	}
+
 }
