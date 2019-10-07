@@ -1,0 +1,15 @@
+<div class="wrapper">
+	<div class="card">
+		<div class="body">
+			<p [innerHTML]="'feedback.desc' | translate | sanitize"></p>
+
+			<ion-select [(ngModel)]="topic">
+				<ion-select-option *ngFor="let item of topics" [value]="item">
+					{{ item.label | translate }}
+				</ion-select-option>
+			</ion-select>
+		</div>
+
+		<ion-button (click)="openEmail()">{{ "feedback.send" | translate }}</ion-button>
+	</div>
+</div>
