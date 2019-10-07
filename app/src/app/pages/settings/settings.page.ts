@@ -36,6 +36,7 @@ import { ResetPool, SetPool } from "src/app/state/hourPool/hourPool.actions";
 })
 export class SettingsPage implements OnInit, OnDestroy {
 	private subs: Subscription[];
+	private $notifHandler: Subscription;
 	private processNotifUpdate: boolean;
 	private isResetting: boolean;
 
@@ -114,6 +115,8 @@ export class SettingsPage implements OnInit, OnDestroy {
 		this.appVersion.getVersionNumber().then((version) => this.version = version);
 
 		this.processNotifUpdate = false;
+
+		this.$notifHandler = null;
 
 		this.initInputs();
 	}
@@ -514,10 +517,12 @@ export class SettingsPage implements OnInit, OnDestroy {
 
 	private async cancelNotif(id: number): Promise<void> {
 		try {
-		await Promise.all([
-			this.localNotif.cancel(id),
-			this.localNotif.clear(id)
-		]);
+			await Promise.all([
+				this.localNotif.cancel(id),
+				this.localNotif.clear(id)
+			]);
+
+			this.$notifHandler.unsubscribe();
 		} catch (ex) { }
 	}
 
@@ -529,15 +534,18 @@ export class SettingsPage implements OnInit, OnDestroy {
 
 		await this.cancelNotif(id);
 
+		this.$notifHandler = this.localNotif.on("trigger").subscribe(this.onNotifTrigger);
+
 		this.localNotif.schedule({
 			id,
 			text: texts[0],
 			title: texts[1],
 			foreground: true,
+			lockscreen: true,
+			sound: "file://sound.mp3",
 			vibrate: true,
 			wakeup: true,
 			led: true,
-			smallIcon: "res://icon",
 			icon: "res://icon",
 			trigger: {
 				count: 1,
@@ -546,5 +554,11 @@ export class SettingsPage implements OnInit, OnDestroy {
 				}
 			}
 		});
+	}
+
+	private onNotifTrigger(ev) {
+		console.log("trigger ev", ev);
+
+		this.vibration.vibrate(500);
 	}
 }
