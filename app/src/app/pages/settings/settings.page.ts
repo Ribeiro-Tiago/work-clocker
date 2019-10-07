@@ -395,7 +395,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 		this.updateSettings();
 	}
 
-	async openLink(name: string): Promise<void> {
+	openLink(name: string): void {
 		if (this.platform.is("ios")) {
 			window.location.href = `${configs.docHosting}/${name}.pdf`;
 		} else {
