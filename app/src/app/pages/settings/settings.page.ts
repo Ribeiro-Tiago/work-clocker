@@ -534,7 +534,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 
 		await this.cancelNotif(id);
 
-		this.$notifHandler = this.localNotif.on("trigger").subscribe(this.onNotifTrigger);
+		this.$notifHandler = this.localNotif.on("trigger").subscribe(() => this.vibration.vibrate(500));
 
 		this.localNotif.schedule({
 			id,
@@ -554,11 +554,5 @@ export class SettingsPage implements OnInit, OnDestroy {
 				}
 			}
 		});
-	}
-
-	private onNotifTrigger(ev) {
-		console.log("trigger ev", ev);
-
-		this.vibration.vibrate(500);
 	}
 }
