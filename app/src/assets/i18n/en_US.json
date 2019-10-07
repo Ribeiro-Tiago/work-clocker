@@ -156,5 +156,18 @@
 		"clockedHours": "Clocked hours",
 		"spentHours": "Spent hours",
 		"settings": "Settings"
+	},
+
+	"feedback": {
+		"desc": "<p>Thank you for taking time of your day to send me feedback, I really appreciate it</p>",
+		"send": "Write message",
+		"feedback": "General feedback",
+		"feedback_subject": "Work Clocker - Feedback",
+		"suggestion": "I have a suggestion",
+		"suggestion_subject": "Work Clocker - Suggestion",
+		"problem": "I have encountered a problem",
+		"problem_subject": "Work Clocker - Bug Report",
+		"other": "It's about another topic",
+		"other_subject": "Work Clocker - Other topic"
 	}
 }

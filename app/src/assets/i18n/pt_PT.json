@@ -156,5 +156,18 @@
 		"clockedHours": "Horas feitas",
 		"spentHours": "Horas gastas",
 		"settings": "Configurações"
+	},
+
+	"feedback": {
+		"desc": "<p>Muito obrigado por tirar algum tempo do seu dia para me enviar</p>",
+		"send": "Escrever mensagem",
+		"feedback": "Feedback geral",
+		"feedback_subject": "Work Clocker - Feedback",
+		"suggestion": "Tenho uma sugestão",
+		"suggestion_subject": "Work Clocker - Sugestão",
+		"problem": "Encontrei um problema",
+		"problem_subject": "Work Clocker - Bug Report",
+		"other": "É sobre outro tópico",
+		"other_subject": "Work Clocker - Outro tópico"
 	}
 }
