@@ -75,8 +75,12 @@
 		"lunchClockInNotif": "Lembrete de voltar ao trabalho",
 		"lunchInReminderText": "Está na hora de voltar ao trabalho",
 		"lunchInReminderTitle": "Lembrete de voltar ao trabalho",
+		"lunchInNotifDisable": "Lembre de voltar ao trabalho desativado",
+		"lunchInNotifEnable": "Lembre de voltar ao trabalho ativado",
 		"lunchOutReminderText": "É hora de almoço!",
-		"lunchOutReminderTitle": "Lembrete de ir almoçar"
+		"lunchOutReminderTitle": "Lembrete de ir almoçar",
+		"lunchOutNotifDisable": "Lembre de hora de almoço desativado",
+		"lunchOutNotifEnable": "Lembre de hora de almoço ativado"
 	},
 
 	"modal": {

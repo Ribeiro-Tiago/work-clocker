@@ -75,8 +75,12 @@
 		"lunchClockInNotif": "Back to work reminder",
 		"lunchInReminderText": "It's time to get back to work",
 		"lunchInReminderTitle": "Back to work reminder",
+		"lunchInRNotifDisable": "Back to work reminder disabled",
+		"lunchInRNotifEnable": "Back to work reminder enabled",
 		"lunchOutReminderText": "It's lunchtime!",
-		"lunchOutReminderTitle": "Out for lunch reminder"
+		"lunchOutReminderTitle": "Out for lunch reminder",
+		"lunchOutNotifDisable": "Out for lunch reminder disabled",
+		"lunchOutNotifEnable": "Out for lunch reminder enabled"
 	},
 
 	"modal": {
