@@ -38,6 +38,7 @@ import { ResetPool, SetPool } from "src/app/state/hourPool/hourPool.actions";
 })
 export class SettingsPage implements OnInit, OnDestroy {
 	private subs: Subscription[];
+	private processNotifUpdate: boolean;
 	private isResetting: boolean;
 
 	dateFormats: ConfigOption[];
@@ -115,6 +116,8 @@ export class SettingsPage implements OnInit, OnDestroy {
 		this.poolTypes = poolConfigs;
 
 		this.appVersion.getVersionNumber().then((version) => this.version = version);
+
+		this.processNotifUpdate = false;
 
 		this.initInputs();
 	}
@@ -236,27 +239,31 @@ export class SettingsPage implements OnInit, OnDestroy {
 			return;
 		}
 
-		const { enabled, time } = this.clockinNotif;
+		const isEnabled = this.clockinNotif.enabled;
 
-		if (enabled) {
+		if (isEnabled) {
 			this.events.publish("showToast", "settings.clockinNotifDisable");
 			await this.cancelNotif(configs.notifs.ids.clockIn);
 		} else {
 			this.events.publish("showToast", "settings.clockinNotifEnable");
 
-			const d = new Date(time);
+			this.processNotifUpdate = false;
+
+			const d = new Date();
 			d.setMinutes(d.getMinutes() - 1);
 
 			this.addNotif(configs.notifs.ids.clockIn, d, "clockin");
+			this.clockinNotif.time = d.toISOString();
 		}
 
-		this.clockinNotif.enabled = !enabled;
+		this.clockinNotif.enabled = !isEnabled;
 
 		this.updateSettings();
 	}
 
 	onInNotifTimerChange(time: string): void {
-		if (this.isResetting) {
+		if (this.isResetting && !this.processNotifUpdate) {
+			this.processNotifUpdate = true;
 			return;
 		}
 
@@ -274,27 +281,30 @@ export class SettingsPage implements OnInit, OnDestroy {
 			return;
 		}
 
-		const { enabled, time } = this.clockoutNotif;
+		const isEnabled = this.clockoutNotif.enabled;
 
-		if (enabled) {
+		if (isEnabled) {
 			this.events.publish("showToast", "settings.clockoutNotifDisable");
 			await this.cancelNotif(configs.notifs.ids.clockOut);
 		} else {
 			this.events.publish("showToast", "settings.clockoutNotifEnable");
 
-			const d = new Date(time);
+			const d = new Date();
 			d.setMinutes(d.getMinutes() - 1);
 
 			this.addNotif(configs.notifs.ids.clockOut, d, "clockout");
+			this.processNotifUpdate = false;
+			this.clockoutNotif.time = d.toISOString();
 		}
 
-		this.clockoutNotif.enabled = !enabled;
+		this.clockoutNotif.enabled = !isEnabled;
 
 		this.updateSettings();
 	}
 
 	onOutNotifTimerChange(time: string): void {
-		if (this.isResetting) {
+		if (this.isResetting && !this.processNotifUpdate) {
+			this.processNotifUpdate = true;
 			return;
 		}
 
@@ -308,31 +318,35 @@ export class SettingsPage implements OnInit, OnDestroy {
 	}
 
 	async toggleLunchInNotif(): Promise<void> {
-		if (this.isResetting) {
+		if (this.isResetting && !this.processNotifUpdate) {
+			this.processNotifUpdate = true;
 			return;
 		}
 
-		const { enabled, time } = this.clockinLunchNotif;
+		const isEnabled = this.clockinLunchNotif.enabled;
 
-		if (enabled) {
-			this.events.publish("showToast", "settings.clockinLunchNotifDisable");
+		if (isEnabled) {
+			this.events.publish("showToast", "settings.lunchInNotifDisable");
 			await this.cancelNotif(configs.notifs.ids.lunchIn);
 		} else {
-			this.events.publish("showToast", "settings.clockinLunchNotifEnable");
+			this.events.publish("showToast", "settings.lunchInNotifEnable");
 
-			const d = new Date(time);
+			const d = new Date();
 			d.setMinutes(d.getMinutes() - 1);
 
 			this.addNotif(configs.notifs.ids.clockOut, d, "clockout");
+			this.processNotifUpdate = false;
+			this.clockinLunchNotif.time = d.toISOString();
 		}
 
-		this.clockinLunchNotif.enabled = !enabled;
+		this.clockinLunchNotif.enabled = !isEnabled;
 
 		this.updateSettings();
 	}
 
 	onLunchInNotifTimerChange(time: string): void {
-		if (this.isResetting) {
+		if (this.isResetting && !this.processNotifUpdate) {
+			this.processNotifUpdate = true;
 			return;
 		}
 
@@ -350,21 +364,23 @@ export class SettingsPage implements OnInit, OnDestroy {
 			return;
 		}
 
-		const { enabled, time } = this.clockoutLunchNotif;
+		const isEnabled = this.clockoutLunchNotif.enabled;
 
-		if (enabled) {
-			this.events.publish("showToast", "settings.clockoutLunchNotifDisable");
+		if (isEnabled) {
+			this.events.publish("showToast", "settings.lunchOutNotifEnable");
 			await this.cancelNotif(configs.notifs.ids.lunchOut);
 		} else {
-			this.events.publish("showToast", "settings.clockoutLunchNotifEnable");
+			this.events.publish("showToast", "settings.lunchOutNotifDisable");
 
-			const d = new Date(time);
+			const d = new Date();
 			d.setMinutes(d.getMinutes() - 1);
 
 			this.addNotif(configs.notifs.ids.lunchIn, d, "lunchIn");
+			this.processNotifUpdate = false;
+			this.clockoutLunchNotif.time = d.toISOString();
 		}
 
-		this.clockoutLunchNotif.enabled = !enabled;
+		this.clockoutLunchNotif.enabled = !isEnabled;
 
 		this.updateSettings();
 	}
