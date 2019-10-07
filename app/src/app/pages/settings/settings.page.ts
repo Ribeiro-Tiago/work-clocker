@@ -62,7 +62,8 @@ export class SettingsPage implements OnInit, OnDestroy {
 	initLunchClockOutChecked: boolean;
 	initLunchClockInChecked: boolean;
 
-	isModalVisible: boolean;
+	isResetVisible: boolean;
+	isFeedbackVisible: boolean;
 
 	displayFormat: string;
 
@@ -94,7 +95,8 @@ export class SettingsPage implements OnInit, OnDestroy {
 		this.workDuration = configs.workDuration;
 		this.legalities = configs.legalities;
 		this.lunchTypes = configs.lunchTypes;
-		this.isModalVisible = false;
+		this.isResetVisible = false;
+		this.isFeedbackVisible = false;
 
 		this.displayFormat = this.dateFormats[0].hour;
 		this.selectedLunchType = this.lunchTypes[0];
@@ -414,7 +416,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 	}
 
 	toggleModal(): void {
-		this.isModalVisible = !this.isModalVisible;
+		this.isResetVisible = !this.isResetVisible;
 	}
 
 	resetTutorial(): void {
@@ -451,6 +453,10 @@ export class SettingsPage implements OnInit, OnDestroy {
 		this.storage.set("poolHour", this.hourPool)
 			.then(() => console.log("hour pool updated"))
 			.catch(err => console.log(err));
+	}
+
+	toggleFeedback(): void {
+		this.isFeedbackVisible = !this.isFeedbackVisible;
 	}
 
 	private updateSettings(): void {

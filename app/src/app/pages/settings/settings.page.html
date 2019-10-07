@@ -1,6 +1,9 @@
 <ion-content>
 	<app-reset-modal class="modal" (onCancel)="toggleModal();" (onSubmit)="resetSettings();"
-		[ngClass]="{'is-visible': isModalVisible}"></app-reset-modal>
+		[ngClass]="{ 'is-visible': isResetVisible }"></app-reset-modal>
+
+	<app-feedback-modal class="modal" (onCancel)="toggleFeedback();" [ngClass]="{ 'is-visible': isFeedbackVisible }">
+	</app-feedback-modal>
 
 	<!-- app settings -->
 	<h3 class="list-header">{{ "settings.appSettings" | translate }}</h3>
@@ -186,6 +189,11 @@
 
 	<!-- about -->
 	<h3 class="list-header">{{ "settings.about" | translate }}</h3>
+
+	<div class="list-item expand" (click)="toggleFeedback();">
+		<ion-label>{{ "settings.feedback" | translate }}</ion-label>
+		<ion-icon name="arrow-forward" mode="ios"></ion-icon>
+	</div>
 
 	<div class="list-item expand" *ngFor="let item of legalities" (click)="openLink(item.name)"
 		[ngClass]="{'clickable': item.link}">
