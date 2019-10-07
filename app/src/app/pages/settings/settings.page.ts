@@ -493,11 +493,13 @@ export class SettingsPage implements OnInit, OnDestroy {
 
 		this.cancelNotif(configs.notifs.ids.clockIn);
 		this.cancelNotif(configs.notifs.ids.clockOut);
+		this.cancelNotif(configs.notifs.ids.lunchIn);
+		this.cancelNotif(configs.notifs.ids.lunchOut);
 
 		this.initClockInChecked = false;
 		this.initClockOutChecked = false;
 
-		this.storage.clearExcept(["settings", "tutorial", "intro", "poolHour"])
+		this.storage.clearExcept(["settings", "tutorial", "intro"])
 			.then(() => console.log("settings cleared"))
 			.catch(console.error);
 
@@ -511,10 +513,12 @@ export class SettingsPage implements OnInit, OnDestroy {
 	}
 
 	private async cancelNotif(id: number): Promise<void> {
+		try {
 		await Promise.all([
 			this.localNotif.cancel(id),
 			this.localNotif.clear(id)
 		]);
+		} catch (ex) { }
 	}
 
 	private async addNotif(id: number, time: Date, text: string): Promise<void> {
