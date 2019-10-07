@@ -542,11 +542,13 @@ export class SettingsPage implements OnInit, OnDestroy {
 			title: texts[1],
 			foreground: true,
 			lockscreen: true,
-			sound: "file://sound.mp3",
+			sound: "res://platform_default",
 			vibrate: true,
 			wakeup: true,
 			led: true,
-			icon: "res://icon",
+			icon: "res://ic_launcher",
+			smallIcon: "res://smallicon",
+			color: "49AC4D",
 			trigger: {
 				count: 1,
 				every: {
