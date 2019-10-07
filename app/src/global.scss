@@ -305,6 +305,10 @@ p {
 	}
 }
 
+.popover-content {
+	width: 80% !important;
+}
+
 @keyframes showBackdrop {
 	0% {
 		opacity: 0;
