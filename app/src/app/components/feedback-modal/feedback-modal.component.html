@@ -10,6 +10,9 @@
 			</ion-select>
 		</div>
 
-		<ion-button (click)="openEmail()">{{ "feedback.send" | translate }}</ion-button>
+		<div class="button-wrapper">
+			<ion-button color="light" rounded (click)="triggerCancel();">{{ "modal.cancel" | translate }}</ion-button>
+			<ion-button rounded (click)="openEmail()">{{ "feedback.send" | translate }}</ion-button>
+		</div>
 	</div>
 </div>

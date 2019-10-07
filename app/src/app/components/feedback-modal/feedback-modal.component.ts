@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, Output, EventEmitter } from "@angular/core";
 import { AppVersion } from "@ionic-native/app-version/ngx";
 import { Device } from "@ionic-native/device/ngx";
 
@@ -12,14 +12,22 @@ import { FeedBackTopic } from "src/app/types/Misc";
 	styleUrls: ["./feedback-modal.component.scss"],
 })
 export class FeedbackModalComponent {
+	@Output() onCancel: EventEmitter<void>;
+
 	topic: FeedBackTopic;
 	topics: FeedBackTopic[];
 
 	constructor(private appVersion: AppVersion, private device: Device) {
-		this.topics = configs;
+		this.topics = configs.topics;
+
+		this.onCancel = new EventEmitter();
 	}
 
 	openEmail(subject: string): void {
-		window.location.href = `mailto:support@tiago-ribeiro.com?subject=${subject}&body=message%20goes%20here`;
+		window.location.href = `mailto:${configs.feedbackEmail}?subject=${subject}&body=message%20goes%20here`;
+	}
+
+	triggerCancel(): void {
+		this.onCancel.emit();
 	}
 }
