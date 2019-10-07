@@ -160,7 +160,7 @@
 	},
 
 	"feedback": {
-		"desc": "<p>Thank you for taking time of your day to send me feedback, I really appreciate it</p>",
+		"desc": "<p>Thank you for taking time of your day to send us feedback, We really appreciate it</p>",
 		"send": "Write message",
 		"feedback": "General feedback",
 		"feedback_subject": "Work Clocker - Feedback",
@@ -168,6 +168,7 @@
 		"suggestion_subject": "Work Clocker - Suggestion",
 		"problem": "I have encountered a problem",
 		"problem_subject": "Work Clocker - Bug Report",
+		"problem_body": "Please write your message above the line. We can use to better diagnose your problem and find a solution",
 		"other": "It's about another topic",
 		"other_subject": "Work Clocker - Other topic"
 	}

@@ -160,7 +160,7 @@
 	},
 
 	"feedback": {
-		"desc": "<p>Muito obrigado por tirar algum tempo do seu dia para me enviar</p>",
+		"desc": "<p>Muito obrigado por tirar algum tempo do seu dia para nos enviar</p>",
 		"send": "Escrever mensagem",
 		"feedback": "Feedback geral",
 		"feedback_subject": "Work Clocker - Feedback",
@@ -168,6 +168,7 @@
 		"suggestion_subject": "Work Clocker - Sugestão",
 		"problem": "Encontrei um problema",
 		"problem_subject": "Work Clocker - Bug Report",
+		"problem_body": "Por favor escreva a sua mensagem acima da linha. Esta informação ajuda-nos a diagnosticar o seu problema e arranjar uma solução",
 		"other": "É sobre outro tópico",
 		"other_subject": "Work Clocker - Outro tópico"
 	}
