@@ -2,8 +2,12 @@ import { FirebaseAnalytics } from "@ionic-native/firebase-analytics/ngx";
 
 // https://ionicframework.com/docs/native/firebase-analytics/
 export default class Analytics {
-	constructor(private analytics: FirebaseAnalytics, page: string) {
-		analytics.setCurrentScreen(page)
+	private analytics: FirebaseAnalytics;
+
+	constructor(page: string) {
+		this.analytics = new FirebaseAnalytics();
+
+		this.analytics.setCurrentScreen(page)
 			.catch((err) => console.log("err setting current page: ", err));
 	}
 
