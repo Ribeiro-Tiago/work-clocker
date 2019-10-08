@@ -15,7 +15,17 @@ import { ConfigOption, LegalOption, NotifOption, GenericOption } from "src/app/t
 import { StorageService } from "src/app/services/storage/storage.service";
 
 import Analytics from "src/app/utils/Analytics";
-import { SETTINGS } from "src/configs/analytics";
+import {
+	P_SETTINGS,
+	EV_DATE_FORMAT,
+	EV_LANGUAGE,
+	EV_LUNCH_TYPE,
+	EV_CLOCK_IN_NOTIF,
+	EV_CLOCK_OUT_NOTIF,
+	EV_CLOCK_LUNCH_IN_NOTIF,
+	EV_CLOCK_LUNCH_OUT_NOTIF,
+	EV_REPEAT_TUTORIAL
+} from "src/configs/analytics";
 
 /* state models */
 import { Setting } from "src/app/state/settings/settings.model";
@@ -92,7 +102,7 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 		private platform: Platform,
 		private vibration: Vibration
 	) {
-		super(SETTINGS);
+		super(P_SETTINGS);
 
 		this.dateFormats = configs.dateFormats;
 		this.langs = configs.langs;
@@ -189,6 +199,8 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 
 		this.events.publish("showToast", "settings.dateFormatSuccess");
 
+		this.log(EV_DATE_FORMAT, this.selectedDateFormat.key);
+
 		this.updateSettings();
 	}
 
@@ -201,6 +213,8 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 		this.translate.setDefaultLang(selectedId);
 
 		this.events.publish("showToast", "settings.languageSuccess");
+
+		this.log(EV_LANGUAGE, this.selectedLanguage.key);
 
 		this.updateSettings();
 	}
@@ -225,6 +239,8 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 		this.selectedLunchType = this.lunchTypes.find(l => l.value === type);
 
 		this.events.publish("showToast", "settings.lunchTypeSuccess");
+
+		this.log(EV_LUNCH_TYPE, this.selectedLunchType.value);
 
 		this.updateSettings();
 	}
@@ -264,6 +280,9 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 		}
 
 		this.clockinNotif.enabled = !isEnabled;
+
+
+		this.log(EV_CLOCK_IN_NOTIF, !isEnabled);
 
 		this.updateSettings();
 	}
@@ -305,6 +324,9 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 		}
 
 		this.clockoutNotif.enabled = !isEnabled;
+
+
+		this.log(EV_CLOCK_OUT_NOTIF, !isEnabled);
 
 		this.updateSettings();
 	}
@@ -348,6 +370,9 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 
 		this.clockinLunchNotif.enabled = !isEnabled;
 
+
+		this.log(EV_CLOCK_LUNCH_IN_NOTIF, !isEnabled);
+
 		this.updateSettings();
 	}
 
@@ -388,6 +413,9 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 		}
 
 		this.clockoutLunchNotif.enabled = !isEnabled;
+
+
+		this.log(EV_CLOCK_LUNCH_OUT_NOTIF, !isEnabled);
 
 		this.updateSettings();
 	}
@@ -432,6 +460,8 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 			.catch(console.error);
 
 		this.store.dispatch(new ResetTutorial());
+
+		this.log(EV_REPEAT_TUTORIAL);
 	}
 
 	togglePool(): void {

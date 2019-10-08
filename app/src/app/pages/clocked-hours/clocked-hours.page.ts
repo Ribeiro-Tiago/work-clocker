@@ -7,7 +7,7 @@ import { AppState } from "src/app/state";
 import { ClockedHour, ClockedHourItem } from "src/app/state/clockedHours/clockedHours.model";
 import { Setting } from "src/app/state/settings/settings.model";
 import Analytics from "src/app/utils/Analytics";
-import { CLOCK_HOURS } from "src/configs/analytics";
+import { P_CLOCK_HOURS } from "src/configs/analytics";
 
 @Component({
 	selector: "app-clocked-hours",
@@ -34,7 +34,7 @@ export class ClockedHoursPage extends Analytics implements OnInit, OnDestroy {
 	dateFormat: string;
 
 	constructor(store: Store<AppState>) {
-		super(CLOCK_HOURS);
+		super(P_CLOCK_HOURS);
 
 		this.tut$ = store.select("tutorial");
 		this.clockedHours$ = store.select("clockedHours");

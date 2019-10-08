@@ -23,6 +23,6 @@
 		<button [ngClass]="{ 'hidden': isFirstStage }" (click)="onPrev()">{{ "tutorial.previous" | translate }}</button>
 		<button *ngIf="!isLastStage" (click)="onNext()">{{ "tutorial.next" | translate }}</button>
 
-		<button *ngIf="isLastStage" (click)="onSkip()">{{ "tutorial.finish" | translate }}</button>
+		<button *ngIf="isLastStage" (click)="onFinish()">{{ "tutorial.finish" | translate }}</button>
 	</div>
 </div>

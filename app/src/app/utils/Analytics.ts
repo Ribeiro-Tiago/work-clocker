@@ -11,7 +11,7 @@ export default class Analytics {
 			.catch((err) => console.log("err setting current page: ", err));
 	}
 
-	log(name: string, params?: object): void {
+	log(name: string, params?: object | string | boolean | number): void {
 		this.analytics.logEvent(name, params)
 			.catch((err) => console.log("err logging event: ", err));
 	}

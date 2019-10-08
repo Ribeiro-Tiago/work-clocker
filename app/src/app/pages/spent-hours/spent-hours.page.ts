@@ -6,7 +6,7 @@ import { AppState } from "src/app/state";
 import { SpentHour } from "src/app/state/spentHours/spentHours.model";
 
 import Analytics from "src/app/utils/Analytics";
-import { SPENT_HOURS } from "src/configs/analytics";
+import { P_SPENT_HOURS } from "src/configs/analytics";
 
 @Component({
 	selector: "app-spent-hours",
@@ -21,7 +21,7 @@ export class SpentHoursPage extends Analytics implements OnInit, OnDestroy {
 	dateFormat: string;
 
 	constructor(private store: Store<AppState>) {
-		super(SPENT_HOURS);
+		super(P_SPENT_HOURS);
 
 		this.hours = this.store.select("spentHours");
 	}

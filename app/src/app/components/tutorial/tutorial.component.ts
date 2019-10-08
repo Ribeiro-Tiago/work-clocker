@@ -7,6 +7,14 @@ import { Tutorial } from "src/app/state/tutorial/tutorial.model";
 import * as TutorialActions from "src/app/state/tutorial/tutorial.actions";
 import { StorageService } from "src/app/services/storage/storage.service";
 import { CloseMenu } from "src/app/state/menu/menu.actions";
+import Analytics from "src/app/utils/Analytics";
+import {
+	P_TUTORIAL,
+	EV_SKIP_TUTORIAL,
+	EV_NEXT_TUTORIAL,
+	EV_FINISH_TUTORIAL,
+	EV_PREV_TUTORIAL
+} from "src/configs/analytics";
 
 @Component({
 	selector: "app-tutorial",
@@ -14,10 +22,12 @@ import { CloseMenu } from "src/app/state/menu/menu.actions";
 	styleUrls: ["./tutorial.component.scss"],
 	encapsulation: ViewEncapsulation.None
 })
-export class TutorialComponent implements OnInit, OnDestroy {
+export class TutorialComponent extends Analytics implements OnInit, OnDestroy {
 	private sub: Subscription;
 	private tut$: Observable<Tutorial>;
 	private tut: Tutorial;
+
+	private currStage: number; // analytics
 
 	title: string;
 	tutText: string;
@@ -27,6 +37,8 @@ export class TutorialComponent implements OnInit, OnDestroy {
 	isFirstStage: boolean;
 
 	constructor(private store: Store<AppState>, private storage: StorageService) {
+		super(P_TUTORIAL);
+
 		this.tut$ = store.select("tutorial");
 
 		this.tutText = `tutorial.intro`;
@@ -36,7 +48,7 @@ export class TutorialComponent implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		this.sub = this.tut$.subscribe((tut: Tutorial) => {
-			const { isVisible, isFirstStage, isLastStage, position, stage, title } = tut;
+			const { isVisible, isFirstStage, isLastStage, position, stage, title, currStage } = tut;
 			this.tut = tut;
 
 			this.tutText = `tutorial.${stage}`;
@@ -45,6 +57,7 @@ export class TutorialComponent implements OnInit, OnDestroy {
 			this.isLastStage = isLastStage;
 			this.isFirstStage = isFirstStage;
 			this.position = position;
+			this.currStage = currStage;
 		});
 	}
 
@@ -53,19 +66,24 @@ export class TutorialComponent implements OnInit, OnDestroy {
 	}
 
 	onSkip() {
-		this.store.dispatch(new TutorialActions.FinishTut());
-		this.store.dispatch(new CloseMenu());
+		this.log(EV_SKIP_TUTORIAL);
+		this.endTutorial();
+	}
 
-		this.updateStorage();
+	onFinish() {
+		this.log(EV_FINISH_TUTORIAL);
+		this.endTutorial();
 	}
 
 	onNext() {
+		this.log(EV_NEXT_TUTORIAL, this.currStage++);
 		this.store.dispatch(new TutorialActions.NextStage());
 
 		this.updateStorage();
 	}
 
 	onPrev() {
+		this.log(EV_PREV_TUTORIAL, this.currStage--);
 		this.store.dispatch(new TutorialActions.PrevStage());
 
 		this.updateStorage();
@@ -75,5 +93,12 @@ export class TutorialComponent implements OnInit, OnDestroy {
 		this.storage.set("tutorial", this.tut)
 			.then(() => console.log("tutorial storage updated"))
 			.catch(console.error);
+	}
+
+	private endTutorial(): void {
+		this.store.dispatch(new TutorialActions.FinishTut());
+		this.store.dispatch(new CloseMenu());
+
+		this.updateStorage();
 	}
 }

@@ -15,6 +15,8 @@ import { SetPool as SetPoolHour } from "src/app/state/hourPool/hourPool.actions"
 import { ShowTut } from "src/app/state/tutorial/tutorial.actions";
 import { HourPool, PoolType } from "src/app/state/hourPool/hourPool.model";
 import { Update as UpdateSettings } from "src/app/state/settings/settings.actions";
+import Analytics from "src/app/utils/Analytics";
+import { P_INTRO, EV_LANGUAGE, EV_LUNCH_TYPE, EV_DATE_FORMAT, EV_POOL_HOURS } from "src/configs/analytics";
 
 @Component({
 	selector: "app-intro",
@@ -22,7 +24,7 @@ import { Update as UpdateSettings } from "src/app/state/settings/settings.action
 	styleUrls: ["./intro.page.scss"],
 	encapsulation: ViewEncapsulation.None
 })
-export class IntroPage {
+export class IntroPage extends Analytics {
 	@ViewChild(IonSlides) slider: IonSlides;
 
 	currLang: LangItem;
@@ -48,6 +50,8 @@ export class IntroPage {
 		private storage: StorageService,
 		private router: Router
 	) {
+		super(P_INTRO);
+
 		this.langs = configs.langs;
 		this.dateFormats = configs.dateFormats;
 		this.lunchDurations = configs.lunchDuration;
@@ -98,11 +102,15 @@ export class IntroPage {
 			clockoutLunchNotif: { ...notifTime }
 		};
 
+		this.log(EV_LANGUAGE, this.currLang.key);
+		this.log(EV_LUNCH_TYPE, this.lunchType.value);
+		this.log(EV_DATE_FORMAT, this.dateFormat.key);
+		this.log(EV_POOL_HOURS, { enabled: this.hoursVisible, value: this.hourPool });
+
 		this.store.dispatch(new UpdateSettings(settings));
 		this.store.dispatch(new SetPoolHour(poolHour));
 		this.store.dispatch(new SetIntro(true));
 		this.store.dispatch(new ShowTut());
-
 
 		this.storage.set("intro", true);
 		this.storage.set("poolHour", poolHour);
