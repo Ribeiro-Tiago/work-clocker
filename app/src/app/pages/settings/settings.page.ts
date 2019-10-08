@@ -185,7 +185,9 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 
 	ngOnDestroy(): void {
 		this.subs.forEach(s => s.unsubscribe());
-		this.$notifHandler.unsubscribe();
+		if (this.$notifHandler) {
+			this.$notifHandler.unsubscribe();
+		}
 	}
 
 	onDateFormatChange(selectedId: string): void {
