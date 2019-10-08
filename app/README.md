@@ -1,4 +1,4 @@
-# Work Clocker - Hosting 
+# Work Clocker - App 
 
 The actual app files
 
