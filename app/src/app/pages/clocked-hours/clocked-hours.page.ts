@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from "@angular/core";
 import { Store } from "@ngrx/store";
-import { Events } from "@ionic/angular";
 import { Subscription, Observable } from "rxjs";
 
 import { Tutorial, TutorialStage } from "src/app/state/tutorial/tutorial.model";
 import { AppState } from "src/app/state";
 import { ClockedHour, ClockedHourItem } from "src/app/state/clockedHours/clockedHours.model";
-import { StorageService } from "src/app/services/storage/storage.service";
 import { Setting } from "src/app/state/settings/settings.model";
+import Analytics from "src/app/utils/Analytics";
+import { CLOCK_HOURS } from "src/configs/analytics";
 
 @Component({
 	selector: "app-clocked-hours",
@@ -15,7 +15,7 @@ import { Setting } from "src/app/state/settings/settings.model";
 	styleUrls: ["./clocked-hours.page.scss"],
 	encapsulation: ViewEncapsulation.None
 })
-export class ClockedHoursPage implements OnInit, OnDestroy {
+export class ClockedHoursPage extends Analytics implements OnInit, OnDestroy {
 	private subs: Subscription[];
 	private tut$: Observable<Tutorial>;
 	private clockedHours$: Observable<ClockedHour>;
@@ -33,7 +33,9 @@ export class ClockedHoursPage implements OnInit, OnDestroy {
 	workDuration: number;
 	dateFormat: string;
 
-	constructor(private store: Store<AppState>, private storage: StorageService, private events: Events) {
+	constructor(store: Store<AppState>) {
+		super(CLOCK_HOURS);
+
 		this.tut$ = store.select("tutorial");
 		this.clockedHours$ = store.select("clockedHours");
 		this.settings$ = store.select("settings");

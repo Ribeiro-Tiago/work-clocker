@@ -14,6 +14,9 @@ import poolConfigs from "src/configs/hourPool";
 import { ConfigOption, LegalOption, NotifOption, GenericOption } from "src/app/types/Misc";
 import { StorageService } from "src/app/services/storage/storage.service";
 
+import Analytics from "src/app/utils/Analytics";
+import { SETTINGS } from "src/configs/analytics";
+
 /* state models */
 import { Setting } from "src/app/state/settings/settings.model";
 import { HourPool } from "src/app/state/hourPool/hourPool.model";
@@ -34,7 +37,7 @@ import { ResetPool, SetPool } from "src/app/state/hourPool/hourPool.actions";
 	styleUrls: ["./settings.page.scss"],
 	encapsulation: ViewEncapsulation.None
 })
-export class SettingsPage implements OnInit, OnDestroy {
+export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 	private subs: Subscription[];
 	private $notifHandler: Subscription;
 	private processNotifUpdate: boolean;
@@ -89,6 +92,8 @@ export class SettingsPage implements OnInit, OnDestroy {
 		private platform: Platform,
 		private vibration: Vibration
 	) {
+		super(SETTINGS);
+
 		this.dateFormats = configs.dateFormats;
 		this.langs = configs.langs;
 		this.lunchDuration = configs.lunchDuration;
