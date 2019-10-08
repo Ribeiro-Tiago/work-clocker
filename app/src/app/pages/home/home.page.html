@@ -1,0 +1,11 @@
+<ion-content>
+	<app-update-lunch-modal *ngIf="isLunchManual" class="modal" (onCancel)="toggleLunchUpdate();"
+		(onSubmit)="toggleLunchUpdate();" [ngClass]="{'is-visible': isModalVisible}" [index]="selectedItemIndex">
+	</app-update-lunch-modal>
+
+	<app-owed-extra-hours></app-owed-extra-hours>
+
+	<div class="backdrop" [ngClass]="{'visible': isTutVisible, 'on-hours': tutStage === 2}"></div>
+
+	<app-clock-button (onLunchClick)="toggleLunchUpdate();"></app-clock-button>
+</ion-content>

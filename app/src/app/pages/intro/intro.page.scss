@@ -1,0 +1,131 @@
+@import "./src/theme/variables.scss";
+
+app-intro {
+	ion-slides {
+		height: 100%;
+		width: 100%;
+		background-color: $secondaryColor;
+
+		ion-slide {
+			padding: 2vh;
+			flex-direction: column;
+			justify-content: space-between !important;
+		}
+
+		.language {
+			.content {
+				display: flex;
+				align-items: center;
+				justify-content: space-around;
+				width: 100%;
+
+				section {
+					display: flex;
+					flex-direction: column;
+					opacity: .5;
+					transition: .2s;
+					align-items: center;
+
+					&.selected {
+						opacity: 1;
+						transition: .2s;
+					}
+
+					span {
+						margin-top: 2vh;
+					}
+
+					img {
+						width: 128px;
+						height: 64px;
+					}
+				}
+			}
+		}
+
+		.hours {
+			h1 {
+				font-size: 4vh;
+			}
+
+			p,
+			span {
+				font-size: 3vh;
+				margin-top: 0;
+			}
+
+			.content {
+				width: 100%;
+				height: 30%;
+				justify-content: space-evenly;
+				flex-direction: column;
+				display: flex;
+
+				.grouped {
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+					flex-direction: row;
+					margin: 3vh 2vh;
+					font-size: 3vh;
+					margin-top: 0;
+					transition: .2s;
+
+					&:last-child {
+						overflow: hidden;
+						opacity: 0;
+					}
+
+					&.visible {
+						opacity: 1;
+						transition: .2s;
+					}
+
+					ion-input {
+						border-bottom: 2px dotted rgba(73, 172, 77, 0.4);
+					}
+
+					ion-select {
+						width: 80%;
+					}
+
+					span {
+						display: block;
+						width: 30%;
+					}
+				}
+			}
+		}
+
+		.settings {
+			.content {
+				width: 100%;
+				height: 50%;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-around;
+			}
+		}
+
+		ion-button {
+			align-self: flex-end !important;
+			height: 50px !important;
+			font-weight: bold !important;
+			width: 90vw !important;
+			font-size: 2vh !important;
+			background-color: rgba(73, 172, 77, 0.1) !important;
+			border: 1px solid #49ac4d !important;
+			color: #49ac4d !important;
+
+			button {
+				background-color: transparent !important;
+				white-space: initial;
+				padding: 1em 0 !important;
+
+				span {
+					font-size: 2vh !important;
+				}
+			}
+		}
+	}
+}

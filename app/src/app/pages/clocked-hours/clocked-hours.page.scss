@@ -1,0 +1,36 @@
+@import "./src/theme/variables.scss";
+
+app-clocked-hours {
+	h3 {
+		font-size: 3vh;
+		text-align: center;
+		top: 50%;
+		transform: translate(-50%, -80%);
+		position: absolute;
+		display: block;
+		color: $darkTextColor;
+		left: 50%;
+		width: 70%;
+	}
+
+	.list {
+		overflow: auto;
+
+		&.tut-visible {
+			position: relative;
+			height: calc(100% - 51px);
+			background-color: rgba(0, 0, 0, 0.5);
+
+			.item {
+				opacity: .5;
+			}
+
+			&.active-tut-item {
+				.item {
+					box-shadow: 0 0px 10px 10px #f8f8f8;
+					opacity: 1;
+				}
+			}
+		}
+	}
+}

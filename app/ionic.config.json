@@ -1,0 +1,7 @@
+{
+	"name": "Work Clocker",
+	"integrations": {
+		"cordova": {}
+	},
+	"type": "angular"
+}

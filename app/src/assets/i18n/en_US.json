@@ -1,0 +1,175 @@
+{
+	"title": "Work Clocker",
+
+	"misc": {
+		"minutes": "{{time}} minutes",
+		"hours": "{{time}} hours"
+	},
+
+	"home": {
+		"owedHours": "{{hours}} hours owed",
+		"extraHours": "{{hours}} extra hours",
+		"clockedIn": "Clocked in, good luck",
+		"clockedOut": "You've finished for today, see you next time",
+		"clockout": "Clock out",
+		"clockin": "Clock in",
+		"startAt": "Clocked in at <b>{{time}}</b>",
+		"lunchDuration": "If you have a <u>{{duration}}</u> lunch, ",
+		"exitETA": "you should leave at <b>{{time}}</b>",
+		"clockoutLunch": "Going for lunch",
+		"clockinLunch": "Back from lunch"
+	},
+
+	"listItem": {
+		"noItems": "You haven’t clocked in any hours yet.",
+		"listDay": "On {{day}}",
+		"timeWorked": "You worked {{time}}",
+		"startAt": "Clocked in at {{start}}",
+		"lunchDuration": "With {{duration}} lunch",
+		"endAt": "Left at {{end}}",
+		"lunchHourUpdated": "Today's lunch hour has been updated"
+	},
+
+	"settings": {
+		"title": "Settings",
+		"appSettings": "Application Settings",
+		"about": "About",
+		"dateFormat": "Date format",
+		"language": "Language",
+		"lunchDuration": "Lunch time duration",
+		"workDuration": "Work day duration",
+		"confirmText": "Select",
+		"cancelText": "Cancel",
+		"privacyPolicy": "Privacy policy",
+		"userAgreement": "User agreement",
+		"version": "App version",
+		"misc": "Miscellaneous",
+		"reset": "Erase everything",
+		"repeatTutorial": "Repeat tutorial",
+		"dateFormatSuccess": "Date format updated",
+		"languageSuccess": "Language updated",
+		"lunchDurationSuccess": "Lunch duration updated",
+		"workDurationSuccess": "Work duration updated",
+		"resetSuccess": "Data erased sucessfully",
+		"notifs": "Reminders",
+		"clockinNotif": "Clock in reminder",
+		"clockinNotifDisable": "Clock in reminder disabled",
+		"clockinNotifEnable": "Clock in reminder enabled",
+		"clockoutNotif": "Clock out reminder",
+		"clockoutNotifDisable": "Clock in reminder disabled",
+		"clockoutNotifEnable": "Clock in reminder enabled",
+		"remindAt": "Remind me at",
+		"remniderTimerUpdate": "Reminder timer updated",
+		"clockinReminderText": "Don't forget to clock in.",
+		"clockinReminderTitle": "Clock in reminder",
+		"clockoutReminderText": "The work day is coming to an end.",
+		"clockoutReminderTitle": "Clock out reminder",
+		"hourPool": "Justifiable hours",
+		"updatePoolSuccess": "Hour pool updated",
+		"poolHoursLeft": "{{ hours }} left",
+		"lunchType": "Lunch hour control type",
+		"auto": "Automatic",
+		"manual": "Manual",
+		"lunchTypeSuccess": "Lunch type updated",
+		"lunchClockOutNotif": "Out for lunch reminder",
+		"lunchClockInNotif": "Back to work reminder",
+		"lunchInReminderText": "It's time to get back to work",
+		"lunchInReminderTitle": "Back to work reminder",
+		"lunchInRNotifDisable": "Back to work reminder disabled",
+		"lunchInRNotifEnable": "Back to work reminder enabled",
+		"lunchOutReminderText": "It's lunchtime!",
+		"lunchOutReminderTitle": "Out for lunch reminder",
+		"lunchOutNotifDisable": "Out for lunch reminder disabled",
+		"lunchOutNotifEnable": "Out for lunch reminder enabled",
+		"feedback": "Feedback"
+	},
+
+	"modal": {
+		"updateLunchTime": "Update today's Lunch time duration",
+		"resetSettingsTitle": "Reset all settings",
+		"resetSettingsText": "This will reset all settings to defaults. Are you sure?",
+		"confirm": "Confirm",
+		"update": "Update",
+		"cancel": "Cancel"
+	},
+
+	"spentHours": {
+		"title": "Hours spent",
+		"desc": "Here you can see extra and owed hours that were used to compensate the other",
+		"usedHours": "You used <b>{{hours}}</b> of your extra hours to repay owed hours.",
+		"hadHours": "You had <u>{{hours}}</u> hours",
+		"nowHave": "Now you have <u>{{hours}}</u> hours",
+		"noItems": "You haven’t used any extra hours.<br/><br/>This is either because you don't do extra hours, or you never owed any hours"
+	},
+
+	"tutorial": {
+		"next": "Next",
+		"previous": "Previous",
+		"skip": "Skip",
+		"finish": "Finish",
+		"introTitle": "Tutorial - introduction",
+		"intro": "<p>Welcome to <i>Work Clocker</i>, the easiet tool to help you not working more than you have to.</p><p>Before you begin would you like to go through the tutorial?</p>",
+		"clockBtnTitle": "Tutorial - Clock in/out",
+		"clockBtn": "<p>With this button you can control when you start and end your work day.</p><p>Here you'll see a timer of the time you've worked already (including lunch hour).</p>",
+		"hoursTitle": "Tutorial - Hours",
+		"hours": "<p>Here you'll see the number of extra hours that you worked or the hours you didn't work.</p><p>These are calcualted automatically when you clock out.</p>",
+		"menuTitle": "Tutorial - Menu",
+		"menu": "<p>On the top right corner you'll find the menu. From here you can access the settings and the lists of clocked and spent hours.</p>",
+		"clockedHoursTitle": "Tutorial - Clocked hours",
+		"clockedHours": "<p>Here you can see a listing of your daily hours.</p><p>Each item shows when you clocked in and out, how long you worked and how long was your lunch hour.</p>",
+		"spentHoursTitle": "Tutorial - Hours spent",
+		"spentHours": "<p>Here you can see extra hours that you used to compensate days where you worked too little.</p><p>These are calculated automatically.</p>",
+		"settingsTitle": "Tutorial - Settings",
+		"settings": "<p>Here you can find the application settings and other informational stuff.</p><p>Things like work day duration (used to calculate extra and owed hours), application language, terms of service, etc.</p>"
+	},
+
+	"clockedHours": {
+		"title": "Clocked hours",
+		"desc": "Here you see see all of your clocked hours"
+	},
+
+	"intro": {
+		"title_1": "Welcome to Work Clocker",
+		"next": "Next",
+		"finish": "Start",
+		"title_2": "Justifiable hours",
+		"hoursToggle": "I have a pool of hours",
+		"month": "Monthly hours",
+		"year": "Yearly hours",
+		"hoursText": "<p>Some people have a yearly or month pool of justifiable hours</p><p>This pool can be used to get in later or leave earlier without any penalty</p><p>If you have a pool, Work Clocker uses the pool to calculate the owed hours</p>",
+		"title_3": "Application configuration",
+		"appSettings": "Final step before we begin"
+	},
+
+	"hourPoolModal": {
+		"title": "Use hours from pool",
+		"bodyPoolExtra": "You have worked less {{ hours }} than you were supposed to.</p><p>You have {{ poolHours }} hours in your pool and {{ extraHours }} extra hours.",
+		"bodyPool": "You have worked less {{ hours }} than you were supposed to.</p><p>You have {{ poolHours }} hours in your pool. Do you want to use them ?",
+		"bodyExtra": "You have worked less {{ hours }} than you were supposed to.</p><p>You have {{ extraHours }} extra hours. Do you want to use them ?",
+		"usePool": "Use pool",
+		"useExtra": "Use extra",
+		"useNone": "Use none",
+		"yes": "Yes",
+		"no": "No"
+	},
+
+	"menu": {
+		"clockedHours": "Clocked hours",
+		"spentHours": "Spent hours",
+		"settings": "Settings"
+	},
+
+	"feedback": {
+		"desc": "<p>Thank you for taking time of your day to send us feedback, We really appreciate it</p>",
+		"send": "Write message",
+		"feedback": "General feedback",
+		"feedback_subject": "Work Clocker - Feedback",
+		"suggestion": "I have a suggestion",
+		"suggestion_subject": "Work Clocker - Suggestion",
+		"problem": "I have encountered a problem",
+		"problem_subject": "Work Clocker - Bug Report",
+		"problem_body": "Please write your message above the line. We can use to better diagnose your problem and find a solution",
+		"other": "It's about another topic",
+		"other_subject": "Work Clocker - Other topic"
+	}
+}

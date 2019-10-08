@@ -1,0 +1,56 @@
+<div class="wrapper">
+	<div class="card">
+		<h2>{{ "hourPoolModal.title" | translate }}</h2>
+
+		<ng-container *ngIf="configs.isExtra && configs.isPool; else elseTemplate">
+			<div class="body">
+				<p [innerHTML]="'hourPoolModal.bodyPoolExtra' | 
+						translate | 
+						convertTime: { 
+							destType: 'hours', 
+							payload: { poolHours: hourPool.hoursLeft, hours: configs.owedHours, extraHours: configs.extraHours }
+						} | 
+						sanitize">
+				</p>
+			</div>
+
+			<div class="button-wrapper three-buttons">
+				<ion-button rounded (click)="triggerButton(3);">{{ "hourPoolModal.usePool" | translate }}</ion-button>
+				<ion-button rounded (click)="triggerButton(2);">{{ "hourPoolModal.useExtra" | translate }}</ion-button>
+				<ion-button color="light" rounded (click)="triggerButton(1);">{{ "hourPoolModal.useNone" | translate }}
+				</ion-button>
+			</div>
+		</ng-container>
+
+		<ng-template #elseTemplate>
+			<div class="body">
+				<p *ngIf="configs.isExtra" [innerHTML]="'hourPoolModal.bodyExtra' | 
+						translate | 
+						convertTime: {
+							destType: 'hours', 
+							payload: { hours: configs.owedHours, extraHours: configs.extraHours }
+						}| 
+						sanitize">
+				</p>
+				<p *ngIf="configs.isPool" [innerHTML]="'hourPoolModal.bodyPool' | 
+					translate |
+					convertTime: {
+						destType: 'hours', 
+						payload: { hours: configs.owedHours, poolHours: configs.poolHours }
+					} | 
+					sanitize">
+				</p>
+			</div>
+
+			<div class="button-wrapper">
+				<ion-button color="light" rounded (click)="triggerButton(1);">
+					{{ "hourPoolModal.no" | translate }}
+				</ion-button>
+
+				<ion-button rounded (click)="triggerButton(configs.isExtra ? 2 : 3 );">
+					{{ "hourPoolModal.yes" | translate }}
+				</ion-button>
+			</div>
+		</ng-template>
+	</div>
+</div>

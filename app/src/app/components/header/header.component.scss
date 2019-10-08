@@ -1,0 +1,20 @@
+@import "./src/theme/variables.scss";
+
+ion-toolbar {
+	background-color: $primaryColor !important;
+
+	ion-title {
+		display: flex;
+		align-items: center;
+		flex-direction: row;
+		background-color: $primaryColor !important;
+	}
+
+	ion-button {
+		button {
+			&.button-native {
+				box-shadow: none !important;
+			}
+		}
+	}
+}

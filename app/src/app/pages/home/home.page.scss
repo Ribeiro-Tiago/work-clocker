@@ -1,0 +1,16 @@
+@import "./src/theme/variables.scss";
+
+app-home {
+	background-color: $whiteBgColor;
+
+	.tut-item {
+		opacity: .5 !important;
+		pointer-events: none;
+	}
+
+	.tut-active-item {
+		opacity: 1 !important;
+		box-shadow: 0 0 5px 5px #f8f8f8;
+		border-radius: 10px;
+	}
+}

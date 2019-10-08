@@ -1,0 +1,20 @@
+<ion-content class="list-wrapper">
+	<p class="list-header-desc">{{ "spentHours.desc" | translate }}</p>
+
+	<h3 *ngIf="hours | async" [innerHTML]="'spentHours.noItems' | translate | sanitize"></h3>
+
+	<div class="item" *ngFor="let item of hours | async">
+		<span
+			[innerHTML]="'spentHours.usedHours' | translate | convertTime: { destType: 'hours', payload: item.hours | sanitize }"></span>
+
+		<span
+			[innerHTML]="'spentHours.hadHours' | translate | convertTime: { destType: 'hours', payload: item.prevHours | sanitize }"></span>
+
+		<span
+			[innerHTML]="'spentHours.nowHave' | translate | convertTime: { destType: 'hours', payload: item.afterHours | sanitize }"></span>
+
+		<span class="date">
+			{{ "listItem.listDay" | translate | convertTime: { destType: "day", payload: item.day, format: dateFormat } }}
+		</span>
+	</div>
+</ion-content>

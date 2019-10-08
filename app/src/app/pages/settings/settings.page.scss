@@ -1,0 +1,11 @@
+@import "./src/theme/variables.scss";
+
+app-settings {
+	h3 {
+		background: #EAEAEA;
+		margin: 0;
+		padding: 1.5vh 1vh;
+		color: $lighterTextColor;
+		font-size: 1.7vh;
+	}
+}

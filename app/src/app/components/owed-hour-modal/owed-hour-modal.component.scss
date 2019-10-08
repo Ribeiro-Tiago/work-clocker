@@ -1,0 +1,17 @@
+app-owed-hour-modal {
+	&.modal {
+		.wrapper {
+			.card {
+				top: 0;
+
+				.body {
+					padding: 2vh 3vh;
+				}
+
+				p {
+					font-size: 3vh;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,16 @@
+<nav>
+	<ul>
+		<li [ngClass]="{'tut-item': currStage === 4}" [routerLink]="['/clocked-hours']">
+			<ion-icon name="ios-time" size="large"></ion-icon>
+			<span>{{ "menu.clockedHours" | translate }}</span>
+		</li>
+		<li [ngClass]="{'tut-item': currStage === 5}" [routerLink]="['/hours-spent']">
+			<ion-icon name="md-time" size="large"></ion-icon>
+			<span>{{ "menu.spentHours" | translate }}</span>
+		</li>
+		<li [ngClass]="{'tut-item': currStage === 6}" [routerLink]="['/settings']">
+			<ion-icon name="cog" size="large"></ion-icon>
+			<span>{{ "menu.settings" | translate }}</span>
+		</li>
+	</ul>
+</nav>

@@ -1,0 +1,54 @@
+@import "./src/theme/variables.scss";
+
+app-loader {
+	z-index: 999999999;
+	position: absolute;
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: $secondaryColor;
+
+	.wrapper {
+		height: 100vh;
+		width: 100vw;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: relative;
+
+		img {
+			position: absolute;
+			transform: translateY(-50%) scale(0.7);
+			top: 50%;
+			left: 0;
+		}
+
+		.top {
+			animation-name: loaderCrossFade;
+			animation-timing-function: ease-in-out;
+			animation-iteration-count: infinite;
+			animation-duration: .5s;
+			animation-direction: alternate;
+		}
+	}
+}
+
+@keyframes loaderCrossFade {
+	0% {
+		opacity: 1;
+	}
+
+	25% {
+		opacity: 1;
+	}
+
+	75% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 0;
+	}
+}

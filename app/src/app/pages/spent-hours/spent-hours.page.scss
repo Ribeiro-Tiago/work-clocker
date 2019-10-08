@@ -1,0 +1,27 @@
+@import "./src/theme/variables.scss";
+
+app-spent-hours {
+	h3 {
+		font-size: 3vh;
+		text-align: center;
+		top: 50%;
+		transform: translate(-50%, -80%);
+		position: absolute;
+		display: block;
+		color: $darkTextColor;
+		left: 50%;
+		width: 70%;
+	}
+
+	.list-wrapper {
+		.item {
+			height: 17vh;
+			padding: 1vh;
+
+			.date {
+				display: flex;
+				justify-content: flex-end;
+			}
+		}
+	}
+}

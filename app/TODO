@@ -1,0 +1,8 @@
+1.0.1:
+- add location-based clock in / out and respective reminder notifications
+- add action buttons to notification to clock in / out directly from the notification 
+    (https://github.com/katzer/cordova-plugin-local-notifications/#custom)
+- refactor and optimize
+
+1.0.2:
+- add JIRA integration

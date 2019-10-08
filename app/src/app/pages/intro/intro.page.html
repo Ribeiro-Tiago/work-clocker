@@ -1,0 +1,106 @@
+<ion-slides>
+	<!-- lang select -->
+	<ion-slide class="language">
+		<div class="header">
+			<img src="assets/icon/favicon.png" />
+
+			<h1>{{ "intro.title_1" | translate }}</h1>
+		</div>
+
+		<div class="content">
+			<section *ngFor="let lang of langs" (click)="onLangSelect($event, lang)"
+				[ngClass]="{ 'selected': currLang.key === lang.key }">
+				<img [src]="lang.icon" [alt]="lang.label">
+				<span>{{ lang.label }}</span>
+			</section>
+		</div>
+
+		<ion-button (click)="nextSlide()">{{ "intro.next" | translate }}</ion-button>
+	</ion-slide>
+
+	<!-- hour pool -->
+	<ion-slide class="hours">
+		<h1>{{ "intro.title_2" | translate }}</h1>
+
+		<div [innerHTML]="'intro.hoursText' | translate | sanitize"></div>
+
+		<div class="content">
+			<div class="grouped">
+				<ion-label>{{ "intro.hoursToggle" | translate }}</ion-label>
+				<ion-toggle mode="ios" (ionChange)="togglePool();"></ion-toggle>
+			</div>
+
+			<div class="grouped" [ngClass]="{'visible': hoursVisible}">
+				<ion-input [(ngModel)]="hourPool" type="number" inputmode="numeric" min="1"></ion-input>
+
+				<ion-select interface="action-sheet" [(ngModel)]="poolType"
+					selectedText="{{ poolType.label | translate }}">
+					<ion-select-option *ngFor="let type of poolTypes" [value]="type.value">
+						{{ type.label | translate }}
+					</ion-select-option>
+				</ion-select>
+			</div>
+		</div>
+
+		<ion-button (click)="nextSlide()">{{ "intro.next" | translate }}</ion-button>
+	</ion-slide>
+
+	<!-- app settings -->
+	<ion-slide class="settings">
+		<h1>{{ "intro.title_3" | translate }}</h1>
+
+		<div [innerHTML]="'intro.appSettings' | translate | sanitize"></div>
+
+		<div class="content">
+			<div class="list-item">
+				<ion-label>{{ "settings.dateFormat" | translate }}</ion-label>
+				<ion-select [value]="dateFormat.key" interface="action-sheet" [selectedText]="dateFormat.label"
+					(ionChange)="onDateSelect($event.target.value)">
+					<ion-select-option *ngFor="let format of dateFormats" [value]="format.key">
+						{{ format.label }}
+					</ion-select-option>
+				</ion-select>
+			</div>
+
+			<div class="list-item">
+				<ion-label>{{ "settings.workDuration" | translate }}</ion-label>
+				<ion-select [value]="workDuration" interface="action-sheet"
+					selectedText="{{ 'misc.hours' | translate: { time: workDuration } }}"
+					(ionChange)="onWorkSelect($event.target.value)">
+					<ion-select-option *ngFor="let duration of workDurations" [value]="duration">
+						{{ "misc.hours" | translate: { time: duration } }}
+					</ion-select-option>
+				</ion-select>
+			</div>
+
+			<div class="list-item">
+				<ion-label>{{ "settings.lunchType" | translate }}</ion-label>
+				<ion-select [value]="lunchType.value" interface="action-sheet"
+					selectedText="{{ lunchType.label | translate }}"
+					(ionChange)="onLunchTypeSelect($event.target.value)">
+					<ion-select-option *ngFor="let type of lunchTypes" [value]="type.value">
+						{{ type.label | translate }}
+					</ion-select-option>
+				</ion-select>
+			</div>
+
+			<div *ngIf="lunchType.value === 'auto'" class="list-item">
+				<ion-label>{{ "settings.lunchDuration" | translate }}</ion-label>
+				<ion-select [value]="lunchDuration" interface="action-sheet"
+					selectedText="{{ 'misc.minutes' | translate: { time: lunchDuration } }}"
+					(ionChange)="onLunchHourSelect($event.target.value)">
+					<ion-select-option *ngFor="let duration of lunchDurations" [value]="duration">
+						{{ "misc.minutes" | translate: { time: duration } }}
+					</ion-select-option>
+				</ion-select>
+			</div>
+		</div>
+
+		<ion-button (click)="finishIntro()">{{ "intro.finish" | translate }}</ion-button>
+	</ion-slide>
+
+	<!-- jira -->
+	<!-- <ion-slide>
+		<ion-button (click)="finishIntro()">{{ "intro.finish" | translate }}</ion-button>
+	</ion-slide> -->
+</ion-slides>

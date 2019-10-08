@@ -1,0 +1,52 @@
+@import "./src/theme/variables.scss";
+
+app-menu {
+	transition: .3s;
+	box-shadow: 1px 4px 8px 0 rgba(0, 0, 0, 0.4);
+	transform: translateX(80vw);
+	height: 100%;
+	width: 70%;
+	z-index: 999;
+	position: absolute;
+	right: 0;
+	background: #f0f0f0;
+
+	&.tut-active {
+		background: rgba(0, 0, 0, .5);
+
+		.tut-item {
+			background: #f0f0f0;
+		}
+	}
+
+	nav {
+
+		&.opened {
+			height: auto;
+			transition: height 0.2s ease-in;
+		}
+
+		ul {
+			padding: 0;
+			margin: 0;
+			list-style: none;
+
+			li {
+				display: flex;
+				align-items: center;
+				padding: 2vh;
+				border-bottom: 1px solid #ccc;
+				color: $darkTextColor;
+				outline: none;
+
+				span {
+					font-size: 2.5vh;
+				}
+
+				ion-icon {
+					margin-right: 4vh;
+				}
+			}
+		}
+	}
+}
