@@ -106,9 +106,6 @@ export class AppComponent implements OnInit {
 
 			this.events.subscribe("showToast", (key: string) => this.showToast(key));
 
-			document.addEventListener("resume", this.onResume.bind(this), false);
-			document.addEventListener("active", this.onResume.bind(this), false);
-
 			this.statusBar.styleLightContent();
 			this.translate.setDefaultLang("en_US");
 
@@ -159,9 +156,6 @@ export class AppComponent implements OnInit {
 
 	ngOnDestroy(): void {
 		this.subs.forEach(s => s.unsubscribe());
-
-		document.removeEventListener("resume", this.onResume.bind(this), false);
-		document.removeEventListener("active", this.onResume.bind(this), false);
 	}
 
 	onContentClick(): void {
@@ -302,12 +296,6 @@ export class AppComponent implements OnInit {
 
 		if (day === 1 && (type === "monthly" || (type === "yearly" && month === 0))) {
 			this.store.dispatch(new UpdateHoursLeft(maxVal * 60));
-		}
-	}
-
-	private onResume(): void {
-		if (this.location.path() !== "/home") {
-			this.router.navigate(["/home"], { replaceUrl: true });
 		}
 	}
 }
