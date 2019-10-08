@@ -8,6 +8,8 @@ import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { LocalNotifications } from "@ionic-native/local-notifications/ngx";
 import { TranslateService } from "@ngx-translate/core";
 import { Store } from "@ngrx/store";
+import { FirebaseAnalytics } from "@ionic-native/firebase-analytics/ngx";
+import { Device } from "@ionic-native/device/ngx";
 
 import * as moment from "moment";
 
@@ -72,7 +74,9 @@ export class AppComponent implements OnInit {
 		private toastController: ToastController,
 		private router: Router,
 		private location: Location,
-		private localNotifs: LocalNotifications
+		private localNotifs: LocalNotifications,
+		private analytics: FirebaseAnalytics,
+		private device: Device
 	) {
 		this.isTutVisible = false;
 		this.isMenuOpen = false;
@@ -115,6 +119,9 @@ export class AppComponent implements OnInit {
 			}
 
 			this.store.dispatch(new setNotifPerms({ hasPerms: perms }));
+
+			this.analytics.setUserId(this.device.uuid)
+				.catch((err) => console.log("err setting anal userId: ", err));
 
 			if (!perms) {
 				this.localNotifs.clearAll();
@@ -303,5 +310,4 @@ export class AppComponent implements OnInit {
 			this.router.navigate(["/home"], { replaceUrl: true });
 		}
 	}
-
 }

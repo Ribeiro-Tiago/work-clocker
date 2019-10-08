@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "316595455271",
+    "firebase_url": "https://workclocker-ef32c.firebaseio.com",
+    "project_id": "workclocker-ef32c",
+    "storage_bucket": "workclocker-ef32c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:316595455271:android:0e2e011dad08a8e2601502",
+        "android_client_info": {
+          "package_name": "com.workclocker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "316595455271-dkk378evsvsv64f12qrqp2ng1njrip1t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEAD0on-01J6e8NUCP6Mcz_CytOqHizhQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "316595455271-dkk378evsvsv64f12qrqp2ng1njrip1t.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "316595455271-ca264vm20jh26r4bsbfj2qdlcndldbbl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.workclocker"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
