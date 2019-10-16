@@ -102,7 +102,7 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 				this.lunchDuration = selectedLunchDuration;
 				this.workDuration = selectedWorkDuration;
 				this.dateFormat = selectedDateFormat.key;
-				this.isLunchAuto = selectedLunchType.value !== "manual";
+				this.isLunchAuto = selectedLunchType.value === "auto";
 			}),
 			this.extraHours$.subscribe(result => this.extraHours = result),
 			this.owedHours$.subscribe(result => this.owedHours = result),

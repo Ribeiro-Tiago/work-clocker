@@ -15,7 +15,7 @@
 		</div>
 
 		<div class="clockout-wrapper">
-			<ng-container *ngIf="!isLunchAuto; else manualLunchTemplate">
+			<ng-container *ngIf="isLunchAuto; else manualLunchTemplate">
 				<h2 (click)="triggerLunchClick()"
 					[innerHTML]="'home.lunchDuration' | translate | convertTime: { destType: 'hours', payload: currHour.lunchDuration } | sanitize">
 				</h2>
