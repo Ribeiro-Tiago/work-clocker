@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, OnDestroy } from "@angular/core";
-import { Location } from "@angular/common";
 import { TranslateService } from "@ngx-translate/core";
 import { Events, Platform } from "@ionic/angular";
+import { Router } from "@angular/router";
 import { LocalNotifications } from "@ionic-native/local-notifications/ngx";
 import { AppVersion } from "@ionic-native/app-version/ngx";
 import { Vibration } from "@ionic-native/vibration/ngx";
@@ -95,7 +95,7 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 		private translate: TranslateService,
 		private storage: StorageService,
 		private store: Store<AppState>,
-		private location: Location,
+		private router: Router,
 		private events: Events,
 		private localNotif: LocalNotifications,
 		private appVersion: AppVersion,
@@ -455,7 +455,7 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 	}
 
 	resetTutorial(): void {
-		this.location.back();
+		this.goHome();
 
 		this.storage.delete("tutorial")
 			.then(() => console.log("tutorial reset"))
@@ -552,7 +552,7 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 
 		setTimeout(() => this.isResetting = false, 500);
 
-		this.location.back();
+		this.goHome();
 	}
 
 	private async getText(key: string): Promise<string> {
@@ -596,5 +596,9 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 				}
 			}
 		});
+	}
+
+	private goHome(): void {
+		this.router.navigate(["/home"], { replaceUrl: true });
 	}
 }
