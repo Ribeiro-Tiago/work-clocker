@@ -7,12 +7,10 @@ export default class Analytics {
 	constructor(page: string) {
 		this.analytics = new FirebaseAnalytics();
 
-		this.analytics.setCurrentScreen(page)
-			.catch((err) => console.log("err setting current page: ", err));
+		this.analytics.setCurrentScreen(page);
 	}
 
 	log(name: string, params?: object | string | boolean | number): void {
-		this.analytics.logEvent(name, params)
-			.catch((err) => console.log("err logging event: ", err));
+		this.analytics.logEvent(name, params);
 	}
 }
