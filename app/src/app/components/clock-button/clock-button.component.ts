@@ -411,9 +411,10 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 			this.store.dispatch(new UpdatePoolHoursLeft(owed));
 		}
 
+		const newPoolHour = { ...this.poolHours, hoursLeft: owed };
 		this.storage
-			.set("poolHour", this.poolHours)
-			.then(() => console.log("Pool hours updated: ", this.poolHours))
+			.set("poolHour", newPoolHour)
+			.then(() => console.log("Pool hours updated: ", newPoolHour))
 			.catch(console.error);
 
 		return owed;
