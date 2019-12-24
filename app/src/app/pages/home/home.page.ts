@@ -29,7 +29,7 @@ export class HomePage implements OnInit, OnDestroy {
 
 	isModalVisible: boolean;
 
-	isLunchManual: boolean;
+	isLunchAuto: boolean;
 
 	constructor(store: Store<AppState>) {
 		this.settingsObs = store.select("settings");
@@ -44,7 +44,7 @@ export class HomePage implements OnInit, OnDestroy {
 	ngOnInit(): void {
 		this.subs = [
 			this.settingsObs.subscribe((result: Setting) => {
-				this.isLunchManual = result.selectedLunchType.value !== "auto";
+				this.isLunchAuto = result.selectedLunchType.value === "auto";
 				this.lunchDuration = result.selectedLunchDuration;
 			}),
 			this.tutObs.subscribe(({ isVisible, currStage }: Tutorial) => {
@@ -60,5 +60,6 @@ export class HomePage implements OnInit, OnDestroy {
 
 	toggleLunchUpdate(): void {
 		this.isModalVisible = !this.isModalVisible;
+		console.log(this.isModalVisible);
 	}
 }
