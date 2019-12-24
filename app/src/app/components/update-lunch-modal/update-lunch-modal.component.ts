@@ -1,4 +1,11 @@
-import { Component, ViewEncapsulation, Input, OnInit, Output, EventEmitter } from "@angular/core";
+import {
+	Component,
+	ViewEncapsulation,
+	Input,
+	OnInit,
+	Output,
+	EventEmitter
+} from "@angular/core";
 import { Events } from "@ionic/angular";
 import { Store } from "@ngrx/store";
 import { Subscription } from "rxjs";
@@ -17,18 +24,22 @@ import configs from "src/app/pages/settings/configs";
 })
 export class UpdateLunchModalComponent implements OnInit {
 	@Input() index: number;
-	@Input() currDuration: number;
 
 	@Output() onCancel: EventEmitter<void>;
 	@Output() onSubmit: EventEmitter<number>;
 
 	private sub: Subscription;
 	private clockedHours: ClockedHour;
+	private currDuration: number;
 
 	selectedDuration: number;
 	lunchDurations: number[];
 
-	constructor(private store: Store<AppState>, private events: Events, private storage: StorageService) {
+	constructor(
+		private store: Store<AppState>,
+		private events: Events,
+		private storage: StorageService
+	) {
 		this.lunchDurations = configs.lunchDuration;
 
 		this.onCancel = new EventEmitter();
@@ -46,6 +57,7 @@ export class UpdateLunchModalComponent implements OnInit {
 
 			if (result.hours[0]) {
 				this.selectedDuration = result.hours[0].lunchDuration;
+				this.currDuration = result.hours[0].lunchDuration;
 			}
 		});
 	}
@@ -73,12 +85,12 @@ export class UpdateLunchModalComponent implements OnInit {
 
 		this.events.publish("showToast", "listItem.lunchHourUpdated");
 
-		console.log(this.clockedHours);
 		this.store.dispatch(new UpdateHoursAction({ ...this.clockedHours }));
 
-		this.storage.set("clockedHours", this.clockedHours)
+		this.storage
+			.set("clockedHours", this.clockedHours)
 			.then(() => console.log("updated lunch hour"))
-			.catch((err) => console.log("err updating hour: ", err));
+			.catch(err => console.log("err updating hour: ", err));
 
 		this.onSubmit.emit();
 	}
