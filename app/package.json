@@ -1,6 +1,6 @@
 {
 	"name": "work-clocker",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"author": {
 		"email": "tiagoribeiro.1803@gmail.com",
 		"name": "Tiago Ribeiro",
@@ -20,9 +20,11 @@
 	"scripts": {
 		"start": "ionic serve",
 		"android": "ionic cordova run android -l",
+		"android-prod": "npm run clean && ionic cordova build android --prod --release && cd platforms/android && ./gradlew bundleRelease",
 		"ios": "ionic cordova run ios -l",
-		"build": "rm -rf platforms && ionic cordova build android --debug --verbose",
-		"prod-android": "ionic cordova build android --prod --release"
+		"ios-prod": "npm clean clean && ionic cordova build ios --prod --release",
+		"build": "npm run clean && ionic cordova build android --debug --verbose",
+		"clean": "rm -rf platforms plugins www"
 	},
 	"private": false,
 	"dependencies": {

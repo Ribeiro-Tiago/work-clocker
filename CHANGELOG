@@ -1,2 +1,7 @@
-1.0.0 (2019-10-08):
+1.0.0 (2019-10-15):
 - initial release;
+
+1.0.1 (2019-10-17):
+- Fixed typos in texts and intro animation 
+- Fixed minor bug on some devices where you couldn't access settings page after repeating tutorial
+- Changed lunch reminders. Now they're always available instead of just for manual lunch

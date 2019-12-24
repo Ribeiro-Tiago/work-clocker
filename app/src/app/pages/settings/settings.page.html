@@ -104,45 +104,43 @@
 		</div>
 	</div>
 
-	<ng-container *ngIf="selectedLunchType.value === 'auto'">
-		<div class="list-item colapsable">
-			<div class="colapsable-item">
-				<ion-label>{{ "settings.lunchClockOutNotif" | translate }}</ion-label>
-				<!-- retard fix because [checked] wasn't updating on first toggle  -->
-				<ion-toggle *ngIf="initLunchClockOutChecked" (click)="toggleLunchOutNotif();" checked></ion-toggle>
+	<div class="list-item colapsable">
+		<div class="colapsable-item">
+			<ion-label>{{ "settings.lunchClockOutNotif" | translate }}</ion-label>
+			<!-- retard fix because [checked] wasn't updating on first toggle  -->
+			<ion-toggle *ngIf="initLunchClockOutChecked" (click)="toggleLunchOutNotif();" checked></ion-toggle>
 
-				<ion-toggle *ngIf="!initLunchClockOutChecked" (click)="toggleLunchOutNotif();"></ion-toggle>
-			</div>
-
-			<div class="colapsable-item" [ngClass]="{ 'visible': clockoutLunchNotif.enabled }">
-				<ion-label>{{ "settings.remindAt" | translate }}</ion-label>
-				<ion-datetime [displayFormat]="displayFormat" [value]="clockoutLunchNotif.time"
-					(ionChange)="onLunchOutNotifTimerChange($event.target.value)"
-					[cancelText]="'settings.cancelText' | translate" [doneText]="'settings.confirmText' | translate">
-				</ion-datetime>
-			</div>
+			<ion-toggle *ngIf="!initLunchClockOutChecked" (click)="toggleLunchOutNotif();"></ion-toggle>
 		</div>
 
-		<div class="list-item colapsable">
-			<div class="colapsable-item">
-				<ion-label>{{ "settings.lunchClockInNotif" | translate }}</ion-label>
-				<!-- retard fix because [checked] wasn't updating on first toggle  -->
-				<ion-toggle *ngIf="initLunchClockInChecked" (click)="toggleLunchInNotif();" checked>
-				</ion-toggle>
-
-				<ion-toggle *ngIf="!initLunchClockInChecked" (click)="toggleLunchInNotif();">
-				</ion-toggle>
-			</div>
-
-			<div class="colapsable-item" [ngClass]="{ 'visible': clockinLunchNotif.enabled }">
-				<ion-label>{{ "settings.remindAt" | translate }}</ion-label>
-				<ion-datetime [displayFormat]="displayFormat" [value]="clockinLunchNotif.time"
-					(ionChange)="onLunchInNotifTimerChange($event.target.value)"
-					[cancelText]="'settings.cancelText' | translate" [doneText]="'settings.confirmText' | translate">
-				</ion-datetime>
-			</div>
+		<div class="colapsable-item" [ngClass]="{ 'visible': clockoutLunchNotif.enabled }">
+			<ion-label>{{ "settings.remindAt" | translate }}</ion-label>
+			<ion-datetime [displayFormat]="displayFormat" [value]="clockoutLunchNotif.time"
+				(ionChange)="onLunchOutNotifTimerChange($event.target.value)"
+				[cancelText]="'settings.cancelText' | translate" [doneText]="'settings.confirmText' | translate">
+			</ion-datetime>
 		</div>
-	</ng-container>
+	</div>
+
+	<div class="list-item colapsable">
+		<div class="colapsable-item">
+			<ion-label>{{ "settings.lunchClockInNotif" | translate }}</ion-label>
+			<!-- retard fix because [checked] wasn't updating on first toggle  -->
+			<ion-toggle *ngIf="initLunchClockInChecked" (click)="toggleLunchInNotif();" checked>
+			</ion-toggle>
+
+			<ion-toggle *ngIf="!initLunchClockInChecked" (click)="toggleLunchInNotif();">
+			</ion-toggle>
+		</div>
+
+		<div class="colapsable-item" [ngClass]="{ 'visible': clockinLunchNotif.enabled }">
+			<ion-label>{{ "settings.remindAt" | translate }}</ion-label>
+			<ion-datetime [displayFormat]="displayFormat" [value]="clockinLunchNotif.time"
+				(ionChange)="onLunchInNotifTimerChange($event.target.value)"
+				[cancelText]="'settings.cancelText' | translate" [doneText]="'settings.confirmText' | translate">
+			</ion-datetime>
+		</div>
+	</div>
 
 	<!-- hour pool -->
 	<h3 class="list-header">{{ "settings.hourPool" | translate }}</h3>

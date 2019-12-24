@@ -6,8 +6,7 @@ export interface ConfigOption {
 
 export interface LegalOption {
 	labelId: string;
-	link?: string;
-	version?: string;
+	name: string;
 }
 
 export interface LangItem {
