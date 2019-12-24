@@ -142,15 +142,15 @@
 	},
 
 	"hourPoolModal": {
-		"title": "Use hours from pool",
-		"bodyPoolExtra": "You have worked less {{ hours }} than you were supposed to.</p><p>You have {{ poolHours }} hours in your pool and {{ extraHours }} extra hours.",
-		"bodyPool": "You have worked less {{ hours }} than you were supposed to.</p><p>You have {{ poolHours }} hours. Do you want to use them ?",
-		"bodyExtra": "You have worked less {{ hours }} than you were supposed to.</p><p>You have {{ extraHours }} extra hours. Do you want to use them ?",
-		"usePool": "Use pool",
+		"title": "Usar horas justificáveis",
+		"bodyPoolExtra": "Trabalhaste menos {{ hours }} do que devias.</p><p>Tens {{ poolHours }} horas justificáveis ainda por usar e {{ extraHours }} horas extra.",
+		"bodyPool": "Trabalhaste menos {{ hours }} do que devias.</p><p>Tens {{ poolHours }} horas justificáveis. Queres usá-las ?",
+		"bodyExtra": "Trabalhaste menos {{ hours }} do que devias.</p><p>Tens {{ extraHours }} horas extra. Queres usá-las ?",
+		"usePool": "Usar justificáveis",
 		"useExtra": "Use extra",
-		"useNone": "Use none",
-		"yes": "Yes",
-		"no": "No"
+		"useNone": "Não usar nenhuma",
+		"yes": "Sim",
+		"no": "Não"
 	},
 
 	"menu": {
