@@ -55,8 +55,7 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 	private tut$: Observable<Tutorial>;
 	private hourpool$: Observable<HourPool>;
 
-	private poolHoursLeft: number;
-	private hasPoolHours: boolean;
+	private poolHours: HourPool;
 
 	private owedTimeWorked: number;
 
@@ -93,8 +92,9 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 
 		this.dateFormat = "DD/MM/YYY";
 
-		this.poolHoursLeft = 0;
-		this.hasPoolHours = false;
+		this.poolHours = {
+			hasPool: false
+		};
 
 		this.poolModalConfs = {
 			isVisible: false,
@@ -156,10 +156,7 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 
 				this.clockedHours = clockedHours;
 			}),
-			this.hourpool$.subscribe(({ hoursLeft, hasPool }) => {
-				this.poolHoursLeft = hoursLeft;
-				this.hasPoolHours = hasPool;
-			})
+			this.hourpool$.subscribe(poolHours => (this.poolHours = poolHours))
 		);
 	}
 
@@ -306,9 +303,9 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 			opts.extraHours = this.extraHours.hours;
 		}
 
-		if (this.hasPoolHours && this.poolHoursLeft > 0) {
+		if (this.poolHours.hasPool && this.poolHours.hoursLeft > 0) {
 			opts.isPool = true;
-			opts.poolHours = this.poolHoursLeft;
+			opts.poolHours = this.poolHours.hoursLeft;
 		}
 
 		if (!opts.isExtra && !opts.isPool) {
@@ -404,15 +401,20 @@ export class ClockButtonComponent implements OnInit, OnDestroy {
 	}
 
 	private usePoolHours(owedMinutes: number): number {
-		let owed = this.poolHoursLeft * 60 - owedMinutes;
+		let owed = this.poolHours.hoursLeft - owedMinutes;
 
 		if (owed <= 0) {
 			owed = Math.abs(owed);
 
 			this.store.dispatch(new UpdatePoolHoursLeft(0));
 		} else {
-			this.store.dispatch(new UpdatePoolHoursLeft(owedMinutes));
+			this.store.dispatch(new UpdatePoolHoursLeft(owed));
 		}
+
+		this.storage
+			.set("poolHour", this.poolHours)
+			.then(() => console.log("Pool hours updated: ", this.poolHours))
+			.catch(console.error);
 
 		return owed;
 	}

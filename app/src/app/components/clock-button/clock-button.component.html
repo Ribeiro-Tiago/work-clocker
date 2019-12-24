@@ -1,6 +1,7 @@
 <div class="bg"></div>
 
 <app-owed-hour-modal
+	v-if="poolModalConfs.isVisible"
 	class="modal"
 	[ngClass]="{ 'is-visible': poolModalConfs.isVisible }"
 	[configs]="poolModalConfs"
