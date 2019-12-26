@@ -1,7 +1,15 @@
 1.0.0 (2019-10-15):
-- initial release;
+- initial release
 
 1.0.1 (2019-10-17):
 - Fixed typos in texts and intro animation 
 - Fixed minor bug on some devices where you couldn't access settings page after repeating tutorial
 - Changed lunch reminders. Now they're always available instead of just for manual lunch
+
+1.0.2 (2019-00-00):
+- Fixed issue with white screen on startup
+- Fixed issue with app language when changed it was portuguese
+- Fixed issue with toats showing up when opening settings screen
+- Fixed issue with ETA texts when auto lunch was selected
+- Fixed issue where pool hour usage wasn't being properly calculated
+- Updated some texts
