@@ -161,7 +161,7 @@
 
 	"feedback": {
 		"desc": "<p>Thank you for taking time of your day to send us feedback, We really appreciate it</p>",
-		"send": "Write message",
+		"send": "Continue",
 		"feedback": "General feedback",
 		"feedback_subject": "Work Clocker - Feedback",
 		"suggestion": "I have a suggestion",
