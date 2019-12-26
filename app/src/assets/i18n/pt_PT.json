@@ -65,7 +65,7 @@
 		"clockoutReminderText": "O dia está a chegar ao fim.",
 		"clockoutReminderTitle": "Lembrete de saída",
 		"hourPool": "Horas justificáveis",
-		"updatePoolSuccess": "Horas justicáveis atualizadas",
+		"updatePoolSuccess": "Horas justificáveis atualizadas",
 		"poolHoursLeft": "restam {{ hours }}",
 		"lunchType": "Controlo de hora de almoço",
 		"auto": "Automático",
