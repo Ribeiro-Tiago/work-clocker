@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, OnDestroy } from "@angular/core";
-import { Location } from "@angular/common";
 import { TranslateService } from "@ngx-translate/core";
 import { Events, Platform } from "@ionic/angular";
+import { Router } from "@angular/router";
 import { LocalNotifications } from "@ionic-native/local-notifications/ngx";
 import { AppVersion } from "@ionic-native/app-version/ngx";
 import { Vibration } from "@ionic-native/vibration/ngx";
@@ -11,7 +11,12 @@ import { Store } from "@ngrx/store";
 
 import configs from "./configs";
 import poolConfigs from "src/configs/hourPool";
-import { ConfigOption, LegalOption, NotifOption, GenericOption } from "src/app/types/Misc";
+import {
+	ConfigOption,
+	LegalOption,
+	NotifOption,
+	GenericOption
+} from "src/app/types/Misc";
 import { StorageService } from "src/app/services/storage/storage.service";
 
 import Analytics from "src/app/utils/Analytics";
@@ -80,9 +85,6 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 
 	displayFormat: string;
 
-	settings$: Observable<Setting>;
-	hourPool$: Observable<HourPool>;
-
 	today: Date;
 
 	version: string;
@@ -95,7 +97,7 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 		private translate: TranslateService,
 		private storage: StorageService,
 		private store: Store<AppState>,
-		private location: Location,
+		private router: Router,
 		private events: Events,
 		private localNotif: LocalNotifications,
 		private appVersion: AppVersion,
@@ -118,18 +120,17 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 
 		this.today = new Date();
 
-		this.settings$ = this.store.select("settings");
-		this.hourPool$ = this.store.select("hourPool");
-
 		this.subs = [];
 
-		this.isResetting = false;
+		this.isResetting = true;
 
 		this.hourPool = { hasPool: false };
 
 		this.poolTypes = poolConfigs;
 
-		this.appVersion.getVersionNumber().then((version) => this.version = version);
+		this.appVersion
+			.getVersionNumber()
+			.then(version => (this.version = version));
 
 		this.processNotifUpdate = false;
 
@@ -140,7 +141,7 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		this.subs.push(
-			this.settings$.subscribe(result => {
+			this.store.select("settings").subscribe(result => {
 				if (result) {
 					this.selectedDateFormat = result.selectedDateFormat;
 					this.selectedLanguage = result.selectedLanguage;
@@ -152,20 +153,22 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 					this.clockinLunchNotif = result.clockinLunchNotif;
 					this.clockoutLunchNotif = result.clockoutLunchNotif;
 
-					if (this.initClockInChecked === undefined && result.clockoutLunchNotif) {
+					if (result.clockoutLunchNotif) {
 						this.initClockInChecked = result.clockinNotif.enabled;
 					}
 
-					if (this.initClockOutChecked === undefined && result.clockoutLunchNotif) {
+					if (result.clockoutLunchNotif) {
 						this.initClockOutChecked = result.clockoutNotif.enabled;
 					}
 
-					if (this.initLunchClockOutChecked === undefined && result.clockoutLunchNotif) {
-						this.initLunchClockOutChecked = result.clockoutLunchNotif.enabled;
+					if (result.clockoutLunchNotif) {
+						this.initLunchClockOutChecked =
+							result.clockoutLunchNotif.enabled;
 					}
 
-					if (this.initLunchClockInChecked === undefined && result.clockinLunchNotif) {
-						this.initLunchClockInChecked = result.clockinLunchNotif.enabled;
+					if (result.clockinLunchNotif) {
+						this.initLunchClockInChecked =
+							result.clockinLunchNotif.enabled;
 					}
 
 					if (result.selectedDateFormat.hour) {
@@ -173,18 +176,21 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 					}
 				}
 			}),
-			this.hourPool$.subscribe(result => {
+			this.store.select("hourPool").subscribe(result => {
 				this.hourPool = result;
 
-				if (this.initPoolToggle === undefined) {
-					this.initPoolToggle = result.hasPool;
-				}
+				this.initPoolToggle = result.hasPool;
 			})
 		);
+
+		setTimeout(() => {
+			this.isResetting = false;
+		}, 1500);
 	}
 
 	ngOnDestroy(): void {
 		this.subs.forEach(s => s.unsubscribe());
+
 		if (this.$notifHandler) {
 			this.$notifHandler.unsubscribe();
 		}
@@ -195,7 +201,9 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 			return;
 		}
 
-		this.selectedDateFormat = this.dateFormats.find(f => f.key === selectedId);
+		this.selectedDateFormat = this.dateFormats.find(
+			f => f.key === selectedId
+		);
 
 		this.displayFormat = this.selectedDateFormat.hour;
 
@@ -283,7 +291,6 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 
 		this.clockinNotif.enabled = !isEnabled;
 
-
 		this.log(EV_CLOCK_IN_NOTIF, !isEnabled);
 
 		this.updateSettings();
@@ -326,7 +333,6 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 		}
 
 		this.clockoutNotif.enabled = !isEnabled;
-
 
 		this.log(EV_CLOCK_OUT_NOTIF, !isEnabled);
 
@@ -372,7 +378,6 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 
 		this.clockinLunchNotif.enabled = !isEnabled;
 
-
 		this.log(EV_CLOCK_LUNCH_IN_NOTIF, !isEnabled);
 
 		this.updateSettings();
@@ -416,7 +421,6 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 
 		this.clockoutLunchNotif.enabled = !isEnabled;
 
-
 		this.log(EV_CLOCK_LUNCH_OUT_NOTIF, !isEnabled);
 
 		this.updateSettings();
@@ -455,9 +459,10 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 	}
 
 	resetTutorial(): void {
-		this.location.back();
+		this.goHome();
 
-		this.storage.delete("tutorial")
+		this.storage
+			.delete("tutorial")
 			.then(() => console.log("tutorial reset"))
 			.catch(console.error);
 
@@ -483,11 +488,16 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 	}
 
 	updatePool(): void {
+		if (this.isResetting) {
+			return;
+		}
+
 		this.events.publish("showToast", "settings.updatePoolSuccess");
 
 		this.store.dispatch(new SetPool(this.hourPool));
 
-		this.storage.set("poolHour", this.hourPool)
+		this.storage
+			.set("poolHour", this.hourPool)
 			.then(() => console.log("hour pool updated"))
 			.catch(err => console.log(err));
 	}
@@ -511,7 +521,8 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 
 		this.store.dispatch(new UpdateSettings(newState));
 
-		this.storage.set("settings", newState)
+		this.storage
+			.set("settings", newState)
 			.then(() => console.log("settings updated"))
 			.catch(err => console.log(err));
 	}
@@ -546,13 +557,14 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 		this.initClockInChecked = false;
 		this.initClockOutChecked = false;
 
-		this.storage.clearExcept(["settings", "tutorial", "intro"])
+		this.storage
+			.clearExcept(["settings", "tutorial", "intro"])
 			.then(() => console.log("settings cleared"))
 			.catch(console.error);
 
-		setTimeout(() => this.isResetting = false, 500);
+		setTimeout(() => (this.isResetting = false), 500);
 
-		this.location.back();
+		this.goHome();
 	}
 
 	private async getText(key: string): Promise<string> {
@@ -567,10 +579,14 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 			]);
 
 			this.$notifHandler.unsubscribe();
-		} catch (ex) { }
+		} catch (ex) {}
 	}
 
-	private async addNotif(id: number, time: Date, text: string): Promise<void> {
+	private async addNotif(
+		id: number,
+		time: Date,
+		text: string
+	): Promise<void> {
 		const texts = await Promise.all([
 			this.getText(`settings.${text}ReminderText`),
 			this.getText(`settings.${text}ReminderTitle`)
@@ -578,7 +594,9 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 
 		await this.cancelNotif(id);
 
-		this.$notifHandler = this.localNotif.on("trigger").subscribe(() => this.vibration.vibrate(500));
+		this.$notifHandler = this.localNotif
+			.on("trigger")
+			.subscribe(() => this.vibration.vibrate(500));
 
 		this.localNotif.schedule({
 			id,
@@ -592,9 +610,14 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 			trigger: {
 				count: 1,
 				every: {
-					hour: time.getHours(), minute: time.getMinutes()
+					hour: time.getHours(),
+					minute: time.getMinutes()
 				}
 			}
 		});
+	}
+
+	private goHome(): void {
+		this.router.navigate(["/home"], { replaceUrl: true });
 	}
 }

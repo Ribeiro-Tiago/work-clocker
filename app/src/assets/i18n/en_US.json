@@ -108,9 +108,9 @@
 		"skip": "Skip",
 		"finish": "Finish",
 		"introTitle": "Tutorial - introduction",
-		"intro": "<p>Welcome to <i>Work Clocker</i>, the easiet tool to help you not working more than you have to.</p><p>Before you begin would you like to go through the tutorial?</p>",
+		"intro": "<p>Welcome to <i>Work Clocker</i>, the easiest tool to help you not working more than you have to.</p><p>Before you begin would you like to go through a quick tutorial?</p>",
 		"clockBtnTitle": "Tutorial - Clock in/out",
-		"clockBtn": "<p>With this button you can control when you start and end your work day.</p><p>Here you'll see a timer of the time you've worked already (including lunch hour).</p>",
+		"clockBtn": "<p>With this button you can control when you start and end your work day.</p><p>Here you'll see a timer of the time you've worked already and when you'll have to leave work.</p>",
 		"hoursTitle": "Tutorial - Hours",
 		"hours": "<p>Here you'll see the number of extra hours that you worked or the hours you didn't work.</p><p>These are calcualted automatically when you clock out.</p>",
 		"menuTitle": "Tutorial - Menu",
@@ -118,9 +118,9 @@
 		"clockedHoursTitle": "Tutorial - Clocked hours",
 		"clockedHours": "<p>Here you can see a listing of your daily hours.</p><p>Each item shows when you clocked in and out, how long you worked and how long was your lunch hour.</p>",
 		"spentHoursTitle": "Tutorial - Hours spent",
-		"spentHours": "<p>Here you can see extra hours that you used to compensate days where you worked too little.</p><p>These are calculated automatically.</p>",
+		"spentHours": "<p>Here you can see extra hours that you used to compensate days where you didn't work enough.</p><p>These are calculated automatically when you clock out.</p>",
 		"settingsTitle": "Tutorial - Settings",
-		"settings": "<p>Here you can find the application settings and other informational stuff.</p><p>Things like work day duration (used to calculate extra and owed hours), application language, terms of service, etc.</p>"
+		"settings": "<p>Here you can find the application settings and other informational stuff.</p><p>Things like work day duration (used to calculate extra and owed hours), application language, reminders, terms of service, etc.</p>"
 	},
 
 	"clockedHours": {
@@ -134,8 +134,8 @@
 		"finish": "Start",
 		"title_2": "Justifiable hours",
 		"hoursToggle": "I have a pool of hours",
-		"month": "Monthly hours",
-		"year": "Yearly hours",
+		"monthly": "Monthly hours",
+		"yearly": "Yearly hours",
 		"hoursText": "<p>Some people have a yearly or month pool of justifiable hours</p><p>This pool can be used to get in later or leave earlier without any penalty</p><p>If you have a pool, Work Clocker uses the pool to calculate the owed hours</p>",
 		"title_3": "Application configuration",
 		"appSettings": "Final step before we begin"
@@ -161,7 +161,7 @@
 
 	"feedback": {
 		"desc": "<p>Thank you for taking time of your day to send us feedback, We really appreciate it</p>",
-		"send": "Write message",
+		"send": "Continue",
 		"feedback": "General feedback",
 		"feedback_subject": "Work Clocker - Feedback",
 		"suggestion": "I have a suggestion",

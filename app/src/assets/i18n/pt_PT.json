@@ -65,7 +65,7 @@
 		"clockoutReminderText": "O dia está a chegar ao fim.",
 		"clockoutReminderTitle": "Lembrete de saída",
 		"hourPool": "Horas justificáveis",
-		"updatePoolSuccess": "Horas justicáveis atualizadas",
+		"updatePoolSuccess": "Horas justificáveis atualizadas",
 		"poolHoursLeft": "restam {{ hours }}",
 		"lunchType": "Controlo de hora de almoço",
 		"auto": "Automático",
@@ -81,7 +81,7 @@
 		"lunchOutReminderTitle": "Lembrete de ir almoçar",
 		"lunchOutNotifDisable": "Lembre de hora de almoço desativado",
 		"lunchOutNotifEnable": "Lembre de hora de almoço ativado",
-		"feedback": "Feedback"
+		"feedback": "Contacto"
 	},
 
 	"modal": {
@@ -110,17 +110,17 @@
 		"introTitle": "Tutorial - introdução",
 		"intro": "<p>Bem vindo ao <i>Work Clocker</i>, a melhor ferramenta para te ajudar a não trabalhares mais do que precisas.</p><p>Antes de começarmos, queres ver o tutorial ?</p>",
 		"clockBtnTitle": "Tutorial - Picar o ponto",
-		"clockBtn": "<p>Este botão serve para poderes picar o ponto, à entrada e à saída.</p><p>À saída é calculado o número de horas trabalhadas no dia, e se existem horas a dever ou extra, com base na duração de trabalho predefinida.</p>",
+		"clockBtn": "<p>Este botão serve para poderes picar o ponto, à entrada e à saída.</p><p>À saída é calculado o número de horas trabalhadas no dia, e se existem horas a dever ou extra, com base na duração de trabalho predefinida e hora de almoço.</p>",
 		"hoursTitle": "Tutorial - Horas",
 		"hours": "<p>Aqui consegues ver as horas extra que já fizeste ou as que não trabalhaste.</p><p>Estas são calculadas automáticamente quando picaste o ponto para sair</p>",
 		"menuTitle": "Tutorial - Menu",
-		"menu": "<p>No canto superior direito tens o menu.</p><p>Daqui consegues aceder às listas de horas feitas, gastas e opções da aplicação.</p>",
+		"menu": "<p>No canto superior direito tens o menu.</p><p>Aqui consegues aceder às listas de horas feitas, horas gastas e configurações da aplicação.</p>",
 		"clockedHoursTitle": "Tutorial - Horas Feitas",
-		"clockedHours": "<p>Aqui fez a listagem das horas feitas diaramente.</p><p>Cada item mostra quando é que entarste, saiste, quantas horas trabalhaste e duração da horade almoço.</p>",
+		"clockedHours": "<p>Aqui encontras a listagem das horas feitas diaramente.</p><p>Cada item mostra quando é que entraste, saiste, quantas horas trabalhaste e duração da hora de almoço.</p>",
 		"spentHoursTitle": "Tutorial - Hours Gastas",
-		"spentHours": "<p>Através deste botão consegues ver listadas as horas extras que foram usadas para cobrir as horas dividas para um maior controlo das horas trabalhadas.</p><p>Estas são calculadas automaticamente aquando de picar o ponto para sair.</p>",
+		"spentHours": "<p>Através deste botão consegues ver listadas as horas extras que foram usadas para cobrir as horas devidas para um maior controlo das horas trabalhadas.</p><p>Estas são calculadas automaticamente aquando de picar o ponto para sair.</p>",
 		"settingsTitle": "Tutorial - Configurações",
-		"settings": "<p>Aqui estão as configurações da aplicação e outras informações.</p><p>Configurações tipo duração do dia, idioma da aplicação, termos de utilização, possibilidade de apagar toda a informação da aplicação, etc.</p>"
+		"settings": "<p>Aqui estão as configurações da aplicação e outras informações.</p><p>Configurações tipo duração do dia, idioma da aplicação, lembretes, termos de utilização, etc.</p>"
 	},
 
 	"clockedHours": {
@@ -134,23 +134,23 @@
 		"finish": "Começar",
 		"title_2": "Horas justificáveis",
 		"hoursToggle": "Eu tenho horas justificáveis",
-		"month": "Horas mensais",
-		"year": "Horas anuais",
+		"monthly": "Horas mensais",
+		"yearly": "Horas anuais",
 		"hoursText": "<p>Algumas pessoas têm x horas anuais / mensais justificáveis.</p><p>Estas horas permitem chegar mais tarde ou sair mais cedo sem penalidades</p><p>Se existirem, o Work Clocker usa estas horas para cálculo de horas trabalhadas a menos</p>",
 		"title_3": "Configurações da aplicaçao",
 		"appSettings": "Último passo antes de começar"
 	},
 
 	"hourPoolModal": {
-		"title": "Use hours from pool",
-		"bodyPoolExtra": "You have worked less {{ hours }} than you were supposed to.</p><p>You have {{ poolHours }} hours in your pool and {{ extraHours }} extra hours.",
-		"bodyPool": "You have worked less {{ hours }} than you were supposed to.</p><p>You have {{ poolHours }} hours. Do you want to use them ?",
-		"bodyExtra": "You have worked less {{ hours }} than you were supposed to.</p><p>You have {{ extraHours }} extra hours. Do you want to use them ?",
-		"usePool": "Use pool",
+		"title": "Usar horas justificáveis",
+		"bodyPoolExtra": "Trabalhaste menos {{ hours }} do que devias.</p><p>Tens {{ poolHours }} horas justificáveis ainda por usar e {{ extraHours }} horas extra.",
+		"bodyPool": "Trabalhaste menos {{ hours }} do que devias.</p><p>Tens {{ poolHours }} horas justificáveis. Queres usá-las ?",
+		"bodyExtra": "Trabalhaste menos {{ hours }} do que devias.</p><p>Tens {{ extraHours }} horas extra. Queres usá-las ?",
+		"usePool": "Usar justificáveis",
 		"useExtra": "Use extra",
-		"useNone": "Use none",
-		"yes": "Yes",
-		"no": "No"
+		"useNone": "Não usar nenhuma",
+		"yes": "Sim",
+		"no": "Não"
 	},
 
 	"menu": {
@@ -161,7 +161,7 @@
 
 	"feedback": {
 		"desc": "<p>Muito obrigado por tirar algum tempo do seu dia para nos enviar</p>",
-		"send": "Escrever mensagem",
+		"send": "Continuar",
 		"feedback": "Feedback geral",
 		"feedback_subject": "Work Clocker - Feedback",
 		"suggestion": "Tenho uma sugestão",

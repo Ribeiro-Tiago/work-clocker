@@ -3,7 +3,11 @@
 		<div class="body">
 			<p [innerHTML]="'feedback.desc' | translate | sanitize"></p>
 
-			<ion-select interface="popover" [(ngModel)]="topic">
+			<ion-select
+				interface="popover"
+				[(ngModel)]="topic"
+				[selectedText]="topic.label | translate"
+			>
 				<ion-select-option *ngFor="let item of topics" [value]="item">
 					{{ item.label | translate }}
 				</ion-select-option>
@@ -11,8 +15,12 @@
 		</div>
 
 		<div class="button-wrapper">
-			<ion-button color="light" rounded (click)="triggerCancel();">{{ "modal.cancel" | translate }}</ion-button>
-			<ion-button rounded (click)="openEmail()">{{ "feedback.send" | translate }}</ion-button>
+			<ion-button color="light" rounded (click)="triggerCancel()">{{
+				"modal.cancel" | translate
+			}}</ion-button>
+			<ion-button rounded (click)="openEmail()">{{
+				"feedback.send" | translate
+			}}</ion-button>
 		</div>
 	</div>
 </div>

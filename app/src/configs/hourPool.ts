@@ -1,4 +1,4 @@
 export default [
-    { label: "intro.month", value: "monthly" },
-    { label: "intro.year", value: "yearly" }
+	{ label: "intro.monthly", value: "monthly" },
+	{ label: "intro.yearly", value: "yearly" }
 ];

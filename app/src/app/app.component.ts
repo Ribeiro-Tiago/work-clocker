@@ -20,12 +20,18 @@ import { SetHours as SetExtraHours } from "./state/extraHours/extraHours.actions
 import { SetHours as SetOwedHours } from "./state/owedHours/owedHours.actions";
 import { SetHours as SetClockedHours } from "./state/clockedHours/clockedHours.actions";
 import { SetHours as SetSpentHours } from "./state/spentHours/spentHours.actions";
-import { SetTutorial, HideTut as HideTutorial } from "./state/tutorial/tutorial.actions";
+import {
+	SetTutorial,
+	HideTut as HideTutorial
+} from "./state/tutorial/tutorial.actions";
 import { SetOptions as SetHeader } from "src/app/state/header/header.actions";
 import { SetIntro } from "src/app/state/intro/intro.actions";
 import * as MenuActions from "src/app/state/menu/menu.actions";
 import { SetPerms as setNotifPerms } from "src/app/state/notifications/notifications.actions";
-import { SetPool as SetPoolHour, UpdateHoursLeft } from "src/app/state/hourPool/hourPool.actions";
+import {
+	SetPool as SetPoolHour,
+	UpdateHoursLeft
+} from "src/app/state/hourPool/hourPool.actions";
 
 import { AppState } from "./state";
 import { Tutorial } from "./state/tutorial/tutorial.model";
@@ -38,7 +44,11 @@ import { ClockedHour } from "./state/clockedHours/clockedHours.model";
 import { Menu } from "./state/menu/menu.model";
 import { Header } from "./state/header/header.model";
 import { Intro } from "./state/intro/intro.model";
-import { HourPool as PoolHour, HourPool, PoolType } from "./state/hourPool/hourPool.model";
+import {
+	HourPool as PoolHour,
+	HourPool,
+	PoolType
+} from "./state/hourPool/hourPool.model";
 
 @Component({
 	selector: "app-root",
@@ -100,14 +110,15 @@ export class AppComponent implements OnInit {
 		this.platform.ready().then(async () => {
 			this.splashScreen.hide();
 
-			timer(3000).subscribe(() => this.showSplash = false);
+			timer(3000).subscribe(() => (this.showSplash = false));
 
 			this.getStorageData();
 
-			this.events.subscribe("showToast", (key: string) => this.showToast(key));
+			this.events.subscribe("showToast", (key: string) =>
+				this.showToast(key)
+			);
 
 			this.statusBar.styleLightContent();
-			this.translate.setDefaultLang("en_US");
 
 			let perms = await this.localNotifs.hasPermission();
 
@@ -117,8 +128,9 @@ export class AppComponent implements OnInit {
 
 			this.store.dispatch(new setNotifPerms({ hasPerms: perms }));
 
-			this.analytics.setUserId(this.device.uuid)
-				.catch((err) => console.log("err setting anal userId: ", err));
+			this.analytics
+				.setUserId(this.device.uuid)
+				.catch(err => console.log("err setting anal userId: ", err));
 
 			if (!perms) {
 				this.localNotifs.clearAll();
@@ -126,7 +138,7 @@ export class AppComponent implements OnInit {
 			}
 
 			this.subs.push(
-				this.tut$.subscribe((tut) => {
+				this.tut$.subscribe(tut => {
 					const { isVisible, currStage } = tut;
 
 					this.isTutVisible = isVisible;
@@ -141,15 +153,21 @@ export class AppComponent implements OnInit {
 						}
 					}
 				}),
-				this.menu$.subscribe(({ isVisible }) => this.isMenuOpen = isVisible),
-				this.header$.subscribe(({ showHeader }) => this.isHeaderVisible = showHeader),
+				this.menu$.subscribe(
+					({ isVisible }) => (this.isMenuOpen = isVisible)
+				),
+				this.header$.subscribe(
+					({ showHeader }) => (this.isHeaderVisible = showHeader)
+				),
 				this.intro$.subscribe(({ isDone }) => {
 					if (isDone && !this.location.path()) {
 						this.router.navigate(["/home"], { replaceUrl: true });
 					}
 				}),
-				this.hourPool$.subscribe(({ poolValue, poolType }) => this.checkForPoolRefresh(poolValue, poolType)),
-				this.router.events.subscribe((event) => this.onRouteChange(event)),
+				this.hourPool$.subscribe(({ poolValue, poolType }) =>
+					this.checkForPoolRefresh(poolValue, poolType)
+				),
+				this.router.events.subscribe(event => this.onRouteChange(event))
 			);
 		});
 	}
@@ -174,7 +192,7 @@ export class AppComponent implements OnInit {
 			this.storage.get("clockedHours"),
 			this.storage.get("tutorial"),
 			this.storage.get("intro"),
-			this.storage.get("poolHour"),
+			this.storage.get("poolHour")
 		]).then(results => {
 			const extraHours: ExtraHour = results[0];
 			const owedHours: OwedHour = results[1];
@@ -210,17 +228,23 @@ export class AppComponent implements OnInit {
 					clockoutLunchNotif
 				} = settings;
 
-				this.store.dispatch(new UpdateSettings({
-					selectedDateFormat,
-					selectedLanguage,
-					selectedLunchDuration,
-					selectedWorkDuration,
-					selectedLunchType,
-					clockinNotif,
-					clockoutNotif,
-					clockinLunchNotif,
-					clockoutLunchNotif
-				}));
+				this.setLanguage(selectedLanguage.key);
+
+				this.store.dispatch(
+					new UpdateSettings({
+						selectedDateFormat,
+						selectedLanguage,
+						selectedLunchDuration,
+						selectedWorkDuration,
+						selectedLunchType,
+						clockinNotif,
+						clockoutNotif,
+						clockinLunchNotif,
+						clockoutLunchNotif
+					})
+				);
+			} else {
+				this.setLanguage();
 			}
 
 			if (clockedHours) {
@@ -283,7 +307,7 @@ export class AppComponent implements OnInit {
 	private async showToast(key: string): Promise<void> {
 		const toast = await this.toastController.create({
 			message: await this.translate.get(key).toPromise(),
-			duration: 3000,
+			duration: 3000
 		});
 
 		toast.present();
@@ -294,8 +318,15 @@ export class AppComponent implements OnInit {
 		const day = d.date();
 		const month = d.month();
 
-		if (day === 1 && (type === "monthly" || (type === "yearly" && month === 0))) {
+		if (
+			day === 1 &&
+			(type === "monthly" || (type === "yearly" && month === 0))
+		) {
 			this.store.dispatch(new UpdateHoursLeft(maxVal * 60));
 		}
+	}
+
+	private setLanguage(lang: string = "en_US"): void {
+		this.translate.setDefaultLang(lang);
 	}
 }

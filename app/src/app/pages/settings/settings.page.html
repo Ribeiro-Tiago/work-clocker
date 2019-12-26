@@ -1,8 +1,16 @@
 <ion-content>
-	<app-reset-modal class="modal" (onCancel)="toggleModal();" (onSubmit)="resetSettings();"
-		[ngClass]="{ 'is-visible': isResetVisible }"></app-reset-modal>
+	<app-reset-modal
+		class="modal"
+		(onCancel)="toggleModal();"
+		(onSubmit)="resetSettings();"
+		[ngClass]="{ 'is-visible': isResetVisible }"
+	></app-reset-modal>
 
-	<app-feedback-modal class="modal" (onCancel)="toggleFeedback();" [ngClass]="{ 'is-visible': isFeedbackVisible }">
+	<app-feedback-modal
+		class="modal"
+		(onCancel)="toggleFeedback();"
+		[ngClass]="{ 'is-visible': isFeedbackVisible }"
+	>
 	</app-feedback-modal>
 
 	<!-- app settings -->
@@ -10,9 +18,16 @@
 
 	<div class="list-item">
 		<ion-label>{{ "settings.dateFormat" | translate }}</ion-label>
-		<ion-select [value]="selectedDateFormat.key" interface="action-sheet" [selectedText]="selectedDateFormat.label"
-			(ionChange)="onDateFormatChange($event.target.value)">
-			<ion-select-option *ngFor="let format of dateFormats" [value]="format.key">
+		<ion-select
+			interface="action-sheet"
+			[value]="selectedDateFormat.key"
+			[selectedText]="selectedDateFormat.label"
+			(ionChange)="onDateFormatChange($event.target.value)"
+		>
+			<ion-select-option
+				*ngFor="let format of dateFormats"
+				[value]="format.key"
+			>
 				{{ format.label }}
 			</ion-select-option>
 		</ion-select>
@@ -20,8 +35,12 @@
 
 	<div class="list-item">
 		<ion-label>{{ "settings.language" | translate }}</ion-label>
-		<ion-select [value]="selectedLanguage.key" interface="action-sheet" [selectedText]="selectedLanguage.label"
-			(ionChange)="onLangChange($event.target.value)">
+		<ion-select
+			[value]="selectedLanguage.key"
+			interface="action-sheet"
+			[selectedText]="selectedLanguage.label"
+			(ionChange)="onLangChange($event.target.value)"
+		>
 			<ion-select-option *ngFor="let lang of langs" [value]="lang.key">
 				{{ lang.label }}
 			</ion-select-option>
@@ -30,10 +49,16 @@
 
 	<div class="list-item">
 		<ion-label>{{ "settings.lunchType" | translate }}</ion-label>
-		<ion-select [value]="selectedLunchType.value" interface="action-sheet"
+		<ion-select
+			[value]="selectedLunchType.value"
+			interface="action-sheet"
 			selectedText="{{ selectedLunchType.label | translate }}"
-			(ionChange)="onLunchTypeChange($event.target.value)">
-			<ion-select-option *ngFor="let type of lunchTypes" [value]="type.value">
+			(ionChange)="onLunchTypeChange($event.target.value)"
+		>
+			<ion-select-option
+				*ngFor="let type of lunchTypes"
+				[value]="type.value"
+			>
 				{{ type.label | translate }}
 			</ion-select-option>
 		</ion-select>
@@ -41,10 +66,16 @@
 
 	<div *ngIf="selectedLunchType.value === 'auto'" class="list-item">
 		<ion-label>{{ "settings.lunchDuration" | translate }}</ion-label>
-		<ion-select [value]="selectedLunchDuration" interface="action-sheet"
+		<ion-select
+			[value]="selectedLunchDuration"
+			interface="action-sheet"
 			selectedText="{{ 'misc.minutes' | translate: { time: selectedLunchDuration } }}"
-			(ionChange)="onLunchChange($event.target.value)">
-			<ion-select-option *ngFor="let duration of lunchDuration" [value]="duration">
+			(ionChange)="onLunchChange($event.target.value)"
+		>
+			<ion-select-option
+				*ngFor="let duration of lunchDuration"
+				[value]="duration"
+			>
 				{{ "misc.minutes" | translate: { time: duration } }}
 			</ion-select-option>
 		</ion-select>
@@ -52,10 +83,16 @@
 
 	<div class="list-item">
 		<ion-label>{{ "settings.workDuration" | translate }}</ion-label>
-		<ion-select [value]="selectedWorkDuration" interface="action-sheet"
+		<ion-select
+			[value]="selectedWorkDuration"
+			interface="action-sheet"
 			selectedText="{{ 'misc.hours' | translate: { time: selectedWorkDuration } }}"
-			(ionChange)="onWorkChange($event.target.value)">
-			<ion-select-option *ngFor="let duration of workDuration" [value]="duration">
+			(ionChange)="onWorkChange($event.target.value)"
+		>
+			<ion-select-option
+				*ngFor="let duration of workDuration"
+				[value]="duration"
+			>
 				{{ "misc.hours" | translate: { time: duration } }}
 			</ion-select-option>
 		</ion-select>
@@ -68,18 +105,29 @@
 		<div class="colapsable-item">
 			<ion-label>{{ "settings.clockinNotif" | translate }}</ion-label>
 			<!-- retard fix because [checked] wasn't updating on first toggle  -->
-			<ion-toggle *ngIf="initClockInChecked" (click)="toggleInNotif();" checked>
+			<ion-toggle
+				*ngIf="initClockInChecked"
+				(click)="toggleInNotif();"
+				checked
+			>
 			</ion-toggle>
 
 			<ion-toggle *ngIf="!initClockInChecked" (click)="toggleInNotif();">
 			</ion-toggle>
 		</div>
 
-		<div class="colapsable-item" [ngClass]="{ 'visible': clockinNotif.enabled }">
+		<div
+			class="colapsable-item"
+			[ngClass]="{ 'visible': clockinNotif.enabled }"
+		>
 			<ion-label>{{ "settings.remindAt" | translate }}</ion-label>
-			<ion-datetime [displayFormat]="displayFormat" [value]="clockinNotif.time"
-				(ionChange)="onInNotifTimerChange($event.target.value)" [cancelText]="'settings.cancelText' | translate"
-				[doneText]="'settings.confirmText' | translate">
+			<ion-datetime
+				[displayFormat]="displayFormat"
+				[value]="clockinNotif.time"
+				(ionChange)="onInNotifTimerChange($event.target.value)"
+				[cancelText]="'settings.cancelText' | translate"
+				[doneText]="'settings.confirmText' | translate"
+			>
 			</ion-datetime>
 		</div>
 	</div>
@@ -88,61 +136,105 @@
 		<div class="colapsable-item">
 			<ion-label>{{ "settings.clockoutNotif" | translate }}</ion-label>
 			<!-- retard fix because [checked] wasn't updating on first toggle  -->
-			<ion-toggle *ngIf="initClockOutChecked" (click)="toggleOutNotif();" checked>
+			<ion-toggle
+				*ngIf="initClockOutChecked"
+				(click)="toggleOutNotif();"
+				checked
+			>
 			</ion-toggle>
 
-			<ion-toggle *ngIf="!initClockOutChecked" (click)="toggleOutNotif();">
+			<ion-toggle
+				*ngIf="!initClockOutChecked"
+				(click)="toggleOutNotif();"
+			>
 			</ion-toggle>
 		</div>
 
-		<div class="colapsable-item" [ngClass]="{ 'visible': clockoutNotif.enabled }">
+		<div
+			class="colapsable-item"
+			[ngClass]="{ 'visible': clockoutNotif.enabled }"
+		>
 			<ion-label>{{ "settings.remindAt" | translate }}</ion-label>
-			<ion-datetime [displayFormat]="displayFormat" [value]="clockoutNotif.time"
+			<ion-datetime
+				[displayFormat]="displayFormat"
+				[value]="clockoutNotif.time"
 				(ionChange)="onOutNotifTimerChange($event.target.value)"
-				[cancelText]="'settings.cancelText' | translate" [doneText]="'settings.confirmText' | translate">
+				[cancelText]="'settings.cancelText' | translate"
+				[doneText]="'settings.confirmText' | translate"
+			>
 			</ion-datetime>
 		</div>
 	</div>
 
-	<ng-container *ngIf="selectedLunchType.value === 'auto'">
-		<div class="list-item colapsable">
-			<div class="colapsable-item">
-				<ion-label>{{ "settings.lunchClockOutNotif" | translate }}</ion-label>
-				<!-- retard fix because [checked] wasn't updating on first toggle  -->
-				<ion-toggle *ngIf="initLunchClockOutChecked" (click)="toggleLunchOutNotif();" checked></ion-toggle>
+	<div class="list-item colapsable">
+		<div class="colapsable-item">
+			<ion-label
+				>{{ "settings.lunchClockOutNotif" | translate }}</ion-label
+			>
+			<!-- retard fix because [checked] wasn't updating on first toggle  -->
+			<ion-toggle
+				*ngIf="initLunchClockOutChecked"
+				(click)="toggleLunchOutNotif();"
+				checked
+			></ion-toggle>
 
-				<ion-toggle *ngIf="!initLunchClockOutChecked" (click)="toggleLunchOutNotif();"></ion-toggle>
-			</div>
-
-			<div class="colapsable-item" [ngClass]="{ 'visible': clockoutLunchNotif.enabled }">
-				<ion-label>{{ "settings.remindAt" | translate }}</ion-label>
-				<ion-datetime [displayFormat]="displayFormat" [value]="clockoutLunchNotif.time"
-					(ionChange)="onLunchOutNotifTimerChange($event.target.value)"
-					[cancelText]="'settings.cancelText' | translate" [doneText]="'settings.confirmText' | translate">
-				</ion-datetime>
-			</div>
+			<ion-toggle
+				*ngIf="!initLunchClockOutChecked"
+				(click)="toggleLunchOutNotif();"
+			></ion-toggle>
 		</div>
 
-		<div class="list-item colapsable">
-			<div class="colapsable-item">
-				<ion-label>{{ "settings.lunchClockInNotif" | translate }}</ion-label>
-				<!-- retard fix because [checked] wasn't updating on first toggle  -->
-				<ion-toggle *ngIf="initLunchClockInChecked" (click)="toggleLunchInNotif();" checked>
-				</ion-toggle>
-
-				<ion-toggle *ngIf="!initLunchClockInChecked" (click)="toggleLunchInNotif();">
-				</ion-toggle>
-			</div>
-
-			<div class="colapsable-item" [ngClass]="{ 'visible': clockinLunchNotif.enabled }">
-				<ion-label>{{ "settings.remindAt" | translate }}</ion-label>
-				<ion-datetime [displayFormat]="displayFormat" [value]="clockinLunchNotif.time"
-					(ionChange)="onLunchInNotifTimerChange($event.target.value)"
-					[cancelText]="'settings.cancelText' | translate" [doneText]="'settings.confirmText' | translate">
-				</ion-datetime>
-			</div>
+		<div
+			class="colapsable-item"
+			[ngClass]="{ 'visible': clockoutLunchNotif.enabled }"
+		>
+			<ion-label>{{ "settings.remindAt" | translate }}</ion-label>
+			<ion-datetime
+				[displayFormat]="displayFormat"
+				[value]="clockoutLunchNotif.time"
+				(ionChange)="onLunchOutNotifTimerChange($event.target.value)"
+				[cancelText]="'settings.cancelText' | translate"
+				[doneText]="'settings.confirmText' | translate"
+			>
+			</ion-datetime>
 		</div>
-	</ng-container>
+	</div>
+
+	<div class="list-item colapsable">
+		<div class="colapsable-item">
+			<ion-label
+				>{{ "settings.lunchClockInNotif" | translate }}</ion-label
+			>
+			<!-- retard fix because [checked] wasn't updating on first toggle  -->
+			<ion-toggle
+				*ngIf="initLunchClockInChecked"
+				(click)="toggleLunchInNotif();"
+				checked
+			>
+			</ion-toggle>
+
+			<ion-toggle
+				*ngIf="!initLunchClockInChecked"
+				(click)="toggleLunchInNotif();"
+			>
+			</ion-toggle>
+		</div>
+
+		<div
+			class="colapsable-item"
+			[ngClass]="{ 'visible': clockinLunchNotif.enabled }"
+		>
+			<ion-label>{{ "settings.remindAt" | translate }}</ion-label>
+			<ion-datetime
+				[displayFormat]="displayFormat"
+				[value]="clockinLunchNotif.time"
+				(ionChange)="onLunchInNotifTimerChange($event.target.value)"
+				[cancelText]="'settings.cancelText' | translate"
+				[doneText]="'settings.confirmText' | translate"
+			>
+			</ion-datetime>
+		</div>
+	</div>
 
 	<!-- hour pool -->
 	<h3 class="list-header">{{ "settings.hourPool" | translate }}</h3>
@@ -158,18 +250,36 @@
 			</ion-toggle>
 		</div>
 
-		<div class="colapsable-item pool" [ngClass]="{ 'visible': hourPool.hasPool }">
-			<ion-input [(ngModel)]="hourPool.poolValue" (ionChange)="onInputChange($event.target.value);" type="number"
-				inputmode="numeric" min="1" debounce="500"></ion-input>
+		<div
+			class="colapsable-item pool"
+			[ngClass]="{ 'visible': hourPool.hasPool }"
+		>
+			<ion-input
+				[(ngModel)]="hourPool.poolValue"
+				(ionChange)="onInputChange($event.target.value);"
+				type="number"
+				inputmode="numeric"
+				min="1"
+				debounce="500"
+			></ion-input>
 
-			<ion-select interface="action-sheet" [(ngModel)]="hourPool.poolType" (ionChange)="updatePool();">
-				<ion-select-option *ngFor="let type of poolTypes" [value]="type.value">
+			<ion-select
+				interface="action-sheet"
+				[(ngModel)]="hourPool.poolType"
+				(ionChange)="updatePool();"
+				[selectedText]="hourPool.poolType | translate"
+			>
+				<ion-select-option
+					*ngFor="let type of poolTypes"
+					[value]="type.value"
+				>
 					{{ type.label | translate }}
 				</ion-select-option>
 			</ion-select>
 
 			<ion-label>
-				({{ "settings.poolHoursLeft" | translate | convertTime: { destType: 'hours', payload: hourPool.hoursLeft } }})
+				({{ "settings.poolHoursLeft" | translate | convertTime: {
+				destType: 'hours', payload: hourPool.hoursLeft } }})
 			</ion-label>
 		</div>
 	</div>
@@ -195,8 +305,12 @@
 		<ion-icon name="arrow-forward" mode="ios"></ion-icon>
 	</div>
 
-	<div class="list-item expand" *ngFor="let item of legalities" (click)="openLink(item.name)"
-		[ngClass]="{'clickable': item.link}">
+	<div
+		class="list-item expand"
+		*ngFor="let item of legalities"
+		(click)="openLink(item.name)"
+		[ngClass]="{'clickable': item.link}"
+	>
 		<ion-label>{{ item.labelId | translate }}</ion-label>
 		<ion-icon name="arrow-forward" mode="ios"></ion-icon>
 	</div>
@@ -205,5 +319,4 @@
 		<ion-label>{{ "settings.version" | translate }}</ion-label>
 		<ion-label>{{ version }}</ion-label>
 	</div>
-
 </ion-content>

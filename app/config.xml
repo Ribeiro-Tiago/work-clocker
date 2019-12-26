@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.workclocker" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.workclocker" version="1.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Work Clocker</name>
     <description>A "card punch" app to allow workers to better manage their time to avoid working more than the 8 hours they need to. Among other things, tells you when you can leave, taking into account the starting time, lunch duration and duration of a regular work day</description>
     <author email="tiagoribeiro.1803@gmail.com" href="https://www.linkedin.com/in/ribeiro-tiago/">Tiago Ribeiro</author>
@@ -102,4 +102,5 @@
     <plugin name="cordova-plugin-ionic-webview" spec="^4.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <hook src="scripts/afterAdd.js" type="after_platform_add" />
+    <allow-navigation href="http://localhost:8100" sessionid="2dd6449a" />
 </widget>
