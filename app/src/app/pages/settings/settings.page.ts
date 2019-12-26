@@ -85,9 +85,6 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 
 	displayFormat: string;
 
-	settings$: Observable<Setting>;
-	hourPool$: Observable<HourPool>;
-
 	today: Date;
 
 	version: string;
@@ -123,9 +120,6 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 
 		this.today = new Date();
 
-		this.settings$ = this.store.select("settings");
-		this.hourPool$ = this.store.select("hourPool");
-
 		this.subs = [];
 
 		this.isResetting = true;
@@ -147,7 +141,7 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		this.subs.push(
-			this.settings$.subscribe(result => {
+			this.store.select("settings").subscribe(result => {
 				if (result) {
 					this.selectedDateFormat = result.selectedDateFormat;
 					this.selectedLanguage = result.selectedLanguage;
@@ -159,32 +153,20 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 					this.clockinLunchNotif = result.clockinLunchNotif;
 					this.clockoutLunchNotif = result.clockoutLunchNotif;
 
-					if (
-						this.initClockInChecked === undefined &&
-						result.clockoutLunchNotif
-					) {
+					if (result.clockoutLunchNotif) {
 						this.initClockInChecked = result.clockinNotif.enabled;
 					}
 
-					if (
-						this.initClockOutChecked === undefined &&
-						result.clockoutLunchNotif
-					) {
+					if (result.clockoutLunchNotif) {
 						this.initClockOutChecked = result.clockoutNotif.enabled;
 					}
 
-					if (
-						this.initLunchClockOutChecked === undefined &&
-						result.clockoutLunchNotif
-					) {
+					if (result.clockoutLunchNotif) {
 						this.initLunchClockOutChecked =
 							result.clockoutLunchNotif.enabled;
 					}
 
-					if (
-						this.initLunchClockInChecked === undefined &&
-						result.clockinLunchNotif
-					) {
+					if (result.clockinLunchNotif) {
 						this.initLunchClockInChecked =
 							result.clockinLunchNotif.enabled;
 					}
@@ -194,12 +176,10 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 					}
 				}
 			}),
-			this.hourPool$.subscribe(result => {
+			this.store.select("hourPool").subscribe(result => {
 				this.hourPool = result;
 
-				if (this.initPoolToggle === undefined) {
-					this.initPoolToggle = result.hasPool;
-				}
+				this.initPoolToggle = result.hasPool;
 			})
 		);
 
@@ -210,6 +190,7 @@ export class SettingsPage extends Analytics implements OnInit, OnDestroy {
 
 	ngOnDestroy(): void {
 		this.subs.forEach(s => s.unsubscribe());
+
 		if (this.$notifHandler) {
 			this.$notifHandler.unsubscribe();
 		}

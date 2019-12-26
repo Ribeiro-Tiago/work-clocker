@@ -19,8 +19,8 @@
 	<div class="list-item">
 		<ion-label>{{ "settings.dateFormat" | translate }}</ion-label>
 		<ion-select
-			[value]="selectedDateFormat.key"
 			interface="action-sheet"
+			[value]="selectedDateFormat.key"
 			[selectedText]="selectedDateFormat.label"
 			(ionChange)="onDateFormatChange($event.target.value)"
 		>
