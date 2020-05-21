@@ -1,8 +1,13 @@
 No specific version
 - refactor and optimize
+- add ios version
+
+1.0.3
+- improve notifications
+  add sound, make it work on all devices, etc
 
 1.1.0:
 - add location-based clock in / out and respective reminder notifications
 - add action buttons to notification to clock in / out directly from the notification 
     (https://github.com/katzer/cordova-plugin-local-notifications/#custom)
-- add JIRA integrationc
+- add JIRA integration
