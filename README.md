@@ -27,3 +27,6 @@ Read [CONTRIBUTING](https://github.com/Ribeiro-Tiago/work-clocker/blob/master/CO
 
 ## Credits
 Flag icons by - https://www.flaticon.com/packs/international-flags
+
+# 
+<a href="https://www.buymeacoffee.com/ribeirotiago" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-violet.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
