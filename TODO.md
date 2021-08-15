@@ -1,1 +1,2 @@
 - Move to react native 
+- Add spanish support
